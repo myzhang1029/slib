@@ -1,0 +1,157 @@
+#include "slib.h"
+
+#if 0
+const char avlbchs[17]={'0','1','2','3','4','5','6','7','8','9','+','-','*','/','^','(',')'};
+static int strisavlb(char *str);
+
+static int chrisavlb(char ch);
+
+static double singlecalc(double fstn,char oprd,double lstn);
+
+static void calcfst(char*oprdlst,double *numlst,char* newoprdlst,double *newnumlst);
+
+static double calclst(char*oprdlst,double *numlst);
+
+static double calcinorder(char*oprdlst,double*numlst);
+
+OPT double calculate(ccp expr);
+
+static int strisavlb(char *str)
+{
+	int len=strlen(str),count;
+	for(count=0;count<len;++count)
+	{
+		if(!chrisavlb(str[count]))
+			return SFALSE;
+	}
+	return STRUE;
+}
+static int chrisavlb(char ch)
+{
+	int count;
+	for(count=0;count<17;++count)
+	{
+		if(ch==avlbchs[count])
+			return STRUE;
+	}
+	return SFALSE;
+}
+
+static double singlecalc(double fstn,char oprd,double lstn)
+{
+	switch(oprd)
+	{
+		case '+':
+			return fstn+lstn;
+		case '-':
+			return fstn-lstn;
+		case '*':
+			return fstn*lstn;
+		case '/':
+			return fstn/lstn;
+		case '^':
+			return pow(fstn,lstn);
+		default:
+			return (double)SERROR;//not possible
+	}
+}
+
+double calculate(ccp expr)
+{
+	char oprdbuf[50],*chnumbuf[70],*expbuf=(char*)expr,*nxtexpbuf=(char*)expr+1,oprdbufcount=0;
+	double numbuf[100];int fstcalcedbuf[100],c,c2,chnumbufcount=0,bufcount=0;
+	if(strisavlb((char *)expr)==SFALSE)
+	{
+		serr=2;
+		return SERROR;
+	}
+	while(c=*expbuf++)
+	{
+		if(isdigit(c))
+		{
+			chnumbuf[chnumbufcount][bufcount++]=c;
+			while(c2=*nxtexpbuf++)
+			{
+				if(isdigit(c2))
+					chnumbuf[chnumbufcount][bufcount++]=c2;
+				else
+				{
+					expbuf=--nxtexpbuf;
+					chnumbufcount++;
+					nxtexpbuf=(char*)expr;
+					c2=0;
+				}
+			}
+		}
+		else
+			oprdbuf[oprdbufcount++]=c;
+	}
+	chnumbufcount=-1,bufcount=-1;
+	while(bufcount++,NULL!=chnumbuf[chnumbufcount++])
+	{
+		numbuf[bufcount]=atof(chnumbuf[chnumbufcount]);
+	}
+	return calcinorder(oprdbuf,numbuf);
+}
+
+static double calcinorder(char *oprdlst,double* numlst)
+{
+	char*noprdlst;
+	double*nnumlst;
+	calcfst(oprdlst,numlst,noprdlst,nnumlst);
+	return calclst(noprdlst,nnumlst);
+}
+
+static double calclst(char*oprdlst,double*numlst)
+{
+	double buf,*pnlst=numlst;
+	char *polst=oprdlst;
+	int count;
+	buf=singlecalc(*pnlst++,*polst++,*pnlst++);
+	while(polst++,pnlst++)
+	{
+		buf=singlecalc(buf,*polst,*pnlst);
+	}
+	return buf;
+}
+
+static void calcfst(char*oprdlst,double*numlst,char*newoprdlst,double*newnumlst)
+{
+	double *renlst;
+	char*reolst;
+	int olstcount,rlstcount=0,nnlstcount=0,nolstcount=0;
+	for(olstcount=0;oprdlst[olstcount];++olstcount,++nnlstcount,++nolstcount)
+	{
+		switch(oprdlst[olstcount])
+		{
+			case '(':
+				for(olstcount++;oprdlst[olstcount]!=')';olstcount++)
+				{
+					reolst[rlstcount]=oprdlst[olstcount];
+renlst[rlstcount]=numlst[olstcount-1];
+				}
+				newnumlst[nnlstcount]=calcinorder(reolst,renlst);
+				reolst=NULL,renlst=NULL,rlstcount=0;
+				while(oprdlst[olstcount]=='*'||oprdlst[olstcount]=='/'||oprdlst[olstcount]=='^')
+				{
+					newnumlst[nnlstcount]=singlecalc(newnumlst[nnlstcount],oprdlst[olstcount],numlst[olstcount++]);
+				}
+				break;
+			case '/':
+				newnumlst[nnlstcount]=singlecalc(numlst[olstcount],oprdlst[olstcount],numlst[olstcount+1]);
+				break;
+			case '*':
+				newnumlst[nnlstcount]=singlecalc(numlst[olstcount],oprdlst[olstcount],numlst[olstcount+1]);
+				break;
+			case '^':
+				newnumlst[nnlstcount]=singlecalc(numlst[olstcount],oprdlst[olstcount],numlst[olstcount+1]);
+				break;
+			default:
+				newnumlst[nnlstcount]=numlst[olstcount];
+				newnumlst[nnlstcount+1]=numlst[olstcount+1];
+				newoprdlst[nolstcount]=oprdlst[olstcount];
+				break;
+		}
+	}
+}
+#endif

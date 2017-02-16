@@ -1,0 +1,21 @@
+# Object files
+
+*.o
+
+*.ko
+
+*.obj
+
+*.elf
+
+
+# Precompiled Headers
+
+*.gch
+
+*.pch
+
+# Others
+*.def
+*.c~
+*.h~
