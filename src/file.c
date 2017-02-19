@@ -1,7 +1,7 @@
 /*
  *  file.c - File editing fuction in the slib
  *
- *  Copyright (C) 2001, 2002 Zhang Maiyun
+ *  Copyright (C) 2016,2017 Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
