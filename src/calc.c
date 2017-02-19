@@ -1,7 +1,7 @@
 /*
  *  calc.c - Calculate and Stack Functions in the Slib library
  *
- *  Copyright (C) 1999 Zhang Maiyun
+ *  Copyright (C) 2017 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
