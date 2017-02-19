@@ -1,10 +1,31 @@
+/*
+ *  calc.c - Calculate and Stack Functions in the Slib library
+ *
+ *  Copyright (C) 1999 Zhang Maiyun
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 #include "slib.h"
 
 
 static int Calculate(char *arr,void *result); //计算表达式结果：参数一：arr为使用空格分隔的采用后缀表达式表示的要计算的字符串,例：arr={"3 5 + "}。参数二：result存放计算结果。
 static int InfixToPostfix(char *infix,char *postfix); //将中缀表达式转换为后缀表达式。例：infix={"3+5\n"} ,转换后，postfix={"3 5 + "};
-
-int prterr(const char *fmt,...); //自定义错误处理函数
 
 OPT double calculate(ccp infix)
 {
@@ -76,7 +97,7 @@ static int InfixToPostfix(char *infix,char *postfix)
 			  Push(&s,(void*)&c); //最后将新来的加减号再入栈
 			}
 		}
-      else if('*'==c||'/'==c||'('==c) //如果是乘除号或左括号，因为他们的优先级高，所以直接入栈。
+      else if('*'==c||'/'==c||'('==c||'^'==c) //如果是乘除号,^或左括号，因为他们的优先级高，所以直接入栈。
 		{
 		  Push(&s,(void*)&c);
 		}
@@ -144,6 +165,12 @@ static int Calculate(char *arr,void *result)
 		  Pop(&s,&d);
 		  Pop(&s,&e);
 		  f=e/d;
+		  Push(&s,&f);
+		  break;
+	        case '^':
+		  Pop(&s,&d);
+		  Pop(&s,&e);
+		  f=pow(e,d);
 		  Push(&s,&f);
 		  break;
 		default:
