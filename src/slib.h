@@ -26,7 +26,7 @@
  */
 #pragma once
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 10
+#define SBLLIB_VERSION 15
 
 #include <string.h>
 #include <stdio.h>
@@ -38,7 +38,7 @@
 #include <assert.h>
 #include <ctype.h>
 
-#define PLAT 0
+#define PLAT 1
 
 #if PLAT
 #include <windows.h>

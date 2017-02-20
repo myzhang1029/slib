@@ -6,7 +6,7 @@
 /* 包含头文件 */
 #include "slib.h"
 
-ccp ver = "2.4.0";                           /*版本号*/
+ccp ver = "3.0.0";                           /*版本号*/
 
 
 int read_csbl( void );	/*CSBL解码器*/

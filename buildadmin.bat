@@ -13,6 +13,5 @@ copy "..\slib\src\slib.h" "%~dp0\src\slib.h" > nul
 
 tcc "%~dp0\src\admin.c" "%~dp0\src\slib.def" -o "%~dp0\build\admin.exe"
 
-echo 完成 按任意键结束
 
-pause > nul
+pause
