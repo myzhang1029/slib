@@ -1,17 +1,29 @@
 /*
-	2016,Zhang Maiyun
-	This is the header file of
-	SBL softwares
-	can use on Linux & Windows platform
-	include directly
-	edit if need
-*/
+ *  slib.h - This is the header file of the slib
+	 you can use on Linux & Windows platform
+ *
+ *  Copyright (C) 2016, 2017 Zhang Maiyun
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or (at
+ *  your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 
-/***********************
-*WALNING :CHANGE THE DEFINITION 
-*OF "PLAT"(NEAR LINE 28)
-*TO 0 IF YOU ARE USING GNU/LINUX PLATFORM!!!!!!
- ***********************/
+/*
+ *WALNING :CHANGE THE DEFINITION 
+ *OF "PLAT"(NEAR LINE 28)
+ *TO 0 IF YOU ARE USING GNU/LINUX PLATFORM!!!!!!
+ */
 #pragma once
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 10
@@ -26,7 +38,7 @@
 #include <assert.h>
 #include <ctype.h>
 
-#define PLAT 1
+#define PLAT 0
 
 #if PLAT
 #include <windows.h>
