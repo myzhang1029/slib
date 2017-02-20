@@ -38,7 +38,7 @@
 #include <assert.h>
 #include <ctype.h>
 
-#define PLAT 1
+#define PLAT 0
 
 #if PLAT
 #include <windows.h>
