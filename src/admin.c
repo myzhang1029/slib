@@ -3,26 +3,26 @@
 	2016 ,Zhang Maiyun
 	sbl administration software 2.4.0
 */
-/* °üº¬Í·ÎÄ¼ş */
+/* åŒ…å«å¤´æ–‡ä»¶ */
 #include "slib.h"
 
-ccp ver = "3.0.0";                           /*°æ±¾ºÅ*/
+ccp ver = "3.0.0";                           /*ç‰ˆæœ¬å·*/
 
 
-int read_csbl( void );	/*CSBL½âÂëÆ÷*/
+int read_csbl( void );	/*CSBLè§£ç å™¨*/
 
 
-int write_csbl( void );	/*CSBL±àÂëÆ÷*/
+int write_csbl( void );	/*CSBLç¼–ç å™¨*/
 
 
-void help_csbl( void );	/*CSBL°ïÖú*/
+void help_csbl( void );	/*CSBLå¸®åŠ©*/
 
 
-void usage( void );/*Ê¹ÓÃ·½·¨*/ 
+void usage( void );/*ä½¿ç”¨æ–¹æ³•*/ 
 
 
 
-int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
+int main( int argc, ccp argv[] )	/* ä¸»å‡½æ•° */
 {
 	union main_variable
 	{
@@ -45,11 +45,11 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 				usage();
 			else
 			{
-				if(isrp(atoi(argv[2]),
-				        atoi(argv[3]))==STRUE)
-					printf("»¥ÖÊ£¡");
+				if(isrp(atol(argv[2]),
+				        atol(argv[3]))==STRUE)
+					printf("äº’è´¨ï¼");
 				else
-					printf("²»»¥ÖÊ£¡");
+					printf("ä¸äº’è´¨ï¼");
 			}
 			return 0;
 		}
@@ -58,7 +58,7 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			if(argc<4)
 				usage();
 			else
-				printf("%d",gcf(atoi(argv[2]),atoi(argv[3])));
+				printf("%d",gcf(atol(argv[2]),atol(argv[3])));
 			return 0;
 		}
 		else if(strcmp(argv[1],"-l")==0)
@@ -66,7 +66,7 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			if(argc<4)
 				usage();
 			else
-				printf("%d",lcm(atoi(argv[2]),atoi(argv[3])));
+				printf("%d",lcm(atol(argv[2]),atol(argv[3])));
 			return 0;
 		}
 		else if(strcmp(argv[1],"-p")==0)
@@ -74,7 +74,7 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			if(argc<4)
 				usage();
 			else
-				prtpn(stdout,atoi(argv[2]),atoi(argv[3]));
+				prtpn(stdout,atol(argv[2]),atol(argv[3]));
 			return 0;
 		}
 		else if(strcmp(argv[1],"-d")==0)
@@ -83,10 +83,10 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 				usage();
 			else
 			{
-				if(ispn(atoi(argv[2]))==STRUE)
-					printf("ÊÇÖÊÊı£¡");
+				if(ispn(atol(argv[2]))==STRUE)
+					printf("æ˜¯è´¨æ•°ï¼");
 				else
-					printf("²»ÊÇÖÊÊı£¡");
+					printf("ä¸æ˜¯è´¨æ•°ï¼");
 			}
 			return 0;
 		}
@@ -111,9 +111,9 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			else
 			{
 				if(fcopy(argv[2],argv[3])==STRUE)
-					printf("³É¹¦£¡");
+					printf("æˆåŠŸï¼");
 				else
-					prterr("Ê§°Ü£¡");
+					prterr("å¤±è´¥ï¼");
 			}
 			return 0;
 		}
@@ -125,7 +125,7 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			{
 				FILE *fp=fopen(argv[2],"r");
 				if(!fp)
-					prterr("´ò¿ªÎÄ¼şÊ§°Ü£¡");
+					prterr("æ‰“å¼€æ–‡ä»¶å¤±è´¥ï¼");
 				else
 					prtfile(fp);
 			}
@@ -144,48 +144,48 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 		#else
 		system("clear");
 		#endif
-		printf( "\n1=²é¿´ÏµÍ³°æ±¾\n2=²úÉúËæ»úÊı\n3=¼ÆËãÆ÷\n4=×Ô¶¯¹Ø»ú\n5=½âcsbl\
-		\n6=Ğ´csbl\n7=¸´ÖÆÎÄ¼ş\n8=Æô¶¯cmd\n9=csbl°ïÖú\n10=Êä³öÖ¸¶¨·¶Î§ÄÚµÄÖÊÊı\
-		\n11=ÅĞ¶ÏÒ»¸öÊıÊÇ·ñÖÊÊı\n12=ÅĞ¶ÏÁ½ÊıÊÇ·ñ»¥ÖÊ\nÇëÑ¡Ôñ£º");	/*³ÌĞòÖ÷²Ëµ¥*/
+		printf( "\n1=æŸ¥çœ‹ç³»ç»Ÿç‰ˆæœ¬\n2=äº§ç”Ÿéšæœºæ•°\n3=è®¡ç®—å™¨\n4=è‡ªåŠ¨å…³æœº\n5=è§£csbl\
+		\n6=å†™csbl\n7=å¤åˆ¶æ–‡ä»¶\n8=å¯åŠ¨cmd\n9=csblå¸®åŠ©\n10=è¾“å‡ºæŒ‡å®šèŒƒå›´å†…çš„è´¨æ•°\
+		\n11=åˆ¤æ–­ä¸€ä¸ªæ•°æ˜¯å¦è´¨æ•°\n12=åˆ¤æ–­ä¸¤æ•°æ˜¯å¦äº’è´¨\nè¯·é€‰æ‹©ï¼š");	/*ç¨‹åºä¸»èœå•*/
 		scanf( "%d", &m_v.content );
 		switch ( m_v.content )	/* switch case */
 		{
-		case (1):	/*ÏÔÊ¾Èí¼ş°æ±¾*/
+		case (1):	/*æ˜¾ç¤ºè½¯ä»¶ç‰ˆæœ¬*/
 		{
 			printf( "sbl admin %s\n", ver );
-			printf( "ÓÚ%s£¬%s·¢²¼\n", __DATE__, __TIME__ );
+			printf( "äº%sï¼Œ%så‘å¸ƒ\n", __DATE__, __TIME__ );
 			break;
 		}
 
 		case (2):
 		{
-			unsigned int radmax = 0,radmin = 0;	/*Ëæ»úÊı±äÁ¿*/
-			printf( "ÊäÈë×îĞ¡Öµ£º" );
+			unsigned int radmax = 0,radmin = 0;	/*éšæœºæ•°å˜é‡*/
+			printf( "è¾“å…¥æœ€å°å€¼ï¼š" );
 			scanf( "%d",&radmin );
-			printf( "ÊäÈë×î´óÖµ£º" );
+			printf( "è¾“å…¥æœ€å¤§å€¼ï¼š" );
 			scanf( "%d",&radmax );
-			printf( "ÄúµÄËæ»úÊıÊÇ£º%ld\n\n", randomnum(clock(),radmax,radmin) );
+			printf( "æ‚¨çš„éšæœºæ•°æ˜¯ï¼š%ld\n\n", randomnum(clock(),radmax,radmin) );
 			break;
 		}
 
-		case (3): /*¼ÆËãÆ÷*/
+		case (3): /*è®¡ç®—å™¨*/
 		{
 			char	infix[BUFFERSIZE];
 			fflush( stdin );
-			printf( "ÊäÈëËãÊ½£º" );
+			printf( "è¾“å…¥ç®—å¼ï¼š" );
 			fgets( infix, BUFFERSIZE, stdin );
-			printf( "%lf\n", calculate( infix ) );	/*Ê¹ÓÃsbllib.hÖĞµÄº¯Êı½øĞĞ¼ÆËã*/
+			printf( "%lf\n", calculate( infix ) );	/*ä½¿ç”¨sbllib.hä¸­çš„å‡½æ•°è¿›è¡Œè®¡ç®—*/
 			break;
 		}
 
-		case (4):	/*¹Ø»úÆ÷*/
+		case (4):	/*å…³æœºå™¨*/
 		{
 			#if PLAT
 			system( "shutdown /t 20" );
 			#else
 			system( "shutdown +0.3");
 			#endif
-			printf( "ÊäÈë1À´×èÖ¹¹Ø±ÕÏµÍ³" );
+			printf( "è¾“å…¥1æ¥é˜»æ­¢å…³é—­ç³»ç»Ÿ" );
 			if ( scanf( "%d", &m_v.shutdownsys ) == 1 )
 			#if PLAT
 				system( "shutdown /a" );
@@ -195,36 +195,36 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			break;
 		}
 
-		case (5):	/*½âÂëÆ÷*/
+		case (5):	/*è§£ç å™¨*/
 		{
 			if ( read_csbl() == -1 )
-				prterr( "ÎŞ·¨´ò¿ªÎÄ¼ş£¡" );
+				prterr( "æ— æ³•æ‰“å¼€æ–‡ä»¶ï¼" );
 			break;
 		}
 
-		case (6):	/*±àÂëÆ÷*/
+		case (6):	/*ç¼–ç å™¨*/
 		{
 			if ( write_csbl() == -1 )
-				prterr( "ÎŞ·¨´ò¿ªÎÄ¼ş£¡" );
+				prterr( "æ— æ³•æ‰“å¼€æ–‡ä»¶ï¼" );
 			break;
 		}
 
-		case (7): /*¸´ÖÆÎÄ¼şby¡¶21ÌìÑ§Í¨CÓïÑÔ¡·*/
+		case (7): /*å¤åˆ¶æ–‡ä»¶byã€Š21å¤©å­¦é€šCè¯­è¨€ã€‹*/
 		{
 			char source[80], destination[80];
-			printf( "\nÇëÊäÈëËùĞè¸´ÖÆµÄÎÄ¼ş£º " );
+			printf( "\nè¯·è¾“å…¥æ‰€éœ€å¤åˆ¶çš„æ–‡ä»¶ï¼š " );
 			fflush( stdin );
 			fgets( source, 80, stdin );
-			printf( "\nÇëÊäÈëÄ¿±ê£º" );
+			printf( "\nè¯·è¾“å…¥ç›®æ ‡ï¼š" );
 			fgets( destination, 80, stdin );
 			if ( fcopy( source, destination ) == STRUE )
-				puts( "¸´ÖÆ³É¹¦\n" );
+				puts( "å¤åˆ¶æˆåŠŸ\n" );
 			else
-				prterr( "¸´ÖÆÊ±³öÏÖ´íÎó\n" );
+				prterr( "å¤åˆ¶æ—¶å‡ºç°é”™è¯¯\n" );
 			break;
 		}
 
-		case (8):	/*Ïòconsole·¢ËÍÃüÁî*/
+		case (8):	/*å‘consoleå‘é€å‘½ä»¤*/
 		{
 			char *str;
 			getmpath(argv[0],str);
@@ -236,47 +236,47 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 			break;
 		}
 
-		case (9):/*½â/±àÂë °ïÖú*/
+		case (9):/*è§£/ç¼–ç  å¸®åŠ©*/
 		{
 			help_csbl();
 			break;
 		}
-		case (10):	/*Êä³öÖ¸¶¨·¶Î§ÄÚµÄÖ¸Êı */
+		case (10):	/*è¾“å‡ºæŒ‡å®šèŒƒå›´å†…çš„æŒ‡æ•° */
 		{
 			int pn1,pn2;
-			printf("ÊäÈë×îĞ¡Öµ£º");
+			printf("è¾“å…¥æœ€å°å€¼ï¼š");
 			scanf("%d",&pn1);
-			printf("\nÊäÈë×î´óÖµ£º");
+			printf("\nè¾“å…¥æœ€å¤§å€¼ï¼š");
 			scanf("%d",&pn2);
 			prtpn(stdout,pn1,pn2);
 			break;
 		}
-		case (11):	/*²âÊÔÒ»¸öÊıÊÇ·ñÖÊÊı*/
+		case (11):	/*æµ‹è¯•ä¸€ä¸ªæ•°æ˜¯å¦è´¨æ•°*/
 		{
 			int pn;
-			printf("ÊäÈë´ı²âÊÔÊı:");
+			printf("è¾“å…¥å¾…æµ‹è¯•æ•°:");
 			scanf("%d",&pn);
 			if (ispn(pn)==STRUE)
-				printf("\nÊÇÖÊÊı£¡\n");
+				printf("\næ˜¯è´¨æ•°ï¼\n");
 			else
-				printf("\n²»ÊÇÖÊÊı£¡\n");
+				printf("\nä¸æ˜¯è´¨æ•°ï¼\n");
 			break;
 		}
-		case (12):	/*²âÊÔÁ½¸öÊıÊÇ·ñ»¥ÖÊ*/
+		case (12):	/*æµ‹è¯•ä¸¤ä¸ªæ•°æ˜¯å¦äº’è´¨*/
 		{
 			int num1,num2;
-			printf("ÊäÈëÊıÒ»:");
+			printf("è¾“å…¥æ•°ä¸€:");
 			scanf("%d",&num1);
-			printf("\nÊäÈëÊı¶ş:");
+			printf("\nè¾“å…¥æ•°äºŒ:");
 			scanf("%d",&num2);
 			if(isrp(num1,num2)==STRUE)
-				printf("\n»¥ÖÊ£¡\n");
+				printf("\näº’è´¨ï¼\n");
 			else
-				printf("²»»¥ÖÊ£¡\n");
+				printf("ä¸äº’è´¨ï¼\n");
 			break;
 		}
 		}/*switch(m_v.content)*/
-		printf( "ÊäÈë1¼ÌĞø:" );
+		printf( "è¾“å…¥1ç»§ç»­:" );
 		scanf( "%d", &m_v.exitt );
 	}
 	while ( m_v.exitt == 1 );
@@ -286,22 +286,22 @@ int main( int argc, ccp argv[] )	/* Ö÷º¯Êı */
 
 void help_csbl( void ) 	/* user - sec9 */
 {
-	unsigned int code_help;	/* °ïÖú±äÁ¿ */
-	puts( "1=½âÂëÆ÷°ïÖú£¬2=±àÂëÆ÷°ïÖú" );
+	unsigned int code_help;	/* å¸®åŠ©å˜é‡ */
+	puts( "1=è§£ç å™¨å¸®åŠ©ï¼Œ2=ç¼–ç å™¨å¸®åŠ©" );
 	scanf( "%d", &code_help );
 	if ( code_help == 1 )
 	{
-		puts( "1: ÊäÈëcsblÂë·ÃÎÊÃÜÂë" );
-		puts( "2: ÊäÈëËùĞè×ª»»µÄcsblÂë£¬Ã¿ÆßÎ»Ò»×é£¬²¢»Ø³µ" );
-		puts( "3: ½ÓÊÕµ½¡°¼ÌĞø¡±ĞÅºÅ¾ÍÊäÈëÏÂÒ»¸ö" );
-		puts( "4: ÊäÈëÍê±ÏºóÊäÈëed£¬ĞÅÏ¢ÔÚsec.txt" );
+		puts( "1: è¾“å…¥csblç è®¿é—®å¯†ç " );
+		puts( "2: è¾“å…¥æ‰€éœ€è½¬æ¢çš„csblç ï¼Œæ¯ä¸ƒä½ä¸€ç»„ï¼Œå¹¶å›è½¦" );
+		puts( "3: æ¥æ”¶åˆ°â€œç»§ç»­â€ä¿¡å·å°±è¾“å…¥ä¸‹ä¸€ä¸ª" );
+		puts( "4: è¾“å…¥å®Œæ¯•åè¾“å…¥edï¼Œä¿¡æ¯åœ¨sec.txt" );
 	}
 	if ( code_help == 2 )
 	{
-		puts( "1: ÊäÈëcsblÂë·ÃÎÊÃÜÂë" );
-		puts( "2: ÊäÈëËùĞè×ª»»µÄ×ÖÄ¸¡¢Êı×Ö£¬²¢»Ø³µ" );
-		puts( "3: ½ÓÊÕµ½¡°¼ÌĞø¡±ĞÅºÅ¾ÍÊäÈëÏÂÒ»¸ö" );
-		puts( "4: ÊäÈëÍê±ÏºóÊäÈë~£¬ĞÅÏ¢ÔÚsec.txt" );
+		puts( "1: è¾“å…¥csblç è®¿é—®å¯†ç " );
+		puts( "2: è¾“å…¥æ‰€éœ€è½¬æ¢çš„å­—æ¯ã€æ•°å­—ï¼Œå¹¶å›è½¦" );
+		puts( "3: æ¥æ”¶åˆ°â€œç»§ç»­â€ä¿¡å·å°±è¾“å…¥ä¸‹ä¸€ä¸ª" );
+		puts( "4: è¾“å…¥å®Œæ¯•åè¾“å…¥~ï¼Œä¿¡æ¯åœ¨sec.txt" );
 	}
 }
 
@@ -310,10 +310,10 @@ int read_csbl( void )	/* user - sec5 */
 {
 	FILE * op = fopen( "sec.txt", "a+" );
 	int stat;
-	unsigned int coding = 1;	/* ½âÂëÆ÷±äÁ¿ */
+	unsigned int coding = 1;	/* è§£ç å™¨å˜é‡ */
 	if ( !op )
 		return(-1);
-	printf( "ÊäÈë7Î»Ê®Áù½øÖÆÂë:" );         /* ½âÂëÆ÷ */
+	printf( "è¾“å…¥7ä½åå…­è¿›åˆ¶ç :" );         /* è§£ç å™¨ */
 	do
 	{
 		scanf( "%x", &coding );
@@ -330,7 +330,7 @@ int read_csbl( void )	/* user - sec5 */
 			return 0;
 		}
 		else if(stat==SERROR)
-			puts("´íÎó£¡");
+			puts("é”™è¯¯ï¼");
 		else if(stat==SFALSE)
 			continue;
 		else
@@ -338,7 +338,7 @@ int read_csbl( void )	/* user - sec5 */
 			putchar(stat);
 			putc(stat,op);
 		}
-		puts( "\n¼ÌĞø£¬ÊäÈëed½áÊø£º" );
+		puts( "\nç»§ç»­ï¼Œè¾“å…¥edç»“æŸï¼š" );
 	}
 	while ( 1 );
 }
@@ -351,7 +351,7 @@ int write_csbl( void ) /* user - sec6 */
 	if ( !op )
 		return(-1);
 	fflush( stdin );
-	printf( "ÊäÈë×ÖÄ¸¡¢·ûºÅ»òÊı×Ö£º" );
+	printf( "è¾“å…¥å­—æ¯ã€ç¬¦å·æˆ–æ•°å­—ï¼š" );
 	fprintf( op, "0x" );
 	do
 	{
@@ -368,7 +368,7 @@ int write_csbl( void ) /* user - sec6 */
 			return 0;
 		}
 		else if(stat==SERROR)
-			puts("´íÎó£¡");
+			puts("é”™è¯¯ï¼");
 		else if(stat==SFALSE)
 			continue;
 		else
@@ -376,21 +376,24 @@ int write_csbl( void ) /* user - sec6 */
 			printf("%lX",stat);
 			fprintf(op,"%lx",stat);
 		}
-		puts( "\n¼ÌĞø£¬ÊäÈë~½áÊø£º" );
+		puts( "\nç»§ç»­ï¼Œè¾“å…¥~ç»“æŸï¼š" );
 	}
 	while ( 1 );
 }
 
 void usage( void )
 {
-	printf("Usage:admin [options...] [arguments...]\n"
-	       "options:\n\t-u ÓÃ»§½çÃæ£¬ºÍ²»¼üÈëÈÎºÎÄÚÈİÊÇÒ»ÑùµÄ;\n\t-h °ïÖúÒ³Ãæ;"
-	       "\n\t-r ÅĞ¶Ïparam1,param2ÊÇ·ñ»¥ÖÊ[param1][param2]"
-	       "\n\t-g µÃµ½param1,param2µÄ×î´ó¹«Ô¼Êı[param1][param2]"
-	       "\n\t-l µÃµ½param1,param2µÄ×îĞ¡¹«±¶Êı[param1][param2]"
-	       "\n\t-p µÃµ½½éÓÚparam1ºÍparam2Ö®¼äµÄÖÊÊı£¬ÉÏÏŞ32000[param1][param2]"
-	       "\n\t-d ÅĞ¶Ïparam1ÊÇ·ñÖÊÊı[param1]"
-	       "\n\t-c ¼ÆËã±í´ïÊ½param1µÄÖµ[param1]"
-	       "\n\t-f °ÑÎÄ¼şparam1¸´ÖÆµ½param2[param1][param2]"
-	       "\n\t-o ½«ÎÄ¼şparam1ÍêÈ«Êä³öµ½ÆÁÄ»[param1]");
+	printf("Usage:admin [-u] [-h] [-r <n1> <n2>] [-g <n1> <n2>] [-l <n1> <n2>]\n"
+	       "\t[-p <n1> <n2>] [-d <num>] [-c <exp>] [-f <file1> <file2>] [-o <file>]\n"
+	       "options:"
+	       "\n\t-u ç”¨æˆ·ç•Œé¢ï¼Œå’Œä¸é”®å…¥ä»»ä½•å†…å®¹æ˜¯ä¸€æ ·çš„;"
+	       "\n\t-h å¸®åŠ©é¡µé¢;"
+	       "\n\t-r åˆ¤æ–­n1, n2æ˜¯å¦äº’è´¨;"
+	       "\n\t-g å¾—åˆ°n1,n2çš„æœ€å¤§å…¬çº¦æ•°;"
+	       "\n\t-l å¾—åˆ°n1,n2çš„æœ€å°å…¬å€æ•°;"
+	       "\n\t-p å¾—åˆ°ä»‹äºn1å’Œn2ä¹‹é—´çš„è´¨æ•°;"
+	       "\n\t-d åˆ¤æ–­numæ˜¯å¦è´¨æ•°;"
+	       "\n\t-c è®¡ç®—è¡¨è¾¾å¼çš„å€¼;"
+	       "\n\t-f æŠŠæ–‡ä»¶file1å¤åˆ¶åˆ°file2;"
+	       "\n\t-o å°†æ–‡ä»¶fileå®Œå…¨è¾“å‡ºåˆ°stdout");
 }
