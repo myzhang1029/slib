@@ -1,0 +1,3 @@
+AUTOMAKE_OPTIONS = foreign
+bin_PROGRAMS = build/slib.dll
+build_slib_dll_SOURCES = src/lib.c src/math.c src/calc.c src/file.c src/error.c src/slib.h
