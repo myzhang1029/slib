@@ -1,11 +1,17 @@
-CC=tcc
-REMOVE=del
-EXTEND=dll
+CC=gcc
+RM=rm
+CFLAGS=-shared -O2
+all:;!ERROR 'You MUST specify win|linux'
 
-./build/slib.$(EXTEND):./src/slib.h ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c
-	$(CC) ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c -o ./build/slib.$(EXTEND)
+linux:./build/slib.so
+win:./build/slib.dll
 
-.PHONY:rmsrc
-rmsrc:
-	$(REMOVE) buildslib.bat buildslib.sh .gitignore .gitattributes /src/* 
+./build/slib.dll:./src/slib.h ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c
+	$(CC) ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c -o ./build/slib.dll $(CFLAGS) -DPLAT=1
 
+./build/slib.so:./src/slib.h ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c
+	$(CC) ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c -o ./build/slib.so $(CFLAGS) -DPLAT=0
+
+
+.PHONY:clean
+clean:

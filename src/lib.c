@@ -40,6 +40,7 @@ OPT int  mysh( ccp path )
 	printf( "%s(Enter 'q'  to quit)>", path );
 	#else
 	printf( "slibsh@localhost %s(Enter 'q' to quit)$",path );
+	#endif
 	fgets( command, 19, stdin );
 	if ( strcmp(command,"q\n")==0 )
 	{
