@@ -50,10 +50,7 @@
 #ifndef _CRT_SECURE_NO_WARNINGS //for MSVC compiling envirment
 #define _CRT_SECURE_NO_WARNINGS
 #endif
-
-#ifdef _CRT_NONSTDC_NO_WARINGS
 #undef _CRT_NONSTDC_NO_WARINGS
-#endif
 
 #ifndef NULL //give default definition for NULL
 #define NULL (void*)0
