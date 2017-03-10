@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2
+CFLAGS=-lm -O2
 all:;!ERROR You must specify win|linux
 
 linux:admin
