@@ -8,6 +8,13 @@
 
 *.elf
 
+# Build
+
+*.dll
+
+*.def
+
+*.so
 
 # Precompiled Headers
 
@@ -16,6 +23,9 @@
 *.pch
 
 # Others
+
 *.c~
+
 *.h~
-*swp
+
+*.swp
