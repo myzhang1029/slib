@@ -2,9 +2,10 @@ CC=gcc
 RM=rm
 CFLAGS=-shared -O2
 
-all:;!ERROR 'You MUST specify win|linux'
+all:;@echo Please do make PLATFORM:\
+win:windows, MinGW, Cygwin; unix:UNIX, GNU/Linux, BSD
 
-linux:slib.so
+unix:slib.so
 win:slib.dll
 
 slib.dll:./src/slib.h ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c
