@@ -108,7 +108,7 @@ OPT int getmpath(ccp fullpath,char *mpath)
 }
 
 
-OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
+OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 {
 	int stat;
 	va_list args;
@@ -120,32 +120,32 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 		case red:
 			SetConsoleTextAttribute(hstdout,FOREGROUND_RED);
 			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		case green:
 			SetConsoleTextAttribute(hstdout,FOREGROUND_GREEN);
 			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		case yellow:
 			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_GREEN);
 			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		case black:
 			SetConsoleTextAttribute(hstdout,BACKGROUND_RED|BACKGROUND_BLUE|BACKGROUND_GREEN);
 			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		case blue:
 			SetConsoleTextAttribute(hstdout,FOREGROUND_BLUE);
 			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		case purple:
 			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_BLUE);
 			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		}
 	return stat;

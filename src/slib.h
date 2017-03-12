@@ -102,6 +102,7 @@
 #endif /* __cplusplus */
 
 #if PLAT
+#define FOREGROUND_WHITE FOREGROUND_RED|FOREGROUND_BLUE|FOREGROUND_GREEN 
 #define msgloop \
 { \
 	MSG msg; \
