@@ -108,6 +108,52 @@ OPT int getmpath(ccp fullpath,char *mpath)
 }
 
 
+OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
+{
+	int stat;
+	va_list args;
+	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
+	va_start(args,format);
+	#if PLAT
+	switch(fcolor)
+	{
+		case red:
+			SetConsoleTextAttribute(hstdout,FOREGROUND_RED);
+			stat=vprintf(format,args);
+			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			break;
+		case green:
+			SetConsoleTextAttribute(hstdout,FOREGROUND_GREEN);
+			stat=vprintf(format,args);
+			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			break;
+		case yellow:
+			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_GREEN);
+			stat=vprintf(format,args);
+			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			break;
+		case black:
+			SetConsoleTextAttribute(hstdout,BACKGROUND_RED|BACKGROUND_BLUE|BACKGROUND_GREEN);
+			stat=vprintf(format,args);
+			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			break;
+		case blue:
+			SetConsoleTextAttribute(hstdout,FOREGROUND_BLUE);
+			stat=vprintf(format,args);
+			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			break;
+		case purple:
+			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_BLUE);
+			stat=vprintf(format,args);
+			SetConsoleTextAttribute(hstdout),FOREGROUND_WHITE);
+			break;
+		}
+	return stat;
+	#else
+
+}
+
+
 OPT uslong  wsbl_frame(int ch)
 {
 	switch ( tolower(ch) )
