@@ -102,6 +102,7 @@
 #endif /* __cplusplus */
 
 #if PLAT
+#define FOREGROUND_WHITE FOREGROUND_RED|FOREGROUND_BLUE|FOREGROUND_GREEN 
 #define msgloop \
 { \
 	MSG msg; \
@@ -133,13 +134,24 @@
 extern "C"{
 #endif
 
-typedef struct Stack  //定义堆栈：堆栈中只定义栈大小和每次入栈元素大小，栈中一律使用空指针进行操作。这样，我们自己定义的栈就做到了和数据类型无关性。真正实现了栈的通用。
+typedef struct Stack
 {
-	void *base; //指向栈底
-	void *top;  //指向栈顶
-	int stackSize; //栈的空间总容量大小
-	int typeSize; //入栈时，单个元素占用空间大小
+	void *base;
+	void *top;
+	int stackSize;
+	int typeSize;
 } sqStack;
+
+enum cpfcolors
+{
+	red,
+	green,
+	yellow,
+	black,
+	blue,
+	purple,
+};
+
 
 typedef const unsigned int cui;//type aliases
 
@@ -239,10 +251,6 @@ OPT int  rsbl_frame(int code);
 OPT int *  _serrloc( void );
 
 
-OPT void *bsearchS (const void *key, const void *base, size_t nmemb, size_t size,
-	 int (*compar) (const void *, const void *));
-	
-
 OPT char* itoaS(int value, char* string, int radix);
 	
 	
@@ -250,6 +258,9 @@ OPT char* ltoaS(long value, char* string, int radix);
 	
 	
 OPT char* ultoaS(unsigned long value, char* string, int radix);
+
+
+OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	
 	
 #if ! PLAT
