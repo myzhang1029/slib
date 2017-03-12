@@ -114,7 +114,7 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	va_list args;
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
 	va_start(args,format);
-	#if PLAT
+#if PLAT
 	switch(fcolor)
 	{
 		case red:
@@ -149,8 +149,30 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 			break;
 		}
 	return stat;
-	#else
-
+#else
+	switch(fcolor)
+	{
+		case red:
+			stat=vprintf(strcat("\x1b[31m",format),args);
+			break;
+		case green:
+			stat=vprintf(strcat("\x1b[32m",format),args);
+			break;
+		case yellow:
+			stat=vprintf(strcat("\x1b[33m",format),args);
+			break;
+		case black:
+			stat=vprintf(strcat("\x1b[30m",format),args);
+			break;
+		case blue:
+			stat=vprintf(strcat("\x1b[34m",format),args);
+			break;
+		case purple:
+			stat=vprintf(strcat("\x1b[35m",format),args);
+			break;
+	}
+	return stat;
+#endif
 }
 
 
