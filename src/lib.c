@@ -112,7 +112,9 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 {
 	int stat;
 	va_list args;
+#if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
 	va_start(args,format);
 #if PLAT
 	switch(fcolor)
