@@ -13,7 +13,9 @@
 *.a
 *.la
 *.lo
-
+# Binary
+*.exe
+*.dll
 
 # =========================
 # Operating System Files
