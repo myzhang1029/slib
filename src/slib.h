@@ -27,7 +27,7 @@
 
 #pragma once
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 15.1.0
+#define SBLLIB_VERSION 15.1.1
 
 #include <string.h>
 #include <stdio.h>
