@@ -110,7 +110,7 @@ OPT int getmpath(ccp fullpath,char *mpath)
 
 OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 {
-	int stat;
+	int stat=1;
 	va_list args;
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -188,7 +188,7 @@ OPT uslong  wsbl_frame(int ch)
 		return SFALSE;
 	}
 	case ('?'):
-	e{
+	{
 		return 0xa2108e1;
 	}
 	case ('.'):
