@@ -1,6 +1,6 @@
 CC=gcc
 RM=rm
-CFLAGS=-shared -O2
+CFLAGS=-shared -O2 -Wall -lm
 
 all:;@echo Please do make PLATFORM:\
 win:windows, MinGW, Cygwin; unix:UNIX, GNU/Linux, BSD

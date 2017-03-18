@@ -150,6 +150,7 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
 		}
+	va_end(args);
 	return stat;
 #else
 	switch(fcolor)
@@ -187,7 +188,7 @@ OPT uslong  wsbl_frame(int ch)
 		return SFALSE;
 	}
 	case ('?'):
-	{
+	e{
 		return 0xa2108e1;
 	}
 	case ('.'):
