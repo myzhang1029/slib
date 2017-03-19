@@ -156,22 +156,22 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 	switch(fcolor)
 	{
 		case red:
-			stat=vprintf(strcat("\x1b[31m",format),args);
+			stat=vprintf(mtscat(2,"\x1b[31m",format),args);
 			break;
 		case green:
-			stat=vprintf(strcat("\x1b[32m",format),args);
+			stat=vprintf(mtscat(2,"\x1b[32m",format),args);
 			break;
 		case yellow:
-			stat=vprintf(strcat("\x1b[33m",format),args);
+			stat=vprintf(mtscat(2,"\x1b[33m",format),args);
 			break;
 		case black:
-			stat=vprintf(strcat("\x1b[30m",format),args);
+			stat=vprintf(mtscat(2,"\x1b[30m",format),args);
 			break;
 		case blue:
-			stat=vprintf(strcat("\x1b[34m",format),args);
+			stat=vprintf(mtscat(2,"\x1b[34m",format),args);
 			break;
 		case purple:
-			stat=vprintf(strcat("\x1b[35m",format),args);
+			stat=vprintf(mtscat(2,"\x1b[35m",format),args);
 			break;
 	}
 	return stat;
