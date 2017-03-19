@@ -2,8 +2,7 @@ CC=gcc
 RM=rm
 CFLAGS=-shared -O2 -Wall -lm
 
-all:;@echo Please do make PLATFORM:\
-win:windows, MinGW, Cygwin; unix:UNIX, GNU/Linux, BSD
+all:;@echo -e 'Please do make PLATFORM:\n\twin:windows, MinGW\n\tunix:UNIX, GNU/Linux, BSD'
 
 unix:slib.so
 win:slib.dll
