@@ -5,19 +5,14 @@ CFILES=fcopy.c fsize.c iofile.o
 CFLAGS-WIN=-c -O2 -DPLAT=1 -l../include
 CFLAGS-UNIX=-c -O2 -DPLAT=0 -l../include
 
-main-unix:main.a.unix
-
-main.a.unix:$(CFILES-UNIX)
+stack.unix.a:$(CFILES-UNIX)
 	gcc $(CFLAGS-UNIX) fcopy.c -o fcopy.o
 	gcc $(CFLAGS-UNIX) fsize.c -o fsize.o
 	gcc $(CFLAGS-UNIX) iofile.c -o iofile.o
-	ar rcs main.a.unix $(OFILES)
+	ar rcs stack.unix.a $(OFILES)
 
-main-win:main.a
-
-<<<<<<<<<<<<<<<<<Not Finished
-main.a:$(CFILES-WIN)
-	gcc $(CFLAGS-WIN) colorprintf.c -o colorprintf.o
-	gcc $(CFLAGS-WIN) mysh.c -o mysh.o
-	gcc $(CFLAGS-WIN) itoa.c -o itoa.o
-	ar rcs main.a $(OFILES)
+stack.a:$(CFILES-WIN)
+	gcc $(CFLAGS-WIN) fcopy.c -o fcopy.o
+	gcc $(CFLAGS-WIN) fsize.c -o fsize.o
+	gcc $(CFLAGS-WIN) iofile.c -o iofile.o
+	ar rcs stack.a $(OFILES)
