@@ -2,18 +2,18 @@ CC=gcc
 RM=rm
 CFLAGS=-shared -O2 -Wall -lm
 
-all:;@echo -e 'Please do make PLATFORM:\n\twin:windows, MinGW\n\tunix:UNIX, GNU/Linux, BSD'
+err:;@echo -e 'Please do make PLATFORM:\n\twin:windows, MinGW\n\tunix:UNIX, GNU/Linux, BSD'
 
 unix:slib.so
 win:slib.dll
 
-slib.dll:./src/slib.h ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c
-	$(CC) ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c -o slib.dll $(CFLAGS) -DPLAT=1
+unix
 
-slib.so:./src/slib.h ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c
-	$(CC) ./src/math.c ./src/lib.c ./src/error.c ./src/file.c ./src/calc.c -o slib.so $(CFLAGS) -DPLAT=0
-
+include main/Makefile
+include math/Makefile
+include file/Makefile
+include string/Makefile
 
 .PHONY:clean
 clean:
-	$(RM) *.o
+	$(RM) *.o *.a -r

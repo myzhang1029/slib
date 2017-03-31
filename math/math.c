@@ -142,4 +142,3 @@ OPT int eular(cui n)
 	return result;
 }
 
-

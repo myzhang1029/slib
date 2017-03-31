@@ -1,8 +1,8 @@
 /*
- *  calc.c - Calculate and Stack Functions in the Slib library
+ *  calc.c - calculate function in the slib
  *
  *  Copyright (C) 2017 Zhang Maiyun
- *  Thanks a user on CSDN.NET for the code framework.
+ *  Thanks a user on CSDN.NET for most of the code.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
  *  This file is part of slib.
@@ -185,71 +185,4 @@ static int Calculate(char *arr,void *result)
   return STRUE;
 }
 
-/*
-初始化栈
-参数：stackSize:栈的总容量大小
-typeSize:以后要入栈的单个元素的大小
-*/
-OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize)
-{
-  s->base=malloc(stackSize);
-  if(!s->base)
-    return SERROR;
-  s->top=s->base;
-  s->stackSize=stackSize;
-  s->typeSize=typeSize;
-  return STRUE;
-}
-
-/*
-压栈
-*/
-OPT int Push(sqStack *s,void *e)
-{
-  if((int)s->top-(int)s->base+s->typeSize>s->stackSize)
-    return SFALSE;
-  memcpy(s->top,e,s->typeSize);
-  s->top=(void*)((int)s->top+s->typeSize);
-  return STRUE;
-}
-
-/*
-出栈
-*/
-OPT int Pop(sqStack *s,void *e)
-{
-  if(s->top==s->base)
-    return SFALSE;
-  s->top=(void*)((int)s->top-(int)s->typeSize);
-  memcpy(e,s->top,s->typeSize);
-  return STRUE;
-}
-
-/*
-清栈
-*/
-OPT int ClearStack(sqStack *s)
-{
-  s->top=s->base;
-  return STRUE;
-}
-
-/*
-毁栈
-*/
-OPT int DestroyStack(sqStack *s)
-{
-  free(s->base);
-  s->top=s->base=NULL;
-  s->stackSize=s->typeSize=0;
-  return STRUE;
-}
-
-/*
-获取已入栈元素个数
-*/
-OPT int GetLen(sqStack *s)
-{
-  return ((int)s->top-(int)s->base)/s->typeSize;
-}
 
