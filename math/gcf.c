@@ -27,12 +27,8 @@
 OPT int gcf(cui n1,cui n2)
 {
 	unsigned a=n1,b=n2,c=0;
-	while(b!=0)
-	{
-		c=a%b;
-		a=b;
-		b=c;
-	}
+	if(n1==0||n2==0) return SERROR;
+	for(;b!=0;c=a%b,a=b,b=c);
 	return (int)c;
 }
 
