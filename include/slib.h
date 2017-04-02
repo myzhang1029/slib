@@ -173,19 +173,19 @@ typedef char * String;
 OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize);
 
 
-D_TESTING OPT int  Push(sqStack *s,void *e); //入栈
+OPTint  Push(sqStack *s,void *e); 
 
 
-D_TESTING OPT int  Pop(sqStack *s,void *e); //出栈
+OPT int  Pop(sqStack *s,void *e); 
 
 
-D_TESTING OPT int  ClearStack(sqStack *s); //清空栈内所有元素
+OPT int  ClearStack(sqStack *s); 
 
 
-D_TESTING OPT int  DestroyStack(sqStack *s); //销毁栈
+OPT int  DestroyStack(sqStack *s); 
 
 
-D_TESTING OPT int  GetLen(sqStack *s); //获取已入栈元素个数
+OPT int  GetLen(sqStack *s); 
 
 
 OPT int  prterr(ccp fmt,...);//自定义错误处理函数
@@ -236,10 +236,10 @@ OPT int  lcm(cui n1,cui n2);
 OPT int  eular(cui n);
 
 
-OPT int getmname(ccp fullpath,char *mname);
+D_TESTING OPT int getmname(ccp fullpath,char *mname);
 
 
-OPT int getmpath(ccp fullpath,char *mpath);
+D_TESTING OPT int getmpath(ccp fullpath,char *mpath);
 
 
 OPT uslong  wsbl_frame(int ch);
@@ -260,7 +260,7 @@ OPT char* ltoaS(long value, char* string, int radix);
 OPT char* ultoaS(unsigned long value, char* string, int radix);
 
 
-OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
+D_TESTING OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	
 	
 #if ! PLAT
