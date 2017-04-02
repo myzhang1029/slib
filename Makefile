@@ -4,12 +4,12 @@ err:;@echo -e 'Please do make PLATFORM:\n\twin:windows, MinGW\n\tunix:UNIX, GNU/
 unix:slib.so
 win:slib.dll
 
-slib.so:$(FILES)
+slib.so:
 	$(CC) $(CFLAGS-UNIX) $(FILES) -o slib.so
 	
-slib.dll:$(FILES)
+slib.dll:
 	$(CC) $(CFLAGS-WIN) $(FILES) -o slib.dll
 
-.PHONY:clean
+.PHONY:clean unix win
 clean:
 	$(RM) *.o *.a -r
