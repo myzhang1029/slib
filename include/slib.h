@@ -173,7 +173,7 @@ typedef char * String;
 OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize);
 
 
-OPTint  Push(sqStack *s,void *e); 
+OPT int  Push(sqStack *s,void *e); 
 
 
 OPT int  Pop(sqStack *s,void *e); 
