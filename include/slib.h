@@ -144,12 +144,12 @@ typedef struct Stack
 
 enum cpfcolors
 {
-	red,
-	green,
-	yellow,
-	black,
-	blue,
-	purple,
+	red=1,
+	green=2,
+	yellow=3,
+	black=4,
+	blue=5,
+	purple=6,
 };
 
 
