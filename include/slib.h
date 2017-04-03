@@ -1,13 +1,12 @@
 /*
  *  slib.h - This is the header file of the slib
-	 you can use on Linux & Windows platform
  *
  *  Copyright (C) 2016, 2017 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
- *  This file is part of slib.
- *  slib is free software; you can redistribute it and/or modify
+ *  This file is part of the slib.
+ *  The slib is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
