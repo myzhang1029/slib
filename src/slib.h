@@ -1,13 +1,12 @@
 /*
  *  slib.h - This is the header file of the slib
-	 you can use on Linux & Windows platform
  *
  *  Copyright (C) 2016, 2017 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
- *  This file is part of slib.
- *  slib is free software; you can redistribute it and/or modify
+ *  This file is part of the slib.
+ *  The slib is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
@@ -25,9 +24,9 @@
  */
 
 
-#pragma once
+//#pragma once
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 15.1.0
+#define SBLLIB_VERSION 2.2.0
 
 #include <string.h>
 #include <stdio.h>
@@ -144,12 +143,12 @@ typedef struct Stack
 
 enum cpfcolors
 {
-	red,
-	green,
-	yellow,
-	black,
-	blue,
-	purple,
+	red=1,
+	green=2,
+	yellow=3,
+	black=4,
+	blue=5,
+	purple=6,
 };
 
 
@@ -173,19 +172,19 @@ typedef char * String;
 OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize);
 
 
-D_TESTING OPT int  Push(sqStack *s,void *e); //入栈
+OPT int  Push(sqStack *s,void *e); 
 
 
-D_TESTING OPT int  Pop(sqStack *s,void *e); //出栈
+OPT int  Pop(sqStack *s,void *e); 
 
 
-D_TESTING OPT int  ClearStack(sqStack *s); //清空栈内所有元素
+OPT int  ClearStack(sqStack *s); 
 
 
-D_TESTING OPT int  DestroyStack(sqStack *s); //销毁栈
+OPT int  DestroyStack(sqStack *s); 
 
 
-D_TESTING OPT int  GetLen(sqStack *s); //获取已入栈元素个数
+OPT int  GetLen(sqStack *s); 
 
 
 OPT int  prterr(ccp fmt,...);//自定义错误处理函数
@@ -236,10 +235,10 @@ OPT int  lcm(cui n1,cui n2);
 OPT int  eular(cui n);
 
 
-OPT int getmname(ccp fullpath,char *mname);
+D_TESTING OPT int getmname(ccp fullpath,char *mname);
 
 
-OPT int getmpath(ccp fullpath,char *mpath);
+D_TESTING OPT int getmpath(ccp fullpath,char *mpath);
 
 
 OPT uslong  wsbl_frame(int ch);
@@ -260,7 +259,7 @@ OPT char* ltoaS(long value, char* string, int radix);
 OPT char* ultoaS(unsigned long value, char* string, int radix);
 
 
-OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
+D_TESTING OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	
 	
 #if ! PLAT
