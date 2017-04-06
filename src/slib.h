@@ -24,13 +24,11 @@
  */
 
 
-//#pragma once
+#if defined(MSC_VER)&&MSC_VER>1000
+#pragma once
+#endif
 #ifndef SBLLIB_VERSION
-<<<<<<< HEAD
 #define SBLLIB_VERSION 2.2.0
-=======
-#define SBLLIB_VERSION 15.2.0
->>>>>>> 30b128e18ee21112e3d956a97c71a84c5a2ece81
 
 #include <string.h>
 #include <stdio.h>
