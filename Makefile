@@ -25,14 +25,14 @@
 include Make.cfg
 err:;@echo -e 'Please do make PLATFORM:\n\twin:windows, MinGW\n\tunix:UNIX, GNU/Linux, BSD'
 
-unix:slib.so
-win:slib.dll
+unix:libsbl.so
+win:libsbl.dll
 
-slib.so:
-	$(CC) $(CFLAGS-UNIX) $(FILES) -o slib.so
+libsbl.so:
+	$(CC) $(CFLAGS-UNIX) $(FILES) -o libsbl.so
 	
-slib.dll:
-	$(CC) $(CFLAGS-WIN) $(FILES) -o slib.dll
+libsbl.dll:
+	$(CC) $(CFLAGS-WIN) $(FILES) -o libsbl.dll
 
 .PHONY:clean unix win
 clean:
