@@ -16,7 +16,8 @@
 # Binary
 *.exe
 *.dll
-
+*.so
+admin
 # =========================
 # Operating System Files
 # =========================

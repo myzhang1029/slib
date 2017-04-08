@@ -245,8 +245,8 @@ int main( int argc, ccp argv[] )	/* 主函数 */
 
 		case (8):	/*向console发送命令*/
 		{
-			char *str;
-			getmpath(argv[0],str);
+			char *str="\0";
+			getmpath(argv[0],&str);
 			while(1)
 			{
 				if(mysh( str )==STRUE)

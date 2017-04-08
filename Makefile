@@ -3,9 +3,9 @@ CFLAGS=-lm -O2 -L. -lsbl
 RM=rm
 
 err:
-	@echo "You must specify win|linux"
+	@echo "You must specify win|unix"
 
-linux:admin
+unix:admin
 win:admin.exe
 
 admin.exe:./src/slib.h ./src/admin.c
