@@ -1,0 +1,6 @@
+# Bugs file for the slib
+
+# func name	error
+getmname() getmpath() colorprintf()	segfault
+fcopy() iofile() prtfile()	not working
+
