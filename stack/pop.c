@@ -27,8 +27,8 @@
 OPT int Pop(sqStack *s,void *e)
 {
   if(s->top==s->base)
-    return FALSE;
+    return SFALSE;
   s->top=(void*)((int)s->top-(int)s->typeSize);
   memcpy(e,s->top,s->typeSize);
-  return TRUE;
+  return STRUE;
 }

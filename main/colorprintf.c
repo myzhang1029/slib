@@ -27,6 +27,7 @@
 OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 {
 	int stat=1;
+	char *clstr=malloc(sizeof(format)+9);
 	va_list args;
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
@@ -72,22 +73,28 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 	switch(fcolor)
 	{
 		case red:
-			stat=vprintf(mtscat(2,"\x1b[31m",format),args);
+			clstr="\x1b[31m";
+			stat=vprintf(strcat(clstr,format),args);
 			break;
 		case green:
-			stat=vprintf(mtscat(2,"\x1b[32m",format),args);
+			clstr="\x1b[32m";
+			stat=vprintf(strcat(clstr,format),args);
 			break;
 		case yellow:
-			stat=vprintf(mtscat(2,"\x1b[33m",format),args);
+			clstr="\x1b[33m";
+			stat=vprintf(strcat(clstr,format),args);
 			break;
 		case black:
-			stat=vprintf(mtscat(2,"\x1b[30m",format),args);
+                        clstr="\x1b[30m";
+			stat=vprintf(strcat(clstr,format),args);
 			break;
 		case blue:
-			stat=vprintf(mtscat(2,"\x1b[34m",format),args);
+                        clstr="\x1b[33m";
+			stat=vprintf(strcat(clstr,format),args);
 			break;
 		case purple:
-			stat=vprintf(mtscat(2,"\x1b[35m",format),args);
+                        clstr="\x1b[35m";
+			stat=vprintf(strcat(clstr,format),args);
 			break;
 	}
 	return stat;

@@ -27,9 +27,9 @@
 OPT int Push(sqStack *s,void *e)
 {
   if((int)s->top-(int)s->base+s->typeSize>s->stackSize)
-    return FALSE;
+    return SFALSE;
   memcpy(s->top,e,s->typeSize);
   s->top=(void*)((int)s->top+s->typeSize);
-  return TRUE;
+  return STRUE;
 }
 
