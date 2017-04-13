@@ -97,6 +97,8 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 			stat=vprintf(strcat(clstr,format),args);
 			break;
 	}
+	free(clstr);
+	clstr=NULL;
 	return stat;
 #endif
 }
