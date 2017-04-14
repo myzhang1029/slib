@@ -29,6 +29,8 @@ OPT int ispn( cul testingnum )
 	long i;
 	if( testingnum == 2)
 		return STRUE;
+	if( testingnum == 2)
+		return SFALSE;
 	for(i = 2; i<testingnum; ++i)
 	{
 		if( testingnum%i==0 )
