@@ -1,4 +1,5 @@
 CC=gcc
+RM=rm
 CFLAGS=-lm -O2 -Wall -L. -lsbl -Islib/include
 err:;@echo 'Please do make PLATFORM:\n\twin:Windows, MinGW\n\tunix:UNIX, GNU/Linux, BSD';exit 1
 
@@ -29,4 +30,4 @@ admin:admin.c
 	fi
 	$(CC) admin.c  -o admin $(CFLAGS) -DPLAT=0
 .PHONY:clean
-	$(REMOVE) *.o
+	$(RM) *.o
