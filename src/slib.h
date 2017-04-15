@@ -24,9 +24,7 @@
  */
 
 
-#if defined(MSC_VER)&&MSC_VER>1000
-#pragma once
-#endif
+//#pragma once
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 2.2.0
 

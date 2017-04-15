@@ -1,0 +1,3 @@
+[submodule "slib"]
+	path = slib
+	url = https://github.com/myzhang1029/slib.git
