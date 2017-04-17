@@ -23,7 +23,11 @@
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 include Make.cfg
-err:;@echo 'Please do make PLATFORM:\n\twin:windows, MinGW\n\tunix:UNIX, GNU/Linux, BSD';exit 1
+err:
+	@echo 'Please do make PLATFORM:'
+	@echo '	win:windows, MinGW'
+	@echo '	unix:UNIX, GNU/Linux, BSD'
+	@exit 1
 
 unix:libsbl.so
 win:libsbl.dll
@@ -34,6 +38,6 @@ libsbl.so:
 libsbl.dll:
 	$(CC) $(CFLAGS-WIN) $(FILES) -o libsbl.dll
 
-.PHONY:clean unix win
+.PHONY:clean err
 clean:
 	$(RM) *.o *.a -r
