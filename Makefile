@@ -7,25 +7,25 @@ unix:admin
 win:admin.exe
 
 admin.exe:admin.c 
-	if [ -f slib/Makefile ] ; then \
-		make -f slib/Makefile win; \
-		cp slib/libsbl.dll .; \
-	else \
-		@echo slib/Makefile not found!;\
-		@echo Is this project cloned with --recursive option?;\
-		@echo If not, please do 'git submodule init&&git submodule update';\
-	exit 1;\
+	if [ -f slib/Makefile ] ; then
+		make -f slib/Makefile win;
+		cp slib/libsbl.dll .;
+	else
+		@echo slib/Makefile not found!;
+		@echo Is this project cloned with --recursive option?;
+		@echo If not, please do 'git submodule init&&git submodule update';
+	exit 1;
 	fi
 	$(CC) admin.c -o admin $(CFLAGS) -DPLAT=1
 
 admin:admin.c
 	if [ -f slib/Makefile ] ; then
 		make -f slib/Makefile unix
-		cp slib/libsbl.so .              
-	else                                    
-		@echo slib/Makefile not found!   
-		@echo Is this project cloned with --recursive option?                  
-		@echo If not, please do 'git submodule init&&git submodule update'     
+		cp slib/libsbl.so .
+	else
+		@echo slib/Makefile not found!
+		@echo Is this project cloned with --recursive option?
+		@echo If not, please do 'git submodule init&&git submodule update'
 		exit 1
 	fi
 	$(CC) admin.c  -o admin $(CFLAGS) -DPLAT=0
