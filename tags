@@ -1,0 +1,98 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+BUFFERSIZE	include/slib.h	66;"	d
+Calculate	math/calc.c	/^static int Calculate(char *arr,void *result)$/;"	f	file:
+ClearStack	stack/clearstack.c	/^OPT int ClearStack(sqStack *s)$/;"	f
+D_STABLE	include/slib.h	88;"	d
+D_TESTING	include/slib.h	90;"	d
+D_UNSTABLE	include/slib.h	89;"	d
+DestroyStack	stack/destorystack.c	/^OPT int DestroyStack(sqStack *s)$/;"	f
+FOREGROUND_WHITE	include/slib.h	104;"	d
+GetLen	stack/getlen.c	/^OPT int GetLen(sqStack *s)$/;"	f
+InfixToPostfix	math/calc.c	/^static int InfixToPostfix(char *infix,char *postfix)$/;"	f	file:
+InitStack	stack/initstack.c	/^OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize)$/;"	f
+NULL	include/slib.h	55;"	d
+OPT	include/slib.h	74;"	d
+OPT	include/slib.h	76;"	d
+Pop	stack/pop.c	/^OPT int Pop(sqStack *s,void *e)$/;"	f
+Push	stack/push.c	/^OPT int Push(sqStack *s,void *e)$/;"	f
+SBLLIB_VERSION	include/slib.h	29;"	d
+SERROR	include/slib.h	64;"	d
+SERR_INPUTINVAL	include/slib.h	81;"	d
+SERR_LIBCALLFAILED	include/slib.h	80;"	d
+SERR_STACKERR	include/slib.h	82;"	d
+SFALSE	include/slib.h	63;"	d
+STKELMT	include/slib.h	65;"	d
+STRUE	include/slib.h	62;"	d
+S_INLINE	include/slib.h	78;"	d
+Stack	include/slib.h	/^typedef struct Stack$/;"	s
+String	include/slib.h	/^typedef char * String;$/;"	t
+_Bool	include/slib.h	97;"	d
+_CRT_NONSTDC_NO_WARINGS	include/slib.h	52;"	d
+_CRT_SECURE_NO_WARNINGS	include/slib.h	50;"	d
+_INTSZOF	include/slib.h	68;"	d
+__set_errno	include/slib.h	59;"	d
+_serrloc	main/error.c	/^OPT int *  _serrloc( void )$/;"	f
+average	math/average.c	/^OPT double average(cui amt,...)$/;"	f
+base	include/slib.h	/^	void *base;$/;"	m	struct:Stack
+black	include/slib.h	/^	black=4,$/;"	e	enum:cpfcolors
+blue	include/slib.h	/^	blue=5,$/;"	e	enum:cpfcolors
+bool	include/slib.h	93;"	d
+bool	include/slib.h	98;"	d
+calculate	math/calc.c	/^OPT double calculate(ccp infix)$/;"	f
+ccp	include/slib.h	/^typedef const char * const ccp;$/;"	t
+colorprintf	main/colorprintf.c	/^OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)$/;"	f
+cpfcolors	include/slib.h	/^enum cpfcolors$/;"	g
+cui	include/slib.h	/^typedef const unsigned int cui;\/\/type aliases$/;"	t
+cul	include/slib.h	/^typedef const unsigned long cul;$/;"	t
+eular	math/eular.c	/^OPT int eular(cui n)$/;"	f
+false	include/slib.h	95;"	d
+false	include/slib.h	99;"	d
+fcopy	file/fcopy.c	/^OPT int  fcopy( ccp oldname, ccp newname ) \/* user - sec7 *\/$/;"	f
+fsize	file/fsize.c	/^OPT long  fsize( FILE * stream )$/;"	f
+gcf	math/gcf.c	/^OPT int gcf(cui n1,cui n2)$/;"	f
+getch	main/getch.c	/^OPT int getch(void) $/;"	f
+getmname	string/module.c	/^OPT int getmname(ccp fullpath,char *mname)$/;"	f
+getmpath	string/module.c	/^OPT int getmpath(ccp fullpath,char *mpath)$/;"	f
+green	include/slib.h	/^	green=2,$/;"	e	enum:cpfcolors
+iofile	file/iofile.c	/^OPT int  iofile(FILE *origin,FILE *dest)$/;"	f
+ispn	math/ispn.c	/^OPT int ispn( cul testingnum )$/;"	f
+isrp	math/isrp.c	/^OPT int  isrp (cul n1,cul n2)$/;"	f
+itoaS	main/itoa.c	/^ char* itoaS(int value, char* string, int radix)$/;"	f
+lcm	math/lcm.c	/^OPT int lcm(cui n1,cui n2)$/;"	f
+ltoaS	main/itoa.c	/^ char* ltoaS(long value, char* string, int radix)$/;"	f
+msgloop	include/slib.h	105;"	d
+mtscat	string/mtscat.c	/^OPT char *  mtscat(cui amount,...)$/;"	f
+mysh	main/mysh.c	/^OPT int  mysh( ccp path )$/;"	f
+pathsep	include/slib.h	84;"	d
+pathsep	include/slib.h	86;"	d
+prterr	main/error.c	/^OPT int  prterr(ccp fmt,... )$/;"	f
+prtfile	file/iofile.c	/^OPT int prtfile(FILE *stream)$/;"	f
+prtpn	math/prtpn.c	/^OPT int  prtpn( FILE*fp, cul minimum, cul maximum )$/;"	f
+purple	include/slib.h	/^	purple=6,$/;"	e	enum:cpfcolors
+randomnum	main/radomnum.c	/^OPT long  randomnum( cui seed,cul maximum,cul minimum )$/;"	f
+red	include/slib.h	/^	red=1,$/;"	e	enum:cpfcolors
+regwndcls	include/slib.h	115;"	d
+rsbl_frame	main/sbl.c	/^OPT int  rsbl_frame(int code)$/;"	f
+ser	main/error.c	/^int ser;$/;"	v
+serr	include/slib.h	79;"	d
+sqStack	include/slib.h	/^} sqStack;$/;"	t	typeref:struct:Stack
+stackSize	include/slib.h	/^	int stackSize;$/;"	m	struct:Stack
+top	include/slib.h	/^	void *top;$/;"	m	struct:Stack
+true	include/slib.h	100;"	d
+true	include/slib.h	94;"	d
+typeSize	include/slib.h	/^	int typeSize;$/;"	m	struct:Stack
+ultoaS	main/itoa.c	/^ char* ultoaS(unsigned long value, char* string, int radix)$/;"	f
+uschar	include/slib.h	/^typedef unsigned char uschar;$/;"	t
+usint	include/slib.h	/^typedef unsigned int usint;$/;"	t
+uslong	include/slib.h	/^typedef unsigned long uslong;$/;"	t
+varg	include/slib.h	70;"	d
+vend	include/slib.h	71;"	d
+vlist	include/slib.h	/^typedef char * vlist;$/;"	t
+vstart	include/slib.h	69;"	d
+wsbl_frame	main/sbl.c	/^OPT uslong  wsbl_frame(int ch)$/;"	f
+yellow	include/slib.h	/^	yellow=3,$/;"	e	enum:cpfcolors
