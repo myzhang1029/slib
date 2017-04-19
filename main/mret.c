@@ -31,6 +31,11 @@ mtret mkret(size_t lenth,...)
 	void **elems=malloc(sizeof(int*)*lenth);
 	int count=0;
 	va_list args;
+	if(elems==NULL)
+	{
+		serr=1;
+		return SERROR;
+	}
 	va_start(args,lenth);
 
 	ret.lenth=lenth;
@@ -40,6 +45,7 @@ mtret mkret(size_t lenth,...)
 	}
 	ret.val=elems;
 	va_end(args);
+	free(elems);
 	return ret;
 }
 
