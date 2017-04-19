@@ -23,20 +23,25 @@
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 include Make.cfg
+include objs.mk
+
 err:
 	@echo 'Please do make PLATFORM:'
 	@echo '	win:windows, MinGW'
 	@echo '	unix:UNIX, GNU/Linux, BSD'
 	@exit 1
 
+
 unix:libsbl.so
 win:libsbl.dll
 
-libsbl.so:
-	$(CC) $(CFLAGS-UNIX) $(FILES) -o libsbl.so
+
+libsbl.so:$(OBJ-UNIX)
+	$(CC) $(CFLAGS) $(OBJS) -o libsbl.so
 	
-libsbl.dll:
-	$(CC) $(CFLAGS-WIN) $(FILES) -o libsbl.dll
+libsbl.dll:$(OBJ-WIN)
+	$(CC) $(CFLAGS) $(OBJS) -o libsbl.dll
+
 
 .PHONY:clean err
 clean:

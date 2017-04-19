@@ -25,8 +25,10 @@
 
 
 //#pragma once
+
+
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 2.2.0
+#define SBLLIB_VERSION 2.3.0
 
 #include <string.h>
 #include <stdio.h>
@@ -62,8 +64,8 @@
 #define STRUE 1 //status
 #define SFALSE 0
 #define SERROR -1
-#define STKELMT 100 //堆栈中可入栈元素个数
-#define BUFFERSIZE 100  //临时缓冲区大小
+#define STKELMT 100 //Stack max. element count 
+#define BUFFERSIZE 100  //Stack buffer size
 
 #define _INTSZOF(n)   ( (sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )//a copy of stdarg.h
 #define vstart(ap,v)  ( ap = (vlist)&v + _INTSZOF(v) )
@@ -75,16 +77,26 @@
 #else
 #define OPT
 #endif
+
+
 #define S_INLINE inline
+
+//serr
 #define serr (*_serrloc())
 #define SERR_LIBCALLFAILED 1
 #define SERR_INPUTINVAL 2
 #define SERR_STACKERR 3
+
+//seperator of file pathes
 #if PLAT
 #define pathsep '\\'
 #else
 #define pathsep '/'
 #endif
+
+#define mtreturn(types,lenth,...) return mkret(types,lenth,__VA_ARGS__)
+
+//debugger
 #define D_STABLE 
 #define D_UNSTABLE
 #define D_TESTING
@@ -140,6 +152,22 @@ typedef struct Stack
 	int stackSize;
 	int typeSize;
 } sqStack;
+
+typedef enum types
+{
+	Int=1,
+	pChar=2,
+	pInt=3,
+	Long=4,
+	Double=8
+}Types;
+
+typedef struct mtrt
+{
+	void **val;
+	size_t lenth;
+}mtret;
+
 
 enum cpfcolors
 {
@@ -261,7 +289,12 @@ OPT char* ultoaS(unsigned long value, char* string, int radix);
 
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	
-	
+
+D_TESTING OPT void *getret(mtret ret);
+
+
+D_TESTING OPT mtret mkret(Types *types,size_t lenth,...);
+
 #if ! PLAT
 OPT int getch(void);
 #endif
