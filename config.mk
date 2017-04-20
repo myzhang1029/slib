@@ -1,5 +1,5 @@
  #
- #  The Makefile of the slib
+ #  The Make configure file of the slib
  #
  #  Copyright (C) 2017 Zhang Maiyun
  #
@@ -22,26 +22,18 @@
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-include config.mk
+CFLAGS-WIN=-Os -DPLAT=1 -Wall -shared -I./include -lm 
+CFLAGS-UNIX=-Os -DPLAT=0 -Wall -shared -I./include -lm -fPIC
+CC=gcc
+RM=rm
 
-err:
-	@echo 'Please do make PLATFORM:'
-	@echo '	win:windows, MinGW'
-	@echo '	unix:UNIX, GNU/Linux, BSD'
-	@exit 1
+FILES=file/fcopy.c file/fsize.c file/iofile.c \
+      main/colorprintf.c main/error.c main/getch.c \
+      main/itoa.c main/mysh.c main/radomnum.c\
+      main/sbl.c main/mret.c \
+      math/average.c math/calc.c math/eular.c math/gcf.c math/ispn.c\
+      math/isrp.c math/lcm.c math/prtpn.c \
+      stack/clearstack.c stack/destorystack.c stack/getlen.c \
+      stack/initstack.c stack/pop.c stack/push.c \
+      string/module.c string/mtscat.c
 
-
-unix:libsbl.so
-win:libsbl.dll
-
-
-libsbl.so:$(FILES)
-	$(CC) $(CFLAGS-UNIX) $(FILES) -o libsbl.so
-	
-libsbl.dll:$(OBJ-WIN)
-	$(CC) $(CFLAGS-WIN) $(FILES) -o libsbl.dll
-
-
-.PHONY:clean err
-clean:
-	$(RM) *.o *.a -r
