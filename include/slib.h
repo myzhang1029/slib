@@ -281,10 +281,10 @@ OPT char* ultoaS(unsigned long value, char* string, int radix);
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	
 
-D_TESTING OPT void *getret(mtret ret);
+OPT void *getret(mtret *ret);
 
 
-D_TESTING OPT mtret mkret(size_t lenth,...);
+OPT mtret *mkret(size_t lenth,...);
 
 #if ! PLAT
 OPT int getch(void);

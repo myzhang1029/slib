@@ -25,32 +25,32 @@
 #include "slib.h"
 int retind=0;
 
-mtret mkret(size_t lenth,...)
+mtret *mkret(size_t lenth,...)
 {
-	mtret ret;
+	mtret *ret;
 	void **elems=malloc(sizeof(int*)*lenth);
 	int count=0;
 	va_list args;
 	if(elems==NULL)
 	{
 		serr=1;
-		return SERROR;
+		return NULL;
 	}
 	va_start(args,lenth);
 
-	ret.lenth=lenth;
+	ret->lenth=lenth;
 	for(;count<lenth;++count)
 	{
 		elems[count]=va_arg(args,int*);
 	}
-	ret.val=elems;
+	ret->val=elems;
 	va_end(args);
 	free(elems);
 	return ret;
 }
 
 
-void *getret(mtret ret)
+void *getret(mtret *ret)
 {
-	return retind<ret.lenth?ret.val[retind++]:NULL;
+	return retind<ret->lenth?ret->val[retind++]:NULL;
 }
