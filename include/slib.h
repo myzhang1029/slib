@@ -28,7 +28,7 @@
 
 
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 2.3.1
+#define SBLLIB_VERSION 2.3.2
 
 #include <string.h>
 #include <stdio.h>
@@ -155,8 +155,8 @@ typedef struct Stack
 
 typedef struct mtrt
 {
-	void **val;
 	size_t lenth;
+	int **val;
 }mtret;
 
 
@@ -281,10 +281,10 @@ OPT char* ultoaS(unsigned long value, char* string, int radix);
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
 	
 
-OPT void *getret(mtret *ret);
+OPT int *getret(mtret ret);
 
 
-OPT mtret *mkret(size_t lenth,...);
+OPT mtret mkret(size_t lenth,...);
 
 #if ! PLAT
 OPT int getch(void);

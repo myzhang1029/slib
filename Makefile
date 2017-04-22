@@ -38,10 +38,12 @@ win:libsbl.dll
 libsbl.so:$(FILES)
 	$(CC) $(CFLAGS-UNIX) $(FILES) -o libsbl.so
 	
-libsbl.dll:$(OBJ-WIN)
+libsbl.dll:$(FILES)
 	$(CC) $(CFLAGS-WIN) $(FILES) -o libsbl.dll
 
-
+install:
+	if [ -f libsbl.so ] ; then cp libsbl.so /usr/lib; elif [ -f libsbl.dll ] ; then cp libsbl.dll /usr/lib; fi
+ 
 .PHONY:clean err
 clean:
 	$(RM) *.o *.a -r
