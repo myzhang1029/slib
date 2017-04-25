@@ -37,3 +37,7 @@ FILES=file/fcopy.c file/fsize.c file/iofile.c \
       stack/initstack.c stack/pop.c stack/push.c \
       string/module.c string/mtscat.c
 
+define mkelem
+$(CC) $(CFLAGS) $@ -o $^
+endef
+
