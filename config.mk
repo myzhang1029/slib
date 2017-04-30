@@ -22,8 +22,10 @@
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CFLAGS-WIN=-Os -DPLAT=1 -Wall -shared -I./include -lm 
-CFLAGS-UNIX=-Os -DPLAT=0 -Wall -shared -I./include -lm -fPIC
+CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -I../include -lm 
+CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I../include -lm
+CFLAGS=-Os -shared -fPIC
+
 CC=gcc
 RM=rm
 
