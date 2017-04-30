@@ -36,14 +36,24 @@ win:libsbl.dll
 
 
 libsbl.so:$(FILES)
-	$(CC) $(CFLAGS-UNIX) $(FILES) -o libsbl.so
+	make -C file unix
+	make -C main unix
+	make -C math unix
+	make -C stack unix
+	make -C string unix
+	$(CC) $(CFLAGS) $(FILES) -o libsbl.so
 	
 libsbl.dll:$(FILES)
-	$(CC) $(CFLAGS-WIN) $(FILES) -o libsbl.dll
+	make -C file win
+	make -C main win
+	make -C math win
+	make -C stack win
+	make -C string win
+	$(CC) $(CFLAGS) $(FILES) -o libsbl.dll
 
 install:
 	if [ -f libsbl.so ] ; then cp libsbl.so /usr/lib; elif [ -f libsbl.dll ] ; then cp libsbl.dll /usr/lib; fi
  
 .PHONY:clean err
 clean:
-	$(RM) *.o *.a -r
+	$(RM) *.o */*.o *.a -r 2>/dev/null
