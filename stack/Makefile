@@ -12,7 +12,7 @@ stack.a-win:push.c pop.c getlen.c clearstack.c initstack.c destroystack.c
 	@echo CC pop.o
 	@$(CC) $(CFLAGS-WIN) pop.c -o pop.o
 	@echo CC getlen.o
-	@$(CC) $(CFLAGS-WIN) getlen.o -o getlen.o
+	@$(CC) $(CFLAGS-WIN) getlen.c -o getlen.o
 	@echo CC clearstack.o
 	@$(CC) $(CFLAGS-WIN) clearstack.c -o clearstack.o
 	@echo CC initstack.o
@@ -28,7 +28,7 @@ stack.a-unix:push.c pop.c getlen.c clearstack.c initstack.c destroystack.c
 	@echo CC pop.o
 	@$(CC) $(CFLAGS-UNIX) pop.c -o pop.o
 	@echo CC getlen.o
-	@$(CC) $(CFLAGS-UNIX) getlen.o -o getlen.o
+	@$(CC) $(CFLAGS-UNIX) getlen.c -o getlen.o
 	@echo CC clearstack.o
 	@$(CC) $(CFLAGS-UNIX) clearstack.c -o clearstack.o
 	@echo CC initstack.o
