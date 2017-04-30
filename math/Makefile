@@ -12,7 +12,7 @@ math.a-win:average.c c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
 	@echo CC calc.o
 	@$(CC) $(CFLAGS-WIN) calc.c -o calc.o
 	@echo CC eular.o
-	@$(CC) $(CFLAGS-WIN) eular.o -o eular.o
+	@$(CC) $(CFLAGS-WIN) eular.c -o eular.o
 	@echo CC gcf.o
 	@$(CC) $(CFLAGS-WIN) gcf.c -o gcf.o
 	@echo CC ispn.o
@@ -32,7 +32,7 @@ math.a-unix:average.c c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
 	@echo CC calc.o
 	@$(CC) $(CFLAGS-UNIX) calc.c -o calc.o
 	@echo CC eular.o
-	@$(CC) $(CFLAGS-UNIX) eular.o -o eular.o
+	@$(CC) $(CFLAGS-UNIX) eular.c -o eular.o
 	@echo CC gcf.o
 	@$(CC) $(CFLAGS-UNIX) gcf.c -o gcf.o
 	@echo CC ispn.o
