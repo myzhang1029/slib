@@ -16,6 +16,8 @@
 
 *.so
 
+*.a
+
 # Precompiled Headers
 
 *.gch

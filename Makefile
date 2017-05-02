@@ -41,7 +41,7 @@ libsbl.so:$(FILES)
 	make -C math unix
 	make -C stack unix
 	make -C string unix
-	$(CC) $(CFLAGS) $(FILES) -o libsbl.so
+	$(CC) $(CFLAGS) *.a -o libsbl.so
 	
 libsbl.dll:$(FILES)
 	make -C file win
@@ -49,7 +49,7 @@ libsbl.dll:$(FILES)
 	make -C math win
 	make -C stack win
 	make -C string win
-	$(CC) $(CFLAGS) $(FILES) -o libsbl.dll
+	$(CC) $(CFLAGS) *.a -o libsbl.dll
 
 install:
 	if [ -f libsbl.so ] ; then cp libsbl.so /usr/lib; elif [ -f libsbl.dll ] ; then cp libsbl.dll /usr/lib; fi

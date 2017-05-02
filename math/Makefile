@@ -6,7 +6,7 @@ include ../config.mk
 win:math.a-win
 unix:math.a-unix
 
-math.a-win:average.c c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
+math.a-win:average.c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
 	@echo CC average.o
 	@$(CC) $(CFLAGS-WIN) average.c -o average.o
 	@echo CC calc.o
@@ -26,7 +26,7 @@ math.a-win:average.c c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
 	@echo AR math.a
 	@ar rcs ../math.a average.o calc.o eular.o gcf.o ispn.o isrp.o lcm.o prtpn.o
   
-math.a-unix:average.c c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
+math.a-unix:average.c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c
 	@echo CC average.o
 	@$(CC) $(CFLAGS-UNIX) average.c -o average.o
 	@echo CC calc.o

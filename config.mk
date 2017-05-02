@@ -31,7 +31,7 @@ RM=rm
 
 FILES=file/fcopy.c file/fsize.c file/iofile.c \
       main/colorprintf.c main/error.c main/getch.c \
-      main/itoa.c main/mysh.c main/radomnum.c\
+      main/itoa.c main/mysh.c main/randomnum.c\
       main/sbl.c main/mret.c \
       math/average.c math/calc.c math/eular.c math/gcf.c math/ispn.c\
       math/isrp.c math/lcm.c math/prtpn.c \

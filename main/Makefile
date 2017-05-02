@@ -12,7 +12,7 @@ main.a-win:colorprintf.c error.c getch.c itoa.c mret.c mysh.c randomnum.c sbl.c
 	@echo CC error.o
 	@$(CC) $(CFLAGS-WIN) error.c -o error.o
 	@echo CC getch.o
-	@$(CC) $(CFLAGS-WIN) getch.o -o getch.o
+	@$(CC) $(CFLAGS-WIN) getch.c -o getch.o
 	@echo CC itoa.o
 	@$(CC) $(CFLAGS-WIN) itoa.c -o itoa.o
 	@echo CC mret.o
@@ -24,7 +24,7 @@ main.a-win:colorprintf.c error.c getch.c itoa.c mret.c mysh.c randomnum.c sbl.c
 	@echo CC sbl.o
 	@$(CC) $(CFLAGS-WIN) sbl.c -o sbl.o
 	@echo AR math.a
-	@ar rcs ../math.a colorprintf.o error.o getch.o .o mret.o mysh.o randomnum.o sbl.o
+	@ar rcs ../math.a colorprintf.o error.o getch.o mret.o mysh.o randomnum.o sbl.o
   
 main.a-unix:colorprintf.c error.c getch.c itoa.c mret.c mysh.c randomnum.c sbl.c
 	@echo CC colorprintf.o
@@ -44,4 +44,4 @@ main.a-unix:colorprintf.c error.c getch.c itoa.c mret.c mysh.c randomnum.c sbl.c
 	@echo CC sbl.o
 	@$(CC) $(CFLAGS-UNIX) sbl.c -o sbl.o
 	@echo AR math.a
-	@ar rcs ../math.a colorprintf.o error.o getch.o .o mret.o mysh.o randomnum.o sbl.o
+	@ar rcs ../math.a colorprintf.o error.o getch.o mret.o mysh.o randomnum.o sbl.o

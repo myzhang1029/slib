@@ -6,7 +6,7 @@ include ../config.mk
 win:stack.a-win
 unix:stack.a-unix
 
-stack.a-win:push.c pop.c getlen.c clearstack.c initstack.c destroystack.c
+stack.a-win:push.c pop.c getlen.c clearstack.c initstack.c destorystack.c
 	@echo CC push.o
 	@$(CC) $(CFLAGS-WIN) push.c -o push.o
 	@echo CC pop.o
@@ -18,11 +18,11 @@ stack.a-win:push.c pop.c getlen.c clearstack.c initstack.c destroystack.c
 	@echo CC initstack.o
 	@$(CC) $(CFLAGS-WIN) initstack.c -o initstack.o
 	@echo CC destroystack.o
-	@$(CC) $(CFLAGS-WIN) destroystack.c -o destroystack.o
+	@$(CC) $(CFLAGS-WIN) destorystack.c -o destorystack.o
 	@echo AR stack.a
-	@ar rcs ../stack.a push.o pop.o getlen.o clearstack.o initstack.o destroystack.o
+	@ar rcs ../stack.a push.o pop.o getlen.o clearstack.o initstack.o destorystack.o
   
-stack.a-unix:push.c pop.c getlen.c clearstack.c initstack.c destroystack.c
+stack.a-unix:push.c pop.c getlen.c clearstack.c initstack.c destorystack.c
 	@echo CC push.o
 	@$(CC) $(CFLAGS-UNIX) push.c -o push.o
 	@echo CC pop.o
@@ -34,6 +34,6 @@ stack.a-unix:push.c pop.c getlen.c clearstack.c initstack.c destroystack.c
 	@echo CC initstack.o
 	@$(CC) $(CFLAGS-UNIX) initstack.c -o initstack.o
 	@echo CC destroystack.o
-	@$(CC) $(CFLAGS-UNIX) destroystack.c -o destroystack.o
+	@$(CC) $(CFLAGS-UNIX) destorystack.c -o destorystack.o
 	@echo AR stack.a
-	@ar rcs ../stack.a push.o pop.o getlen.o clearstack.o initstack.o destroystack.o
+	@ar rcs ../stack.a push.o pop.o getlen.o clearstack.o initstack.o destorystack.o
