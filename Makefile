@@ -24,6 +24,8 @@
 
 include config.mk
 
+.PHONY:err unix win install clean
+
 err:
 	@echo 'Please do make PLATFORM:'
 	@echo '	win:windows, MinGW'
@@ -54,6 +56,5 @@ libsbl.dll:$(FILES)
 install:
 	if [ -f libsbl.so ] ; then cp libsbl.so /usr/lib; elif [ -f libsbl.dll ] ; then cp libsbl.dll /usr/lib; fi
  
-.PHONY:clean err
 clean:
-	$(RM) *.o */*.o *.a -r 2>/dev/null
+	-$(RM) *.o */*.o *.a -r 2>/dev/null
