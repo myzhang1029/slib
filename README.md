@@ -5,8 +5,8 @@
 
 ![Code Climate](https://codeclimate.com/github/myzhang1029/slib/badges/gpa.svg)
 
-The slib is a library ,
-you can either build it as a dynamic link library or static.
-But if you link slib statically with your software, it must be licensed under LGPL v3.0 or later version.
-We recommend you build it with GNU make
-Binary Download Link:(https://github.com/myzhang1029/slib/releases)
+The slib stands for the SBL Portable Programming Interface Library.
+It is a library written in C, and for C.
+The recommended build tool is GNU make.
+
+[Binary Download Link](https://github.com/myzhang1029/slib/releases)
