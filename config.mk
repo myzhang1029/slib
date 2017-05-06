@@ -32,14 +32,11 @@ RM=rm
 FILES=file/fcopy.c file/fsize.c file/iofile.c \
       main/colorprintf.c main/error.c main/getch.c \
       main/itoa.c main/mysh.c main/randomnum.c\
-      main/sbl.c main/mret.c \
+      main/sbl.c main/mret.c main/getopt.c\
       math/average.c math/calc.c math/eular.c math/gcf.c math/ispn.c\
       math/isrp.c math/lcm.c math/prtpn.c \
       stack/clearstack.c stack/destorystack.c stack/getlen.c \
       stack/initstack.c stack/pop.c stack/push.c \
-      string/module.c string/mtscat.c
-
-define mkelem
-$(CC) $(CFLAGS) $@ -o $^
-endef
+      string/module.c string/mtscat.c \
+      include/slib.h
 

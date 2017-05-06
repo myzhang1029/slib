@@ -1,6 +1,5 @@
-# Object files
-
-*.o
+#Build
+*.[oa]
 
 *.ko
 
@@ -8,23 +7,17 @@
 
 *.elf
 
-# Build
-
 *.dll
 
 *.def
 
 *.so
 
-*.a
-
-# Precompiled Headers
+#Editor
 
 *.gch
 
 *.pch
-
-# Others
 
 *~
 
