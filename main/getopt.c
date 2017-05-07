@@ -1164,7 +1164,7 @@ _getopt_internal (int argc, char *const *argv, const char *optstring,
   return result;
 }
 
-int
+OPT int
 getoptGS (int argc, char *const *argv, const char *optstring)
 {
   return _getopt_internal (argc, argv, optstring,
@@ -1173,7 +1173,7 @@ getoptGS (int argc, char *const *argv, const char *optstring)
 			   0);
 }
 
-int
+OPT int
 getopt_longGS (int argc, char *const *argv, const char *options,
 	     const struct option *long_options, int *opt_index)
 {
@@ -1185,14 +1185,14 @@ getopt_longGS (int argc, char *const *argv, const char *options,
    but does match a short option, it is parsed as a short option
    instead.  */
 
-int
+OPT int
 getopt_long_onlyGS (int argc, char *const *argv, const char *options,
 		  const struct option *long_options, int *opt_index)
 {
   return _getopt_internal (argc, argv, options, long_options, opt_index, 1);
 }
 
-int
+OPT int
 getoptS (int argc, char *const *argv,
 	 const struct option *long_options, int *opt_index)
 {
