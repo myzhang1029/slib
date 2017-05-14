@@ -24,7 +24,7 @@
 
 include config.mk
 
-.PHONY:err unix win install clean
+.PHONY:err unix win install clean all tags dist distvlean
 
 err:
 	@echo 'Please do make PLATFORM:'
@@ -57,4 +57,18 @@ install:
 	if [ -f libsbl.so ] ; then cp include/slib.h /usr/include & cp libsbl.so /usr/lib; elif [ -f libsbl.dll ] ; then cp include/slib.h /usr/include & cp libsbl.dll /usr/lib; fi
  
 clean:
-	-$(RM) *.o */*.o *.a -f 2>/dev/null
+	-$(RM) libsbl.so *.o */*.o *.a -f 2>/dev/null
+
+tags:
+	ctags -R
+
+all:err
+	cd .
+dist:
+	mkdir -p ./usr/lib
+	cp libsbl.so ./usr/lib
+	tar zcvf libsbl-version.tar.gz usr
+	rm -rf usr
+
+distclean:
+	-rm libsbl-*.tar.gz	

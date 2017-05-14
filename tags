@@ -6,6 +6,11 @@
 !_TAG_PROGRAM_VERSION	Development	//
 BUFFERSIZE	include/slib.h	68;"	d
 CC	config.mk	/^CC=gcc$/;"	m
+CFILES	file/Makefile	/^CFILES=fcopy.c fsize.c iofile.c$/;"	m
+CFILES	main/Makefile	/^CFILES=colorprintf.c error.c getch.c getopt.c itoa.c mret.c mysh.c randomnum.c sbl.c$/;"	m
+CFILES	math/Makefile	/^CFILES=average.c calc.c eular.c gcf.c ispn.c isrp.c lcm.c prtpn.c$/;"	m
+CFILES	stack/Makefile	/^CFILES=push.c pop.c getlen.c clearstack.c initstack.c destorystack.c$/;"	m
+CFILES	string/Makefile	/^CFILES=mtscat.c module.c$/;"	m
 CFLAGS	config.mk	/^CFLAGS=-Os -shared -fPIC$/;"	m
 CFLAGS-UNIX	config.mk	/^CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I..\/include -lm$/;"	m
 CFLAGS-WIN	config.mk	/^CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -I..\/include -lm $/;"	m
@@ -44,15 +49,25 @@ SWAP_FLAGS	main/getopt.c	198;"	d	file:
 S_INLINE	include/slib.h	82;"	d
 Stack	include/slib.h	/^typedef struct Stack$/;"	s
 String	include/slib.h	/^typedef char * String;$/;"	t
+TARGET	file/Makefile	/^TARGET=fileend$/;"	m
+TARGET	main/Makefile	/^TARGET=mainend$/;"	m
+TARGET	math/Makefile	/^TARGET=mathend$/;"	m
+TARGET	stack/Makefile	/^TARGET=stackend$/;"	m
+TARGET	string/Makefile	/^TARGET=stringend$/;"	m
 _	main/getopt.c	86;"	d	file:
 _	main/getopt.c	90;"	d	file:
 _	main/getopt.c	91;"	d	file:
 _Bool	include/slib.h	109;"	d
 _CRT_NONSTDC_NO_WARINGS	include/slib.h	54;"	d
 _CRT_SECURE_NO_WARNINGS	include/slib.h	52;"	d
+_GETOPT_H	include/slib.h	319;"	d
 _INTSZOF	include/slib.h	70;"	d
 _NO_PROTO	main/getopt.c	35;"	d	file:
 __FORCE_GLIBC	main/getopt.c	42;"	d	file:
+__GNUC_PREREQ	include/slib.h	335;"	d
+__THROW	include/slib.h	338;"	d
+__THROW	include/slib.h	340;"	d
+__need_getopt	include/slib.h	486;"	d
 __set_errno	include/slib.h	61;"	d
 _getopt_initialize	main/getopt.c	/^_getopt_initialize (attribute_unused int argc, attribute_unused char *const *argv, const char *optstring,$/;"	f	file:
 _getopt_internal	main/getopt.c	/^_getopt_internal (int argc, char *const *argv, const char *optstring,$/;"	f	file:
@@ -76,11 +91,13 @@ exchange	main/getopt.c	/^exchange (char **argv, struct _getopt_data *d)$/;"	f	fi
 false	include/slib.h	107;"	d
 false	include/slib.h	111;"	d
 fcopy	file/fcopy.c	/^OPT int  fcopy( ccp oldname, ccp newname ) \/* user - sec7 *\/$/;"	f
+flag	include/slib.h	/^  int *flag;$/;"	m	struct:option
 fsize	file/fsize.c	/^OPT long  fsize( FILE * stream )$/;"	f
 gcf	math/gcf.c	/^OPT int gcf(cui n1,cui n2)$/;"	f
 getch	main/getch.c	/^OPT int getch(void) $/;"	f
 getmname	string/module.c	/^OPT int getmname(ccp fullpath,char *mname)$/;"	f
 getmpath	string/module.c	/^OPT int getmpath(ccp fullpath,char *mpath)$/;"	f
+getopt	include/slib.h	462;"	d
 getoptGS	main/getopt.c	/^getoptGS (int argc, char *const *argv, const char *optstring)$/;"	f
 getoptS	main/getopt.c	/^getoptS (int argc, char *const *argv,$/;"	f
 getopt_data	main/getopt.c	/^static struct _getopt_data getopt_data;$/;"	v	typeref:struct:_getopt_data	file:
@@ -88,6 +105,7 @@ getopt_longGS	main/getopt.c	/^getopt_longGS (int argc, char *const *argv, const 
 getopt_long_onlyGS	main/getopt.c	/^getopt_long_onlyGS (int argc, char *const *argv, const char *options,$/;"	f
 getret	main/mret.c	/^int *getret(mtret ret)$/;"	f
 green	include/slib.h	/^	green=2,$/;"	e	enum:cpfcolors
+has_arg	include/slib.h	/^  int has_arg;$/;"	m	struct:option
 iofile	file/iofile.c	/^OPT int  iofile(FILE *origin,FILE *dest)$/;"	f
 ispn	math/ispn.c	/^OPT int ispn( cul testingnum )$/;"	f
 isrp	math/isrp.c	/^OPT int  isrp (cul n1,cul n2)$/;"	f
@@ -102,9 +120,13 @@ mtreturn	include/slib.h	97;"	d
 mtrt	include/slib.h	/^typedef struct mtrt$/;"	s
 mtscat	string/mtscat.c	/^OPT char *  mtscat(cui amount,...)$/;"	f
 mysh	main/mysh.c	/^OPT int  mysh( ccp path )$/;"	f
+name	include/slib.h	/^  const char *name;$/;"	m	struct:option
+no_argument	include/slib.h	413;"	d
 optarg	main/getopt.c	/^char *optarg;$/;"	v
 opterr	main/getopt.c	/^int opterr = 1;$/;"	v
 optind	main/getopt.c	/^int optind = 1;$/;"	v
+option	include/slib.h	/^struct option$/;"	s
+optional_argument	include/slib.h	415;"	d
 optopt	main/getopt.c	/^int optopt = '?';$/;"	v
 pathsep	include/slib.h	92;"	d
 pathsep	include/slib.h	94;"	d
@@ -115,6 +137,7 @@ purple	include/slib.h	/^	purple=6,$/;"	e	enum:cpfcolors
 randomnum	main/randomnum.c	/^OPT long  randomnum( cui seed,cul maximum,cul minimum )$/;"	f
 red	include/slib.h	/^	red=1,$/;"	e	enum:cpfcolors
 regwndcls	include/slib.h	127;"	d
+required_argument	include/slib.h	414;"	d
 retind	main/mret.c	/^int retind=0;$/;"	v
 rsbl_frame	main/sbl.c	/^OPT int  rsbl_frame(int code)$/;"	f
 ser	main/error.c	/^int ser;$/;"	v
@@ -130,6 +153,7 @@ uschar	include/slib.h	/^typedef unsigned char uschar;$/;"	t
 usint	include/slib.h	/^typedef unsigned int usint;$/;"	t
 uslong	include/slib.h	/^typedef unsigned long uslong;$/;"	t
 val	include/slib.h	/^	int **val;$/;"	m	struct:mtrt
+val	include/slib.h	/^  int val;$/;"	m	struct:option
 varg	include/slib.h	72;"	d
 vend	include/slib.h	73;"	d
 vlist	include/slib.h	/^typedef char * vlist;$/;"	t
