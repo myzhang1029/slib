@@ -192,8 +192,9 @@ int main( int argc, ccp argv[] )	/* 主函数 */
 			char	infix[BUFFERSIZE];
 			fflush( stdin );
 			printf( "输入算式：" );
+			fflush( stdin );
 			fgets( infix, BUFFERSIZE, stdin );
-			printf( "%lf\n", calculate( infix ) );	/*使用sbllib.h中的函数进行计算*/
+			printf( "%lf\n", calculate( infix ) );	/*使用libsbl中的函数进行计算*/
 			break;
 		}
 
