@@ -25,14 +25,13 @@
 
 #include "slib.h"
 
-OPT int  fcopy( ccp oldname, ccp newname ) /* user - sec7 */
+OPT int  fcopy( ccp oldname, ccp newname )
 {
 	FILE * fold, *fnew;
 	fold = fopen( oldname, "rb" );
 	if ( !fold )
 	{
 		serr=1;
-		puts("1");
 		return SERROR;
 	}
 	fnew = fopen( newname, "wb" );
@@ -40,7 +39,6 @@ OPT int  fcopy( ccp oldname, ccp newname ) /* user - sec7 */
 	{
 		serr=1;
 		fclose( fold );
-		puts("2");
 		return SERROR;
 	}
 	iofile( fold,fnew );
