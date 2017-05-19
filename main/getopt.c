@@ -27,7 +27,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <stdio.h>
-#include "getoptS.h"
+#include "slib.h"
 
 #ifdef __cplusplus
 	#define _GETOPT_THROW throw()

@@ -289,3 +289,29 @@ _END_EXTERN_C
 
 #endif/*SBLLIB_VERSION*/
 
+// Standard GNU options
+	#define	no_argument			0	/*Argument Switch Only*/
+	#define required_argument	1	/*Argument Required*/
+	#define optional_argument	2	/*Argument Optional*/	
+
+// Shorter Options
+	#define ARG_NONE	0	/*Argument Switch Only*/
+	#define ARG_REQ		1	/*Argument Required*/
+	#define ARG_OPT		2	/*Argument Optional*/
+
+	extern  int optindGS;
+	extern  int opterrGS;
+	extern  int optoptGS;
+
+	struct optionGS
+	{
+		const char* name;
+		int has_arg;
+		int *flag;
+		int val;
+	};
+	extern  char *optargGS;
+	extern  int getoptGS(int argc, char *const *argv, const char *optstring);
+	extern  int getopt_longGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index);
+	extern  int getopt_long_onlyGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index);
+
