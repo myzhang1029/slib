@@ -27,10 +27,11 @@
 OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 {
 	int stat=1;
-	char *clstr=malloc(sizeof(format)+9);
 	va_list args;
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
+#else
+	char *clstr=malloc(sizeof(format)+9);
 #endif
 	va_start(args,format);
 #if PLAT
