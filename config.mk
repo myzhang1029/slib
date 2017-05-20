@@ -1,5 +1,5 @@
  #
- #  The Make configure file of the slib
+ #  The default Make configure file of the slib
  #
  #  Copyright (C) 2017 Zhang Maiyun
  #
@@ -25,6 +25,8 @@
 CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -I../include -lm 
 CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I../include -lm
 CFLAGS=-Os -shared -fPIC
+
+PREFIX=/usr/bin
 
 CC=gcc
 RM=rm
