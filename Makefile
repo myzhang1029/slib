@@ -58,7 +58,7 @@ install:
 	elif [ -f libsbl.dll ] ; then cp include/slib.h $(PREFIX)/include & cp libsbl.dll $(PREFIX)/lib; fi
  
 clean:
-	-$(RM) libsbl.so *.o */*.o *.a -f 2>/dev/null
+	-$(RM) libsbl.dll libsbl.so *.o */*.o *.a -f 2>/dev/null
 
 tags:
 	ctags -R
