@@ -54,7 +54,8 @@ libsbl.dll:$(FILES)
 	$(CC) $(CFLAGS) *.a -o libsbl.dll
 
 install:
-	if [ -f libsbl.so ] ; then cp include/slib.h /usr/include & cp libsbl.so /usr/lib; elif [ -f libsbl.dll ] ; then cp include/slib.h /usr/include & cp libsbl.dll /usr/lib; fi
+	if [ -f libsbl.so ] ; then cp include/slib.h $(PREFIX)/include & cp libsbl.so $(PREFIX)/lib;\
+	elif [ -f libsbl.dll ] ; then cp include/slib.h $(PREFIX)/include & cp libsbl.dll $(PREFIX)/lib; fi
  
 clean:
 	-$(RM) libsbl.so *.o */*.o *.a -f 2>/dev/null
