@@ -10,8 +10,8 @@ unix:$(TARGET:end=-unix.a)
 
 $(TARGET:end=-win.a):$(CFILES)
 	$(CC) $(CFLAGS-WIN) $^
-	ar rcs ../$(TARGET:end=.a) $(CFILES:.c=.o)
+	$(AR) rcs ../$(TARGET:end=.a) $(CFILES:.c=.o)
 
 $(TARGET:end=-unix.a):$(CFILES)
 	$(CC) $(CFLAGS-UNIX) $^
-	ar rcs ../$(TARGET:end=.a) $(CFILES:.c=.o)
+	$(AR) rcs ../$(TARGET:end=.a) $(CFILES:.c=.o)

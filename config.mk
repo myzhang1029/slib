@@ -27,9 +27,11 @@ CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I../include -lm
 CFLAGS=-Os -shared -fPIC
 
 PREFIX=/usr/local
+TARGET=
 
 CC=gcc
 RM=rm
+AR=ar
 
 FILES=file/fcopy.c file/fsize.c file/iofile.c \
       main/colorprintf.c main/error.c main/getch.c \
