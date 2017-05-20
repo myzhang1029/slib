@@ -26,7 +26,7 @@ CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -I../include -lm
 CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I../include -lm
 CFLAGS=-Os -shared -fPIC
 
-PREFIX=/usr/bin
+PREFIX=/usr/local
 
 CC=gcc
 RM=rm
