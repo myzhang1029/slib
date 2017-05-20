@@ -30,7 +30,7 @@ OPT int  prtpn( FILE*fp, cul minimum, cul maximum )
 	_Bool torf=0;
 	if ( maximum<=2)
 	{
-		serr=2;
+		__set_errno(22);
 		prterr("input not allowed!");
 	}
 

@@ -30,7 +30,7 @@ OPT long  fsize( FILE * stream )
 	long size;
 	if ( !stream )
 	{
-		serr=2;
+		__set_errno(22);
 		return SERROR;
 	}
 	fseek( stream, 0L, SEEK_END );

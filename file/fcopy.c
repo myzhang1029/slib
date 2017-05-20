@@ -30,14 +30,10 @@ OPT int  fcopy( ccp oldname, ccp newname )
 	FILE * fold, *fnew;
 	fold = fopen( oldname, "rb" );
 	if ( !fold )
-	{
-		serr=1;
 		return SERROR;
-	}
 	fnew = fopen( newname, "wb" );
 	if ( !fnew )
 	{
-		serr=1;
 		fclose( fold );
 		return SERROR;
 	}

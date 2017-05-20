@@ -92,11 +92,6 @@ false=0
 
 #define S_INLINE inline
 
-/*serr*/
-#define serr (*_serrloc())
-#define SERR_LIBCALLFAILED 1
-#define SERR_INPUTINVAL 2
-#define SERR_STACKERR 3
 
 /*getoptGS*/
 // Standard GNU options
@@ -296,8 +291,6 @@ OPT uslong  wsbl_frame(int ch);
 
 OPT int  rsbl_frame(int code);
 
-
-OPT int *  _serrloc( void );
 
 
 OPT char* itoaS(int value, char* string, int radix);
