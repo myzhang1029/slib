@@ -30,7 +30,7 @@
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 2
 
-#defile SBLLIB_MINOR 5
+#define SBLLIB_MINOR 5
 
 #include <string.h>
 #include <stdio.h>
@@ -75,19 +75,30 @@
 #define vend(ap)      ( ap = (vlist)0 )
 
 #if PLAT
-#define OPT __declspec(dllexport) /*use in declartions*/
+#define OPT extern __declspec(dllexport) /*use in declartions*/
 #else
-#define OPT
+#define OPT extern
 #endif
 
 
 #define S_INLINE inline
 
-//serr
+/*serr*/
 #define serr (*_serrloc())
 #define SERR_LIBCALLFAILED 1
 #define SERR_INPUTINVAL 2
 #define SERR_STACKERR 3
+
+/*getoptGS*/
+// Standard GNU options
+	#define	no_argument			0	/*Argument Switch Only*/
+	#define required_argument	1	/*Argument Required*/
+	#define optional_argument	2	/*Argument Optional*/	
+
+// Shorter Options
+	#define ARG_NONE	0	/*Argument Switch Only*/
+	#define ARG_REQ		1	/*Argument Required*/
+	#define ARG_OPT		2	/*Argument Optional*/
 
 //seperator for file pathes
 #if PLAT
@@ -142,6 +153,13 @@
 
 _BEGIN_EXTERN_C
 
+/*External variables*/
+extern  int optindGS;
+extern  int opterrGS;
+extern  int optoptGS;
+extern  char *optargGS;
+
+/*Structures, Enums, Unions, typedefs*/
 typedef struct Stack
 {
 	void *base;
@@ -156,6 +174,13 @@ typedef struct mtrt
 	int **val;
 }mtret;
 
+struct optionGS
+{
+	const char* name;
+	int has_arg;
+	int *flag;
+	int val;
+};
 
 enum cpfcolors
 {
@@ -283,6 +308,17 @@ OPT int *getret(mtret ret);
 
 OPT mtret mkret(size_t lenth,...);
 
+OPT int getoptGS(int argc, char *const *argv, const char *optstring);
+
+
+OPT int getopt_longGS(int argc, char *const *argv, const char *options,
+		      const struct optionGS *long_options, int *opt_index);
+
+
+OPT int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
+			   const struct optionGS *long_options, int *opt_index);
+
+
 #if ! PLAT
 OPT int getch(void);
 #endif
@@ -290,30 +326,3 @@ OPT int getch(void);
 _END_EXTERN_C
 
 #endif/*SBLLIB_VERSION*/
-
-// Standard GNU options
-	#define	no_argument			0	/*Argument Switch Only*/
-	#define required_argument	1	/*Argument Required*/
-	#define optional_argument	2	/*Argument Optional*/	
-
-// Shorter Options
-	#define ARG_NONE	0	/*Argument Switch Only*/
-	#define ARG_REQ		1	/*Argument Required*/
-	#define ARG_OPT		2	/*Argument Optional*/
-
-	extern  int optindGS;
-	extern  int opterrGS;
-	extern  int optoptGS;
-
-	struct optionGS
-	{
-		const char* name;
-		int has_arg;
-		int *flag;
-		int val;
-	};
-	extern  char *optargGS;
-	extern  int getoptGS(int argc, char *const *argv, const char *optstring);
-	extern  int getopt_longGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index);
-	extern  int getopt_long_onlyGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index);
-
