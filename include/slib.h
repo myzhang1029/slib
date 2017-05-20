@@ -28,7 +28,9 @@
 
 
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 2.3.2
+#define SBLLIB_VERSION 2
+
+#defile SBLLIB_MINOR 5
 
 #include <string.h>
 #include <stdio.h>
