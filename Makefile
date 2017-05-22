@@ -26,9 +26,9 @@ include config.mk
 
 .PHONY:err unix win install clean all tags dist distvlean
 
+all:$(TARGET)
+
 err:
-	@if [ $(TARGET) = "unix" ] ; then make unix;\
-		elif [ $(TARGET) = "win" ] ; then make win; fi
 	@echo 'Please do make PLATFORM:'
 	@echo '	win:windows, MinGW'
 	@echo '	unix:UNIX, GNU/Linux, BSD'
@@ -65,8 +65,6 @@ clean:
 tags:
 	ctags -R
 
-all:err
-	cd .
 dist:
 	mkdir -p ./usr/lib
 	cp libsbl.so ./usr/lib

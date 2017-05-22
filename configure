@@ -7,7 +7,7 @@ prefix='/usr/local'
 cc="gcc"
 ar="ar"
 rm="rm"
-target=""
+target="err"
 cflags='-Os -shared -fPIC'
 cflags_win='-O2 -DPLAT=1 -Wall -c -I../include -lm'
 cflags_unix='-O2 -DPLAT=0 -Wall -c -I../include -lm'
@@ -21,6 +21,25 @@ files='file/fcopy.c file/fsize.c file/iofile.c \
       stack/initstack.c stack/pop.c stack/push.c \
       string/module.c string/mtscat.c \
       include/slib.h'
+help_me()
+{
+echo '--prefix=prefix:set prefix'
+echo '--cc=complier:set complier,e.g. To cross complie'
+echo '--ar=ar:set libmaker'
+echo '--rm=rm:set remover'
+echo '--extra-cflags=more-cflags:add more-cflags to CFLAGS'
+echo '--enable-static:build static library'
+echo '--target=target:set target(win|unix)'
+echo '--revert:unconfigure'
+echo '--help,-h:display this help info'
+exit 0
+}
+
+revert()
+{
+mv config.mk~ config.mk
+exit 0
+}
 
 for opt do
   eval opt=\"$opt\"
@@ -37,16 +56,18 @@ for opt do
   ;;
   --enable-static) cflags= -c -Os
   ;;
-  --help|-h) show_help="yes"
+  --help|-h) help_me()
   ;;
   --target=*) target=`echo $opt |cut -d '=' -f 2`
+  ;;
+  --revert) revert()
   ;;
   *) echo "configure: WARNING: unrecognized option $opt"
   ;;
   esac
 done
 
-if [[ $target = "" ]] ; then 
+if [ "$target" = "err" ] ; then 
   case `uname` in
   Linux) target=unix
   ;;
