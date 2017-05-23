@@ -81,7 +81,7 @@
 #endif
 
 /*BOOL*/
-#if (!defined(HAVE_BOOL)||defined(__STDC_VERSION__)||__STDC_VERSION__<199901L||!defined(__GNUC__||__GNUC__<5)
+#if (!defined(HAVE_BOOL)||defined(__STDC_VERSION__)||__STDC_VERSION__<199901L||!defined(__GNUC__)||__GNUC__<5)
 typedef enum boolS
 {
 true=1,

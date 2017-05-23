@@ -463,7 +463,7 @@ no_longs:
 		return c;
 	}
 }
-int _getopt_internal (int argc, char *const *argv, const char *optstring, const struct optionGS *longopts, int *longind, int long_only, int posixly_correct)
+static int _getopt_internal (int argc, char *const *argv, const char *optstring, const struct optionGS *longopts, int *longind, int long_only, int posixly_correct)
 {
 	int result;
 	getopt_data.optindGS = optindGS;
@@ -474,24 +474,16 @@ int _getopt_internal (int argc, char *const *argv, const char *optstring, const 
 	optoptGS = getopt_data.optoptGS;
 	return result;
 }
-int getopt (int argc, char *const *argv, const char *optstring) _GETOPT_THROW
+int getoptGS (int argc, char *const *argv, const char *optstring) _GETOPT_THROW
 {
 	return _getopt_internal (argc, argv, optstring, (const struct optionGS *) 0, (int *) 0, 0, 0);
 }
-int getopt_long (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index) _GETOPT_THROW
+int getopt_longGS (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index) _GETOPT_THROW
 {
 	return _getopt_internal (argc, argv, options, long_options, opt_index, 0, 0);
 }
-int getopt_long_only (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index) _GETOPT_THROW
+int getopt_long_onlyGS (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index) _GETOPT_THROW
 {
 	return _getopt_internal (argc, argv, options, long_options, opt_index, 1, 0);
-}
-int _getopt_long_r (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index, struct _getopt_data *d)
-{
-	return _getopt_internal_r (argc, argv, options, long_options, opt_index,0, d, 0);
-}
-int _getopt_long_only_r (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index, struct _getopt_data *d)
-{
-	return _getopt_internal_r (argc, argv, options, long_options, opt_index, 1, d, 0);
 }
 

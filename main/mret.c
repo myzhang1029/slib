@@ -32,10 +32,7 @@ mtret mkret(size_t lenth,...)
 	int count=0;
 	va_list args;
 	if(elems==NULL)
-	{
-		serr=1;
 		return mnull;
-	}
 	va_start(args,lenth);
 
 	ret.lenth=lenth;
