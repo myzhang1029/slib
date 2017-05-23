@@ -23,21 +23,70 @@ files='file/fcopy.c file/fsize.c file/iofile.c \
       include/slib.h'
 help_me()
 {
-echo '--prefix=prefix:set prefix'
-echo '--cc=complier:set complier,e.g. To cross complie'
-echo '--ar=ar:set libmaker'
-echo '--rm=rm:set remover'
-echo '--extra-cflags=more-cflags:add more-cflags to CFLAGS'
-echo '--enable-static:build static library'
-echo '--target=target:set target(win|unix)'
-echo '--revert:unconfigure'
-echo '--help,-h:display this help info'
-exit 0
+	echo 'Usage: configure [option][=vaule]'
+	echo ''
+	echo 'Options:'
+	echo '	--prefix=prefix:Set prefix;'
+	echo '	--cc=complier:Set complier.(Must support -Dmacro=vaule, -c, -Iinclude, -llibrary, -Wall, -O2) e.g. To cross complie;'
+	echo '	--ar=ar:Set libmaker.(Should support "rcs" option);'
+	echo '	--rm=rm:Set remover(Should support "-f" option);'
+	echo '	--extra-cflags=more-cflags:add more-cflags to "CFLAGS";'
+	echo '	--target=target:Set target(win|unix), not like "i686-linux-gnu";'
+	echo '	--revert:Unconfigure;'
+	echo '	--help,-h:Display this help information.'
+	echo 'Project maintained by Zhang Maiyun <myzhang1029@163.com>.'
+	exit 0
 }
 
 revert()
 {
-mv config.mk~ config.mk
+echo ' #
+ #  The default Make configure file of the slib
+ #
+ #  Copyright (C) 2017 Zhang Maiyun
+ #
+ # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ #
+ #  This file is part of the slib.
+ #  The slib  is free software; you can redistribute it and/or modify
+ #  it under the terms of the GNU Lesser General Public License as published by
+ #  the Free Software Foundation; either version 3 of the License, or
+ #  (at your option) any later version.
+ #
+ #  This program is distributed in the hope that it will be useful,
+ #  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ #  GNU Lesser General Public License for more details.
+ #
+ #  You should have received a copy of the GNU Lesser General Public License
+ #  along with this program; if not, write to the Free Software
+ #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ #
+ #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -I../include -lm 
+CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I../include -lm
+CFLAGS=-Os -shared -fPIC
+
+PREFIX=/usr/local
+TARGET=err
+
+CC=gcc
+RM=rm
+AR=ar
+
+FILES=file/fcopy.c file/fsize.c file/iofile.c \
+      main/colorprintf.c main/error.c main/getch.c \
+      main/itoa.c main/mysh.c main/randomnum.c\
+      main/sbl.c main/mret.c main/getopt.c\
+      math/average.c math/calc.c math/eular.c math/gcf.c math/ispn.c\
+      math/isrp.c math/lcm.c math/prtpn.c \
+      stack/clearstack.c stack/destorystack.c stack/getlen.c \
+      stack/initstack.c stack/pop.c stack/push.c \
+      string/module.c string/mtscat.c \
+      include/slib.h
+' > config.mk
+rm config.mk~
 exit 0
 }
 
@@ -56,11 +105,11 @@ for opt do
   ;;
   --enable-static) cflags= -c -Os
   ;;
-  --help|-h) help_me()
+  --help|-h) help_me
   ;;
   --target=*) target=`echo $opt |cut -d '=' -f 2`
   ;;
-  --revert) revert()
+  --revert) revert
   ;;
   *) echo "configure: WARNING: unrecognized option $opt"
   ;;
@@ -69,7 +118,7 @@ done
 
 if [ "$target" = "err" ] ; then 
   case `uname` in
-  Linux) target=unix
+  Linux|*BSD) target=unix
   ;;
   MINGW*|MSYS*|CYGWIN*) target=win
   ;;
@@ -78,6 +127,7 @@ if [ "$target" = "err" ] ; then
 fi
 
 if [ -f config.mk ] ; then
+echo configure:Backup config
 mv config.mk config.mk~
 fi
 
@@ -89,5 +139,5 @@ echo CFLAGS=`echo $cflags`>>config.mk
 echo CFLAGS-WIN=`echo $cflags_win`>>config.mk
 echo CFLAGS-UNIX=`echo $cflags_unix`>>config.mk
 echo TARGET=`echo $target`>>config.mk
-echo configure:generated config.mk
+echo configure:Generated config.mk
 

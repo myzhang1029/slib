@@ -45,16 +45,16 @@ libsbl.so:$(FILES)
 	make -C math unix
 	make -C stack unix
 	make -C string unix
-	$(CC) $(CFLAGS) *.a -o libsbl.so
-	
+	$(CC) $(CFLAGS) */*.o -o libsbl.so
+	$(AR) rcs ./libsbl.a */*.o 
 libsbl.dll:$(FILES)
 	make -C file win
 	make -C main win
 	make -C math win
 	make -C stack win
 	make -C string win
-	$(CC) $(CFLAGS) *.a -o libsbl.dll
-
+	$(CC) $(CFLAGS) */*.o -o libsbl.dll
+	$(AR) rcs ./libsbl.a */*.o
 install:
 	if [ -f libsbl.so ] ; then cp include/slib.h $(PREFIX)/include & cp libsbl.so $(PREFIX)/lib;\
 	elif [ -f libsbl.dll ] ; then cp include/slib.h $(PREFIX)/include & cp libsbl.dll $(PREFIX)/lib; fi
