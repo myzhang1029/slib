@@ -1,6 +1,8 @@
 CC=gcc
 RM=rm
 CFLAGS=-lm -O2 -Wall -L. -lsbl -Islib/include
+
+.PHONY:err unix win clean
 err:
 	@echo 'Please do make PLATFORM:'
 	@echo '	win:Windows, MinGW'
@@ -17,7 +19,7 @@ admin.exe:admin.c
 		echo If not, please do 'git submodule init&&git submodule update';\
 	exit 1;\
 	fi
-	cd slib;make win 
+	make -C slib win 
 	cp slib/libsbl.dll .
 	$(CC) admin.c -o admin $(CFLAGS) -DPLAT=1
 
@@ -28,8 +30,8 @@ admin:admin.c
 		echo If not, please do 'git submodule init&&git submodule update';\
 	exit 1;\
 	fi
-	cd slib;make unix
+	make -C slib unix
 	cp slib/libsbl.so .
 	$(CC) admin.c -o admin $(CFLAGS) -DPLAT=0
-.PHONY:clean
+clean:
 	$(RM) *.o
