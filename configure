@@ -9,8 +9,8 @@ ar="ar"
 rm="rm"
 target="err"
 cflags='-Os -shared -fPIC'
-cflags_win='-O2 -DPLAT=1 -Wall -c -I../include -lm'
-cflags_unix='-O2 -DPLAT=0 -Wall -c -I../include -lm'
+cflags_win='-O2 -DPLAT=1 -Wall -c -pedantic -I../include -lm'
+cflags_unix='-O2 -DPLAT=0 -Wall -c -pedantic  -I../include -lm'
 files='file/fcopy.c file/fsize.c file/iofile.c \
       main/colorprintf.c main/error.c main/getch.c \
       main/itoa.c main/mysh.c main/randomnum.c\
@@ -64,8 +64,8 @@ echo ' #
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -I../include -lm 
-CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -I../include -lm
+CFLAGS-WIN=-O2 -DPLAT=1 -Wall -c -pedantic -I../include -lm 
+CFLAGS-UNIX=-O2 -DPLAT=0 -Wall -c -pedantic -I../include -lm
 CFLAGS=-Os -shared -fPIC
 
 PREFIX=/usr/local
@@ -101,9 +101,7 @@ for opt do
   ;;
   --rm=*) rm=`echo $opt | cut -d '=' -f 2`
   ;;
-  --extra-cflags=*) cflags-win=$cflags-win `echo $opt | cut -d '=' -f 2`
-  ;;
-  --enable-static) cflags= -c -Os
+  --extra-cflags=*) cflags_win="$cflags_win `echo $opt | cut -d '=' -f 2`"; cflags_unix="$cflags_unix `echo $opt | cut -d '=' -f 2`"
   ;;
   --help|-h) help_me
   ;;
