@@ -24,7 +24,7 @@
  */
 #include "slib.h"
 
-OPT uslong  wsbl_frame(int ch)
+OPT unsigned long  wsbl_frame(int ch)
 {
 	switch ( tolower(ch) )
 	{

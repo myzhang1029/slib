@@ -26,7 +26,7 @@
 
 OPT int ispn( unsigned long testingnum )
 {
-	long i;
+	unsigned long i;
 	if( testingnum == 2)
 		return STRUE;
 	if( testingnum == 2)

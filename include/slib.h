@@ -241,16 +241,16 @@ OPT int  mysh( ccp path );	/*自定义shell程序*/
 D_UNSTABLE OPT int  fcopy( ccp oldname, ccp newname );      /*文件复制函数*/
 
 
-OPT int  prtpn( FILE *fp, unsigned long minimum, unsigned long maximum );	/*输出指定范围内的质数*/
+OPT void  prtpn( FILE *fp, unsigned long minimum, unsigned long maximum );	/*输出指定范围内的质数*/
 
 
 OPT int  ispn( unsigned long testingnum );
 
 
-OPT long  randomnum( unsigned seed,unsigned long maximum,unsigned long minimum );
+OPT unsigned long  randomnum( unsigned seed,unsigned long maximum,unsigned long minimum );
 
 
-OPT int  isrp(unsigned long n1,unsigned long n2);
+OPT int  isrp(unsigned n1,unsigned n2);
 
 
 OPT char *  mtscat(unsigned amount,...);
@@ -280,7 +280,7 @@ D_TESTING OPT int getmname(ccp fullpath,char *mname);
 D_TESTING OPT int getmpath(ccp fullpath,char *mpath);
 
 
-OPT uslong  wsbl_frame(int ch);
+OPT unsigned long  wsbl_frame(int ch);
 
 
 OPT int  rsbl_frame(int code);

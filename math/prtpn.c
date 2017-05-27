@@ -24,9 +24,9 @@
  */
 #include "slib.h"
 
-OPT int  prtpn( FILE*fp, cul minimum, cul maximum )
+OPT void  prtpn( FILE*fp, unsigned long minimum, unsigned long maximum )
 {
-	long n=0,i=0;
+	unsigned long n=0,i=0;
 	_Bool torf=0;
 	if ( maximum<=2)
 	{
@@ -44,7 +44,7 @@ OPT int  prtpn( FILE*fp, cul minimum, cul maximum )
 				torf = 1;
 			else
 			{
-				torf =0;
+					torf =0;
 				break;
 			}
 		}
@@ -53,8 +53,5 @@ OPT int  prtpn( FILE*fp, cul minimum, cul maximum )
 			fprintf(fp,"%lu\n",n);
 		}
 	}
-	return STRUE;
 }
-
-
 

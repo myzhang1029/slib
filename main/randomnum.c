@@ -24,7 +24,7 @@
  */
 #include "slib.h"
 
-OPT long  randomnum( cui seed,cul maximum,cul minimum )
+OPT unsigned long randomnum( unsigned seed,unsigned long maximum,unsigned long minimum )
 {
 	srand(seed);
 	return minimum + rand() % (maximum-minimum);

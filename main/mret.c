@@ -23,8 +23,8 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
-int retind=0;
-
+unsigned retind=0;
+	
 mtret mkret(size_t lenth,...)
 {
 	mtret ret,mnull={0,NULL};
