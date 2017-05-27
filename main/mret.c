@@ -36,7 +36,7 @@ mtret mkret(size_t lenth,...)
 	va_start(args,lenth);
 
 	ret.lenth=lenth;
-	for(;count<lenth;++count)
+	for(;count<(int)lenth;++count)
 	{
 		elems[count]=va_arg(args,int*);
 	}

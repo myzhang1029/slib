@@ -24,11 +24,11 @@
  */
 #include "slib.h"
 
-OPT char *  mtscat(cui amount,...)
+OPT char *  mtscat(unsigned amount,...)
 {
 	vlist strs;
 	char *str;
-	int count;
+	count_t count;
 	vstart (strs,amount);
 	str=varg(strs,char*);
 	for(count=0; count<=amount-1; ++count)

@@ -24,7 +24,7 @@
  */
 #include "slib.h"
 
-OPT int lcm(cui n1,cui n2)
+OPT int lcm(unsigned n1,unsigned n2)
 {
 	return n1*n2/gcf(n1,n2);
 }

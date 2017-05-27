@@ -24,7 +24,7 @@
  */
 #include "slib.h"
 
-OPT int gcf(cui n1,cui n2)
+OPT int gcf(unsigned n1,unsigned n2)
 {
 	unsigned a=n1,b=n2,c=0;
 	if(n1==0||n2==0) return SERROR;

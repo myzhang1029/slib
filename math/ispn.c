@@ -24,7 +24,7 @@
  */
 #include "slib.h"
 
-OPT int ispn( cul testingnum )
+OPT int ispn( unsigned long testingnum )
 {
 	long i;
 	if( testingnum == 2)

@@ -23,9 +23,9 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-
-//#pragma once
-
+#if defined (_MSC_VER)&&_MSC_VER>=100
+#pragma once
+#endif
 
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 2
@@ -50,12 +50,12 @@
 #include <unistd.h>
 #endif
 
-#ifndef _CRT_SECURE_NO_WARNINGS //for MSVC compiling envirment
+#ifndef _CRT_SECURE_NO_WARNINGS /*for MSVC compiling envirment*/
 #define _CRT_SECURE_NO_WARNINGS
 #endif
-#undef _CRT_NONSTDC_NO_WARINGS
+#undef _CRT_NONSTDC_NO_WARNINGS
 
-#ifndef NULL //give default definition for NULL
+#ifndef NULL //*give default definition for NULL*/
 #define NULL (void*)0
 #endif
 
@@ -63,11 +63,11 @@
 #define __set_errno(x) errno=x
 #endif
 
-#define STRUE 1 //status
+#define STRUE 1 /*status*/
 #define SFALSE 0
 #define SERROR -1
-#define STKELMT 100 //Stack max. element count 
-#define BUFFERSIZE 100  //Stack buffer size
+#define STKELMT 100 /*Stack max. element count*/ 
+#define BUFFERSIZE 100  /*Stack buffer size*/
 
 #define _INTSZOF(n)   ( (sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )//a copy of stdarg.h
 #define vstart(ap,v)  ( ap = (vlist)&v + _INTSZOF(v) )
@@ -94,17 +94,17 @@ false=0
 
 
 /*getoptGS*/
-// Standard GNU options
+/* Standard GNU options*/
 	#define	no_argument			0	/*Argument Switch Only*/
 	#define required_argument	1	/*Argument Required*/
 	#define optional_argument	2	/*Argument Optional*/	
 
-// Shorter Options
+/* Shorter Options*/
 	#define ARG_NONE	0	/*Argument Switch Only*/
 	#define ARG_REQ		1	/*Argument Required*/
 	#define ARG_OPT		2	/*Argument Optional*/
 
-//seperator for file pathes
+/*seperator for file pathes*/
 #if PLAT
 #define pathsep '\\'
 #else
@@ -113,7 +113,7 @@ false=0
 
 #define mtreturn(lenth,...) return mkret(lenth,__VA_ARGS__)
 
-//debugger
+/*debugger*/
 #define D_STABLE 
 #define D_UNSTABLE
 #define D_TESTING
@@ -192,28 +192,22 @@ enum cpfcolors
 	green=2,
 	yellow=3,
 	black=4,
-	blue=5,
+		blue=5,
 	purple=6,
 };
 
-
-typedef const unsigned int cui;//type aliases
-
 typedef const char * const ccp;
 
-typedef const unsigned long cul;
 
 typedef char * vlist;
 
-typedef unsigned int usint;
 
-typedef unsigned long uslong;
-
-typedef unsigned char uschar;
-	
 typedef char * String;
 
-//declation start
+
+typedef unsigned count_t;
+
+/*declation start*/
 OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize);
 
 
@@ -247,19 +241,19 @@ OPT int  mysh( ccp path );	/*自定义shell程序*/
 D_UNSTABLE OPT int  fcopy( ccp oldname, ccp newname );      /*文件复制函数*/
 
 
-OPT int  prtpn( FILE *fp, cul minimum, cul maximum );	/*输出指定范围内的质数*/
+OPT int  prtpn( FILE *fp, unsigned long minimum, unsigned long maximum );	/*输出指定范围内的质数*/
 
 
-OPT int  ispn( cul testingnum );
+OPT int  ispn( unsigned long testingnum );
 
 
-OPT long  randomnum( cui seed,cul maximum,cul minimum );
+OPT long  randomnum( unsigned seed,unsigned long maximum,unsigned long minimum );
 
 
-OPT int  isrp(cul n1,cul n2);
+OPT int  isrp(unsigned long n1,unsigned long n2);
 
 
-OPT char *  mtscat(cui amount,...);
+OPT char *  mtscat(unsigned amount,...);
 
 
 D_UNSTABLE OPT int  iofile(FILE  *origin,FILE *dest);
@@ -268,16 +262,16 @@ D_UNSTABLE OPT int  iofile(FILE  *origin,FILE *dest);
 OPT int  prtfile(FILE *stream);
 
 
-OPT double  average(cui amt,...);
+OPT double  average(unsigned amt,...);
 
 
-OPT int  gcf(cui n1,cui n2);
+OPT int  gcf(unsigned n1,unsigned n2);
 
 
-OPT int  lcm(cui n1,cui n2);
+OPT int  lcm(unsigned n1,unsigned n2);
 
 
-OPT int  eular(cui n);
+OPT int  eular(unsigned n);
 
 
 D_TESTING OPT int getmname(ccp fullpath,char *mname);

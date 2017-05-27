@@ -24,10 +24,10 @@
  */
 #include "slib.h"
 
-OPT double average(cui amt,...)
+OPT double average(size_t amt,...)
 {
 	vlist args;
-	int count;
+	count_t count;
 	double sum=0.0;
 	vstart(args,amt);
 	for(count=0; count<amt; ++count)

@@ -24,9 +24,10 @@
  */
 #include "slib.h"
 
-OPT int eular(cui n)
+OPT int eular(unsigned n)
 {
-	int count,result=0;
+	count_t count;
+	unsigned result=0;
 	for(count=0; count<n; ++count)
 	{
 		if(isrp(n,count))
