@@ -9,8 +9,8 @@ ar="ar"
 rm="rm"
 target="err"
 cflags='-Os -shared -fPIC'
-cflags_win='-O2 -DPLAT=1 -W -Wall -c -I../include -lm'
-cflags_unix='-O2 -DPLAT=0 -W -Wall -c  -I../include -lm'
+cflags_win='-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm'
+cflags_unix='-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm'
 files='file/fcopy.c file/fsize.c file/iofile.c \
       main/colorprintf.c main/error.c main/getch.c \
       main/itoa.c main/mysh.c main/randomnum.c\
@@ -27,7 +27,7 @@ help_me()
 	echo ''
 	echo 'Options:'
 	echo '	--prefix=prefix:Set prefix;'
-	echo '	--cc=complier:Set complier.(Must support -Dmacro=vaule, -c, -Iinclude, -llibrary, -Wall, -O2) e.g. To cross complie;'
+	echo '	--cc=complier:Set complier.(Must support -Dmacro=vaule, -c, -Iinclude, -llibrary, -W, -On, -pedantic) e.g. To cross complie;'
 	echo '	--ar=ar:Set libmaker.(Should support "rcs" option);'
 	echo '	--rm=rm:Set remover(Should support "-f" option);'
 	echo '	--extra-cflags=more-cflags:add more-cflags to "CFLAGS";'
@@ -64,8 +64,8 @@ echo ' #
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CFLAGS-WIN=-O2 -DPLAT=1 -W -Wall -c  -I../include -lm 
-CFLAGS-UNIX=-O2 -DPLAT=0 -W -Wall -c -I../include -lm
+CFLAGS-WIN=-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c  -I../include -lm 
+CFLAGS-UNIX=-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm
 CFLAGS=-Os -shared -fPIC
 
 PREFIX=/usr/local

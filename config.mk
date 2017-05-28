@@ -22,8 +22,8 @@
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CFLAGS-WIN=-O2 -DPLAT=1 -W -Wall -c  -I../include -lm 
-CFLAGS-UNIX=-O2 -DPLAT=0 -W -Wall -c -I../include -lm
+CFLAGS-WIN=-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c  -I../include -lm 
+CFLAGS-UNIX=-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm
 CFLAGS=-Os -shared -fPIC
 
 PREFIX=/usr/local

@@ -40,10 +40,8 @@ mtret mkret(size_t lenth,...)
 	{
 		elems[count]=va_arg(args,int*);
 	}
-	//memmove(elems,ret.val,sizeof(int*)*lenth);
 	ret.val=elems;
 	va_end(args);
-	//free(elems);
 	elems=NULL;
 	return ret;
 }

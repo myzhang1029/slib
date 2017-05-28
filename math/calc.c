@@ -31,8 +31,8 @@ static int InfixToPostfix(char *infix,char *postfix); /*将中缀表达式转换
 OPT double calculate(ccp infix)
 {
   char postfix[BUFFERSIZE]={'\0'}; 
-  InfixToPostfix((char *)infix,postfix); 
   double result;
+  InfixToPostfix((char *)infix,postfix); 
   Calculate(postfix,&result); 
   return result;
 }
@@ -46,37 +46,37 @@ postfix 指向后缀表达式临时缓冲区，用来存放转换后的结果。
 static int InfixToPostfix(char *infix,char *postfix)
 {
   sqStack s;
-  if(InitStack(&s,STKELMT*sizeof(char),sizeof(char))==SERROR)
-		prterr("InfixToPostfix init stack error！");
   char c,e;
   int j=0,i=0;
+  if(InitStack(&s,STKELMT*sizeof(char),sizeof(char))==SERROR)
+		prterr("InfixToPostfix init stack error！");
   c=*(infix+i); /*取出中缀表达式中的第一个字符*/
   i++;
-  while('\n'!=c) //遇到换行符，表示转换结束
+  while('\n'!=c) /*遇到换行符，表示转换结束*/
     {
-       while(c>='0'&&c<='9') //先判断一下取出的字符是否是数字，如果是数字的话，则直接存入postfix数组
+       while(c>='0'&&c<='9') /*先判断一下取出的字符是否是数字，如果是数字的话，则直接存入postfix数组*/
 		{ 
 		  postfix[j++]=c;
 		  c=*(infix+i);
 		  i++;
-		  if(c<'0'||c>'9') //如果不是数字，则在后面添加空格，以便区分各个符号
+		  if(c<'0'||c>'9') /*如果不是数字，则在后面添加空格，以便区分各个符号*/
 			{
 			postfix[j++]=' ';
 			}
 		}
-      if(')'==c) //不是数字，则判断是否为右括号。[括号的优先级最高，所以，如果是右括号的话，就得先进行括号里的各种运算]
+      if(')'==c) /*不是数字，则判断是否为右括号。[括号的优先级最高，所以，如果是右括号的话，就得先进行括号里的各种运算]*/
 		{
 		  Pop(&s,(void*)&e);
-		  while('('!=e) //直到遇到左括号为止
+		  while('('!=e) /*直到遇到左括号为止*/
 			{
 			  postfix[j++]=e;
 			  postfix[j++]=' ';
 			  Pop(&s,(void*)&e);
 			}
 		}
-      else if('+'==c||'-'==c) //如果是加减号,因为他俩的优先级最低了，所以此时先将栈里的所有符号出栈后(除非遇到左括号)，再把此符号入栈
+      else if('+'==c||'-'==c) /*如果是加减号,因为他俩的优先级最低了，所以此时先将栈里的所有符号出栈后(除非遇到左括号)，再把此符号入栈*/
 		{
-		  if(!GetLen(&s)) //如果是空栈，则直接将加减号入栈
+		  if(!GetLen(&s)) /*如果是空栈，则直接将加减号入栈*/
 			{
 			  Push(&s,(void*)&c);
 			}
@@ -94,27 +94,26 @@ static int InfixToPostfix(char *infix,char *postfix)
 					  postfix[j++]=e;
 					  postfix[j++]=' ';
 					}
-				}while(GetLen(&s)&&'('!=e);  //将栈里的所有符号出栈(除非遇到左括号)
-			  Push(&s,(void*)&c); //最后将新来的加减号再入栈
+				}while(GetLen(&s)&&'('!=e);  /*将栈里的所有符号出栈(除非遇到左括号)*/
+			  Push(&s,(void*)&c); /*最后将新来的加减号再入栈*/
 			}
 		}
-      else if('*'==c||'/'==c||'('==c||'^'==c) //如果是乘除号,^或左括号，因为他们的优先级高，所以直接入栈。
+      else if('*'==c||'/'==c||'('==c||'^'==c) /*如果是乘除号,^或左括号，因为他们的优先级高，所以直接入栈。*/
 		{
 		  Push(&s,(void*)&c);
 		}
-      else if('\n'==c) //判断一下，所有符号是否都已转换完成
+      else if('\n'==c) /*判断一下，所有符号是否都已转换完成*/
 		{
 		  break;
 		}
-      else //能走到这个else的，都是我不认识的符号了
+      else /*能走到这个else的，都是我不认识的符号了*/
 		{
-		  // printf("\nError:input error,the character %d cann't recognize!\n",c);
 		  return -1;
 		}
-      c=*(infix+i); //取出下一个字符进行转换
+      c=*(infix+i); /*取出下一个字符进行转换*/
       i++;
     }
-  while(GetLen(&s)) //转换完成后，栈里可能还有没出栈的运算符号
+  while(GetLen(&s)) /*转换完成后，栈里可能还有没出栈的运算符号*/
     {
       Pop(&s,(void*)&e);
       postfix[j++]=e;
@@ -132,10 +131,9 @@ result 保存计算完毕后的结果
 */
 static int Calculate(char *arr,void *result)
 {
-  // printf("%s\n",arr);
-  double d,e,f; //d,e 存放两个因数。f存放d,e计算后的结果.
+  double d,e,f; /*d,e 存放两个因数。f存放d,e计算后的结果.*/
   sqStack s; 
-  char *op; //存放后缀表达式中的每个因数或运算符
+  char *op; /*存放后缀表达式中的每个因数或运算符*/
   char *buf=arr; 
   if(InitStack(&s,STKELMT*sizeof(double),sizeof(double))==SERROR)
 		prterr("Calculate init stack error!");
@@ -175,7 +173,7 @@ static int Calculate(char *arr,void *result)
 		  Push(&s,&f);
 		  break;
 		default:
-		  d=atof(op); //不是运算符，就肯定是因数了。所以，用atof函数，将字符串转换为double类型
+		  d=atof(op); /*不是运算符，就肯定是因数了。所以，用atof函数，将字符串转换为double类型*/
 		  Push(&s,&d);
 		  break;
 		}      

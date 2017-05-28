@@ -192,8 +192,8 @@ enum cpfcolors
 	green=2,
 	yellow=3,
 	black=4,
-		blue=5,
-	purple=6,
+	blue=5,
+	purple=6
 };
 
 typedef const char * const ccp;
