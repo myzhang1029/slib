@@ -65,11 +65,4 @@ clean:
 tags:
 	ctags -R
 
-dist:
-	mkdir -p ./usr/lib
-	cp libsbl.so ./usr/lib
-	tar zcvf libsbl-version.tar.gz usr
-	rm -rf usr
-
-distclean:
-	-rm libsbl-*.tar.gz	
+dist:;echo ENOSYS
