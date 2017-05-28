@@ -55,7 +55,7 @@
 #endif
 #undef _CRT_NONSTDC_NO_WARNINGS
 
-#ifndef NULL //*give default definition for NULL*/
+#ifndef NULL /*give default definition for NULL*/
 #define NULL (void*)0
 #endif
 
@@ -69,7 +69,7 @@
 #define STKELMT 100 /*Stack max. element count*/ 
 #define BUFFERSIZE 100  /*Stack buffer size*/
 
-#define _INTSZOF(n)   ( (sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )//a copy of stdarg.h
+#define _INTSZOF(n)   ( (sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )/*a copy of stdarg.h*/
 #define vstart(ap,v)  ( ap = (vlist)&v + _INTSZOF(v) )
 #define varg(ap,t)    ( *(t *)((ap += _INTSZOF(t)) - _INTSZOF(t)) )
 #define vend(ap)      ( ap = (vlist)0 )
@@ -226,7 +226,7 @@ OPT int  DestroyStack(sqStack *s);
 OPT int  GetLen(sqStack *s); 
 
 
-OPT int  prterr(ccp fmt,...);//自定义错误处理函数
+OPT int  prterr(ccp fmt,...);
 
 
 OPT double  calculate( ccp infix );
