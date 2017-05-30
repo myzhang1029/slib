@@ -56,15 +56,16 @@ libsbl.dll:$(FILES)
 	$(CC) $(CFLAGS) */*.o -o libsbl.dll
 	$(AR) rcs ./libsbl.a */*.o
 install:
+	install -c -m 644 include/slib.h $(PREFIX)/include
+	install -c -m 644 libsbl.a $(PREFIX)/lib
 	if [ -f libsbl.so ] ;\
-	then cp include/slib.h $(PREFIX)/include \
-	& cp libsbl.so $(PREFIX)/lib; \
+	then\
+	install -c -m 644 libsbl.so $(PREFIX)/lib\
 	elif [ -f libsbl.dll ] ;\
-	then cp include/slib.h $(PREFIX)/include \
-	& cp libsbl.dll $(PREFIX)/lib;\
+	then\
+	install -c -m 644 lbsbl.dll $(PREFIC)/lib\
 	fi
-	cp libsbl.a $(PREFIX)/lib
- 
+
 clean:
 	-$(RM) libsbl.dll libsbl.so *.o */*.o *.a -f 2>/dev/null
 
