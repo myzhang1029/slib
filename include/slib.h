@@ -30,7 +30,7 @@
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 2
 
-#define SBLLIB_MINOR 5
+#define SBLLIB_MINOR 6
 
 #include <string.h>
 #include <stdio.h>
@@ -69,10 +69,6 @@
 #define STKELMT 100 /*Stack max. element count*/ 
 #define BUFFERSIZE 100  /*Stack buffer size*/
 
-#define _INTSZOF(n)   ( (sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )/*a copy of stdarg.h*/
-#define vstart(ap,v)  ( ap = (vlist)&v + _INTSZOF(v) )
-#define varg(ap,t)    ( *(t *)((ap += _INTSZOF(t)) - _INTSZOF(t)) )
-#define vend(ap)      ( ap = (vlist)0 )
 
 #if PLAT
 #define OPT extern __declspec(dllexport) /*use in declartions*/
@@ -197,9 +193,6 @@ enum cpfcolors
 };
 
 typedef const char * const ccp;
-
-
-typedef char * vlist;
 
 
 typedef char * String;

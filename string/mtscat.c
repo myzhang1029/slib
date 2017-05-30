@@ -29,13 +29,13 @@ OPT char *  mtscat(unsigned amount,...)
 	vlist strs;
 	char *str;
 	count_t count;
-	vstart (strs,amount);
-	str=varg(strs,char*);
+	va_start (strs,amount);
+	str=va_arg(strs,char*);
 	for(count=0; count<=amount-1; ++count)
 	{
-		strcat(str,varg(strs,char*));
+		strcat(str,va_arg(strs,char*));
 	}
-	vend(strs);
+	va_end(strs);
 	return str;
 }
 

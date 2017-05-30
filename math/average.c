@@ -26,15 +26,15 @@
 
 OPT double average(size_t amt,...)
 {
-	vlist args;
+	va_list args;
 	count_t count;
 	double sum=0.0;
-	vstart(args,amt);
+	va_start(args,amt);
 	for(count=0; count<amt; ++count)
 	{
-		sum+=varg(args,double);
+		sum+=va_arg(args,double);
 	}
-	vend(args);
+	va_end(args);
 	return (sum/amt);
 }
 

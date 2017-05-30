@@ -27,13 +27,13 @@
 
 OPT int  prterr(ccp fmt,... )
 {
-	vlist argptr;
-	vstart(argptr, fmt);
+	va_list argptr;
+	va_start(argptr, fmt);
 	fprintf(stderr,"Error:");
 	vfprintf(stderr,fmt,argptr);
 	if(errno != 0)
 		fprintf(stderr,"errcode:%d,more facts:%s\n",errno,strerror(errno));
-	vend(argptr);
+	va_end(argptr);
 	return STRUE;
 }
 
