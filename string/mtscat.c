@@ -26,7 +26,7 @@
 
 OPT char *  mtscat(unsigned amount,...)
 {
-	vlist strs;
+	va_list strs;
 	char *str;
 	count_t count;
 	va_start (strs,amount);
