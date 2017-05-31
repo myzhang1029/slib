@@ -22,8 +22,8 @@
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CFLAGS-WIN=-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c  -I../include -lm 
-CFLAGS-UNIX=-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm
+CFLAGS-WIN=-O2 -DPLAT=1 -W -Wall -Wno-variadic-macros -c  -I../include -lm 
+CFLAGS-UNIX=-O2 -DPLAT=0 -W -Wall -Wno-variadic-macros -c -I../include -lm
 CFLAGS=-Os -shared -fPIC
 
 PREFIX=/usr/local
@@ -32,15 +32,4 @@ TARGET=err
 CC=gcc
 RM=rm
 AR=ar
-
-FILES=file/fcopy.c file/fsize.c file/iofile.c \
-      main/colorprintf.c main/error.c main/getch.c \
-      main/itoa.c main/mysh.c main/randomnum.c\
-      main/sbl.c main/mret.c main/getopt.c\
-      math/average.c math/calc.c math/eular.c math/gcf.c math/ispn.c\
-      math/isrp.c math/lcm.c math/prtpn.c \
-      stack/clearstack.c stack/destorystack.c stack/getlen.c \
-      stack/initstack.c stack/pop.c stack/push.c \
-      string/module.c string/mtscat.c \
-      include/slib.h
 

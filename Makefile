@@ -39,7 +39,7 @@ unix:libsbl.so
 win:libsbl.dll
 
 
-libsbl.so:$(FILES)
+libsbl.so:
 	make -C file unix
 	make -C main unix
 	make -C math unix
@@ -47,7 +47,7 @@ libsbl.so:$(FILES)
 	make -C string unix
 	$(CC) $(CFLAGS) */*.o -o libsbl.so
 	$(AR) rcs ./libsbl.a */*.o 
-libsbl.dll:$(FILES)
+libsbl.dll:
 	make -C file win
 	make -C main win
 	make -C math win
@@ -56,14 +56,12 @@ libsbl.dll:$(FILES)
 	$(CC) $(CFLAGS) */*.o -o libsbl.dll
 	$(AR) rcs ./libsbl.a */*.o
 install:
-	install -c -m 644 include/slib.h $(PREFIX)/include
-	install -c -m 644 libsbl.a $(PREFIX)/lib
-	if [ -f libsbl.so ] ;\
-	then\
-	install -c -m 644 libsbl.so $(PREFIX)/lib\
-	elif [ -f libsbl.dll ] ;\
-	then\
-	install -c -m 644 lbsbl.dll $(PREFIC)/lib\
+	install -c include/slib.h $(PREFIX)/include
+	install -c libsbl.a $(PREFIX)/lib
+	if [ -f libsbl.so ] ; then \
+	install -c -m 644 libsbl.so $(PREFIX)/lib;\
+	elif [ -f libsbl.dll ] ;then \
+	install -c -m 644 lbsbl.dll $(PREFIX)/lib;\
 	fi
 
 clean:
