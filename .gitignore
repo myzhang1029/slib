@@ -22,3 +22,7 @@
 *~
 
 *.swp
+
+#Config
+
+config.mk
