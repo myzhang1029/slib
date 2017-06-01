@@ -41,7 +41,7 @@ void usage( void );/*使用方法*/
 
 
 
-int main( int argc, ccp argv[] )	/* 主函数 */
+int main( int argc, const char *argv[] )	/* 主函数 */
 {
 	union main_variable
 	{
@@ -49,7 +49,7 @@ int main( int argc, ccp argv[] )	/* 主函数 */
 		unsigned int content;
 		unsigned int shutdownsys;
 	} m_v;
-	
+	char *soptions=":hr:g:l:p:d:c:"
 	if (argc>1)
 	{
 		if(strcmp(argv[1],"-u")==0);
