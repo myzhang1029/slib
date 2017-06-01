@@ -9,7 +9,10 @@ The slib stands for the SBL Portable Programming Interface Library.
 It is a library written in C, and for C/C++.
 The recommended build tool is GNU make, 
 Microsoft Visual Studio nmake is not supported.
-if you want to contribute to this project, please start a pull request.
+if you want to contribute to this project, please start a pull request.   
+
+If you are building for two system, make sure you "make clean"
+before running next "./configure" and "make".
 
 build time count:  
  *     Target "unix" on Debian GNU/Linux, version 8,
