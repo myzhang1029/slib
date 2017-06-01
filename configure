@@ -45,7 +45,7 @@ for opt do
   --help|-h) help_me
   ;;
   --target=*) build=`echo $opt | cut -d '=' -f 2`
-  if [ "$target" != "unix" ] && [ "$target" != "win" ] ; then
+  if [ "$build" != "unix" ] && [ "$build" != "win" ] ; then
     echo configure:unknown system type \"$target\", type \"./configure --help\" for more infomation
     exit 1
   fi
