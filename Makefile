@@ -24,14 +24,12 @@
 
 include config.mk
 
-.PHONY:err unix win install clean all tags dist distvlean
+.PHONY:err unix win install clean all tags dist
 
-all:$(TARGET)
+all:$(BUILD)
 
 err:
-	@echo 'Please do make PLATFORM:'
-	@echo '	win:windows, MinGW'
-	@echo '	unix:UNIX, GNU/Linux, BSD'
+	@echo 'Please run configure!'
 	@exit 1
 
 

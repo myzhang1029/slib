@@ -7,7 +7,7 @@ prefix='/usr/local'
 cc="gcc"
 ar="ar"
 rm="rm"
-target="err"
+build="err"
 cflags='-Os -shared -fPIC'
 cflags_win='-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm'
 cflags_unix='-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm'
@@ -23,56 +23,9 @@ help_me()
 	echo '	--rm=rm:Set remover(Should support "-f" option);'
 	echo '	--extra-cflags=more-cflags:add more-cflags to "CFLAGS";'
 	echo '	--target=target:Set target(win|unix), not like "i686-linux-gnu";'
-	echo '	--revert:Unconfigure;'
 	echo '	--help,-h:Display this help information.'
 	echo 'Project maintained by Zhang Maiyun <myzhang1029@163.com>.'
 	exit 0
-}
-
-revert()
-{
-echo ' #
- #  The default Make configure file of the slib
- #
- #  Copyright (C) 2017 Zhang Maiyun
- #
- # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- #
- #  This file is part of the slib.
- #  The slib  is free software; you can redistribute it and/or modify
- #  it under the terms of the GNU Lesser General Public License as published by
- #  the Free Software Foundation; either version 3 of the License, or
- #  (at your option) any later version.
- #
- #  This program is distributed in the hope that it will be useful,
- #  but WITHOUT ANY WARRANTY; without even the implied warranty of
- #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- #  GNU Lesser General Public License for more details.
- #
- #  You should have received a copy of the GNU Lesser General Public License
- #  along with this program; if not, write to the Free Software
- #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- #
- #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-CFLAGS-WIN=-O2 -DPLAT=1 -W -Wall -Wno-variadic-macros -c  -I../include -lm 
-CFLAGS-UNIX=-O2 -DPLAT=0 -W -Wall -Wno-variadic-macros -c -I../include -lm
-CFLAGS=-Os -shared -fPIC
-
-PREFIX=/usr/local
-TARGET=err
-
-CC=gcc
-RM=rm
-AR=ar
-' > config.mk
-echo configure:Rewrited config.mk
-
-if [ -f config.mk~ ] ;then
-  rm config.mk~
-  echo configure:Removed config.mk~
-fi
-exit 0
 }
 
 for opt do
@@ -91,25 +44,23 @@ for opt do
   ;;
   --help|-h) help_me
   ;;
-  --target=*) target=`echo $opt | cut -d '=' -f 2`
+  --target=*) build=`echo $opt | cut -d '=' -f 2`
   if [ "$target" != "unix" ] && [ "$target" != "win" ] ; then
     echo configure:unknown system type \"$target\", type \"./configure --help\" for more infomation
     exit 1
   fi
-  ;;
-  --revert) revert
   ;;
   *) echo "configure: WARNING: unrecognized option $opt"
   ;;
   esac
 done
 
-if [ "$target" = "err" ] ; then 
+if [ "$build" = "err" ] ; then 
   printf "Checking build system type "
   case `uname` in
-  Linux|*BSD|Darwin) target=unix
+  Linux|*BSD|Darwin) build=unix
   ;;
-  MINGW*|MSYS*|CYGWIN*) target=win
+  MINGW*|MSYS*|CYGWIN*) build=win
   ;;
   *) echo unknown
      echo 'configure: Error:unable to determine system type, please add option --target=win or unix'
@@ -128,9 +79,9 @@ echo CC=`echo $cc`>>config.mk
 echo AR=`echo $ar`>>config.mk
 echo RM=`echo $rm`>>config.mk
 echo CFLAGS=`echo $cflags`>>config.mk
-echo CFLAGS-WIN=`echo $cflags_win`>>config.mk
-echo CFLAGS-UNIX=`echo $cflags_unix`>>config.mk
-echo TARGET=`echo $target`>>config.mk
+echo CFLAGS-win=`echo $cflags_win`>>config.mk
+echo CFLAGS-unix=`echo $cflags_unix`>>config.mk
+echo BUILD=`echo $build`>>config.mk
 echo PREFIX=`echo $prefix`>>config.mk
 echo configure:Generated config.mk
 

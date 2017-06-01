@@ -9,8 +9,11 @@ err:;@echo Must be called by the main Makefile
 win:$(TARGET:end=-win)
 unix:$(TARGET:end=-unix)
 
-$(TARGET:end=-win):$(CFILES)
-	$(CC) $(CFLAGS-WIN) $^
+$(TARGET:end=-win):$(CFILES:.c=.o)
+#	$(CC) $(CFLAGS-WIN) $^
 
-$(TARGET:end=-unix):$(CFILES)
-	$(CC) $(CFLAGS-UNIX) $^
+$(TARGET:end=-unix):$(CFILES:.c=.o)
+#	$(CC) $(CFLAGS-UNIX) $^
+
+%.o:%.c
+	$(CC) $(CFLAGS-$(BUILD)) $^ -o $@
