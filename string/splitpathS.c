@@ -42,7 +42,7 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
 	char *p_ext;
 
 	/*The start of extend name*/
-	p_ext = rindex(whole_name, '.');
+	p_ext = strrchr(whole_name, '.');
 
 	/*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not allowed file in MS-Windows*/
 	if (NULL != p_ext)
@@ -64,7 +64,7 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 	/*No such concept "drive" in unix*/
 	drive[0] = '\0';
 	#else
-	snprintf(drive,index(path,'\\')-path,"%s",path);
+	snprintf(drive,((int*)strchr(path,'\\')-(int*)path),"%s",path);
 	#endif
 
 	/*If the path is null, just set all the vaules blank*/
@@ -86,7 +86,7 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 	}
 
 	/*The start of whole file name*/
-	p_whole_name = rindex(path, pathsep);
+	p_whole_name = strrchr(path, pathsep);
 
 	/*If p_whole_name is null, means there is no directory infomation in path*/
 	if (NULL != p_whole_name)
@@ -103,3 +103,4 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 	}
 	return;
 }
+
