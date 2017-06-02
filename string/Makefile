@@ -3,6 +3,6 @@
 include ../config.mk
 
 TARGET=stringend
-CFILES=mtscat.c module.c
+CFILES=mtscat.c splitpathS.c
 
 include ../rule.mk
