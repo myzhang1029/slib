@@ -91,7 +91,7 @@ false=0
 
 /*getoptGS*/
 /* Standard GNU options*/
-	#define	no_argument			0	/*Argument Switch Only*/
+	#define	no_argument		0	/*Argument Switch Only*/
 	#define required_argument	1	/*Argument Required*/
 	#define optional_argument	2	/*Argument Optional*/	
 
@@ -99,13 +99,6 @@ false=0
 	#define ARG_NONE	0	/*Argument Switch Only*/
 	#define ARG_REQ		1	/*Argument Required*/
 	#define ARG_OPT		2	/*Argument Optional*/
-
-/*seperator for file pathes*/
-#if PLAT
-#define pathsep '\\'
-#else
-#define pathsep '/'
-#endif
 
 #define mtreturn(lenth,...) return mkret(lenth,__VA_ARGS__)
 
@@ -267,17 +260,13 @@ OPT int  lcm(unsigned n1,unsigned n2);
 OPT int  eular(unsigned n);
 
 
-D_TESTING OPT int getmname(ccp fullpath,char *mname);
-
-
-D_TESTING OPT int getmpath(ccp fullpath,char *mpath);
+OPT void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext);
 
 
 OPT unsigned long  wsbl_frame(int ch);
 
 
 OPT int  rsbl_frame(int code);
-
 
 
 OPT char* itoaS(int value, char* string, int radix);
