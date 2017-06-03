@@ -1,26 +1,19 @@
 #Build
+
 *.[oa]
-
 *.ko
-
 *.obj
-
 *.elf
-
 *.dll
-
 *.def
-
 *.so
+tags
 
 #Editor
 
 *.gch
-
 *.pch
-
 *~
-
 *.swp
 
 #Config
