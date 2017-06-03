@@ -30,7 +30,8 @@
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 2
 
-#define SBLLIB_MINOR 6
+#define SBLLIB_MINOR 7
+#define SBLLIB_PATCHLEVEL 1
 
 #include <string.h>
 #include <stdio.h>
