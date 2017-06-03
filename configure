@@ -9,8 +9,9 @@ ar="ar"
 rm="rm"
 build="err"
 cflags='-Os -shared -fPIC'
-cflags_win='-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm'
-cflags_unix='-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include -lm'
+ldflags='-static -lm'
+cflags_win='-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c -I../include'
+cflags_unix='-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include'
 
 help_me()
 {
@@ -46,7 +47,7 @@ for opt do
   ;;
   --target=*) build=`echo $opt | cut -d '=' -f 2`
   if [ "$build" != "unix" ] && [ "$build" != "win" ] ; then
-    echo configure:unknown system type \"$target\", type \"./configure --help\" for more infomation
+    echo configure:unknown system type \"$build\", type \"./configure --help\" for more infomation
     exit 1
   fi
   ;;
@@ -56,7 +57,7 @@ for opt do
 done
 
 if [ "$build" = "err" ] ; then 
-  printf "Checking build system type "
+  printf "Checking build system type.. "
   case `uname` in
   Linux|*BSD|Darwin) build=unix
   ;;
@@ -66,7 +67,7 @@ if [ "$build" = "err" ] ; then
      echo 'configure: Error:unable to determine system type, please add option --target=win or unix'
      exit 1
   esac
-  echo $target
+  echo $build
 fi
 
 if [ -f config.mk ] ; then
@@ -83,5 +84,6 @@ echo CFLAGS-win=`echo $cflags_win`>>config.mk
 echo CFLAGS-unix=`echo $cflags_unix`>>config.mk
 echo BUILD=`echo $build`>>config.mk
 echo PREFIX=`echo $prefix`>>config.mk
+echo LDFLAGS=`echo $ldflags`>>config.mk
 echo configure:Generated config.mk
 
