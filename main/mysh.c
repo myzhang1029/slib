@@ -27,11 +27,13 @@
 OPT int  mysh( ccp path )
 {
 	char command[20];
+	char *dir="\0";
+	splitpathS(path,NULL,dir,NULL,NULL);
 	fflush( stdin );
 	#if PLAT
-	printf( "%s(Enter 'q'  to quit)>", path );
+	printf( "%s(Enter 'q'  to quit)>", dir );
 	#else
-	printf( "slibsh@localhost %s(Enter 'q' to quit)$",path );
+	printf( "(slibsh) %s(Enter 'q' to quit)$", dir );
 	#endif
 	fgets( command, 19, stdin );
 	if ( strcmp(command,"q\n")==0 )
