@@ -47,11 +47,11 @@ for opt do
   ;;
   --target=*) build=`echo $opt | cut -d '=' -f 2`
   if [ "$build" != "unix" ] && [ "$build" != "win" ] ; then
-    echo configure:unknown system type \"$build\", type \"./configure --help\" for more infomation
+    printf '\033[1mconfigure:\033[31m Error:\033[30m unknown system type "%s", type "./configure --help" for more infomation\033[0m\n' $build
     exit 1
   fi
   ;;
-  *) echo "configure: WARNING: unrecognized option $opt"
+  *) printf '\033[1mconfigure:\033[33m Warning:\033[30m unrecognized option %s\033[0m\' "$opt"
   ;;
   esac
 done
@@ -64,7 +64,7 @@ if [ "$build" = "err" ] ; then
   MINGW*|MSYS*|CYGWIN*) build=win
   ;;
   *) echo unknown
-     echo 'configure: Error:unable to determine system type, please add option --target=win or unix'
+     printf '\033[1mconfigure:\033[31m Error:\033[30m unable to determine system type, please add option --target=win or unix\033[0m\n'
      exit 1
   esac
   echo $build
@@ -86,4 +86,5 @@ echo BUILD=`echo $build`>>config.mk
 echo PREFIX=`echo $prefix`>>config.mk
 echo LDFLAGS=`echo $ldflags`>>config.mk
 echo configure:Generated config.mk
+printf 'configure:\033[32m STATUS:FINISHED\033[30m\n'
 
