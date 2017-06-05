@@ -59,7 +59,7 @@ install:
 	if [ -f libsbl.so ] ; then \
 	install -c -m 644 libsbl.so $(PREFIX)/lib;\
 	elif [ -f libsbl.dll ] ;then \
-	install -c -m 644 lbsbl.dll $(PREFIX)/lib;\
+	install -c -m 644 libsbl.dll $(PREFIX)/lib;\
 	fi
 
 clean:

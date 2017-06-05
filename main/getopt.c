@@ -187,7 +187,7 @@ static int _getopt_internal_r (int argc, char *const *argv, const char *optstrin
 		int option_index;
 		for (nameend = d->__nextchar; *nameend && *nameend != '='; nameend++);
 		namelen = (unsigned int)(nameend - d->__nextchar);
-		for (p = longopts, option_index = 0; p->name; p++, option_index++)
+		for (p = longopts, option_index = 0; p->name!=NULL; p++, option_index++)
 			if (!strncmp(p->name, d->__nextchar, namelen))
 			{
 				if (namelen == (unsigned int)strlen(p->name))
@@ -348,7 +348,7 @@ static int _getopt_internal_r (int argc, char *const *argv, const char *optstrin
 			else
 				d->optargGS = argv[d->optindGS++];
 			for (d->__nextchar = nameend = d->optargGS; *nameend && *nameend != '='; nameend++);
-			for (p = longopts, option_index = 0; p->name; p++, option_index++)
+			for (p = longopts, option_index = 0; p->name!=NULL; p++, option_index++)
 				if (!strncmp(p->name, d->__nextchar, nameend - d->__nextchar))
 				{
 					if ((unsigned int) (nameend - d->__nextchar) == strlen(p->name))
