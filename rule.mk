@@ -12,4 +12,4 @@ win:$(CFILES:.c=.o)
 unix:$(CFILES:.c=.o)
 
 %.o:%.c
-	$(CC) $(CFLAGS-$(BUILD)) $^ -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS-$(BUILD)) $^ -o $@

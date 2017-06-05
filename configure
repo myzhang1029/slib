@@ -9,7 +9,6 @@ ar="ar"
 rm="rm"
 build="err"
 cflags='-Os -shared -fPIC'
-ldflags='-static -lm'
 cflags_win='-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c -I../include'
 cflags_unix='-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include'
 
@@ -47,11 +46,11 @@ for opt do
   ;;
   --target=*) build=`echo $opt | cut -d '=' -f 2`
   if [ "$build" != "unix" ] && [ "$build" != "win" ] ; then
-    printf '\033[1mconfigure:\033[31m Error:\033[30m unknown system type "%s", type "./configure --help" for more infomation\033[0m\n' $build
+    printf '\033[1mconfigure:\033[31mError:\033[30munknown system type "%s", type "./configure --help" for more infomation\033[0m\n' $build
     exit 1
   fi
   ;;
-  *) printf '\033[1mconfigure:\033[33m Warning:\033[30m unrecognized option %s\033[0m\' "$opt"
+  *) printf '\033[1mconfigure:\033[33mWarning:\033[30munrecognized option %s\033[0m\' "$opt"
   ;;
   esac
 done
@@ -64,7 +63,7 @@ if [ "$build" = "err" ] ; then
   MINGW*|MSYS*|CYGWIN*) build=win
   ;;
   *) echo unknown
-     printf '\033[1mconfigure:\033[31m Error:\033[30m unable to determine system type, please add option --target=win or unix\033[0m\n'
+     printf '\033[1mconfigure:\033[31mError:\033[30munable to determine system type, please add option --target=win or unix\033[0m\n'
      exit 1
   esac
   echo $build
@@ -84,7 +83,6 @@ echo CFLAGS-win=`echo $cflags_win`>>config.mk
 echo CFLAGS-unix=`echo $cflags_unix`>>config.mk
 echo BUILD=`echo $build`>>config.mk
 echo PREFIX=`echo $prefix`>>config.mk
-echo LDFLAGS=`echo $ldflags`>>config.mk
 echo configure:Generated config.mk
-printf 'configure:\033[32m STATUS:FINISHED\033[30m\n'
+printf 'configure:\033[32mSTATUS:FINISHED\033[30m\n'
 
