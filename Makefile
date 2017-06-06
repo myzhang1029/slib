@@ -24,14 +24,9 @@
 
 include config.mk
 
-.PHONY:err unix win install clean all tags dist
+.PHONY:unix win install clean all tags dist
 
 all:$(BUILD)
-
-err:
-	@echo 'Please run configure!'
-	@exit 1
-
 
 unix:libsbl.so
 win:libsbl.dll
@@ -43,16 +38,18 @@ libsbl.so:
 	make -C math unix
 	make -C stack unix
 	make -C string unix
-	$(CC) $(CFLAGS) */*.o -o libsbl.so
-	$(AR) rcs ./libsbl.a */*.o 
+	$(CC) -shared -fPIC -Os */*.o -o libsbl.so
+	$(AR) rcs ./libsbl.a */*.o
+
 libsbl.dll:
 	make -C file win
 	make -C main win
 	make -C math win
 	make -C stack win
 	make -C string win
-	$(CC) $(CFLAGS) */*.o -o libsbl.dll
+	$(CC) -shared -fPIC -Os */*.o -o libsbl.dll
 	$(AR) rcs ./libsbl.a */*.o
+
 install:
 	install -c include/slib.h $(PREFIX)/include
 	install -c libsbl.a $(PREFIX)/lib

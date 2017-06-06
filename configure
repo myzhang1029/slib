@@ -8,7 +8,6 @@ cc=""
 ar="ar"
 rm="rm"
 build="err"
-cflags='-Os -shared -fPIC'
 cflags_win='-O2 -DPLAT=1 -pedantic -W -Wall -Wno-variadic-macros -c -I../include'
 cflags_unix='-O2 -DPLAT=0 -pedantic -W -Wall -Wno-variadic-macros -c -I../include'
 
