@@ -31,7 +31,7 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
 #else
-	char *clstr=malloc(sizeof(format)+9);
+	char *clstr=(char*)malloc(sizeof(char)*strlen(format)+20),*freeptr=clstr;
 #endif
 	va_start(args,format);
 #if PLAT
@@ -74,12 +74,12 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 	switch(fcolor)
 	{
 		case red:
-			clstr="\033[31m";
-			stat=vprintf(strcat(clstr,format),args);
+			stat=vprintf(mtscat(4,"033[31m",format,"\033[0m","\0"),args);
 			break;
 		case green:
 			clstr="\033[32m";
-			stat=vprintf(strcat(clstr,format),args);
+			clstr=mtscat(4,clstr,format,"\033[0m","\0");
+			stat=vprintf(clstr,args);
 			break;
 		case yellow:
 			clstr="\033[33m";
@@ -98,7 +98,7 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 			stat=vprintf(strcat(clstr,format),args);
 			break;
 	}
-	free(clstr);
+	free(freeptr);
 	clstr=NULL;
 	return stat;
 #endif
