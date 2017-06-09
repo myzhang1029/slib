@@ -179,11 +179,11 @@ struct optionGS
 enum cpfcolors
 {
 	red=1,
-	green=2,
-	yellow=3,
-	black=4,
-	blue=5,
-	purple=6
+	green,
+	yellow,
+	black,
+	blue,
+	magenta
 };
 
 typedef const char * const ccp;

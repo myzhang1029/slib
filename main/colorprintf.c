@@ -31,7 +31,7 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
 #else
-	char *clstr=(char*)malloc(sizeof(char)*strlen(format)+20),*freeptr=clstr;
+	char *clstr=(char*)malloc(sizeof(char)*strlen(format)+13),*freeptr=clstr;
 #endif
 	va_start(args,format);
 #if PLAT
@@ -62,7 +62,7 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 			stat=vprintf(format,args);
 			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
 			break;
-		case purple:
+		case magenta:
 			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_BLUE);
 			stat=vprintf(format,args);
 			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
@@ -74,32 +74,32 @@ OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
 	switch(fcolor)
 	{
 		case red:
-			stat=vprintf(mtscat(4,"033[31m",format,"\033[0m","\0"),args);
+			clstr="\033[31m";
+			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
 			break;
 		case green:
 			clstr="\033[32m";
-			clstr=mtscat(4,clstr,format,"\033[0m","\0");
-			stat=vprintf(clstr,args);
+			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
 			break;
 		case yellow:
 			clstr="\033[33m";
-			stat=vprintf(strcat(clstr,format),args);
+			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
 			break;
 		case black:
                         clstr="\033[30m";
-			stat=vprintf(strcat(clstr,format),args);
+			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
 			break;
 		case blue:
                         clstr="\033[33m";
-			stat=vprintf(strcat(clstr,format),args);
+			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
 			break;
-		case purple:
+		case magenta:
                         clstr="\033[35m";
-			stat=vprintf(strcat(clstr,format),args);
+			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
 			break;
 	}
 	free(freeptr);
-	clstr=NULL;
+	clstr=NULL,freeptr=NULL;
 	return stat;
 #endif
 }
