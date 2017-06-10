@@ -279,7 +279,7 @@ OPT char* ltoaS(long value, char* string, int radix);
 OPT char* ultoaS(unsigned long value, char* string, int radix);
 
 
-D_TESTING OPT int colorprintf(enum cpfcolors fcolor,ccp format,...);
+D_TESTING OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...);
 	
 
 OPT int *getret(mtret ret);

@@ -22,86 +22,110 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+
 #include "slib.h"
 
-OPT int colorprintf(enum cpfcolors fcolor,ccp format,...)
+/*
+ * colorprintf - Print in color on the terminal/console
+ * Arguments:
+ * fcolor: Foreground color
+ * bcolor: Background color
+ * Return vaule: status of printf returns
+ */
+OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 {
 	int stat=1;
 	va_list args;
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
-#else
-	char *clstr=(char*)malloc(sizeof(char)*strlen(format)+13),*freeptr=clstr;
+	WORD wOldColorAttrs;
+	CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
 #endif
 	va_start(args,format);
 #if PLAT
+	GetConsoleScreenBufferInfo(handle, &csbiInfo);
 	switch(fcolor)
 	{
 		case red:
-			SetConsoleTextAttribute(hstdout,FOREGROUND_RED);
-			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,0x40);
 			break;
 		case green:
-			SetConsoleTextAttribute(hstdout,FOREGROUND_GREEN);
-			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,0x20);
 			break;
 		case yellow:
-			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_GREEN);
-			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,0x60);
 			break;
 		case black:
-			SetConsoleTextAttribute(hstdout,BACKGROUND_RED|BACKGROUND_BLUE|BACKGROUND_GREEN);
-			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,0x70);
 			break;
 		case blue:
-			SetConsoleTextAttribute(hstdout,FOREGROUND_BLUE);
-			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,0x10);
 			break;
 		case magenta:
-			SetConsoleTextAttribute(hstdout,FOREGROUND_RED|FOREGROUND_BLUE);
-			stat=vprintf(format,args);
-			SetConsoleTextAttribute(hstdout,FOREGROUND_WHITE);
+			SetConsoleTextAttribute(hstdout,0x50);
 			break;
-		}
+	}
+	switch(bcolor)
+	{
+		case red:
+			SetConsoleTextAttribute(hstdout,0x4);
+		case green:
+		case yellow:
+		case black:
+		case blue:
+		case magenta:
+			Set
+	}
+	stat=vprintf(format,args);
 	va_end(args);
+	SetConsoleTextAttribute(hstdout,wOldColorAttrs);
 	return stat;
 #else
 	switch(fcolor)
 	{
 		case red:
-			clstr="\033[31m";
-			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
+			printf("\033[31m");
 			break;
 		case green:
-			clstr="\033[32m";
-			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
+			printf("\033[32m");
 			break;
 		case yellow:
-			clstr="\033[33m";
-			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
+			printf("\033[33m");
 			break;
 		case black:
-                        clstr="\033[30m";
-			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
+                        printf("\033[30m");
 			break;
 		case blue:
-                        clstr="\033[33m";
-			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
+                        printf("\033[34m");
 			break;
 		case magenta:
-                        clstr="\033[35m";
-			stat=vprintf(mtscat(3,clstr,format,"\033[0m"),args);
+                        printf("\033[35m");
 			break;
 	}
-	free(freeptr);
-	clstr=NULL,freeptr=NULL;
+	switch(bcolor)
+	{ 
+		case red:
+			printf("\033[41m");
+			break; 
+		case green:
+			printf("\033[42m");
+			break;
+		case yellow:
+			printf("\033[43m");
+			break;
+		case black:
+                        printf("\033[40m");
+			break;
+		case blue:
+                        printf("\033[44m");
+			break;
+		case magenta:
+                        printf("\033[45m");
+			break;
+	}
+	stat=vprintf(format,args);
+	printf("\033[0m");
 	return stat;
 #endif
 }
-
 
