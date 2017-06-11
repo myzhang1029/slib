@@ -241,7 +241,7 @@ D_UNSTABLE OPT int  iofile(FILE  *origin,FILE *dest);
 OPT int  prtfile(FILE *stream);
 
 
-OPT double  average(unsigned amt,...);
+OPT double  average(size_t amt,...);
 
 
 OPT int  gcf(unsigned n1,unsigned n2);

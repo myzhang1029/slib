@@ -39,19 +39,40 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 	va_list args;
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
-	WORD wOldColorAttrs;
-	CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+	CONSOLE_SCREEN_BUFFER_INFO csbInfo;
 #endif
 	va_start(args,format);
 #if PLAT
-	GetConsoleScreenBufferInfo(handle, &csbiInfo);
+	GetConsoleScreenBufferInfo(hstdout, &csbInfo);
 	switch(fcolor)
 	{
 		case red:
 			switch(bcolor)
 			{
 				case red:
-					SetConsoleTextAttribute(hstdout,0x40);
+					SetConsoleTextAttribute(hstdout,0x44);
+					break;
+				case green:
+					SetConsoleTextAttribute(hstdout,0x24);
+					break;
+				case yellow:
+					SetConsoleTextAttribute(hstdout,0x64);
+					break;
+				case black:
+					SetConsoleTextAttribute(hstdout,0x74);
+					break;
+				case blue:
+					SetConsoleTextAttribute(hstdout,0x14);
+					break;
+				case magenta:
+					SetConsoleTextAttribute(hstdout,0x54);
+					break;
+				case cyan:
+					SetConsoleTextAttribute(hstdout,0x34);
+					break;
+				case unchanged:
+					break;
+			}
 			break;
 		case green:
 			SetConsoleTextAttribute(hstdout,0x20);
@@ -71,7 +92,7 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 	}
 	stat=vprintf(format,args);
 	va_end(args);
-	SetConsoleTextAttribute(hstdout,wOldColorAttrs);
+	SetConsoleTextAttribute(hstdout,csbInfo.wAttributes);
 	return stat;
 #else
 	switch(fcolor)
