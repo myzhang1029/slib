@@ -23,7 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
  #include "slib.h"
- 
+ #include <stdlib.h>
  char* itoaS(int value, char* string, int radix)
  {
    char tmp[33];

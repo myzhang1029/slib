@@ -23,6 +23,8 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
+#include <string.h>
+#include <stdlib.h>
 
 OPT int  mysh( ccp path )
 {

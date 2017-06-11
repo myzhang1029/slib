@@ -23,7 +23,8 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
-
+#include <string.h>
+#include <stdarg.h>
 
 OPT int  prterr(ccp fmt,... )
 {

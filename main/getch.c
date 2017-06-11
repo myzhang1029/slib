@@ -25,6 +25,7 @@
 #include "slib.h"
 
 #if ! PLAT
+#include <termios.h>
 OPT int getch(void) 
 {
         int c=0;

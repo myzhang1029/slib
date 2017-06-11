@@ -30,25 +30,15 @@
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 2
 
-#define SBLLIB_MINOR 7
-#define SBLLIB_PATCHLEVEL 1
+#define SBLLIB_MINOR 8
+#define SBLLIB_PATCHLEVEL 0
 
-#include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <errno.h>
-#include <math.h>
-#include <time.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h>
 
 
 #if PLAT
 #include <windows.h>
-#else
-#include <termios.h>
-#include <unistd.h>
 #endif
 
 #ifndef _CRT_SECURE_NO_WARNINGS /*for MSVC compiling envirment*/
@@ -183,7 +173,9 @@ enum cpfcolors
 	yellow,
 	black,
 	blue,
-	magenta
+	magenta,
+	cyan,
+	unchanged
 };
 
 typedef const char * const ccp;

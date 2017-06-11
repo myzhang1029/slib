@@ -24,6 +24,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
+#include <stdlib.h>
 
 OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize)
 {

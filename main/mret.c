@@ -23,6 +23,8 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
+#include <stdlib.h>
+#include <stdarg.h>
 unsigned retind=0;
 	
 mtret mkret(size_t lenth,...)

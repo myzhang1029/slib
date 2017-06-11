@@ -23,6 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
+#include <stdlib.h>
 
 OPT unsigned long randomnum( unsigned seed,unsigned long maximum,unsigned long minimum )
 {

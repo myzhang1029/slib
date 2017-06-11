@@ -23,7 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
-
+#include <stdlib.h>
 OPT int DestroyStack(sqStack *s)
 {
   free(s->base);

@@ -24,6 +24,7 @@
  */
 
 #include "slib.h"
+#include <stdarg.h>
 
 /*
  * colorprintf - Print in color on the terminal/console
@@ -47,7 +48,10 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 	switch(fcolor)
 	{
 		case red:
-			SetConsoleTextAttribute(hstdout,0x40);
+			switch(bcolor)
+			{
+				case red:
+					SetConsoleTextAttribute(hstdout,0x40);
 			break;
 		case green:
 			SetConsoleTextAttribute(hstdout,0x20);
@@ -64,17 +68,6 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 		case magenta:
 			SetConsoleTextAttribute(hstdout,0x50);
 			break;
-	}
-	switch(bcolor)
-	{
-		case red:
-			SetConsoleTextAttribute(hstdout,0x4);
-		case green:
-		case yellow:
-		case black:
-		case blue:
-		case magenta:
-			Set
 	}
 	stat=vprintf(format,args);
 	va_end(args);
@@ -101,6 +94,11 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 		case magenta:
                         printf("\033[35m");
 			break;
+		case cyan:
+			printf("\033[36m");
+			break;
+		case unchanged:
+			break;
 	}
 	switch(bcolor)
 	{ 
@@ -121,6 +119,11 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 			break;
 		case magenta:
                         printf("\033[45m");
+			break;
+		case cyan:
+			printf("\033[46m");
+			break;
+		case unchanged:
 			break;
 	}
 	stat=vprintf(format,args);

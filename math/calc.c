@@ -23,7 +23,9 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
-
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 
 static int Calculate(char *arr,void *result); /*计算表达式结果：参数一：arr为使用空格分隔的采用后缀表达式表示的要计算的字符串,例：arr={"3 5 + "}。参数二：result存放计算*/
 static int InfixToPostfix(char *infix,char *postfix); /*将中缀表达式转换为后缀表达式。例：infix={"3+5\n"} ,转换后，postfix={"3 5 + "};*/
