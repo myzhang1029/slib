@@ -40,7 +40,7 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 #if PLAT
 	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbInfo;
-	WORD colornum;
+	WORD colornum=0x0;
 #endif
 	va_start(args,format);
 #if PLAT
@@ -69,6 +69,7 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 			colornum=0x3;
 			break;
 		case unchanged:
+			colornum=0;
 			break;
 	}
 	switch(bcolor)
