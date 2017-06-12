@@ -33,20 +33,20 @@ win:libsbl.dll
 
 
 libsbl.so:
-	make -C file unix
-	make -C main unix
-	make -C math unix
-	make -C stack unix
-	make -C string unix
+	+make -C file unix
+	+make -C main unix
+	+make -C math unix
+	+make -C stack unix
+	+make -C string unix
 	$(CC) -shared -fPIC -Os */*.o -o libsbl.so
 	$(AR) rcs ./libsbl.a */*.o
 
 libsbl.dll:
-	make -C file win
-	make -C main win
-	make -C math win
-	make -C stack win
-	make -C string win
+	+make -C file win
+	+make -C main win
+	+make -C math win
+	+make -C stack win
+	+make -C string win
 	$(CC) -shared -fPIC -Os */*.o -o libsbl.dll
 	$(AR) rcs ./libsbl.a */*.o
 
