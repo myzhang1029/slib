@@ -66,4 +66,3 @@ clean:
 tags:
 	ctags -R
 
-dist:;echo ENOSYS
