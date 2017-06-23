@@ -24,7 +24,7 @@
 
 include config.mk
 
-.PHONY:unix win install clean all tags dist
+.PHONY:unix win install clean all tags distclean
 
 all:$(BUILD)
 
@@ -65,4 +65,6 @@ clean:
 
 tags:
 	ctags -R
+distclean:clean
+	-$(RM) config.mk
 
