@@ -55,9 +55,9 @@ install:
 	install -c -p -m 644 include/slib.h $(PREFIX)/include
 	install -c -p -m 644 libsbl.a $(PREFIX)/lib
 	if [ -f libsbl.so ] ; then \
-	install -c -p -s -m 755 libsbl.so $(PREFIX)/lib;\
+	install -c -p -m 755 libsbl.so $(PREFIX)/lib;\
 	elif [ -f libsbl.dll ] ;then \
-	install -c -p -s -m 755 libsbl.dll $(PREFIX)/lib;\
+	install -c -p -m 755 libsbl.dll $(PREFIX)/lib;\
 	fi
 
 clean:
