@@ -75,6 +75,7 @@ true=1,
 false=0
 }boolS;
 #define bool boolS
+#define _Bool boolS
 #endif
 
 #define S_INLINE inline
@@ -142,6 +143,7 @@ extern  int optindGS;
 extern  int opterrGS;
 extern  int optoptGS;
 extern  char *optargGS;
+extern  unsigned retind;
 
 /*Structures, Enums, Unions, typedefs*/
 typedef struct Stack
