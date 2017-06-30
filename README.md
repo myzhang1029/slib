@@ -56,14 +56,6 @@ before running next "./configure" and "make".
      - cc: GCC-7.1.0
      - time: 1.2366s
  
- 5.
-     - System: Debian 8(GNU/Linux-4.11.4)
-     - CPU: 3.8 GHz Intel Core i5
-     - Memory: 1.875GB
-     - configure: ./configure(unix) 
-     - cc: GCC-7.1.0
-     - time: 1.2366s
-
 6.
      - System: Debian 8(GNU/Linux-4.11.4)
      - CPU: 3.8 GHz Intel Core i5
