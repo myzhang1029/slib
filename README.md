@@ -1,9 +1,9 @@
 # slib
 ![License](https://www.gnu.org/graphics/lgplv3-88x31.png)
 
-![Issue Count](https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg)
+[![Issue Count](https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg)]
 
-![Code Climate](https://codeclimate.com/github/myzhang1029/slib/badges/gpa.svg)
+[![Code Climate](https://codeclimate.com/github/myzhang1029/slib/badges/gpa.svg)]
 
 [Binary Download Link](https://github.com/myzhang1029/slib/releases)
 
