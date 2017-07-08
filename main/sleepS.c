@@ -1,5 +1,6 @@
-#include<stdio.h>
-#include<time.h>
+#include <stdio.h>
+#include <time.h>
+#include <slib.h>
 
 OPT void
 sleepS(int seconds)
@@ -13,7 +14,7 @@ sleepS(int seconds)
 }
 int main()
 {
-sleepS(1);
-return 0;
+	sleepS(1);
+	return 0;
 }
 
