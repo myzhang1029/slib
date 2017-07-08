@@ -38,6 +38,7 @@
 
 #ifndef PLAT
 #error Please define PLAT, see documentation for more details
+#endif 
 
 #if PLAT
 #include <windows.h>
