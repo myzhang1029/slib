@@ -36,6 +36,8 @@
 #include <stdio.h>
 #include <errno.h>
 
+#ifndef PLAT
+#error Please define PLAT, see documentation for more details
 
 #if PLAT
 #include <windows.h>
