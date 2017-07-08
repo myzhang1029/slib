@@ -284,6 +284,10 @@ OPT int *getret(mtret ret);
 
 OPT mtret mkret(size_t lenth,...);
 
+
+OPT void sleepS(int seconds);
+
+
 OPT int getoptGS(int argc, char *const *argv, const char *optstring);
 
 
