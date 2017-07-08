@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<time.h>
 
-void sleepS(int seconds)
+OPT void
+sleepS(int seconds)
 {
 	clock_t t=clock();
 	while(1)
