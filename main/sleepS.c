@@ -8,7 +8,7 @@ sleepS(int seconds)
 	clock_t t=clock();
 	while(1)
 	{
-		if(((clock()-t)/CLOCKS_PER_SEC)>=seconds)
+		if((int)((clock()-t)/CLOCKS_PER_SEC)>=seconds)
 			return;
 	}
 }
