@@ -25,16 +25,19 @@
 #include "slib.h"
 #include <string.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 OPT int  prterr(ccp fmt,... )
 {
 	va_list argptr;
+	int saverrno=errno;
 	va_start(argptr, fmt);
 	fprintf(stderr,"Error:");
 	vfprintf(stderr,fmt,argptr);
 	if(errno != 0)
-		fprintf(stderr,"errcode:%d,more facts:%s\n",errno,strerror(errno));
+		fprintf(stderr,":%s(errno%d)\n",strerror(errno),errno);
 	va_end(argptr);
+	__set_errno(saverrno);
 	return STRUE;
 }
 
