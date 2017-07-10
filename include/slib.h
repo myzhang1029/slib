@@ -36,8 +36,14 @@
 #include <stdio.h>
 #include <errno.h>
 
-#ifndef PLAT
-#error Please define PLAT, see documentation for more details
+#if !defined(PLAT)
+# if defined(_MSC_VER)||defined(__MINGW32__)||defined(_WIN16)||defined(_WIN32)||defined(_WIN64)||defined(__MSDOS__)
+#  define PLAT 1
+# elif defined(__linux__)||defined(__BSD__)|defined(__APPLE__)||defined(__unix__)
+#  define PLAT 0
+# else
+#  error Please define PLAT, see documentation for more details
+# endif
 #endif 
 
 #if PLAT
