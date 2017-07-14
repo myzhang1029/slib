@@ -26,29 +26,17 @@
 
 OPT void  prtpn( FILE*fp, unsigned long minimum, unsigned long maximum )
 {
-	unsigned long n=0,i=0;
-	_Bool torf=0;
+	unsigned long n=0;
 	if ( maximum<=2)
-	{
-		__set_errno(22);
-		prterr("input not allowed!");
-	}
-
-	if( minimum <= 2)
-		fprintf(fp,"2\n");
+        return;
+    if (maximum <= minimum)
+    {
+        __set_errno(EINVAL);
+        return;
+    }
 	for(n=minimum; n<=maximum; ++n)
 	{
-		for(i=2; i<n; ++i)
-		{
-			if(n%i!=0)
-				torf = 1;
-			else
-			{
-					torf =0;
-				break;
-			}
-		}
-		if(torf==1)
+        if(ispn(n))
 		{
 			fprintf(fp,"%lu\n",n);
 		}
