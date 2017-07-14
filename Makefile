@@ -24,15 +24,15 @@
 
 include config.mk
 
-.PHONY:unix win install clean all tags distclean
+.PHONY: unix win install clean all tags distclean
 
 all:$(BUILD)
 
-unix:libsbl.so
-win:libsbl.dll
+unix: libsbl.so
+win: libsbl.dll
 
 
-libsbl.so:
+libsbl.so: $(FILES)
 	+make -C file unix
 	+make -C main unix
 	+make -C math unix
@@ -41,7 +41,7 @@ libsbl.so:
 	$(CC) -shared -fPIC -Os */*.o -o libsbl.so
 	$(AR) rcs ./libsbl.a */*.o
 
-libsbl.dll:
+libsbl.dll: $(FILES)
 	+make -C file win
 	+make -C main win
 	+make -C math win

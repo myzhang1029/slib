@@ -9,6 +9,7 @@ ar="ar"
 rm="rm"
 build="err"
 cflags='-Wno-variadic-macros -W -Wall -pedantic -c -O2 -I../include'
+files="`find . -name '*.[ch]'|grep -v hist|grep -v test`"
 
 strstr(){  
 	expr match "$1" ".*$2" >/dev/null&&return 0
@@ -100,5 +101,7 @@ echo CFLAGS-win=`echo $cflags` -DPLAT=1>>config.mk
 echo CFLAGS-unix=`echo $cflags` -DPLAT=0>>config.mk
 echo BUILD=`echo $build`>>config.mk
 echo PREFIX=`echo $prefix`>>config.mk
+echo FILES=`echo $files`>>config.mk
+
 printf 'configure:\033[32mfinished\033[30m\n'
 
