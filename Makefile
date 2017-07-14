@@ -65,6 +65,13 @@ clean:
 
 tags:
 	ctags -R
+
 distclean:clean
 	-$(RM) config.mk
 
+config.mk:
+	@echo Please do ./configure
+	@echo . .
+	@echo \ \|
+	@echo \\_/
+	@exit 1
