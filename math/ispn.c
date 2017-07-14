@@ -2,6 +2,7 @@
  *  ispn.c - ispn function in the slib
  *
  *  Copyright (C) 2017 Zhang Maiyun
+ *  Function Hsqrt from Quake III and modifyed
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
@@ -24,18 +25,29 @@
  */
 #include "slib.h"
 
+static long Hsqrt(long x)
+{
+    double long xhalf = 0.5f*x;
+    int i = *(int*)&x;      // get bits for floating VALUE
+    i = 0x5f375a86- (i>>1); // gives initial guess y0
+    x = *(double*)&i;       // convert bits BACK to double
+    x = x*(1.5f-xhalf*x*x); // Newton step, repeating increases accuracy
+    x = x*(1.5f-xhalf*x*x); // Newton step, repeating increases accuracy
+    x = x*(1.5f-xhalf*x*x); // Newton step, repeating increases accuracy
+    
+    return ((long)(1/x))+1l;
+}
+
 OPT int ispn( unsigned long testingnum )
 {
-	unsigned long i;
+	register unsigned long i;
+    register unsigned long k=Hsqrt(testingnum);
 	if( testingnum == 2)
 		return STRUE;
-	if( testingnum == 2)
-		return SFALSE;
-	for(i = 2; i<testingnum; ++i)
+	for(i = 2; i<k; ++i)
 	{
 		if( testingnum%i==0 )
 			return SFALSE;
 	}
 	return STRUE;
 }
-
