@@ -24,7 +24,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
-
+#include <math.h>
 
 OPT int ispn( unsigned long testingnum )
 {
