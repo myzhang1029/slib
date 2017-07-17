@@ -57,7 +57,7 @@ install:
 	install -c -p -m 755 libsbl$(EXESUF) $(PREFIX)/lib;
 
 clean:
-	-$(RM) libsbl.dll libsbl.so *.o */*.o *.a -f 2>/dev/null
+	-$(RM) libsbl.dll libsbl.so libsbl.dylib *.o */*.o *.a -f 2>/dev/null
 
 tags:
 	ctags -R
