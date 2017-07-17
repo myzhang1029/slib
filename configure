@@ -67,17 +67,19 @@ for opt do
   ;;
   --extra-cflags=*) cflags="$cflags `echo $opt | cut -d '=' -f 2`"
   ;;
-  --exesuffix=*) exesuf=`echo $opt | cut -d '=' -f 3`
+  --exesuffix=*) exesuf=`echo $opt | cut -d '=' -f 2`
   ;;
-  --bindir=*) bindir=`echo $opt | cut -d '=' -f 3`
+  --bindir=*) bindir=`echo $opt | cut -d '=' -f 2`
   ;;
-  --libdir=*) libdir=`echo $opt | cut -d '=' -f 3`
+  --libdir=*) libdir=`echo $opt | cut -d '=' -f 2`
   ;;
-  --includedir=*) includedir=`echo $opt | cut -d '=' -f 3`
+  --includedir=*) includedir=`echo $opt | cut -d '=' -f 2`
   ;;
-  --mandir=*) mandir=`echo $opt | cut -d '=' -f 3`
+  --mandir=*) mandir=`echo $opt | cut -d '=' -f 2`
   ;;
-  --infodir=*) infodir=`echo $opt | cut -d '=' -f 3`
+  --infodir=*) infodir=`echo $opt | cut -d '=' -f 2`
+  ;;
+  --soflags=*) soflags=`echo $opt | cut -d '=' -f 2`
   ;;
   --help|-h) help_me
   ;;
@@ -128,17 +130,17 @@ fi
 echo $build
 
 printf "Checking suffix for shared objects... "
+
 if [ "$exesuf" = "" ] ; then
   case `uname` in
     Linux|*BSD) exesuf=".so";
 	    soflags="-fPIC -shared -Os"
     ;;
-    Darwin) exesuf=".dylib"
-	    currentversion="`head include/slib.h -n 31 | tail -n 1 | awk '{print $3}'`.`head include/slib.h -n 33 | tail -n 1 | awk '{print $3}'`.`head include/slib.h -n 34 | tail -n 1 | awk '{print $3}'`"
+    Darwin) exesuf=".dylib";
+	    currentversion="`head include/slib.h -n 31 | tail -n 1 | awk '{print $3}'`.`head include/slib.h -n 33 | tail -n 1 | awk '{print $3}'`.`head include/slib.h -n 34 | tail -n 1 | awk '{print $3}'`";
 	    soflags="-dynamiclib -current_version $currentversion"
-	    ;;
-    MINGW*|MSYS*|CYGWIN*) exesuf=".dll"
-	    soflags="-shared"
+    ;;
+    MINGW*|MSYS*|CYGWIN*) exesuf=".dll";soflags="-shared"
     ;;
     *) echo unknown
 	    printf '\033[1mconfigure:\033[31mError:\033[0munable to determine suffix for shared objects(aka so/dll), please add option --exesuffix\n'
