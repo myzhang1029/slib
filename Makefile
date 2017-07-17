@@ -51,10 +51,10 @@ libsbl.dll: $(FILES)
 	$(AR) rcs ./libsbl.a */*.o
 
 install:
-	install -c -d -m 755 $(PREFIX)/lib $(PREFIX)/include
-	install -c -p -m 644 include/slib.h $(PREFIX)/include
-	install -c -p -m 644 libsbl.a $(PREFIX)/lib
-	install -c -p -m 755 libsbl$(EXESUF) $(PREFIX)/lib;
+	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR)
+	install -c -p -m 644 include/slib.h $(INCLUDEDIR)
+	install -c -p -m 644 libsbl.a $(LIBDIR)
+	install -c -p -m 755 libsbl$(EXESUF) $(LIBDIR)
 
 clean:
 	-$(RM) libsbl.dll libsbl.so libsbl.dylib *.o */*.o *.a -f 2>/dev/null
