@@ -28,17 +28,17 @@ include config.mk
 
 all:$(BUILD)
 
-unix: libsbl.so
+unix: libsbl$(EXESUF)
 win: libsbl.dll
 
 
-libsbl.so: $(FILES)
+libsbl$(EXESUF): $(FILES)
 	+make -C file unix
 	+make -C main unix
 	+make -C math unix
 	+make -C stack unix
 	+make -C string unix
-	$(CC) -shared -fPIC -Os */*.o -o libsbl.so
+	$(CC) $(SOFLAGS) */*.o -o libsbl$(EXESUF)
 	$(AR) rcs ./libsbl.a */*.o
 
 libsbl.dll: $(FILES)
@@ -47,18 +47,14 @@ libsbl.dll: $(FILES)
 	+make -C math win
 	+make -C stack win
 	+make -C string win
-	$(CC) -shared -fPIC -Os */*.o -o libsbl.dll
+	$(CC) $(SOFLAGS) */*.o -o libsbl.dll
 	$(AR) rcs ./libsbl.a */*.o
 
 install:
 	install -c -d -m 755 $(PREFIX)/lib $(PREFIX)/include
 	install -c -p -m 644 include/slib.h $(PREFIX)/include
 	install -c -p -m 644 libsbl.a $(PREFIX)/lib
-	if [ -f libsbl.so ] ; then \
-	install -c -p -m 755 libsbl.so $(PREFIX)/lib;\
-	elif [ -f libsbl.dll ] ;then \
-	install -c -p -m 755 libsbl.dll $(PREFIX)/lib;\
-	fi
+	install -c -p -m 755 libsbl$(EXESUF) $(PREFIX)/lib;
 
 clean:
 	-$(RM) libsbl.dll libsbl.so *.o */*.o *.a -f 2>/dev/null
