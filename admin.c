@@ -24,7 +24,9 @@
  */
 /* 包含头文件 */
 #include "slib.h"
-
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
 ccp ver = "3.0.0";                           /*版本号*/
 
 
