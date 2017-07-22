@@ -23,9 +23,12 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib.h"
+#include <memory.h>
+#include <assert.h>
 
 #if ! PLAT
 #include <termios.h>
+#include <unistd.h>
 OPT int getch(void) 
 {
         int c=0;
@@ -38,9 +41,7 @@ OPT int getch(void)
         memcpy(&new_opts, &org_opts, sizeof(new_opts));
         new_opts.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
         tcsetattr(STDIN_FILENO, TCSANOW, &new_opts);
-        system("stty -echo");
         c=getchar();
-        system("stty echo");
         res=tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);assert(res==0);
         return c;
 }
