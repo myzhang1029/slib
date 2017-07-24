@@ -13,7 +13,22 @@ It is a library written in C, and for C/C++.
 
 ## Building
 Out-of-source build is NOT supported.
-The recommended build tool is GNU make, 
+You can use GNU make or xmake(github: tboox/xmake)
+GNU make:   
+```shell
+$ ./configure
+$ make
+# make install
+```
+xmake:
+```shell
+$ xmake 
+# xmake install
+$ xmake -f -k shared
+$ xmake
+# xmake install
+# cp include/slib.h (prefix)/include/slib.h
+```
 Microsoft Visual Studio nmake is NOT supported.(If you have finished this, please pull request to this repository.
 
 ## Contributing
