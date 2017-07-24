@@ -25,7 +25,7 @@ end
 target("sbl")
 
 	-- set kind
-	set_kind("shared")
+	set_kind("$(kind)")
 
 	-- add cflags
 	add_cflags("-Iinclude")
