@@ -1,7 +1,12 @@
 #include <slib.h>
+
 int main()
 {
-	prterr("Testing prterr");
+	int saveerr=errno;
+	prterr("Testing prterr with errno %d", errno);
+	__set_errno(EDOM);
+	prterr("Testing prterr with errno %d", errno);
+	__set_errno(saveerr);
 	return 0;
 }
 
