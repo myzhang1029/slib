@@ -307,6 +307,7 @@ OPT int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
 
 #if ! PLAT
 OPT int getch(void);
+OPT int kbhit(void);
 #endif
 
 _END_EXTERN_C
