@@ -128,7 +128,7 @@ echo $cc
 printf "Checking build system type... "
 if [ "$build" = "err" ] ; then 
   case `uname` in
-    Linux|*BSD|Darwin) build="unix"
+    Linux|*BSD|Darwin|GNU) build="unix"
     ;;
     MINGW*|MSYS*|CYGWIN*) build="win"
     ;;
@@ -144,7 +144,7 @@ printf "Checking suffix for shared objects... "
 
 if [ "$exesuf" = "" ] ; then
   case `uname` in
-    Linux|*BSD) exesuf=".so";
+    Linux|*BSD|GNU) exesuf=".so";
 	    soflags="-fPIC -shared -Os"
     ;;
     Darwin) exesuf=".dylib";
