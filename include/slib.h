@@ -255,10 +255,10 @@ OPT int  prtfile(FILE *stream);
 OPT double  average(size_t amt,...);
 
 
-OPT int  gcf(unsigned n1,unsigned n2);
+OPT unsigned long gcf(unsigned long n1,unsigned long n2);
 
 
-OPT int  lcm(unsigned n1,unsigned n2);
+OPT unsigned long lcm(unsigned long n1,unsigned long n2);
 
 
 OPT int  eular(unsigned n);
