@@ -24,11 +24,15 @@
  */
 #include "slib.h"
 
-OPT int gcf(unsigned n1,unsigned n2)
+OPT unsigned long
+gcf(unsigned long n1, unsigned long n2)
 {
-	unsigned a=n1,b=n2,c=0;
-	if(n1==0||n2==0) return SERROR;
-	for(;b!=0;c=a%b,a=b,b=c);
-	return (int)c;
+	unsigned long a=n1, b=n2, tmp;
+	while(a&&b)
+	{
+		tmp=a>b?a-b:b-a;
+		a=a>b?b:a;
+		b=tmp;
+	}
+	return a=0?b:a;
 }
-
