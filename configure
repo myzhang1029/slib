@@ -73,6 +73,8 @@ for opt do
   ;;
   --rm=*) rm=`echo $opt | cut -d '=' -f 2`
   ;;
+  --install=*) install=`echo $opt | cut -d '=' -f 2`
+  ;;
   --extra-cflags=*) cflags="$cflags `echo $opt | cut -d '=' -f 2`"
   ;;
   --exesuffix=*) exesuf=`echo $opt | cut -d '=' -f 2`
@@ -88,6 +90,8 @@ for opt do
   --infodir=*) infodir=`echo $opt | cut -d '=' -f 2`
   ;;
   --soflags=*) soflags=`echo $opt | cut -d '=' -f 2`
+  ;;
+  --instflags=*) instflags=`echo $opt | cut -d '=' -f 2`
   ;;
   --help|-h) help_me
   ;;
@@ -195,4 +199,3 @@ echo LIBDIR=`echo $libdir`>>config.mk
 echo INCLUDEDIR=`echo $includedir`>>config.mk
 
 printf 'configure:\033[32mfinished\033[30m\n'
-
