@@ -28,10 +28,10 @@
 #endif
 
 #ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 2
+#define SBLLIB_VERSION 3
 
-#define SBLLIB_MINOR 10
-#define SBLLIB_PATCHLEVEL 0
+#define SBLLIB_MINOR 0
+#define SBLLIB_PATCHLEVEL 5
 
 #include <stdio.h>
 #include <errno.h>
