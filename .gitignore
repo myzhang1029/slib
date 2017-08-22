@@ -8,6 +8,8 @@
 *.def
 *.so
 *.dylib
+*.lo
+*-*.*.*.tar.gz
 tags
 build/
 
