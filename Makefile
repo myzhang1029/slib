@@ -33,22 +33,14 @@ win: libsbl.dll
 
 
 libsbl$(EXESUF): $(FILES)
-	+make -C file unix
-	+make -C main unix
-	+make -C math unix
-	+make -C stack unix
-	+make -C string unix
-	$(CC) $(SOFLAGS) */*.o -o libsbl$(EXESUF)
-	$(AR) rcs ./libsbl.a */*.o
+	+make -C src unix
+	$(CC) $(SOFLAGS) src/*.o -o libsbl$(EXESUF)
+	$(AR) rcs ./libsbl.a src/*.o
 
 libsbl.dll: $(FILES)
-	+make -C file win
-	+make -C main win
-	+make -C math win
-	+make -C stack win
-	+make -C string win
-	$(CC) $(SOFLAGS) */*.o -o libsbl.dll
-	$(AR) rcs ./libsbl.a */*.o
+	+make -C src win
+	$(CC) $(SOFLAGS) src/*.o -o libsbl.dll
+	$(AR) rcs ./libsbl.a src/*.o
 
 install:
 	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR)
@@ -67,7 +59,3 @@ distclean:clean
 
 config.mk:
 	@echo Please do ./configure
-	@echo . .
-	@echo \ \|
-	@echo \\_/
-	@exit 1
