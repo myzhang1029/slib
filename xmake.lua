@@ -34,9 +34,5 @@ target("sbl")
 	add_headers("include/slib.h")
 
 	-- add files
-	add_files("file/*.c")
-	add_files("main/*.c")
-	add_files("math/*.c")
-	add_files("string/*.c")
-	add_files("stack/*.c")
+	add_files("src/*.c")
 
