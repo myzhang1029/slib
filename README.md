@@ -12,7 +12,8 @@ The slib stands for the SBL Portable Programming Interface Library.
 It is a library written in C, and for C/C++.
 
 ## Building
-Out-of-source build is NOT supported.
+####If you need out-of-source build, or you need more option, switch to branch automake and use it like GNU softwares.
+
 You can use GNU make or xmake(github: tboox/xmake)
 GNU make:   
 ```shell
