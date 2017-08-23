@@ -23,6 +23,7 @@ build/
 
 #Config
 
+autom4te.cache
 .xmake/
 Makefile
 config.h
