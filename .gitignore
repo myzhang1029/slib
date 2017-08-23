@@ -22,8 +22,15 @@ build/
 
 #Config
 
-config.mk
-.xmake/
+Makefile
+config.h
+config.log
+config.status
+libtool
+stamp-h1
+src/.deps
+src/Makefile
+src/.dirstamp
 
 #Test
 
