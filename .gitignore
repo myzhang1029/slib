@@ -8,10 +8,11 @@
 *.def
 *.so
 *.dylib
-*.lo
+*.l[oa]
 *-*.*.*.tar.gz
 tags
 build/
+.libs/
 
 #Editor
 
