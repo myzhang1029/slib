@@ -8,13 +8,20 @@
 [Binary Download Link](https://github.com/myzhang1029/slib/releases)
 
 ## Description
-The slib stands for the SBL Portable Programming Interface Library.
-It is a library written in C, and for C/C++.
+The slib stands for Slib: the portable programming interface LIBrary.
+It is a library written in C, and for any usage.
 
 ## Building
 ####If you need out-of-source build, or you need more option, switch to branch automake and use it like GNU softwares.
 
-You can use GNU make or xmake(github: tboox/xmake)
+####If you are using MinGW and you don't have a MSYS, try
+ ```shell
+ make -f Makefile.mingw PREFIX=prefix
+ make install 
+ ```
+Otherwise you can use GNU make or xmake(github: tboox/xmake)
+Just like usual GNU softwares do.
+
 GNU make:   
 ```shell
 $ ./configure
@@ -30,14 +37,10 @@ $ xmake
 # xmake install
 # cp include/slib.h (prefix)/include/slib.h
 ```
-Microsoft Visual Studio nmake is NOT supported.(If you have finished this, please pull request to this repository.
+Microsoft Visual Studio nmake is NOT yet supported.(If you have finished this, please pull request to this repository.
 
 ## Contributing
 if you want to contribute to this project, please start a pull request.   
-
-## Important
-If you are building for two system, make sure you "make clean"
-before running next "./configure" and "make".
 
 ## build time count(commit 21d9693) (AVG5)
  1.
