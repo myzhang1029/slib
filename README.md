@@ -12,12 +12,11 @@ The slib stands for Slib: the portable programming interface LIBrary.
 It is a library written in C, and for any usage.
 
 ## Building
-####If you need out-of-source build, or you need more option, switch to branch automake and use it like GNU softwares.
 
-####If you are using MinGW and you don't have a MSYS, try
- ```shell
- make -f Makefile.mingw PREFIX=prefix
- make install 
+#### If you are using MinGW and you don't have a MSYS, try
+ ```cmd
+ > make -f Makefile.mingw PREFIX=prefix
+ > make install 
  ```
 Otherwise you can use GNU make or xmake(github: tboox/xmake)
 Just like usual GNU softwares do.
