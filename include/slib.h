@@ -30,7 +30,7 @@
 #ifndef SBLLIB_VERSION
 #define SBLLIB_VERSION 3
 
-#define SBLLIB_MINOR 1
+#define SBLLIB_MINOR 2
 #define SBLLIB_PATCHLEVEL 0
 
 #ifdef HAVE_CONFIG_H
