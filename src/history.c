@@ -27,6 +27,9 @@
 #  include <config.h>
 #endif
 
+#undef malloc
+#undef realloc
+
 #include <stdio.h>
 
 #include <stdlib.h>
@@ -263,7 +266,7 @@ extern int rl_byte_oriented;
 #endif /* _RL_MBUTIL_H_ */
 /* End rlmbutil.h */
 
-#include "history.h"
+#include "slib/history.h"
 
 /* chardefs.h -- Character definitions for readline. */
 
