@@ -1,7 +1,8 @@
 /* history.h -- the names of functions that you can call in history. */
 
 /* Copyright (C) 1989-2015 Free Software Foundation, Inc.
-   Copyright (C) 2017      Zhan Maiyun
+   Cpoyright (C) 2017 Zhang Maiyun
+
    This file contains the GNU History Library (History), a set of
    routines for managing the text of previously typed lines.
 
@@ -29,11 +30,14 @@ extern "C" {
 #include <time.h>		/* XXX - for history timestamp code */
 
 /* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers. */
+
 /* Adapted from BSD /usr/include/sys/cdefs.h. */
 
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
 	extern char *func PARAMS((char *, char *, int)); */
+#if !defined (_RL_STDC_H_)
+#define _RL_STDC_H_
 
 #if !defined (PARAMS)
 #  if defined (__STDC__) || defined (__GNUC__) || defined (__cplusplus)
@@ -60,13 +64,21 @@ extern "C" {
 #    define USE_VARARGS
 #  endif
 #endif
+#endif /* !_RL_STDC_H_ */
 /* End rlstdc.h */
 
 /* rltypedefs.h -- Type declarations for readline functions. */
 
+#ifndef _RL_TYPEDEFS_H_
+#define _RL_TYPEDEFS_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Old-style, attempt to mark as deprecated in some way people will notice. */
 
-#ifndef _FUNCTION_DEF
+#if !defined (_FUNCTION_DEF)
 #  define _FUNCTION_DEF
 
 #if defined(__GNUC__) || defined(__clang__)
@@ -85,7 +97,7 @@ typedef char **CPPFunction ();
 
 /* New style. */
 
-#ifndef _RL_FUNCTION_TYPEDEF
+#if !defined (_RL_FUNCTION_TYPEDEF)
 #  define _RL_FUNCTION_TYPEDEF
 
 /* Bindable functions */
@@ -130,23 +142,12 @@ typedef char *rl_cpcpfunc_t PARAMS((char  *));
 typedef char *rl_cpcppfunc_t PARAMS((char  **));
 
 #endif /* _RL_FUNCTION_TYPEDEF */
-/* End rltypedefs.h */
 
-/* xmalloc.h -- memory allocation that aborts on errors. */
-#ifndef PTR_T
-
-#ifdef __STDC__
-#  define PTR_T	void *
-#else
-#  define PTR_T	char *
+#ifdef __cplusplus
+}
 #endif
-
-#endif /* !PTR_T */
-
-extern PTR_T xmalloc PARAMS((size_t));
-extern PTR_T xrealloc PARAMS((void *, size_t));
-extern void xfree PARAMS((void *));
-/* End xmalloc.h */
+#endif /* _RL_TYPEDEFS_H_ */
+/* End rltypedefs.h */
 
 #ifdef __STDC__
 typedef void *histdata_t;
@@ -392,26 +393,8 @@ extern rl_linebuf_func_t *history_inhibit_expansion_function;
 #endif
 
 #endif /* !_HISTORY_H_ */
+
 /* histlib.h -- internal definitions for the history library. */
-
-/* Copyright (C) 1989-2009 Free Software Foundation, Inc.
-
-   This file contains the GNU History Library (History), a set of
-   routines for managing the text of previously typed lines.
-
-   History is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   History is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with History.  If not, see <http://www.gnu.org/licenses/>.
-*/
 
 #if !defined (_HISTLIB_H_)
 #define _HISTLIB_H_
@@ -471,3 +454,26 @@ extern char *strchr ();
 #define HISTORY_OVERWRITE 1
 
 #endif /* !_HISTLIB_H_ */
+/* End histlib.h */
+
+/* xmalloc.h -- memory allocation that aborts on errors. */
+
+#if !defined (_XMALLOC_H_)
+#define _XMALLOC_H_
+
+#ifndef PTR_T
+
+#ifdef __STDC__
+#  define PTR_T	void *
+#else
+#  define PTR_T	char *
+#endif
+
+#endif /* !PTR_T */
+
+extern PTR_T xmalloc(size_t);
+extern PTR_T xrealloc(void *, size_t);
+extern void xfree(void *);
+
+#endif /* _XMALLOC_H_ */
+/* End xmalloc.h */
