@@ -36,10 +36,10 @@ INCLUDEDIR=$(PREFIX)/include
 
 .PHONY: install clean all tags
 
-all:libsbl.dll
+all:libsbl$(EXESUF)
 
-libsbl.dll: $(FILES) $(CFILES:.c=.o)
-	$(CC) $(SOFLAGS) src/*.o -o libsbl.dll
+libsbl$(EXESUF): $(FILES) $(CFILES:.c=.o)
+	$(CC) $(SOFLAGS) src/*.o -o $@
 	$(AR) rcs ./libsbl.a src/*.o
 
 %.o:%.c
@@ -57,4 +57,3 @@ clean:
 
 tags:
 	ctags -R
-
