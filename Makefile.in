@@ -133,7 +133,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libsbl_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_libsbl_la_OBJECTS = src/libsbl_la-history.lo \
+am_libsbl_la_OBJECTS = src/libsbl_la-regex.lo src/libsbl_la-history.lo \
 	src/libsbl_la-average.lo src/libsbl_la-calc.lo \
 	src/libsbl_la-clearstack.lo src/libsbl_la-colorprintf.lo \
 	src/libsbl_la-destorystack.lo src/libsbl_la-error.lo \
@@ -363,7 +363,7 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 lib_LTLIBRARIES = libsbl.la
 include_HEADERS = include/slib.h
 libsbl_la_CPPFLAGS = -Iinclude
-libsbl_la_SOURCES = include/slib.h include/slib/history.h src/history.c src/average.c src/calc.c src/clearstack.c src/colorprintf.c src/destorystack.c src/error.c src/eular.c src/fcopy.c src/fsize.c src/gcf.c src/getch.c src/getlen.c src/getopt.c src/initstack.c src/iofile.c src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/mret.c src/mtscat.c src/mysh.c src/pop.c src/prtpn.c src/push.c src/randomnum.c src/sbl.c src/sleepS.c src/splitpathS.c
+libsbl_la_SOURCES = include/slib.h include/slib/history.h src/regex.c src/history.c src/average.c src/calc.c src/clearstack.c src/colorprintf.c src/destorystack.c src/error.c src/eular.c src/fcopy.c src/fsize.c src/gcf.c src/getch.c src/getlen.c src/getopt.c src/initstack.c src/iofile.c src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/mret.c src/mtscat.c src/mysh.c src/pop.c src/prtpn.c src/push.c src/randomnum.c src/sbl.c src/sleepS.c src/splitpathS.c
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -458,6 +458,8 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
+src/libsbl_la-regex.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-history.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-average.lo: src/$(am__dirstamp) \
@@ -557,6 +559,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-prtpn.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-push.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-randomnum.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-regex.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-sbl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-sleepS.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-splitpathS.Plo@am__quote@
@@ -584,6 +587,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+src/libsbl_la-regex.lo: src/regex.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-regex.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-regex.Tpo -c -o src/libsbl_la-regex.lo `test -f 'src/regex.c' || echo '$(srcdir)/'`src/regex.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libsbl_la-regex.Tpo src/$(DEPDIR)/libsbl_la-regex.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/regex.c' object='src/libsbl_la-regex.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-regex.lo `test -f 'src/regex.c' || echo '$(srcdir)/'`src/regex.c
 
 src/libsbl_la-history.lo: src/history.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-history.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-history.Tpo -c -o src/libsbl_la-history.lo `test -f 'src/history.c' || echo '$(srcdir)/'`src/history.c
@@ -1188,10 +1198,10 @@ uninstall-am: uninstall-includeHEADERS uninstall-libLTLIBRARIES
 
 install-data-hook:
 	mkdir -p $(includedir)/slib
-	$(INSTALL) -m 644 include/slib/history.h $(includedir)/slib/
+	$(INSTALL) -m 644 include/slib/history.h include/slib/regex.h $(includedir)/slib/
 
 uninstall-hook:
-	rm $(includedir)/slib/history.h
+	rm $(includedir)/slib/history.h $(includedir)/slib/regex.h
 	rmdir $(includedir)/slib
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

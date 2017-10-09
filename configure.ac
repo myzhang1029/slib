@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libsbl], [3.2.2], [myzhang1029@hotmail.com])
+AC_INIT([libsbl], [3.3.0], [myzhang1029@hotmail.com])
 AM_INIT_AUTOMAKE
 LT_INIT
 AC_CONFIG_SRCDIR([src/fcopy.c])
@@ -21,7 +21,7 @@ AC_PROG_RANLIB
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([fcntl.h limits.h memory.h stdlib.h string.h strings.h sys/file.h termios.h unistd.h wchar.h wctype.h])
+AC_CHECK_HEADERS([stddef.h fcntl.h limits.h memory.h stdlib.h string.h strings.h sys/file.h termios.h unistd.h wchar.h wctype.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL

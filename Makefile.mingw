@@ -27,7 +27,7 @@ AR=ar
 RM=rm
 CFLAGS=-Wno-variadic-macros -W -Wall -pedantic -c -O2 -Iinclude -DPLAT=1
 PREFIX=/usr/local
-CFILES=./src/history.c ./src/average.c ./src/calc.c ./src/clearstack.c ./src/colorprintf.c ./src/destorystack.c ./src/error.c ./src/eular.c ./src/fcopy.c ./src/fsize.c ./src/gcf.c ./src/getch.c ./src/getlen.c ./src/getopt.c ./src/initstack.c ./src/iofile.c ./src/ispn.c ./src/isrp.c ./src/itoa.c ./src/lcm.c ./src/mret.c ./src/mtscat.c ./src/mysh.c ./src/pop.c ./src/prtpn.c ./src/push.c ./src/randomnum.c ./src/sbl.c ./src/sleepS.c ./src/splitpathS.c
+CFILES=./src/regex.c ./src/history.c ./src/average.c ./src/calc.c ./src/clearstack.c ./src/colorprintf.c ./src/destorystack.c ./src/error.c ./src/eular.c ./src/fcopy.c ./src/fsize.c ./src/gcf.c ./src/getch.c ./src/getlen.c ./src/getopt.c ./src/initstack.c ./src/iofile.c ./src/ispn.c ./src/isrp.c ./src/itoa.c ./src/lcm.c ./src/mret.c ./src/mtscat.c ./src/mysh.c ./src/pop.c ./src/prtpn.c ./src/push.c ./src/randomnum.c ./src/sbl.c ./src/sleepS.c ./src/splitpathS.c
 FILES=./include/slib.h ./include/slib/history.h $(CFILE)
 EXESUF=.dll
 SOFLAGS=-shared
@@ -48,7 +48,7 @@ libsbl.dll: $(FILES) $(CFILES:.c=.o)
 install:
 	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR) $(INCLUDEDIR)/slib
 	install -c -p -m 644 include/slib.h $(INCLUDEDIR)
-	install -c -p -m 644 include/slib/history.h $(INCLUDEDIR)/slib
+	install -c -p -m 644 include/slib/history.h include/slib/regex.h $(INCLUDEDIR)/slib
 	install -c -p -m 644 libsbl.a $(LIBDIR)
 	install -c -p -m 755 libsbl$(EXESUF) $(LIBDIR)
 
