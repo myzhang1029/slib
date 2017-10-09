@@ -25,7 +25,8 @@
 CC=gcc
 AR=ar
 RM=rm
-CFLAGS=-Wno-variadic-macros -W -Wall -pedantic -c -O2 -Iinclude -DPLAT=1
+CFLAGS=-Wno-variadic-macros -W -Wall -pedantic -c -O2 -Iinclude
+PLAT=-DPLAT=1
 PREFIX=/usr/local
 CFILES=./src/regex.c ./src/history.c ./src/average.c ./src/calc.c ./src/clearstack.c ./src/colorprintf.c ./src/destorystack.c ./src/error.c ./src/eular.c ./src/fcopy.c ./src/fsize.c ./src/gcf.c ./src/getch.c ./src/getlen.c ./src/getopt.c ./src/initstack.c ./src/iofile.c ./src/ispn.c ./src/isrp.c ./src/itoa.c ./src/lcm.c ./src/mret.c ./src/mtscat.c ./src/mysh.c ./src/pop.c ./src/prtpn.c ./src/push.c ./src/randomnum.c ./src/sbl.c ./src/sleepS.c ./src/splitpathS.c
 FILES=./include/slib.h ./include/slib/history.h $(CFILE)
@@ -36,14 +37,14 @@ INCLUDEDIR=$(PREFIX)/include
 
 .PHONY: install clean all tags
 
-all:libsbl.dll
+all:libsbl$(EXESUF)
 
-libsbl.dll: $(FILES) $(CFILES:.c=.o)
-	$(CC) $(SOFLAGS) src/*.o -o libsbl.dll
+libsbl$(EXESUF): $(FILES) $(CFILES:.c=.o)
+	$(CC) $(SOFLAGS) src/*.o -o $@
 	$(AR) rcs ./libsbl.a src/*.o
 
 %.o:%.c
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(PLAT) $^ -o $@
 
 install:
 	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR) $(INCLUDEDIR)/slib
@@ -57,4 +58,3 @@ clean:
 
 tags:
 	ctags -R
-
