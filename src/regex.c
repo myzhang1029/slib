@@ -4,7 +4,7 @@
    internationalization features.)
 
    Copyright (C) 1993 Free Software Foundation, Inc.
-
+   Copyright (C) 2017 Zhang Maiyun.
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2, or (at your option)
@@ -65,21 +65,21 @@
 /* Define the syntax stuff for \<, \>, etc.  */
 
 /* This must be nonzero for the wordchar and notwordchar pattern
-   commands in re_match_2.  */
+   commands in re_matchGS_2.  */
 #ifndef Sword 
 #define Sword 1
 #endif
 
 #ifdef SYNTAX_TABLE
 
-extern char *re_syntax_table;
+extern char *re_syntax_tableGS;
 
 #else /* not SYNTAX_TABLE */
 
 /* How many characters in the character set.  */
 #define CHAR_SET_SIZE 256
 
-static char re_syntax_table[CHAR_SET_SIZE];
+static char re_syntax_tableGS[CHAR_SET_SIZE];
 
 static void
 init_syntax_once ()
@@ -90,25 +90,25 @@ init_syntax_once ()
    if (done)
      return;
 
-   bzero(re_syntax_table, sizeof re_syntax_table);
+   bzero(re_syntax_tableGS, sizeof re_syntax_tableGS);
 
    for (c = 'a'; c <= 'z'; c++)
-     re_syntax_table[c] = Sword;
+     re_syntax_tableGS[c] = Sword;
 
    for (c = 'A'; c <= 'Z'; c++)
-     re_syntax_table[c] = Sword;
+     re_syntax_tableGS[c] = Sword;
 
    for (c = '0'; c <= '9'; c++)
-     re_syntax_table[c] = Sword;
+     re_syntax_tableGS[c] = Sword;
 
-   re_syntax_table['_'] = Sword;
+   re_syntax_tableGS['_'] = Sword;
 
    done = 1;
 }
 
 #endif /* not SYNTAX_TABLE */
 
-#define SYNTAX(c) re_syntax_table[c]
+#define SYNTAX(c) re_syntax_tableGS[c]
 
 #endif /* not emacs */
 
@@ -162,7 +162,7 @@ init_syntax_once ()
 
 /* Should we use malloc or alloca?  If REGEX_MALLOC is not defined, we
    use `alloca' instead of `malloc'.  This is because using malloc in
-   re_search* or re_match* could cause memory leaks when C-g is used in
+   re_searchGS* or re_matchGS* could cause memory leaks when C-g is used in
    Emacs; also, malloc is slower and causes storage fragmentation.  On
    the other hand, malloc is more portable, and easier to debug.  
    
@@ -265,7 +265,7 @@ typedef enum
            field.  Then followed by one byte with the number of groups
            inner to this one.  (This last has to be part of the
            start_memory only because we need it in the on_failure_jump
-           of re_match_2.)  */
+           of re_matchGS_2.)  */
   start_memory,
 
         /* Stop remembering the text that is matched and store it in a
@@ -715,7 +715,7 @@ print_partial_compiled_pattern (start, end)
 
 void
 print_compiled_pattern (bufp)
-    struct re_pattern_buffer *bufp;
+    struct re_pattern_bufferGS *bufp;
 {
   unsigned char *buffer = bufp->buffer;
 
@@ -785,7 +785,7 @@ print_double_string (where, string1, size1, string2, size2)
 /* Set by `re_set_syntax' to the current regexp syntax to recognize.  Can
    also be assigned to arbitrarily: each pattern buffer stores its own
    syntax, so it can be changed between regex compilations.  */
-reg_syntax_t re_syntax_options = RE_SYNTAX_EMACS;
+reg_syntax_tGS re_syntax_optionsGS = RE_SYNTAX_EMACS;
 
 
 /* Specify the precise syntax of regexps for compilation.  This provides
@@ -795,13 +795,13 @@ reg_syntax_t re_syntax_options = RE_SYNTAX_EMACS;
    The argument SYNTAX is a bit mask comprised of the various bits
    defined in regex.h.  We return the old syntax.  */
 
-reg_syntax_t
+reg_syntax_tGS
 re_set_syntax (syntax)
-    reg_syntax_t syntax;
+    reg_syntax_tGS syntax;
 {
-  reg_syntax_t ret = re_syntax_options;
+  reg_syntax_tGS ret = re_syntax_optionsGS;
   
-  re_syntax_options = syntax;
+  re_syntax_optionsGS = syntax;
   return ret;
 }
 
@@ -834,7 +834,7 @@ static void store_op1 (), store_op2 ();
 static void insert_op1 (), insert_op2 ();
 static boolean at_begline_loc_p (), at_endline_loc_p ();
 static boolean group_in_compile_stack ();
-static reg_errcode_t compile_range ();
+static reg_errcode_tGS compile_range ();
 
 /* Fetch the next character in the uncompiled pattern---translating it 
    if necessary.  Also cast from a signed character in the constant
@@ -1049,12 +1049,12 @@ typedef struct
    The `fastmap' and `newline_anchor' fields are neither
    examined nor set.  */
 
-static reg_errcode_t
+static reg_errcode_tGS
 regex_compile (pattern, size, syntax, bufp)
      const char *pattern;
      int size;
-     reg_syntax_t syntax;
-     struct re_pattern_buffer *bufp;
+     reg_syntax_tGS syntax;
+     struct re_pattern_bufferGS *bufp;
 {
   /* We fetch characters from PATTERN here.  Even though PATTERN is
      `char *' (i.e., signed), we declare these variables as unsigned, so
@@ -1407,14 +1407,14 @@ regex_compile (pattern, size, syntax, bufp)
                     && !(p - 3 >= pattern && p[-3] == '[' && p[-2] == '^')
                     && *p != ']')
                   {
-                    reg_errcode_t ret
+                    reg_errcode_tGS ret
                       = compile_range (&p, pend, translate, syntax, b);
                     if (ret != REG_NOERROR) return ret;
                   }
 
                 else if (p[0] == '-' && p[1] != ']')
                   { /* This handles ranges made up of characters only.  */
-                    reg_errcode_t ret;
+                    reg_errcode_tGS ret;
 
 		    /* Move past the `-'.  */
                     PATFETCH (c1);
@@ -1625,7 +1625,7 @@ regex_compile (pattern, size, syntax, bufp)
                 { /* Push a dummy failure point at the end of the
                      alternative for a possible future
                      `pop_failure_jump' to pop.  See comments at
-                     `push_dummy_failure' in `re_match_2'.  */
+                     `push_dummy_failure' in `re_matchGS_2'.  */
                   BUF_PUSH (push_dummy_failure);
                   
                   /* We allocated space for this jump when we assigned
@@ -1825,7 +1825,7 @@ regex_compile (pattern, size, syntax, bufp)
                      /* Initialize lower bound of the `succeed_n', even
                         though it will be set during matching by its
                         attendant `set_number_at' (inserted next),
-                        because `re_compile_fastmap' needs to know.
+                        because `re_compGSile_fastmapGS' needs to know.
                         Jump to the `jump_n' we might insert below.  */
                      INSERT_JUMP2 (succeed_n, laststart,
                                    b + 5 + (upper_bound > 1) * 5,
@@ -2121,7 +2121,7 @@ insert_op2 (op, loc, arg1, arg2, end)
 static boolean
 at_begline_loc_p (pattern, p, syntax)
     const char *pattern, *p;
-    reg_syntax_t syntax;
+    reg_syntax_tGS syntax;
 {
   const char *prev = p - 2;
   boolean prev_prev_backslash = prev > pattern && prev[-1] == '\\';
@@ -2187,11 +2187,11 @@ group_in_compile_stack (compile_stack, regnum)
    We use these short variable names so we can use the same macros as
    `regex_compile' itself.  */
 
-static reg_errcode_t
+static reg_errcode_tGS
 compile_range (p_ptr, pend, translate, syntax, b)
     const char **p_ptr, *pend;
     char *translate;
-    reg_syntax_t syntax;
+    reg_syntax_tGS syntax;
     unsigned char *b;
 {
   unsigned this_char;
@@ -2232,8 +2232,8 @@ compile_range (p_ptr, pend, translate, syntax, b)
   return REG_NOERROR;
 }
 
-/* Failure stack declarations and macros; both re_compile_fastmap and
-   re_match_2 use a failure stack.  These have to be macros because of
+/* Failure stack declarations and macros; both re_compGSile_fastmapGS and
+   re_matchGS_2 use a failure stack.  These have to be macros because of
    REGEX_ALLOCATE.  */
    
 
@@ -2506,10 +2506,10 @@ typedef struct
   DEBUG_STATEMENT (nfailure_points_popped++);				\
 } /* POP_FAILURE_POINT */
 
-/* re_compile_fastmap computes a ``fastmap'' for the compiled pattern in
+/* re_compGSile_fastmapGS computes a ``fastmap'' for the compiled pattern in
    BUFP.  A fastmap records which of the (1 << BYTEWIDTH) possible
    characters can start a string that matches the pattern.  This fastmap
-   is used by re_search to skip quickly over impossible starting points.
+   is used by re_searchGS to skip quickly over impossible starting points.
 
    The caller must supply the address of a (1 << BYTEWIDTH)-byte data
    area as BUFP->fastmap.
@@ -2520,8 +2520,8 @@ typedef struct
    Returns 0 if we succeed, -2 if an internal error.   */
 
 int
-re_compile_fastmap (bufp)
-     struct re_pattern_buffer *bufp;
+re_compGSile_fastmapGS (bufp)
+     struct re_pattern_bufferGS *bufp;
 {
   int j, k;
   fail_stack_type fail_stack;
@@ -2578,7 +2578,7 @@ re_compile_fastmap (bufp)
         /* I guess the idea here is to simply not bother with a fastmap
            if a backreference is used, since it's too hard to figure out
            the fastmap for the corresponding group.  Setting
-           `can_be_null' stops `re_search_2' from using the fastmap, so
+           `can_be_null' stops `re_searchGS_2' from using the fastmap, so
            that is all we do.  */
 	case duplicate:
 	  bufp->can_be_null = 1;
@@ -2789,13 +2789,13 @@ re_compile_fastmap (bufp)
      pattern is empty).  */
   bufp->can_be_null |= path_can_be_null;
   return 0;
-} /* re_compile_fastmap */
+} /* re_compGSile_fastmapGS */
 
 /* Set REGS to hold NUM_REGS registers, storing them in STARTS and
    ENDS.  Subsequent matches using PATTERN_BUFFER and REGS will use
    this memory for recording register information.  STARTS and ENDS
    must be allocated using the malloc library routine, and must each
-   be at least NUM_REGS * sizeof (regoff_t) bytes long.
+   be at least NUM_REGS * sizeof (regoff_tGS) bytes long.
 
    If NUM_REGS == 0, then subsequent matches should allocate their own
    register data.
@@ -2805,11 +2805,11 @@ re_compile_fastmap (bufp)
    freeing the old data.  */
 
 void
-re_set_registers (bufp, regs, num_regs, starts, ends)
-    struct re_pattern_buffer *bufp;
-    struct re_registers *regs;
+re_set_registersGS (bufp, regs, num_regs, starts, ends)
+    struct re_pattern_bufferGS *bufp;
+    struct re_registersGS *regs;
     unsigned num_regs;
-    regoff_t *starts, *ends;
+    regoff_tGS *starts, *ends;
 {
   if (num_regs)
     {
@@ -2822,23 +2822,23 @@ re_set_registers (bufp, regs, num_regs, starts, ends)
     {
       bufp->regs_allocated = REGS_UNALLOCATED;
       regs->num_regs = 0;
-      regs->start = regs->end = (regoff_t) 0;
+      regs->start = regs->end = (regoff_tGS) 0;
     }
 }
 
 /* Searching routines.  */
 
-/* Like re_search_2, below, but only one string is specified, and
+/* Like re_searchGS_2, below, but only one string is specified, and
    doesn't let you say where to stop matching. */
 
 int
-re_search (bufp, string, size, startpos, range, regs)
-     struct re_pattern_buffer *bufp;
+re_searchGS (bufp, string, size, startpos, range, regs)
+     struct re_pattern_bufferGS *bufp;
      const char *string;
      int size, startpos, range;
-     struct re_registers *regs;
+     struct re_registersGS *regs;
 {
-  return re_search_2 (bufp, NULL, 0, string, size, startpos, range, 
+  return re_searchGS_2 (bufp, NULL, 0, string, size, startpos, range, 
 		      regs, size);
 }
 
@@ -2865,13 +2865,13 @@ re_search (bufp, string, size, startpos, range, regs)
    stack overflow).  */
 
 int
-re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
-     struct re_pattern_buffer *bufp;
+re_searchGS_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
+     struct re_pattern_bufferGS *bufp;
      const char *string1, *string2;
      int size1, size2;
      int startpos;
      int range;
-     struct re_registers *regs;
+     struct re_registersGS *regs;
      int stop;
 {
   int val;
@@ -2903,7 +2903,7 @@ re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
 
   /* Update the fastmap now if not correct already.  */
   if (fastmap && !bufp->fastmap_accurate)
-    if (re_compile_fastmap (bufp) == -2)
+    if (re_compGSile_fastmapGS (bufp) == -2)
       return -2;
   
   /* Loop through the string, looking for a place to start matching.  */
@@ -2955,7 +2955,7 @@ re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
           && !bufp->can_be_null)
 	return -1;
 
-      val = re_match_2 (bufp, string1, size1, string2, size2,
+      val = re_matchGS_2 (bufp, string1, size1, string2, size2,
 	                startpos, regs, stop);
       if (val >= 0)
 	return startpos;
@@ -2978,9 +2978,9 @@ re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
         }
     }
   return -1;
-} /* re_search_2 */
+} /* re_searchGS_2 */
 
-/* Declarations and macros for re_match_2.  */
+/* Declarations and macros for re_matchGS_2.  */
 
 static int bcmp_translate ();
 static boolean alt_match_null_string_p (),
@@ -3046,7 +3046,7 @@ typedef union
 #define REG_UNSET(e) ((e) == REG_UNSET_VALUE)
 
 
-/* Macros for dealing with the split strings in re_match_2.  */
+/* Macros for dealing with the split strings in re_matchGS_2.  */
 
 #define MATCHING_IN_FIRST_STRING  (dend == end_match_1)
 
@@ -3121,21 +3121,21 @@ typedef union
 /* Matching routines.  */
 
 #ifndef emacs   /* Emacs never uses this.  */
-/* re_match is like re_match_2 except it takes only a single string.  */
+/* re_matchGS is like re_matchGS_2 except it takes only a single string.  */
 
 int
-re_match (bufp, string, size, pos, regs)
-     struct re_pattern_buffer *bufp;
+re_matchGS (bufp, string, size, pos, regs)
+     struct re_pattern_bufferGS *bufp;
      const char *string;
      int size, pos;
-     struct re_registers *regs;
+     struct re_registersGS *regs;
  {
-  return re_match_2 (bufp, NULL, 0, string, size, pos, regs, size); 
+  return re_matchGS_2 (bufp, NULL, 0, string, size, pos, regs, size); 
 }
 #endif /* not emacs */
 
 
-/* re_match_2 matches the compiled pattern in BUFP against the
+/* re_matchGS_2 matches the compiled pattern in BUFP against the
    the (virtual) concatenation of STRING1 and STRING2 (of length SIZE1
    and SIZE2, respectively).  We start matching at POS, and stop
    matching at STOP.
@@ -3149,12 +3149,12 @@ re_match (bufp, string, size, pos, regs)
    matched substring.  */
 
 int
-re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
-     struct re_pattern_buffer *bufp;
+re_matchGS_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
+     struct re_pattern_bufferGS *bufp;
      const char *string1, *string2;
      int size1, size2;
      int pos;
-     struct re_registers *regs;
+     struct re_registersGS *regs;
      int stop;
 {
   /* General temporaries.  */
@@ -3252,7 +3252,7 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
   unsigned num_regs_pushed = 0; 	
 #endif
 
-  DEBUG_PRINT1 ("\n\nEntering re_match_2.\n");
+  DEBUG_PRINT1 ("\n\nEntering re_matchGS_2.\n");
   
   INIT_FAIL_STACK ();
   
@@ -3434,8 +3434,8 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
                      extra element beyond `num_regs' for the `-1' marker
                      GNU code uses.  */
                   regs->num_regs = MAX (RE_NREGS, num_regs + 1);
-                  regs->start = TALLOC (regs->num_regs, regoff_t);
-                  regs->end = TALLOC (regs->num_regs, regoff_t);
+                  regs->start = TALLOC (regs->num_regs, regoff_tGS);
+                  regs->end = TALLOC (regs->num_regs, regoff_tGS);
                   if (regs->start == NULL || regs->end == NULL)
                     return -2;
                   bufp->regs_allocated = REGS_REALLOCATE;
@@ -3447,8 +3447,8 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
                   if (regs->num_regs < num_regs + 1)
                     {
                       regs->num_regs = num_regs + 1;
-                      RETALLOC (regs->start, regs->num_regs, regoff_t);
-                      RETALLOC (regs->end, regs->num_regs, regoff_t);
+                      RETALLOC (regs->start, regs->num_regs, regoff_tGS);
+                      RETALLOC (regs->end, regs->num_regs, regoff_tGS);
                       if (regs->start == NULL || regs->end == NULL)
                         return -2;
                     }
@@ -3498,7 +3498,7 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
 			    ? string1 
 			    : string2 - size1);
 
-          DEBUG_PRINT2 ("Returning %d from re_match_2.\n", mcnt);
+          DEBUG_PRINT2 ("Returning %d from re_matchGS_2.\n", mcnt);
 
           return mcnt;
         }
@@ -4329,9 +4329,9 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
   FREE_VARIABLES ();
 
   return -1;         			/* Failure to match.  */
-} /* re_match_2 */
+} /* re_matchGS_2 */
 
-/* Subroutine definitions for re_match_2.  */
+/* Subroutine definitions for re_matchGS_2.  */
 
 
 /* We are passed P pointing to a register number after a start_memory.
@@ -4595,7 +4595,7 @@ bcmp_translate (s1, s2, len, translate)
 
 /* Entry points for GNU code.  */
 
-/* re_compile_pattern is the GNU regular expression compiler: it
+/* re_compGSile_patternGS is the GNU regular expression compiler: it
    compiles PATTERN (of length SIZE) and puts the result in BUFP.
    Returns 0 if the pattern was valid, otherwise an error string.
    
@@ -4605,26 +4605,26 @@ bcmp_translate (s1, s2, len, translate)
    We call regex_compile to do the actual compilation.  */
 
 const char *
-re_compile_pattern (pattern, length, bufp)
+re_compGSile_patternGS (pattern, length, bufp)
      const char *pattern;
      int length;
-     struct re_pattern_buffer *bufp;
+     struct re_pattern_bufferGS *bufp;
 {
-  reg_errcode_t ret;
+  reg_errcode_tGS ret;
   
   /* GNU code is written to assume at least RE_NREGS registers will be set
      (and at least one extra will be -1).  */
   bufp->regs_allocated = REGS_UNALLOCATED;
   
   /* And GNU code determines whether or not to get register information
-     by passing null for the REGS argument to re_match, etc., not by
+     by passing null for the REGS argument to re_matchGS, etc., not by
      setting no_sub.  */
   bufp->no_sub = 0;
   
   /* Match anchors at newline.  */
   bufp->newline_anchor = 1;
   
-  ret = regex_compile (pattern, length, re_syntax_options, bufp);
+  ret = regex_compile (pattern, length, re_syntax_optionsGS, bufp);
 
   return re_error_msg[(int) ret];
 }     
@@ -4635,40 +4635,40 @@ re_compile_pattern (pattern, length, bufp)
 #if !defined (emacs) && !defined (_POSIX_SOURCE)
 
 /* BSD has one and only one pattern buffer.  */
-static struct re_pattern_buffer re_comp_buf;
+static struct re_pattern_bufferGS re_compGS_buf;
 
 char *
-re_comp (s)
+re_compGS (s)
     const char *s;
 {
-  reg_errcode_t ret;
+  reg_errcode_tGS ret;
   
   if (!s)
     {
-      if (!re_comp_buf.buffer)
+      if (!re_compGS_buf.buffer)
 	return "No previous regular expression";
       return 0;
     }
 
-  if (!re_comp_buf.buffer)
+  if (!re_compGS_buf.buffer)
     {
-      re_comp_buf.buffer = (unsigned char *) malloc (200);
-      if (re_comp_buf.buffer == NULL)
+      re_compGS_buf.buffer = (unsigned char *) malloc (200);
+      if (re_compGS_buf.buffer == NULL)
         return "Memory exhausted";
-      re_comp_buf.allocated = 200;
+      re_compGS_buf.allocated = 200;
 
-      re_comp_buf.fastmap = (char *) malloc (1 << BYTEWIDTH);
-      if (re_comp_buf.fastmap == NULL)
+      re_compGS_buf.fastmap = (char *) malloc (1 << BYTEWIDTH);
+      if (re_compGS_buf.fastmap == NULL)
 	return "Memory exhausted";
     }
 
-  /* Since `re_exec' always passes NULL for the `regs' argument, we
+  /* Since `re_execGS' always passes NULL for the `regs' argument, we
      don't need to initialize the pattern buffer fields which affect it.  */
 
   /* Match anchors at newlines.  */
-  re_comp_buf.newline_anchor = 1;
+  re_compGS_buf.newline_anchor = 1;
 
-  ret = regex_compile (s, strlen (s), re_syntax_options, &re_comp_buf);
+  ret = regex_compile (s, strlen (s), re_syntax_optionsGS, &re_compGS_buf);
   
   /* Yes, we're discarding `const' here.  */
   return (char *) re_error_msg[(int) ret];
@@ -4676,12 +4676,12 @@ re_comp (s)
 
 
 int
-re_exec (s)
+re_execGS (s)
     const char *s;
 {
   const int len = strlen (s);
   return
-    0 <= re_search (&re_comp_buf, s, len, 0, len, (struct re_registers *) 0);
+    0 <= re_searchGS (&re_compGS_buf, s, len, 0, len, (struct re_registersGS *) 0);
 }
 #endif /* not emacs and not _POSIX_SOURCE */
 
@@ -4689,7 +4689,7 @@ re_exec (s)
 
 #ifndef emacs
 
-/* regcomp takes a regular expression as a string and compiles it.
+/* regcompGS takes a regular expression as a string and compiles it.
 
    PREG is a regex_t *.  We do not expect any fields to be initialized,
    since POSIX says we shouldn't.  Thus, we set
@@ -4711,12 +4711,12 @@ re_exec (s)
      use POSIX basic syntax.
 
      If REG_NEWLINE is set, then . and [^...] don't match newline.
-     Also, regexec will try a match beginning after every newline.
+     Also, regexecGS will try a match beginning after every newline.
 
      If REG_ICASE is set, then we considers upper- and lowercase
      versions of letters to be equivalent when matching.
 
-     If REG_NOSUB is set, then when PREG is passed to regexec, that
+     If REG_NOSUB is set, then when PREG is passed to regexecGS, that
      routine will report only success or failure, and nothing about the
      registers.
 
@@ -4724,12 +4724,12 @@ re_exec (s)
    the return codes and their meanings.)  */
 
 int
-regcomp (preg, pattern, cflags)
+regcompGS (preg, pattern, cflags)
     regex_t *preg;
     const char *pattern; 
     int cflags;
 {
-  reg_errcode_t ret;
+  reg_errcode_tGS ret;
   unsigned syntax
     = (cflags & REG_EXTENDED) ?
       RE_SYNTAX_POSIX_EXTENDED : RE_SYNTAX_POSIX_BASIC;
@@ -4784,11 +4784,11 @@ regcomp (preg, pattern, cflags)
 }
 
 
-/* regexec searches for a given pattern, specified by PREG, in the
+/* regexecGS searches for a given pattern, specified by PREG, in the
    string STRING.
    
    If NMATCH is zero or REG_NOSUB was set in the cflags argument to
-   `regcomp', we ignore PMATCH.  Otherwise, we assume PMATCH has at
+   `regcompGS', we ignore PMATCH.  Otherwise, we assume PMATCH has at
    least NMATCH elements, and we set them to the offsets of the
    corresponding matched substrings.
    
@@ -4799,15 +4799,15 @@ regcomp (preg, pattern, cflags)
    We return 0 if we find a match and REG_NOMATCH if not.  */
 
 int
-regexec (preg, string, nmatch, pmatch, eflags)
+regexecGS (preg, string, nmatch, pmatch, eflags)
     const regex_t *preg;
     const char *string; 
     size_t nmatch; 
-    regmatch_t pmatch[]; 
+    regmatch_tGS pmatch[]; 
     int eflags;
 {
   int ret;
-  struct re_registers regs;
+  struct re_registersGS regs;
   regex_t private_preg;
   int len = strlen (string);
   boolean want_reg_info = !preg->no_sub && nmatch > 0;
@@ -4825,16 +4825,16 @@ regexec (preg, string, nmatch, pmatch, eflags)
   if (want_reg_info)
     {
       regs.num_regs = nmatch;
-      regs.start = TALLOC (nmatch, regoff_t);
-      regs.end = TALLOC (nmatch, regoff_t);
+      regs.start = TALLOC (nmatch, regoff_tGS);
+      regs.end = TALLOC (nmatch, regoff_tGS);
       if (regs.start == NULL || regs.end == NULL)
         return (int) REG_NOMATCH;
     }
 
   /* Perform the searching operation.  */
-  ret = re_search (&private_preg, string, len,
+  ret = re_searchGS (&private_preg, string, len,
                    /* start: */ 0, /* range: */ len,
-                   want_reg_info ? &regs : (struct re_registers *) 0);
+                   want_reg_info ? &regs : (struct re_registersGS *) 0);
   
   /* Copy the register information to the POSIX structure.  */
   if (want_reg_info)
@@ -4855,16 +4855,16 @@ regexec (preg, string, nmatch, pmatch, eflags)
       free (regs.end);
     }
 
-  /* We want zero return to mean success, unlike `re_search'.  */
+  /* We want zero return to mean success, unlike `re_searchGS'.  */
   return ret >= 0 ? (int) REG_NOERROR : (int) REG_NOMATCH;
 }
 
 
 /* Returns a message corresponding to an error code, ERRCODE, returned
-   from either regcomp or regexec.   We don't use PREG here.  */
+   from either regcompGS or regexecGS.   We don't use PREG here.  */
 
 size_t
-regerror (errcode, preg, errbuf, errbuf_size)
+regerrorGS (errcode, preg, errbuf, errbuf_size)
     int errcode;
     const regex_t *preg;
     char *errbuf;
@@ -4908,7 +4908,7 @@ regerror (errcode, preg, errbuf, errbuf_size)
 /* Free dynamically allocated space used by PREG.  */
 
 void
-regfree (preg)
+regfreeGS (preg)
     regex_t *preg;
 {
   if (preg->buffer != NULL)
