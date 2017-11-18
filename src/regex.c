@@ -49,13 +49,9 @@
 /* We used to test for `BSTRING' here, but only GCC and Emacs define
    `BSTRING', as far as I know, and neither of them use this code.  */
 #include <string.h>
-#ifndef bcmp
+#ifndef HAVE_BZERO
 #define bcmp(s1, s2, n)	memcmp ((s1), (s2), (n))
-#endif
-#ifndef bcopy
 #define bcopy(s, d, n)	memcpy ((d), (s), (n))
-#endif
-#ifndef bzero
 #define bzero(s, n)	memset ((s), 0, (n))
 #endif
 

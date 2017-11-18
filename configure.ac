@@ -36,6 +36,7 @@ AC_FUNC_CHOWN
 AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_FUNC_REALLOC
+AC_FUNC_BZERO
 AC_CHECK_FUNCS([ftruncate memmove memset munmap pow strchr strerror strrchr strtol wcwidth])
 
 AC_CONFIG_FILES([Makefile

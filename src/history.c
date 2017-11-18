@@ -2090,7 +2090,7 @@ history_find_word (line, ind)
 #  include <floss.h>
 #endif
 
-#if defined (_WIN32)
+#ifndef HAVE_CHOWN
 #  define chown(x,y,z) 0
 #endif
 
@@ -2232,6 +2232,10 @@ history_find_word (line, ind)
 
 #if defined (__EMX__)
 #  undef HAVE_MMAP
+#endif
+
+#if defined(HAVE_MMAP)&&defined(HAVE_FTRUNCATE)
+#  define HISTORY_USE_MMAP 1
 #endif
 
 #ifdef HISTORY_USE_MMAP

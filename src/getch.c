@@ -26,7 +26,7 @@
 #include <memory.h>
 #include <assert.h>
 
-#if ! PLAT
+#if (!PLAT)||(defined(HAVE_FCNTL_H)&&defined(HAVE_TERMIOS_H)&&defined(HAVE_UNISTD_H))
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
