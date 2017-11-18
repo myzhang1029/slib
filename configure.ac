@@ -7,6 +7,7 @@ AM_INIT_AUTOMAKE
 LT_INIT
 AC_CONFIG_SRCDIR([src/fcopy.c])
 AC_CONFIG_HEADERS([config.h])
+AC_DEFINE([SLIB_LIBRARY], [1], [Define to disable user-only features and enable maintainer-only features])
 
 # Checks for programs.
 AC_PROG_CXX

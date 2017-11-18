@@ -481,27 +481,29 @@ extern size_t regerrorGS
 extern void regfreeGS _RE_ARGS ((regex_t *preg));
 
 /* These following are *GS definitions, which intends to be a strong alias to those symbols without GS */
-#define re_syntax_table re_syntax_tableGS
-#define re_syntax_options re_syntax_optionsGS
-#define reg_errcode_t reg_errcode_tGS
-#define re_pattern_buffer re_pattern_bufferGS
-#define reg_syntax_t reg_syntax_tGS
-#define regoff_t regoff_tGS
-#define re_registers re_registersGS
-#define regmatch_t regmatch_tGS
-#define re_compile_pattern re_compile_patternGS
-#define re_compile_fastmap re_compile_fastmapGS
-#define re_search re_searchGS
-#define re_search_2 re_searchGS_2
-#define re_match re_matchGS
-#define re_match_2 re_matchGS_2
-#define re_set_registers re_set_registersGS
-#define re_comp re_compGS
-#define re_exec re_execGS
-#define regexec regexecGS
-#define regcomp regcompGS
-#define regerror regerrorGS
-#define regfree regfreeGS
+#ifndef SLIB_LIBRARY
+# define re_syntax_table re_syntax_tableGS
+# define re_syntax_options re_syntax_optionsGS
+# define reg_errcode_t reg_errcode_tGS
+# define re_pattern_buffer re_pattern_bufferGS
+# define reg_syntax_t reg_syntax_tGS
+# define regoff_t regoff_tGS
+# define re_registers re_registersGS
+# define regmatch_t regmatch_tGS
+# define re_compile_pattern re_compile_patternGS
+# define re_compile_fastmap re_compile_fastmapGS
+# define re_search re_searchGS
+# define re_search_2 re_searchGS_2
+# define re_match re_matchGS
+# define re_match_2 re_matchGS_2
+# define re_set_registers re_set_registersGS
+# define re_comp re_compGS
+# define re_exec re_execGS
+# define regexec regexecGS
+# define regcomp regcompGS
+# define regerror regerrorGS
+# define regfree regfreeGS
+#endif /* not SLIB_LIBRARY */
 
 #endif /* not __REGEXP_LIBRARY_H__ */
 
