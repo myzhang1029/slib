@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libsbl], [3.3.0], [myzhang1029@hotmail.com])
+AC_INIT([libsbl], [3.3.2], [myzhang1029@hotmail.com])
 AM_INIT_AUTOMAKE
 LT_INIT
 AC_CONFIG_SRCDIR([src/fcopy.c])
@@ -36,8 +36,7 @@ AC_FUNC_CHOWN
 AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_FUNC_REALLOC
-AC_FUNC_BZERO
-AC_CHECK_FUNCS([ftruncate memmove memset munmap pow strchr strerror strrchr strtol wcwidth])
+AC_CHECK_FUNCS([bzero ftruncate memmove memset munmap pow strchr strerror strrchr strtol wcwidth])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
