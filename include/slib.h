@@ -95,18 +95,6 @@ false=0
 
 #define S_INLINE inline
 
-
-/*getoptGS*/
-/* Standard GNU options*/
-	#define	no_argument		0	/*Argument Switch Only*/
-	#define required_argument	1	/*Argument Required*/
-	#define optional_argument	2	/*Argument Optional*/	
-
-/* Shorter Options*/
-	#define ARG_NONE	0	/*Argument Switch Only*/
-	#define ARG_REQ		1	/*Argument Required*/
-	#define ARG_OPT		2	/*Argument Optional*/
-
 #define mtreturn(lenth,...) return mkret(lenth,__VA_ARGS__)
 
 /*debugger*/
@@ -154,10 +142,6 @@ false=0
 _BEGIN_EXTERN_C
 
 /*External variables*/
-extern  int optindGS;
-extern  int opterrGS;
-extern  int optoptGS;
-extern  char *optargGS;
 extern  unsigned retind;
 
 /*Structures, Enums, Unions, typedefs*/
@@ -174,14 +158,6 @@ typedef struct mtrt
 	size_t lenth;
 	int **val;
 }mtret;
-
-struct optionGS
-{
-	const char* name;
-	int has_arg;
-	int *flag;
-	int val;
-};
 
 enum cpfcolors
 {
@@ -298,17 +274,6 @@ OPT mtret mkret(size_t lenth,...);
 
 
 OPT void sleepS(int seconds);
-
-
-OPT int getoptGS(int argc, char *const *argv, const char *optstring);
-
-
-OPT int getopt_longGS(int argc, char *const *argv, const char *options,
-		      const struct optionGS *long_options, int *opt_index);
-
-
-OPT int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
-			   const struct optionGS *long_options, int *opt_index);
 
 
 #if ! PLAT
