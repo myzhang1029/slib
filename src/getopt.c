@@ -89,7 +89,7 @@ static void exchange(char **argv, struct _getopt_data *d)
 			bottom += len;
 		}
 	}
-	d->__first_nonopt += (d->optindGS - d->__last_nonopt);
+	d->__first_nonopt += (d->optind - d->__last_nonopt);
 	d->__last_nonopt = d->optind;
 }
 static const char *_getopt_initialize(const char *optstring, struct _getopt_data *d, int posixly_correct)
@@ -113,7 +113,7 @@ static const char *_getopt_initialize(const char *optstring, struct _getopt_data
 		d->__ordering = PERMUTE;
 	return optstring;
 }
-static int _getopt_internal_r (int argc, char *const *argv, const char *optstring, const struct optionGS *longopts, int *longind, int long_only, struct _getopt_data *d, int posixly_correct)
+int _getopt_internal_rGS (int argc, char *const *argv, const char *optstring, const struct optionGS *longopts, int *longind, int long_only, struct _getopt_data *d, int posixly_correct)
 {
 	int print_errors = d->opterr;
 	if (argc < 1)
@@ -283,7 +283,7 @@ static int _getopt_internal_r (int argc, char *const *argv, const char *optstrin
 				}
 				return pfound->val;
 			}
-			if (!long_only || argv[d->optindGS][1] == '-' || strchr(optstring, *d->__nextchar) == NULL)
+			if (!long_only || argv[d->optind][1] == '-' || strchr(optstring, *d->__nextchar) == NULL)
 			{
 				if (print_errors)
 				{
@@ -347,7 +347,7 @@ static int _getopt_internal_r (int argc, char *const *argv, const char *optstrin
 			}
 			else
 				d->optarg = argv[d->optind++];
-			for (d->__nextchar = nameend = d->optargGS; *nameend && *nameend != '='; nameend++);
+			for (d->__nextchar = nameend = d->optarg; *nameend && *nameend != '='; nameend++);
 			for (p = longopts, option_index = 0; p->name!=NULL; p++, option_index++)
 				if (!strncmp(p->name, d->__nextchar, nameend - d->__nextchar))
 				{
@@ -440,50 +440,50 @@ no_longs:
 			{
 				if (*d->__nextchar != '\0')
 				{
-					d->optargGS = d->__nextchar;
-					d->optindGS++;
+					d->optarg = d->__nextchar;
+					d->optind++;
 				}
-				else if (d->optindGS == argc)
+				else if (d->optind == argc)
 				{
 					if (print_errors)
 					{
 						fprintf(stderr,"%s: option requires an argument -- '%c'\n",argv[0], c);
 					}
-					d->optoptGS = c;
+					d->optopt = c;
 					if (optstring[0] == ':')
 						c = ':';
 					else
 						c = '?';
 				}
 				else
-					d->optargGS = argv[d->optindGS++];
+					d->optarg = argv[d->optind++];
 				d->__nextchar = NULL;
 			}
 		}
 		return c;
 	}
 }
-static int _getopt_internal (int argc, char *const *argv, const char *optstring, const struct optionGS *longopts, int *longind, int long_only, int posixly_correct)
+int _getopt_internalGS (int argc, char *const *argv, const char *optstring, const struct optionGS *longopts, int *longind, int long_only, int posixly_correct)
 {
 	int result;
-	getopt_data.optindGS = optindGS;
-	getopt_data.opterrGS = opterrGS;
-	result = _getopt_internal_r (argc, argv, optstring, longopts,longind, long_only, &getopt_data,posixly_correct);
-	optindGS = getopt_data.optindGS;
-	optargGS = getopt_data.optargGS;
-	optoptGS = getopt_data.optoptGS;
+	getopt_data.optind = optindGS;
+	getopt_data.opterr = opterrGS;
+	result = _getopt_internal_rGS (argc, argv, optstring, longopts,longind, long_only, &getopt_data,posixly_correct);
+	optindGS = getopt_data.optind;
+	optargGS = getopt_data.optarg;
+	optoptGS = getopt_data.optopt;
 	return result;
 }
 int getoptGS (int argc, char *const *argv, const char *optstring) _GETOPT_THROW
 {
-	return _getopt_internal (argc, argv, optstring, (const struct optionGS *) 0, (int *) 0, 0, 0);
+	return _getopt_internalGS (argc, argv, optstring, (const struct optionGS *) 0, (int *) 0, 0, 0);
 }
 int getopt_longGS (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index) _GETOPT_THROW
 {
-	return _getopt_internal (argc, argv, options, long_options, opt_index, 0, 0);
+	return _getopt_internalGS (argc, argv, options, long_options, opt_index, 0, 0);
 }
 int getopt_long_onlyGS (int argc, char *const *argv, const char *options, const struct optionGS *long_options, int *opt_index) _GETOPT_THROW
 {
-	return _getopt_internal (argc, argv, options, long_options, opt_index, 1, 0);
+	return _getopt_internalGS (argc, argv, options, long_options, opt_index, 1, 0);
 }
 
