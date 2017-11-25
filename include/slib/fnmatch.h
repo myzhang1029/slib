@@ -59,4 +59,8 @@ extern int fnmatchGS (const char *__pattern, const char *__name,
 }
 #endif
 
+#ifndef SLIB_LIBRARY
+# define fnmatch fnmatchGS
+#endif
+
 #endif /* fnmatch.h */
