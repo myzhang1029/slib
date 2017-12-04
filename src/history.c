@@ -405,7 +405,7 @@ extern int rl_byte_oriented;
 #ifdef SPACE
 #undef SPACE
 #endif
-#define SPACE ' '	/* XXX - was 0x20 */
+#define SPACE ' '
 
 #ifdef ESC
 #undef ESC
