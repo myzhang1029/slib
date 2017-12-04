@@ -31,7 +31,7 @@ target("sbl")
 	add_cflags("-Iinclude")
 
 	-- add install
-	add_headers("include/slib.h")
+	add_headers("(include/**)")
 
 	-- add files
 	add_files("src/*.c")

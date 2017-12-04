@@ -31,7 +31,7 @@
 #define SBLLIB_VERSION 3
 
 #define SBLLIB_MINOR 3
-#define SBLLIB_PATCHLEVEL 4
+#define SBLLIB_PATCHLEVEL 5
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
