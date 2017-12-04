@@ -2,12 +2,12 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libsbl], [3.3.5], [myzhang1029@hotmail.com])
+AC_INIT([libsbl], [3.3.6], [myzhang1029@hotmail.com])
 AM_INIT_AUTOMAKE
 LT_INIT
 AC_CONFIG_SRCDIR([src/fcopy.c])
 AC_CONFIG_HEADERS([config.h])
-AC_DEFINE([SLIB_LIBRARY], [1], [Define to disable user-only features and enable maintainer-only features])
+AC_DEFINE([SLIB_LIBRARY], [1], [Define to disable linker-only features and enable builder-only features])
 
 # Checks for programs.
 AC_PROG_CXX
