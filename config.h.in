@@ -146,7 +146,7 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* Define to disable user-only features and enable maintainer-only features */
+/* Define to disable linker-only features and enable builder-only features */
 #undef SLIB_LIBRARY
 
 /* If using the C implementation of alloca, define if you know the
