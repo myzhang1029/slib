@@ -97,7 +97,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 				c1 = FOLD(c1);
 				for (--p; *n != '\0'; ++n)
 					if ((c == '[' || FOLD(*n) == c1) &&
-						fnmatch(p, n, flags & ~FNM_PERIOD) == 0)
+						fnmatchGS(p, n, flags & ~FNM_PERIOD) == 0)
 						return 0;
 				return FNM_NOMATCH;
 			}
