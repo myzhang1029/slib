@@ -29,12 +29,12 @@ unsigned retind=0;
 	
 mtret mkret(size_t lenth,...)
 {
-	mtret ret,mnull={0,NULL};
+	mtret ret;
 	int **elems=malloc(sizeof(int*)*lenth);
 	int count=0;
 	va_list args;
 	if(elems==NULL)
-		return mnull;
+		return (mtret){0, NULL};
 	va_start(args,lenth);
 
 	ret.lenth=lenth;
