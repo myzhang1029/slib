@@ -2822,7 +2822,7 @@ re_set_registersGS (bufp, regs, num_regs, starts, ends)
     {
       bufp->regs_allocated = REGS_UNALLOCATED;
       regs->num_regs = 0;
-      regs->start = regs->end = (regoff_tGS) 0;
+      regs->start = regs->end = NULL;
     }
 }
 
