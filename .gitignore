@@ -10,7 +10,14 @@
 *.dylib
 *.l[oa]
 *-*.*.*.tar.gz
+cscope.files
+cscope.in.out
+cscope.out
+cscope.po.out
 tags
+TAGS 
+ETAGS
+GTAGS
 build/
 .libs/
 
