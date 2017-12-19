@@ -79,7 +79,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			if(argc<4)
 				usage();
 			else
-				printf("%d",gcf(atol(argv[2]),atol(argv[3])));
+				printf("%lu",gcf(atol(argv[2]),atol(argv[3])));
 			return 0;
 		}
 		else if(strcmp(argv[1],"-l")==0)
@@ -87,7 +87,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			if(argc<4)
 				usage();
 			else
-				printf("%d",lcm(atol(argv[2]),atol(argv[3])));
+				printf("%lu",lcm(atol(argv[2]),atol(argv[3])));
 			return 0;
 		}
 		else if(strcmp(argv[1],"-p")==0)
