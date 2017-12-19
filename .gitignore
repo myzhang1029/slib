@@ -2,6 +2,7 @@
 .deps/
 Makefile
 autom4te.cache/
+config.log
 config.h
 config.status
 stamp-h1
