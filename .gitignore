@@ -1,3 +1,11 @@
+# Autotools files
+.deps/
+Makefile
+autom4te.cache/
+config.h
+config.status
+stamp-h1
+
 # Object files
 *.o
 *.ko
@@ -18,6 +26,7 @@
 *.dll
 *.so
 admin
+
 # =========================
 # Operating System Files
 # =========================
@@ -68,3 +77,5 @@ $RECYCLE.BIN/
 # Temporary files
 *.c~
 *.h~
+
+
