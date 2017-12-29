@@ -1,4 +1,4 @@
-﻿
+
 /*
  *  admin.c – The admin project
  *
@@ -165,9 +165,8 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 		#else
 		system("clear");
 		#endif
-		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=解csbl\
-		\n6=写csbl\n7=复制文件\n8=启动cmd\n9=csbl帮助\n10=输出指定范围内的质数\
-		\n11=判断一个数是否质数\n12=判断两数是否互质\n请选择：");	/*程序主菜单*/
+		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=复制文件\n6=启动cmd\n7=csbl帮助\n8=输出指定范围内的质数\
+		\n9=判断一个数是否质数\n10=判断两数是否互质\n请选择：");	/*程序主菜单*/
 		scanf( "%d", &m_v.content );
 		switch ( m_v.content )	/* switch case */
 		{
@@ -217,21 +216,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (5):	/*解码器*/
-		{
-			if ( read_csbl() == -1 )
-				prterr( "无法打开文件！" );
-			break;
-		}
-
-		case (6):	/*编码器*/
-		{
-			if ( write_csbl() == -1 )
-				prterr( "无法打开文件！" );
-			break;
-		}
-
-		case (7): /*复制文件by《21天学通C语言》*/
+		case (5): /*复制文件by《21天学通C语言》*/
 		{
 			char source[80], destination[80];
 			printf( "\n请输入所需复制的文件： " );
@@ -246,7 +231,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (8):	/*向console发送命令*/
+		case (6):	/*向console发送命令*/
 		{
 			while(1)
 			{
@@ -256,12 +241,12 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (9):/*解/编码 帮助*/
+		case (7):/*解/编码 帮助*/
 		{
 			help_csbl();
 			break;
 		}
-		case (10):	/*输出指定范围内的指数 */
+		case (8):	/*输出指定范围内的指数 */
 		{
 			int pn1,pn2;
 			printf("输入最小值：");
@@ -271,7 +256,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			prtpn(stdout,pn1,pn2);
 			break;
 		}
-		case (11):	/*测试一个数是否质数*/
+		case (9):	/*测试一个数是否质数*/
 		{
 			int pn;
 			printf("输入待测试数:");
@@ -282,7 +267,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 				printf("\n不是质数！\n");
 			break;
 		}
-		case (12):	/*测试两个数是否互质*/
+		case (10):	/*测试两个数是否互质*/
 		{
 			int num1,num2;
 			printf("输入数一:");
