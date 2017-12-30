@@ -60,12 +60,15 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
 void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext)
 {
 	char *p_whole_name;
-	#if !PLAT
-	/*No such concept "drive" in unix*/
-	drive[0] = '\0';
-	#else
-	snprintf(drive,((int*)strchr(path,'\\')-(int*)path),"%s",path);
-	#endif
+	if(NULL!=drive)
+	{
+#if !PLAT
+		/*No such concept "drive" in unix*/
+		drive[0] = '\0';
+#else
+		snprintf(drive,((int*)strchr(path,'\\')-(int*)path),"%s",path);
+#endif
+	}
 
 	/*If the path is null, just set all the vaules blank*/
 	if (NULL == path)
