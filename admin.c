@@ -264,6 +264,8 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 				printf("不互质！\n");
 			break;
 		}
+		default:
+			printf("%d: Unknown option\n", m_v.content);
 		}/*switch(m_v.content)*/
 		printf( "输入1继续:" );
 		scanf( "%d", &m_v.exitt );
