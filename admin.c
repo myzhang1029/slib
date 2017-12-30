@@ -27,10 +27,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-ccp ver = "3.0.0";                           /*版本号*/
+ccp ver = "3.1.1";                           /*版本号*/
 
 void usage( void );/*使用方法*/ 
-
 
 
 int main( int argc, const char *argv[] )	/* 主函数 */
