@@ -47,13 +47,17 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
 	/*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not allowed file in MS-Windows*/
 	if (NULL != p_ext)
 	{
-		strcpy(ext, p_ext);
-		snprintf(fname, p_ext - whole_name + 1, "%s", whole_name);
+		if(NULL!=ext)
+			strcpy(ext, p_ext);
+		if(NULL!=fname)
+			snprintf(fname, p_ext - whole_name + 1, "%s", whole_name);
 	}
 	else
 	{
-		ext[0] = '\0';
-		strcpy(fname, whole_name);
+		if(NULL!=ext)
+			ext[0] = '\0';
+		if(NULL!=fname)
+			strcpy(fname, whole_name);
 	}
 }
 
@@ -73,18 +77,24 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 	/*If the path is null, just set all the vaules blank*/
 	if (NULL == path)
 	{
-		dir[0] = '\0';
-		fname[0] = '\0';
-		ext[0] = '\0';
+		if(NULL!=dir)
+			dir[0] = '\0';
+		if(NULL!=fname)
+			fname[0] = '\0';
+		if(NULL!=ext)
+			ext[0] = '\0';
 		return;
 	}
 
 	/*If there is just directory in the path, don't seperate file name*/
 	if (pathsep == path[strlen(path)])
 	{
-		strcpy(dir, path);
-		fname[0] = '\0';
-		ext[0] = '\0';
+		if(NULL!=dir)
+			strcpy(dir, path);
+		if(NULL!=fname)
+			fname[0] = '\0';
+		if(NULL!=ext)
+			ext[0] = '\0';
 		return;
 	}
 
@@ -97,12 +107,14 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 		p_whole_name++;
 		__split_whole_name(p_whole_name, fname, ext);
 
-		snprintf(dir, p_whole_name - path, "%s", path);
+		if(NULL!=dir)
+			snprintf(dir, p_whole_name - path, "%s", path);
 	}
 	else
 	{
 		__split_whole_name(path, fname, ext);
-		dir[0] = '\0';
+		if(NULL!=dir)
+			dir[0] = '\0';
 	}
 	return;
 }
