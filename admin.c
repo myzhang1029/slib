@@ -27,7 +27,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-ccp ver = "3.1.2";                           /*版本号*/
+ccp ver = "3.1.3";                           /*版本号*/
 
 void usage( void );/*使用方法*/ 
 
@@ -267,6 +267,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 		default:
 			printf("%d: Unknown option\n", m_v.content);
 		}/*switch(m_v.content)*/
+		getchar();
 	}
 	while (1);
 	return 0;
