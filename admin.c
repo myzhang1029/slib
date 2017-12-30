@@ -27,7 +27,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-ccp ver = "3.1.1";                           /*版本号*/
+ccp ver = "3.1.2";                           /*版本号*/
 
 void usage( void );/*使用方法*/ 
 
@@ -36,7 +36,6 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 {
 	union main_variable
 	{
-		unsigned int exitt;
 		unsigned int content;
 		unsigned int shutdownsys;
 	} m_v;
@@ -154,19 +153,19 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 		#else
 		system("clear");
 		#endif
-		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=复制文件\n6=启动cmd\n7=输出指定范围内的质数\
-		\n8=判断一个数是否质数\n9=判断两数是否互质\n请选择：");	/*程序主菜单*/
+		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=复制文件\n6=启动cmd\n7=输出指定范围内的质数"
+		"\n8=判断一个数是否质数\n9=判断两数是否互质\n请选择：");	/*程序主菜单*/
 		scanf( "%d", &m_v.content );
-		switch ( m_v.content )	/* switch case */
+		switch ( m_v.content )
 		{
-		case (1):	/*显示软件版本*/
+		case 1:	/*显示软件版本*/
 		{
 			printf( "sbl admin %s\n", ver );
 			printf( "于%s，%s发布\n", __DATE__, __TIME__ );
 			break;
 		}
 
-		case (2):
+		case 2:
 		{
 			unsigned int radmax = 0,radmin = 0;	/*随机数变量*/
 			printf( "输入最小值：" );
@@ -177,7 +176,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (3): /*计算器*/
+		case 3: /*计算器*/
 		{
 			char	infix[BUFFERSIZE];
 			fflush( stdin );
@@ -188,7 +187,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (4):	/*关机器*/
+		case 4:	/*关机器*/
 		{
 			#if PLAT
 			system( "shutdown /t 20" );
@@ -205,7 +204,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (5): /*复制文件by《21天学通C语言》*/
+		case 5: /*复制文件by《21天学通C语言》*/
 		{
 			char source[80], destination[80];
 			printf( "\n请输入所需复制的文件： " );
@@ -220,7 +219,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case (6):	/*向console发送命令*/
+		case 6:	/*向console发送命令*/
 		{
 			while(1)
 			{
@@ -229,7 +228,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			}
 			break;
 		}
-		case (7):	/*输出指定范围内的指数 */
+		case 7:	/*输出指定范围内的指数 */
 		{
 			int pn1,pn2;
 			printf("输入最小值：");
@@ -239,7 +238,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			prtpn(stdout,pn1,pn2);
 			break;
 		}
-		case (8):	/*测试一个数是否质数*/
+		case 8:	/*测试一个数是否质数*/
 		{
 			int pn;
 			printf("输入待测试数:");
@@ -250,7 +249,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 				printf("\n不是质数！\n");
 			break;
 		}
-		case (9):	/*测试两个数是否互质*/
+		case 9:	/*测试两个数是否互质*/
 		{
 			int num1,num2;
 			printf("输入数一:");
@@ -269,7 +268,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			printf("%d: Unknown option\n", m_v.content);
 		}/*switch(m_v.content)*/
 	}
-	while ( m_v.exitt == 1 );
+	while (1);
 	return 0;
 }/*main*/
 
