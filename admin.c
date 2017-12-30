@@ -29,16 +29,6 @@
 #include <time.h>
 ccp ver = "3.0.0";                           /*版本号*/
 
-
-int read_csbl( void );	/*CSBL解码器*/
-
-
-int write_csbl( void );	/*CSBL编码器*/
-
-
-void help_csbl( void );	/*CSBL帮助*/
-
-
 void usage( void );/*使用方法*/ 
 
 
