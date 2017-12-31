@@ -31,7 +31,7 @@ OPT int eular(unsigned n)
 	for(count=0; count<n; ++count)
 	{
 		if(isrp(n,count))
-			++count;
+			++result;
 	}
 	return result;
 }
