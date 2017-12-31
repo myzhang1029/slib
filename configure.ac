@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libsbl], [3.3.10], [myzhang1029@hotmail.com])
+AC_INIT([libsbl], [3.3.12], [myzhang1029@hotmail.com])
 AM_INIT_AUTOMAKE
 LT_INIT
 AC_CONFIG_SRCDIR([src/fcopy.c])

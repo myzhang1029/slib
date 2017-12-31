@@ -31,7 +31,7 @@
 #define SBLLIB_VERSION 3
 
 #define SBLLIB_MINOR 3
-#define SBLLIB_PATCHLEVEL 11
+#define SBLLIB_PATCHLEVEL 12
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -248,11 +248,6 @@ OPT int  eular(unsigned n);
 
 OPT void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext);
 
-
-OPT unsigned long  wsbl_frame(int ch);
-
-
-OPT int  rsbl_frame(int code);
 
 
 OPT char* itoaS(int value, char* string, int radix);
