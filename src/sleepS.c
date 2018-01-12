@@ -12,9 +12,4 @@ sleepS(int seconds)
 			return;
 	}
 }
-int main()
-{
-	sleepS(1);
-	return 0;
-}
 
