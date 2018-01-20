@@ -147,8 +147,8 @@ am_libsbl_la_OBJECTS = src/libsbl_la-fnmatch.lo src/libsbl_la-regex.lo \
 	src/libsbl_la-mret.lo src/libsbl_la-mtscat.lo \
 	src/libsbl_la-mysh.lo src/libsbl_la-pop.lo \
 	src/libsbl_la-prtpn.lo src/libsbl_la-push.lo \
-	src/libsbl_la-randomnum.lo src/libsbl_la-sbl.lo \
-	src/libsbl_la-sleepS.lo src/libsbl_la-splitpathS.lo
+	src/libsbl_la-randomnum.lo src/libsbl_la-sleepS.lo \
+	src/libsbl_la-splitpathS.lo
 libsbl_la_OBJECTS = $(am_libsbl_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -363,7 +363,7 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 lib_LTLIBRARIES = libsbl.la
 include_HEADERS = include/slib.h
 libsbl_la_CPPFLAGS = -Iinclude
-libsbl_la_SOURCES = include/slib.h include/slib/history.h include/slib/regex.h include/slib/getopt.h include/slib/fnmatch.h src/fnmatch.c src/regex.c src/history.c src/average.c src/calc.c src/clearstack.c src/colorprintf.c src/destorystack.c src/error.c src/eular.c src/fcopy.c src/fsize.c src/gcf.c src/getch.c src/getlen.c src/getopt.c src/initstack.c src/iofile.c src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/mret.c src/mtscat.c src/mysh.c src/pop.c src/prtpn.c src/push.c src/randomnum.c src/sbl.c src/sleepS.c src/splitpathS.c
+libsbl_la_SOURCES = include/slib.h include/slib/history.h include/slib/regex.h include/slib/getopt.h include/slib/fnmatch.h src/fnmatch.c src/regex.c src/history.c src/average.c src/calc.c src/clearstack.c src/colorprintf.c src/destorystack.c src/error.c src/eular.c src/fcopy.c src/fsize.c src/gcf.c src/getch.c src/getlen.c src/getopt.c src/initstack.c src/iofile.c src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/mret.c src/mtscat.c src/mysh.c src/pop.c src/prtpn.c src/push.c src/randomnum.c src/sleepS.c src/splitpathS.c
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -516,8 +516,6 @@ src/libsbl_la-push.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-randomnum.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libsbl_la-sbl.lo: src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-sleepS.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-splitpathS.lo: src/$(am__dirstamp) \
@@ -563,7 +561,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-push.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-randomnum.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-regex.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-sbl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-sleepS.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-splitpathS.Plo@am__quote@
 
@@ -793,13 +790,6 @@ src/libsbl_la-randomnum.lo: src/randomnum.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/randomnum.c' object='src/libsbl_la-randomnum.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-randomnum.lo `test -f 'src/randomnum.c' || echo '$(srcdir)/'`src/randomnum.c
-
-src/libsbl_la-sbl.lo: src/sbl.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-sbl.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-sbl.Tpo -c -o src/libsbl_la-sbl.lo `test -f 'src/sbl.c' || echo '$(srcdir)/'`src/sbl.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libsbl_la-sbl.Tpo src/$(DEPDIR)/libsbl_la-sbl.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/sbl.c' object='src/libsbl_la-sbl.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-sbl.lo `test -f 'src/sbl.c' || echo '$(srcdir)/'`src/sbl.c
 
 src/libsbl_la-sleepS.lo: src/sleepS.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-sleepS.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-sleepS.Tpo -c -o src/libsbl_la-sleepS.lo `test -f 'src/sleepS.c' || echo '$(srcdir)/'`src/sleepS.c

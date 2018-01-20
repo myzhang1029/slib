@@ -29,7 +29,7 @@ RM=rm
 CFLAGS=-Wno-int-to-pointer-cast -Wno-variadic-macros -W -Wall -pedantic -c -O2 -Iinclude -D_SLIB_LIBRARY=1
 PLAT=-DPLAT=1
 PREFIX=/usr/local
-CFILES=./src/regex.c ./src/history.c ./src/average.c ./src/calc.c ./src/clearstack.c ./src/colorprintf.c ./src/destorystack.c ./src/error.c ./src/eular.c ./src/fcopy.c ./src/fsize.c ./src/gcf.c ./src/getch.c ./src/getlen.c ./src/getopt.c ./src/initstack.c ./src/iofile.c ./src/ispn.c ./src/isrp.c ./src/itoa.c ./src/lcm.c ./src/mret.c ./src/mtscat.c ./src/mysh.c ./src/pop.c ./src/prtpn.c ./src/push.c ./src/randomnum.c ./src/sbl.c ./src/sleepS.c ./src/splitpathS.c
+CFILES=./src/regex.c ./src/history.c ./src/average.c ./src/calc.c ./src/clearstack.c ./src/colorprintf.c ./src/destorystack.c ./src/error.c ./src/eular.c ./src/fcopy.c ./src/fsize.c ./src/gcf.c ./src/getch.c ./src/getlen.c ./src/getopt.c ./src/initstack.c ./src/iofile.c ./src/ispn.c ./src/isrp.c ./src/itoa.c ./src/lcm.c ./src/mret.c ./src/mtscat.c ./src/mysh.c ./src/pop.c ./src/prtpn.c ./src/push.c ./src/randomnum.c ./src/sleepS.c ./src/splitpathS.c
 FILES=./include/slib.h ./include/slib/history.h ./include/slib/regex.h $(CFILE)
 EXESUF=.dll
 SOFLAGS=-shared
