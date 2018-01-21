@@ -32,11 +32,11 @@ OPT int  mysh( ccp path )
 	char *dir=malloc(sizeof(char)*256);
 	splitpathS(path,NULL,dir,NULL,NULL);
 	fflush( stdin );
-	#if PLAT
+#if PLAT
 	printf( "%s(Enter 'q'  to quit)>", dir );
-	#else
+#else
 	printf( "(slibsh) %s(Enter 'q' to quit)$", dir );
-	#endif
+#endif
 	free(dir);
 	fgets( command, 19, stdin );
 	if ( strcmp(command,"q\n")==0 )

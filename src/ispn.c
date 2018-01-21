@@ -28,13 +28,13 @@
 OPT int ispn( unsigned long testingnum )
 {
 	long k=(long)sqrtl((long double)testingnum),i=3;
-    
+
 	if( testingnum==1 || ( (testingnum&1)==0 && testingnum!=2 ) )
 		return SFALSE;
-    
-	for(;i<=k;i++)
+
+	for(; i<=k; i++)
 		if(testingnum%i==0)
 			break;
-    
+
 	return i>k?STRUE:SFALSE;
 }

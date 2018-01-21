@@ -32,13 +32,13 @@ OPT int  iofile(FILE *origin,FILE *dest)
 	if(feof(origin))
 		return SERROR;
 	while (1)
-     {
-         ch = fgetc( origin );
-         if ( !feof( origin ) )
-             fputc( ch, dest );
-         else
-             break;
-     }
+	{
+		ch = fgetc( origin );
+		if ( !feof( origin ) )
+			fputc( ch, dest );
+		else
+			break;
+	}
 	return STRUE;
 }
 

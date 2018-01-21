@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 unsigned retind=0;
-	
+
 mtret mkret(size_t lenth,...)
 {
 	mtret ret;
@@ -34,11 +34,14 @@ mtret mkret(size_t lenth,...)
 	int count=0;
 	va_list args;
 	if(elems==NULL)
-		return (mtret){0, NULL};
+		return (mtret)
+	{
+		0, NULL
+	};
 	va_start(args,lenth);
 
 	ret.lenth=lenth;
-	for(;count<(int)lenth;++count)
+	for(; count<(int)lenth; ++count)
 	{
 		elems[count]=va_arg(args,int*);
 	}

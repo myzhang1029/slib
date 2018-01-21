@@ -26,5 +26,5 @@
 
 OPT int GetLen(sqStack *s)
 {
-  return ((int)s->top-(int)s->base)/s->typeSize;
+	return ((int)s->top-(int)s->base)/s->typeSize;
 }

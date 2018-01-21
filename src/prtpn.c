@@ -28,15 +28,15 @@ OPT void  prtpn( FILE*fp, unsigned long minimum, unsigned long maximum )
 {
 	unsigned long n=0;
 	if ( maximum<=2)
-        return;
-    if (maximum <= minimum)
-    {
-        __set_errno(EINVAL);
-        return;
-    }
+		return;
+	if (maximum <= minimum)
+	{
+		__set_errno(EINVAL);
+		return;
+	}
 	for(n=minimum; n<=maximum; ++n)
 	{
-        if(ispn(n))
+		if(ispn(n))
 		{
 			fprintf(fp,"%lu\n",n);
 		}

@@ -116,13 +116,13 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 			printf("\033[33m");
 			break;
 		case black:
-                        printf("\033[30m");
+			printf("\033[30m");
 			break;
 		case blue:
-                        printf("\033[34m");
+			printf("\033[34m");
 			break;
 		case magenta:
-                        printf("\033[35m");
+			printf("\033[35m");
 			break;
 		case cyan:
 			printf("\033[36m");
@@ -131,10 +131,10 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 			break;
 	}
 	switch(bcolor)
-	{ 
+	{
 		case red:
 			printf("\033[41m");
-			break; 
+			break;
 		case green:
 			printf("\033[42m");
 			break;
@@ -142,13 +142,13 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 			printf("\033[43m");
 			break;
 		case black:
-                        printf("\033[40m");
+			printf("\033[40m");
 			break;
 		case blue:
-                        printf("\033[44m");
+			printf("\033[44m");
 			break;
 		case magenta:
-                        printf("\033[45m");
+			printf("\033[45m");
 			break;
 		case cyan:
 			printf("\033[46m");
