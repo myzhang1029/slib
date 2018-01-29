@@ -27,7 +27,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-ccp ver = "3.1.3";                           /*版本号*/
+ccp ver = "3.2.0";                           /*版本号*/
 
 void usage( void );/*使用方法*/ 
 
@@ -113,33 +113,6 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			}
 			return 0;
 		}
-		else if(strcmp(argv[1],"-f")==0)
-		{
-			if(argc<4)
-				usage();
-			else
-			{
-				if(fcopy(argv[2],argv[3])==STRUE)
-					printf("成功！");
-				else
-					prterr("失败！");
-			}
-			return 0;
-		}
-		else if(strcmp(argv[1],"-o")==0)
-		{
-			if(argc<3)
-				usage();
-			else
-			{
-				FILE *fp=fopen(argv[2],"r");
-				if(!fp)
-					prterr("打开文件失败！");
-				else
-					prtfile(fp);
-			}
-			return 0;
-		}
 		else
 		{
 			usage();
@@ -204,31 +177,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			break;
 		}
 
-		case 5: /*复制文件by《21天学通C语言》*/
-		{
-			char source[80], destination[80];
-			printf( "\n请输入所需复制的文件： " );
-			fflush( stdin );
-			fgets( source, 80, stdin );
-			printf( "\n请输入目标：" );
-			fgets( destination, 80, stdin );
-			if ( fcopy( source, destination ) == STRUE )
-				puts( "复制成功\n" );
-			else
-				prterr( "复制时出现错误\n" );
-			break;
-		}
-
-		case 6:	/*向console发送命令*/
-		{
-			while(1)
-			{
-				if(mysh( argv[0] )==STRUE)
-					break;
-			}
-			break;
-		}
-		case 7:	/*输出指定范围内的指数 */
+		case 5:	/*输出指定范围内的指数 */
 		{
 			int pn1,pn2;
 			printf("输入最小值：");
@@ -238,7 +187,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			prtpn(stdout,pn1,pn2);
 			break;
 		}
-		case 8:	/*测试一个数是否质数*/
+		case 6:	/*测试一个数是否质数*/
 		{
 			int pn;
 			printf("输入待测试数:");
@@ -249,7 +198,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 				printf("\n不是质数！\n");
 			break;
 		}
-		case 9:	/*测试两个数是否互质*/
+		case 7:	/*测试两个数是否互质*/
 		{
 			int num1,num2;
 			printf("输入数一:");
@@ -277,7 +226,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 void usage( void )
 {
 	printf("Usage:admin [-u] [-h] [-r <n1> <n2>] [-g <n1> <n2>] [-l <n1> <n2>]\n"
-	       "\t[-p <n1> <n2>] [-d <num>] [-c <exp>] [-f <file1> <file2>] [-o <file>]\n"
+	       "\t[-p <n1> <n2>] [-d <num>] [-c <exp>]\n"
 	       "options:"
 	       "\n\t-u 用户界面，和不键入任何内容是一样的;"
 	       "\n\t-h 帮助页面;"
@@ -286,7 +235,5 @@ void usage( void )
 	       "\n\t-l 得到n1,n2的最小公倍数;"
 	       "\n\t-p 得到介于n1和n2之间的质数;"
 	       "\n\t-d 判断num是否质数;"
-	       "\n\t-c 计算表达式的值;"
-	       "\n\t-f 把文件file1复制到file2;"
-	       "\n\t-o 将文件file完全输出到stdout");
+	       "\n\t-c 计算表达式的值;");
 }
