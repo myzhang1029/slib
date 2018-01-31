@@ -119,7 +119,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 			return 0;
 		}
 	}
-	do
+	for(;;)
 	{
 		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=复制文件\n6=启动cmd\n7=输出指定范围内的质数"
 		"\n8=判断一个数是否质数\n9=判断两数是否互质\n请选择：");	/*程序主菜单*/
@@ -211,9 +211,7 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 		default:
 			printf("%d: Unknown option\n", m_v.content);
 		}/*switch(m_v.content)*/
-		getchar();
 	}
-	while (1);
 	return 0;
 }/*main*/
 
