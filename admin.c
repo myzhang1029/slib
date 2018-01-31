@@ -27,7 +27,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-ccp ver = "3.2.1";                           /*版本号*/
+ccp ver = "3.2.2";                           /*版本号*/
+
 
 void usage( void );/*使用方法*/ 
 
@@ -121,8 +122,8 @@ int main( int argc, const char *argv[] )	/* 主函数 */
 	}
 	for(;;)
 	{
-		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=复制文件\n6=启动cmd\n7=输出指定范围内的质数"
-		"\n8=判断一个数是否质数\n9=判断两数是否互质\n请选择：");	/*程序主菜单*/
+		printf( "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=输出指定范围内的质数"
+		"\n6=判断一个数是否质数\n7=判断两数是否互质\n请选择：");	/*程序主菜单*/
 		scanf( "%d", &m_v.content );
 		switch ( m_v.content )
 		{
