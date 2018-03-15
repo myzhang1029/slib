@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-#include <time.h>		/* XXX - for history timestamp code */
+#include <time.h> /* XXX - for history timestamp code */
 
 /* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers. */
 
@@ -36,33 +36,33 @@ extern "C" {
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
 	extern char *func PARAMS((char *, char *, int)); */
-#if !defined (_RL_STDC_H_)
+#if !defined(_RL_STDC_H_)
 #define _RL_STDC_H_
 
-#if !defined (PARAMS)
-#  if defined (__STDC__) || defined (__GNUC__) || defined (__cplusplus)
-#    define PARAMS(protos) protos
-#  else
-#    define PARAMS(protos) ()
-#  endif
+#if !defined(PARAMS)
+#if defined(__STDC__) || defined(__GNUC__) || defined(__cplusplus)
+#define PARAMS(protos) protos
+#else
+#define PARAMS(protos) ()
+#endif
 #endif
 
 #ifndef __attribute__
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
-#    define __attribute__(x)
-#  endif
+#if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
+#define __attribute__(x)
+#endif
 #endif
 
 /* Moved from config.h.in because readline.h:rl_message depends on these
    defines. */
-#if defined (__STDC__) && defined (HAVE_STDARG_H)
-#  define PREFER_STDARG
-#  define USE_VARARGS
+#if defined(__STDC__) && defined(HAVE_STDARG_H)
+#define PREFER_STDARG
+#define USE_VARARGS
 #else
-#  if defined (HAVE_VARARGS_H)
-#    define PREFER_VARARGS
-#    define USE_VARARGS
-#  endif
+#if defined(HAVE_VARARGS_H)
+#define PREFER_VARARGS
+#define USE_VARARGS
+#endif
 #endif
 #endif /* !_RL_STDC_H_ */
 /* End rlstdc.h */
@@ -78,27 +78,27 @@ extern "C" {
 
 /* Old-style, attempt to mark as deprecated in some way people will notice. */
 
-#if !defined (_FUNCTION_DEF)
-#  define _FUNCTION_DEF
+#if !defined(_FUNCTION_DEF)
+#define _FUNCTION_DEF
 
 #if defined(__GNUC__) || defined(__clang__)
-typedef int Function () __attribute__ ((deprecated));
-typedef void VFunction () __attribute__ ((deprecated));
-typedef char *CPFunction () __attribute__ ((deprecated));
-typedef char **CPPFunction () __attribute__ ((deprecated));
+typedef int Function() __attribute__((deprecated));
+typedef void VFunction() __attribute__((deprecated));
+typedef char *CPFunction() __attribute__((deprecated));
+typedef char **CPPFunction() __attribute__((deprecated));
 #else
-typedef int Function ();
-typedef void VFunction ();
-typedef char *CPFunction ();
-typedef char **CPPFunction ();
+typedef int Function();
+typedef void VFunction();
+typedef char *CPFunction();
+typedef char **CPPFunction();
 #endif
 
 #endif /* _FUNCTION_DEF */
 
 /* New style. */
 
-#if !defined (_RL_FUNCTION_TYPEDEF)
-#  define _RL_FUNCTION_TYPEDEF
+#if !defined(_RL_FUNCTION_TYPEDEF)
+#define _RL_FUNCTION_TYPEDEF
 
 /* Bindable functions */
 typedef int rl_command_func_t PARAMS((int, int));
@@ -138,8 +138,8 @@ typedef void rl_vcppfunc_t PARAMS((char **));
 
 typedef char *rl_cpvfunc_t PARAMS((void));
 typedef char *rl_cpifunc_t PARAMS((int));
-typedef char *rl_cpcpfunc_t PARAMS((char  *));
-typedef char *rl_cpcppfunc_t PARAMS((char  **));
+typedef char *rl_cpcpfunc_t PARAMS((char *));
+typedef char *rl_cpcppfunc_t PARAMS((char **));
 
 #endif /* _RL_FUNCTION_TYPEDEF */
 
@@ -156,26 +156,28 @@ typedef char *histdata_t;
 #endif
 
 /* The structure used to store a history entry. */
-typedef struct _hist_entry {
-  char *line;
-  char *timestamp;		/* char * rather than time_t for read/write */
-  histdata_t data;
+typedef struct _hist_entry
+{
+	char *line;
+	char *timestamp; /* char * rather than time_t for read/write */
+	histdata_t data;
 } HIST_ENTRY;
 
 /* Size of the history-library-managed space in history entry HS. */
-#define HISTENT_BYTES(hs)	(strlen ((hs)->line) + strlen ((hs)->timestamp))
+#define HISTENT_BYTES(hs) (strlen((hs)->line) + strlen((hs)->timestamp))
 
 /* A structure used to pass the current state of the history stuff around. */
-typedef struct _hist_state {
-  HIST_ENTRY **entries;		/* Pointer to the entries themselves. */
-  int offset;			/* The location pointer within this array. */
-  int length;			/* Number of elements within this array. */
-  int size;			/* Number of slots allocated to this array. */
-  int flags;
+typedef struct _hist_state
+{
+	HIST_ENTRY **entries; /* Pointer to the entries themselves. */
+	int offset;	   /* The location pointer within this array. */
+	int length;	   /* Number of elements within this array. */
+	int size;	     /* Number of slots allocated to this array. */
+	int flags;
 } HISTORY_STATE;
 
 /* Flag values for the `flags' member of HISTORY_STATE. */
-#define HS_STIFLED	0x01
+#define HS_STIFLED 0x01
 
 /* Initialization and state management. */
 
@@ -244,7 +246,7 @@ extern HIST_ENTRY **history_list PARAMS((void));
 /* Returns the number which says what history element we are now
    looking at.  */
 extern int where_history PARAMS((void));
-  
+
 /* Return the history entry at the current position, as determined by
    history_offset.  If there is no entry there, return a NULL pointer. */
 extern HIST_ENTRY *current_history PARAMS((void));
@@ -396,23 +398,22 @@ extern rl_linebuf_func_t *history_inhibit_expansion_function;
 
 /* histlib.h -- internal definitions for the history library. */
 
-#if !defined (_HISTLIB_H_)
+#if !defined(_HISTLIB_H_)
 #define _HISTLIB_H_
 
-#if defined (HAVE_STRING_H)
-#  include <string.h>
+#if defined(HAVE_STRING_H)
+#include <string.h>
 #else
-#  include <strings.h>
+#include <strings.h>
 #endif /* !HAVE_STRING_H */
 
-#if !defined (STREQ)
-#define STREQ(a, b)	(((a)[0] == (b)[0]) && (strcmp ((a), (b)) == 0))
-#define STREQN(a, b, n) (((n) == 0) ? (1) \
-				    : ((a)[0] == (b)[0]) && (strncmp ((a), (b), (n)) == 0))
+#if !defined(STREQ)
+#define STREQ(a, b) (((a)[0] == (b)[0]) && (strcmp((a), (b)) == 0))
+#define STREQN(a, b, n) (((n) == 0) ? (1) : ((a)[0] == (b)[0]) && (strncmp((a), (b), (n)) == 0))
 #endif
 
 #ifndef savestring
-#define savestring(x) strcpy (xmalloc (1 + strlen (x)), (x))
+#define savestring(x) strcpy(xmalloc(1 + strlen(x)), (x))
 #endif
 
 #ifndef whitespace
@@ -420,7 +421,7 @@ extern rl_linebuf_func_t *history_inhibit_expansion_function;
 #endif
 
 #ifndef _rl_digit_p
-#define _rl_digit_p(c)  ((c) >= '0' && (c) <= '9')
+#define _rl_digit_p(c) ((c) >= '0' && (c) <= '9')
 #endif
 
 #ifndef _rl_digit_value
@@ -428,22 +429,24 @@ extern rl_linebuf_func_t *history_inhibit_expansion_function;
 #endif
 
 #ifndef member
-#  ifndef strchr
-extern char *strchr ();
-#  endif
-#define member(c, s) ((c) ? ((char *)strchr ((s), (c)) != (char *)NULL) : 0)
+#ifndef strchr
+extern char *strchr();
+#endif
+#define member(c, s) ((c) ? ((char *)strchr((s), (c)) != (char *)NULL) : 0)
 #endif
 
 #ifndef FREE
-#  define FREE(x)	if (x) free (x)
+#define FREE(x)                                                                                                        \
+	if (x)                                                                                                         \
+	free(x)
 #endif
 
 /* Possible history errors passed to hist_error. */
 #define EVENT_NOT_FOUND 0
-#define BAD_WORD_SPEC	1
-#define SUBST_FAILED	2
-#define BAD_MODIFIER	3
-#define NO_PREV_SUBST	4
+#define BAD_WORD_SPEC 1
+#define SUBST_FAILED 2
+#define BAD_MODIFIER 3
+#define NO_PREV_SUBST 4
 
 /* Possible definitions for history starting point specification. */
 #define ANCHORED_SEARCH 1
@@ -458,15 +461,15 @@ extern char *strchr ();
 
 /* xmalloc.h -- memory allocation that aborts on errors. */
 
-#if !defined (_XMALLOC_H_)
+#if !defined(_XMALLOC_H_)
 #define _XMALLOC_H_
 
 #ifndef PTR_T
 
 #ifdef __STDC__
-#  define PTR_T	void *
+#define PTR_T void *
 #else
-#  define PTR_T	char *
+#define PTR_T char *
 #endif
 
 #endif /* !PTR_T */

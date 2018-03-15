@@ -25,8 +25,8 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-#include "slib.h"
 #include <string.h>
+#include "slib.h"
 
 /*File path seperater*/
 #if PLAT
@@ -44,19 +44,20 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
 	/*The start of extend name*/
 	p_ext = strrchr(whole_name, '.');
 
-	/*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not allowed file in MS-Windows*/
+	/*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not
+	 * allowed file in MS-Windows*/
 	if (NULL != p_ext)
 	{
-		if(NULL!=ext)
+		if (NULL != ext)
 			strcpy(ext, p_ext);
-		if(NULL!=fname)
+		if (NULL != fname)
 			snprintf(fname, p_ext - whole_name + 1, "%s", whole_name);
 	}
 	else
 	{
-		if(NULL!=ext)
+		if (NULL != ext)
 			ext[0] = '\0';
-		if(NULL!=fname)
+		if (NULL != fname)
 			strcpy(fname, whole_name);
 	}
 }
@@ -64,24 +65,24 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
 void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext)
 {
 	char *p_whole_name;
-	if(NULL!=drive)
+	if (NULL != drive)
 	{
 #if !PLAT
 		/*No such concept "drive" in unix*/
 		drive[0] = '\0';
 #else
-		snprintf(drive,((int*)strchr(path,'\\')-(int*)path),"%s",path);
+		snprintf(drive, ((int *)strchr(path, '\\') - (int *)path), "%s", path);
 #endif
 	}
 
 	/*If the path is null, just set all the vaules blank*/
 	if (NULL == path)
 	{
-		if(NULL!=dir)
+		if (NULL != dir)
 			dir[0] = '\0';
-		if(NULL!=fname)
+		if (NULL != fname)
 			fname[0] = '\0';
-		if(NULL!=ext)
+		if (NULL != ext)
 			ext[0] = '\0';
 		return;
 	}
@@ -89,11 +90,11 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 	/*If there is just directory in the path, don't seperate file name*/
 	if (pathsep == path[strlen(path)])
 	{
-		if(NULL!=dir)
+		if (NULL != dir)
 			strcpy(dir, path);
-		if(NULL!=fname)
+		if (NULL != fname)
 			fname[0] = '\0';
-		if(NULL!=ext)
+		if (NULL != ext)
 			ext[0] = '\0';
 		return;
 	}
@@ -107,15 +108,14 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext
 		p_whole_name++;
 		__split_whole_name(p_whole_name, fname, ext);
 
-		if(NULL!=dir)
+		if (NULL != dir)
 			snprintf(dir, p_whole_name - path, "%s", path);
 	}
 	else
 	{
 		__split_whole_name(path, fname, ext);
-		if(NULL!=dir)
+		if (NULL != dir)
 			dir[0] = '\0';
 	}
 	return;
 }
-

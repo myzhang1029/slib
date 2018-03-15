@@ -18,12 +18,12 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
 #endif
 
+#include <ctype.h>
 #include <errno.h>
 #include "slib/fnmatch.h"
-#include <ctype.h>
 
 /* Match STRING against the filename pattern PATTERN, returning zero if
    it matches, nonzero if not.  */
@@ -33,11 +33,11 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 	register char c;
 
 	/* Note that this evaluates C many times.  */
-# if defined (STDC_HEADERS) || !defined (isascii)
-#  define FOLD(c) ((flags & FNM_CASEFOLD) && isupper (c) ? tolower (c) :(c))
-# else
-#  define ISUPPER(c) ((flags & FNM_CASEFOLD) && (isascii(c) && isupper(c)) ? tolower (c) : (c))
-# endif
+#if defined(STDC_HEADERS) || !defined(isascii)
+#define FOLD(c) ((flags & FNM_CASEFOLD) && isupper(c) ? tolower(c) : (c))
+#else
+#define ISUPPER(c) ((flags & FNM_CASEFOLD) && (isascii(c) && isupper(c)) ? tolower(c) : (c))
+#endif
 
 	while ((c = *p++) != '\0')
 	{
@@ -51,9 +51,8 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 				else if ((flags & FNM_FILE_NAME) && *n == '/')
 					return FNM_NOMATCH;
 				else if ((flags & FNM_PERIOD) && *n == '.' &&
-				         (n == string
-				          || ((flags & FNM_FILE_NAME)
-				              && n[-1] == '/'))) return FNM_NOMATCH;
+					 (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
+					return FNM_NOMATCH;
 				break;
 
 			case '\\':
@@ -71,7 +70,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 
 			case '*':
 				if ((flags & FNM_PERIOD) && *n == '.' &&
-				        (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
+				    (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
 					return FNM_NOMATCH;
 
 				for (c = *p++; c == '?' || c == '*'; c = *p++)
@@ -102,7 +101,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 					c1 = FOLD(c1);
 					for (--p; *n != '\0'; ++n)
 						if ((c == '[' || FOLD(*n) == c1) &&
-						        fnmatchGS(p, n, flags & ~FNM_PERIOD) == 0)
+						    fnmatchGS(p, n, flags & ~FNM_PERIOD) == 0)
 							return 0;
 					return FNM_NOMATCH;
 				}
@@ -116,7 +115,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 					return FNM_NOMATCH;
 
 				if ((flags & FNM_PERIOD) && *n == '.' &&
-				        (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
+				    (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
 					return FNM_NOMATCH;
 
 				not = (*p == '!' || *p == '^');
@@ -170,8 +169,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 					return FNM_NOMATCH;
 				break;
 
-matched:
-				;
+			matched:;
 				/* Skip the rest of the [...] that already matched.  */
 				while (c != ']')
 				{
@@ -210,5 +208,4 @@ matched:
 
 	return FNM_NOMATCH;
 }
-# undef FOLD
-
+#undef FOLD

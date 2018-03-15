@@ -23,17 +23,16 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
 #include <stdlib.h>
+#include "slib.h"
 
-OPT int InitStack(sqStack *s,unsigned stackSize,unsigned typeSize)
+OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize)
 {
-	s->base=malloc(stackSize);
-	if(!s->base)
+	s->base = malloc(stackSize);
+	if (!s->base)
 		return SERROR;
-	s->top=s->base;
-	s->stackSize=stackSize;
-	s->typeSize=typeSize;
+	s->top = s->base;
+	s->stackSize = stackSize;
+	s->typeSize = typeSize;
 	return STRUE;
 }
-

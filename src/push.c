@@ -22,15 +22,14 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
 #include <string.h>
+#include "slib.h"
 
-OPT int Push(sqStack *s,void *e)
+OPT int Push(sqStack *s, void *e)
 {
-	if((int)s->top-(int)s->base+s->typeSize>s->stackSize)
+	if ((int)s->top - (int)s->base + s->typeSize > s->stackSize)
 		return SFALSE;
-	memcpy(s->top,e,s->typeSize);
-	s->top=(void*)((int)s->top+s->typeSize);
+	memcpy(s->top, e, s->typeSize);
+	s->top = (void *)((int)s->top + s->typeSize);
 	return STRUE;
 }
-

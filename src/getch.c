@@ -22,36 +22,34 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
-#include <memory.h>
 #include <assert.h>
+#include <memory.h>
+#include "slib.h"
 
-#if (!PLAT)||(defined(HAVE_FCNTL_H)&&defined(HAVE_TERMIOS_H)&&defined(HAVE_UNISTD_H))
+#if (!PLAT) || (defined(HAVE_FCNTL_H) && defined(HAVE_TERMIOS_H) && defined(HAVE_UNISTD_H))
+#include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
-#include <fcntl.h>
 
-OPT int
-getch(void)
+OPT int getch(void)
 {
-	int c=0;
+	int c = 0;
 	struct termios org_opts, new_opts;
-	int res=0;
+	int res = 0;
 
-	res=tcgetattr(STDIN_FILENO, &org_opts);
-	assert(res==0);
+	res = tcgetattr(STDIN_FILENO, &org_opts);
+	assert(res == 0);
 
 	memcpy(&new_opts, &org_opts, sizeof(new_opts));
 	new_opts.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &new_opts);
-	c=getchar();
-	res=tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);
-	assert(res==0);
+	c = getchar();
+	res = tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);
+	assert(res == 0);
 	return c;
 }
 
-OPT int
-kbhit(void)
+OPT int kbhit(void)
 {
 	struct termios oldt, newt;
 	int ch;
@@ -65,7 +63,7 @@ kbhit(void)
 	ch = getchar();
 	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 	fcntl(STDIN_FILENO, F_SETFL, oldf);
-	if(ch != EOF)
+	if (ch != EOF)
 	{
 		ungetc(ch, stdin);
 		return 1;
@@ -73,4 +71,3 @@ kbhit(void)
 	return 0;
 }
 #endif
-

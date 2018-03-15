@@ -22,22 +22,21 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
-#include <string.h>
 #include <stdarg.h>
+#include <string.h>
+#include "slib.h"
 
-OPT char *  mtscat(unsigned amount,...)
+OPT char *mtscat(unsigned amount, ...)
 {
 	va_list strs;
 	char *str;
 	count_t count;
-	va_start (strs,amount);
-	str=va_arg(strs,char*);
-	for(count=0; count<=amount-1; ++count)
+	va_start(strs, amount);
+	str = va_arg(strs, char *);
+	for (count = 0; count <= amount - 1; ++count)
 	{
-		strcat(str,va_arg(strs,char*));
+		strcat(str, va_arg(strs, char *));
 	}
 	va_end(strs);
 	return str;
 }
-

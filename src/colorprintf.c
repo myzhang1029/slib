@@ -23,8 +23,8 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-#include "slib.h"
 #include <stdarg.h>
+#include "slib.h"
 
 /*
  * colorprintf - Print in color on the terminal/console
@@ -33,78 +33,78 @@
  * bcolor: Background color
  * Return vaule: status of printf returns
  */
-OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
+OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor, ccp format, ...)
 {
-	int stat=1;
+	int stat = 1;
 	va_list args;
 #if PLAT
-	HANDLE hstdout=GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbInfo;
-	WORD colornum=0x0;
+	WORD colornum = 0x0;
 #endif
-	va_start(args,format);
+	va_start(args, format);
 #if PLAT
 	GetConsoleScreenBufferInfo(hstdout, &csbInfo);
-	switch(fcolor)
+	switch (fcolor)
 	{
 		case red:
-			colornum=0x4;
+			colornum = 0x4;
 			break;
 		case green:
-			colornum=0x2;
+			colornum = 0x2;
 			break;
 		case yellow:
-			colornum=0x6;
+			colornum = 0x6;
 			break;
 		case black:
-			colornum=0x7;
+			colornum = 0x7;
 			break;
 		case blue:
-			colornum=0x1;
+			colornum = 0x1;
 			break;
 		case magenta:
-			colornum=0x5;
+			colornum = 0x5;
 			break;
 		case cyan:
-			colornum=0x3;
+			colornum = 0x3;
 			break;
 		case unchanged:
-			colornum=0;
+			colornum = 0;
 			break;
 	}
-	switch(bcolor)
+	switch (bcolor)
 	{
 		case red:
-			colornum+=0x40;
+			colornum += 0x40;
 			break;
 		case green:
-			colornum+=0x20;
+			colornum += 0x20;
 			break;
 		case yellow:
-			colornum+=0x60;
+			colornum += 0x60;
 			break;
 		case black:
-			colornum+=0x70;
+			colornum += 0x70;
 			break;
 		case blue:
-			colornum+=0x10;
+			colornum += 0x10;
 			break;
 		case magenta:
-			colornum+=0x50;
+			colornum += 0x50;
 			break;
 		case cyan:
-			colornum+=0x30;
+			colornum += 0x30;
 			break;
 		case unchanged:
 			break;
 	}
-	SetConsoleTextAttribute(hstdout,colornum);
-	stat=vprintf(format,args);
+	SetConsoleTextAttribute(hstdout, colornum);
+	stat = vprintf(format, args);
 	va_end(args);
-	SetConsoleTextAttribute(hstdout,csbInfo.wAttributes);
+	SetConsoleTextAttribute(hstdout, csbInfo.wAttributes);
 	return stat;
 #else
-	switch(fcolor)
+	switch (fcolor)
 	{
 		case red:
 			printf("\033[31m");
@@ -130,7 +130,7 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 		case unchanged:
 			break;
 	}
-	switch(bcolor)
+	switch (bcolor)
 	{
 		case red:
 			printf("\033[41m");
@@ -156,9 +156,8 @@ OPT int colorprintf(enum cpfcolors fcolor,enum cpfcolors bcolor,ccp format,...)
 		case unchanged:
 			break;
 	}
-	stat=vprintf(format,args);
+	stat = vprintf(format, args);
 	printf("\033[0m");
 	return stat;
 #endif
 }
-

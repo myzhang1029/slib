@@ -24,15 +24,14 @@
  */
 #include "slib.h"
 
-OPT unsigned long
-gcf(unsigned long n1, unsigned long n2)
+OPT unsigned long gcf(unsigned long n1, unsigned long n2)
 {
-	unsigned long a=n1, b=n2, tmp;
-	while(a&&b)
+	unsigned long a = n1, b = n2, tmp;
+	while (a && b)
 	{
-		tmp=a>b?a-b:b-a;
-		a=a>b?b:a;
-		b=tmp;
+		tmp = a > b ? a - b : b - a;
+		a = a > b ? b : a;
+		b = tmp;
 	}
-	return a=0?b:a;
+	return a = 0 ? b : a;
 }

@@ -22,13 +22,12 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
 #include <stdlib.h>
+#include "slib.h"
 OPT int DestroyStack(sqStack *s)
 {
 	free(s->base);
-	s->top=s->base=NULL;
-	s->stackSize=s->typeSize=0;
+	s->top = s->base = NULL;
+	s->stackSize = s->typeSize = 0;
 	return STRUE;
 }
-

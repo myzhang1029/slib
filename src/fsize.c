@@ -25,17 +25,15 @@
 
 #include "slib.h"
 
-OPT long  fsize( FILE * stream )
+OPT long fsize(FILE *stream)
 {
 	long size;
-	if ( !stream )
+	if (!stream)
 	{
 		__set_errno(22);
 		return SERROR;
 	}
-	fseek( stream, 0L, SEEK_END );
-	size = ftell( stream );
+	fseek(stream, 0L, SEEK_END);
+	size = ftell(stream);
 	return size;
 }
-
-

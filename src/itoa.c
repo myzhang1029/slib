@@ -22,16 +22,16 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
 #include <stdlib.h>
-char* itoaS(int value, char* string, int radix)
+#include "slib.h"
+char *itoaS(int value, char *string, int radix)
 {
 	char tmp[33];
-	char* tp = tmp;
+	char *tp = tmp;
 	int i;
 	unsigned v;
 	int sign;
-	char* sp;
+	char *sp;
 
 	if (radix > 36 || radix <= 1)
 	{
@@ -49,13 +49,13 @@ char* itoaS(int value, char* string, int radix)
 		i = v % radix;
 		v = v / radix;
 		if (i < 10)
-			*tp++ = i+'0';
+			*tp++ = i + '0';
 		else
 			*tp++ = i + 'a' - 10;
 	}
 
 	if (string == 0)
-		string = (char*)malloc((tp-tmp)+sign+1);
+		string = (char *)malloc((tp - tmp) + sign + 1);
 	sp = string;
 
 	if (sign)
@@ -66,15 +66,14 @@ char* itoaS(int value, char* string, int radix)
 	return string;
 }
 
-
-char* ltoaS(long value, char* string, int radix)
+char *ltoaS(long value, char *string, int radix)
 {
 	char tmp[33];
-	char* tp = tmp;
+	char *tp = tmp;
 	long i;
 	unsigned long v;
 	int sign;
-	char* sp;
+	char *sp;
 
 	if (radix > 36 || radix <= 1)
 	{
@@ -92,13 +91,13 @@ char* ltoaS(long value, char* string, int radix)
 		i = v % radix;
 		v = v / radix;
 		if (i < 10)
-			*tp++ = i+'0';
+			*tp++ = i + '0';
 		else
 			*tp++ = i + 'a' - 10;
 	}
 
 	if (string == 0)
-		string = (char*)malloc((tp-tmp)+sign+1);
+		string = (char *)malloc((tp - tmp) + sign + 1);
 	sp = string;
 
 	if (sign)
@@ -109,14 +108,13 @@ char* ltoaS(long value, char* string, int radix)
 	return string;
 }
 
-
-char* ultoaS(unsigned long value, char* string, int radix)
+char *ultoaS(unsigned long value, char *string, int radix)
 {
 	char tmp[33];
-	char* tp = tmp;
+	char *tp = tmp;
 	long i;
 	unsigned long v = value;
-	char* sp;
+	char *sp;
 
 	if (radix > 36 || radix <= 1)
 	{
@@ -129,13 +127,13 @@ char* ultoaS(unsigned long value, char* string, int radix)
 		i = v % radix;
 		v = v / radix;
 		if (i < 10)
-			*tp++ = i+'0';
+			*tp++ = i + '0';
 		else
 			*tp++ = i + 'a' - 10;
 	}
 
 	if (string == 0)
-		string = (char*)malloc((tp-tmp)+1);
+		string = (char *)malloc((tp - tmp) + 1);
 	sp = string;
 
 	while (tp > tmp)
@@ -143,6 +141,3 @@ char* ultoaS(unsigned long value, char* string, int radix)
 	*sp = 0;
 	return string;
 }
-
-
-

@@ -22,13 +22,11 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
 #include <stdlib.h>
+#include "slib.h"
 
-OPT unsigned long randomnum( unsigned seed,unsigned long maximum,unsigned long minimum )
+OPT unsigned long randomnum(unsigned seed, unsigned long maximum, unsigned long minimum)
 {
 	srand(seed);
-	return minimum + rand() % (maximum-minimum);
+	return minimum + rand() % (maximum - minimum);
 }
-
-

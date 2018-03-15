@@ -25,23 +25,20 @@
 
 #include "slib.h"
 
-OPT int  fcopy( ccp oldname, ccp newname )
+OPT int fcopy(ccp oldname, ccp newname)
 {
-	FILE * fold, *fnew;
-	fold = fopen( oldname, "rb" );
-	if ( !fold )
+	FILE *fold, *fnew;
+	fold = fopen(oldname, "rb");
+	if (!fold)
 		return SERROR;
-	fnew = fopen( newname, "wb" );
-	if ( !fnew )
+	fnew = fopen(newname, "wb");
+	if (!fnew)
 	{
-		fclose( fold );
+		fclose(fold);
 		return SERROR;
 	}
-	iofile( fold,fnew );
-	fclose( fnew );
-	fclose( fold );
+	iofile(fold, fnew);
+	fclose(fnew);
+	fclose(fold);
 	return STRUE;
 }
-
-
-

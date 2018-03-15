@@ -22,23 +22,21 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
-#include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <string.h>
+#include "slib.h"
 
-OPT int  prterr(ccp fmt,... )
+OPT int prterr(ccp fmt, ...)
 {
 	va_list argptr;
-	int saverrno=errno;
+	int saverrno = errno;
 	va_start(argptr, fmt);
-	fprintf(stderr,"Error:");
-	vfprintf(stderr,fmt,argptr);
-	if(errno != 0)
-		fprintf(stderr,":%s(errno%d)\n",strerror(errno),errno);
+	fprintf(stderr, "Error:");
+	vfprintf(stderr, fmt, argptr);
+	if (errno != 0)
+		fprintf(stderr, ":%s(errno%d)\n", strerror(errno), errno);
 	va_end(argptr);
 	__set_errno(saverrno);
 	return STRUE;
 }
-
-

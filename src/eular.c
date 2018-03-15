@@ -27,12 +27,11 @@
 OPT int eular(unsigned n)
 {
 	count_t count;
-	unsigned result=0;
-	for(count=0; count<n; ++count)
+	unsigned result = 0;
+	for (count = 0; count < n; ++count)
 	{
-		if(isrp(n,count))
+		if (isrp(n, count))
 			++result;
 	}
 	return result;
 }
-

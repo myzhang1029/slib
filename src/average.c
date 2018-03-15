@@ -22,20 +22,19 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
 #include <stdarg.h>
+#include "slib.h"
 
-OPT double average(size_t amt,...)
+OPT double average(size_t amt, ...)
 {
 	va_list args;
 	count_t count;
-	double sum=0.0;
-	va_start(args,amt);
-	for(count=0; count<amt; ++count)
+	double sum = 0.0;
+	va_start(args, amt);
+	for (count = 0; count < amt; ++count)
 	{
-		sum+=va_arg(args,double);
+		sum += va_arg(args, double);
 	}
 	va_end(args);
-	return (sum/amt);
+	return (sum / amt);
 }
-

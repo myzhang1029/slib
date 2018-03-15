@@ -25,26 +25,21 @@
 
 #include "slib.h"
 
-OPT int  iofile(FILE *origin,FILE *dest)
+OPT int iofile(FILE *origin, FILE *dest)
 {
 	int ch;
 	rewind(origin);
-	if(feof(origin))
+	if (feof(origin))
 		return SERROR;
 	while (1)
 	{
-		ch = fgetc( origin );
-		if ( !feof( origin ) )
-			fputc( ch, dest );
+		ch = fgetc(origin);
+		if (!feof(origin))
+			fputc(ch, dest);
 		else
 			break;
 	}
 	return STRUE;
 }
 
-
-OPT int prtfile(FILE *stream)
-{
-	return iofile(stream,stdout);
-}
-
+OPT int prtfile(FILE *stream) { return iofile(stream, stdout); }

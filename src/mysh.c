@@ -22,32 +22,30 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include "slib.h"
 
-OPT int  mysh( ccp path )
+OPT int mysh(ccp path)
 {
 	char command[20];
-	char *dir=malloc(sizeof(char)*256);
-	splitpathS(path,NULL,dir,NULL,NULL);
-	fflush( stdin );
+	char *dir = malloc(sizeof(char) * 256);
+	splitpathS(path, NULL, dir, NULL, NULL);
+	fflush(stdin);
 #if PLAT
-	printf( "%s(Enter 'q'  to quit)>", dir );
+	printf("%s(Enter 'q'  to quit)>", dir);
 #else
-	printf( "(slibsh) %s(Enter 'q' to quit)$", dir );
+	printf("(slibsh) %s(Enter 'q' to quit)$", dir);
 #endif
 	free(dir);
-	fgets( command, 19, stdin );
-	if ( strcmp(command,"q\n")==0 )
+	fgets(command, 19, stdin);
+	if (strcmp(command, "q\n") == 0)
 	{
 		return STRUE;
 	}
 	else
 	{
-		system( command );
+		system(command);
 		return SFALSE;
 	}
 }
-
-
