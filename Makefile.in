@@ -135,16 +135,15 @@ libsbl_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am_libsbl_la_OBJECTS = src/libsbl_la-average.lo src/libsbl_la-calc.lo \
 	src/libsbl_la-clearstack.lo src/libsbl_la-colorprintf.lo \
-	src/libsbl_la-destorystack.lo src/libsbl_la-error.lo \
-	src/libsbl_la-eular.lo src/libsbl_la-fnmatch.lo \
-	src/libsbl_la-fsize.lo src/libsbl_la-gcf.lo \
-	src/libsbl_la-getch.lo src/libsbl_la-getlen.lo \
-	src/libsbl_la-getopt.lo src/libsbl_la-history.lo \
-	src/libsbl_la-initstack.lo src/libsbl_la-iofile.lo \
-	src/libsbl_la-ispn.lo src/libsbl_la-isrp.lo \
-	src/libsbl_la-itoa.lo src/libsbl_la-lcm.lo \
-	src/libsbl_la-mret.lo src/libsbl_la-mtscat.lo \
-	src/libsbl_la-mysh.lo src/libsbl_la-pop.lo \
+	src/libsbl_la-destorystack.lo src/libsbl_la-eular.lo \
+	src/libsbl_la-fnmatch.lo src/libsbl_la-fsize.lo \
+	src/libsbl_la-gcf.lo src/libsbl_la-getch.lo \
+	src/libsbl_la-getlen.lo src/libsbl_la-getopt.lo \
+	src/libsbl_la-history.lo src/libsbl_la-initstack.lo \
+	src/libsbl_la-iofile.lo src/libsbl_la-ispn.lo \
+	src/libsbl_la-isrp.lo src/libsbl_la-itoa.lo \
+	src/libsbl_la-lcm.lo src/libsbl_la-mret.lo \
+	src/libsbl_la-mtscat.lo src/libsbl_la-pop.lo \
 	src/libsbl_la-prtpn.lo src/libsbl_la-push.lo \
 	src/libsbl_la-randomnum.lo src/libsbl_la-regex.lo \
 	src/libsbl_la-sleepS.lo src/libsbl_la-splitpathS.lo
@@ -173,7 +172,6 @@ am__depfiles_remade = src/$(DEPDIR)/libsbl_la-average.Plo \
 	src/$(DEPDIR)/libsbl_la-clearstack.Plo \
 	src/$(DEPDIR)/libsbl_la-colorprintf.Plo \
 	src/$(DEPDIR)/libsbl_la-destorystack.Plo \
-	src/$(DEPDIR)/libsbl_la-error.Plo \
 	src/$(DEPDIR)/libsbl_la-eular.Plo \
 	src/$(DEPDIR)/libsbl_la-fnmatch.Plo \
 	src/$(DEPDIR)/libsbl_la-fsize.Plo \
@@ -190,7 +188,6 @@ am__depfiles_remade = src/$(DEPDIR)/libsbl_la-average.Plo \
 	src/$(DEPDIR)/libsbl_la-lcm.Plo \
 	src/$(DEPDIR)/libsbl_la-mret.Plo \
 	src/$(DEPDIR)/libsbl_la-mtscat.Plo \
-	src/$(DEPDIR)/libsbl_la-mysh.Plo \
 	src/$(DEPDIR)/libsbl_la-pop.Plo \
 	src/$(DEPDIR)/libsbl_la-prtpn.Plo \
 	src/$(DEPDIR)/libsbl_la-push.Plo \
@@ -392,7 +389,16 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 lib_LTLIBRARIES = libsbl.la
 include_HEADERS = include/slib.h
 libsbl_la_CPPFLAGS = -Iinclude
-libsbl_la_SOURCES = src/average.c src/calc.c src/clearstack.c src/colorprintf.c src/destorystack.c src/error.c src/eular.c src/fnmatch.c src/fsize.c src/gcf.c src/getch.c src/getlen.c src/getopt.c src/history.c src/initstack.c src/iofile.c src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/Makefile.am src/Makefile.in src/mret.c src/mtscat.c src/mysh.c src/pop.c src/prtpn.c src/push.c src/randomnum.c src/regex.c src/sleepS.c src/splitpathS.c include/slib/fnmatch.h include/slib/general.h include/slib/getopt.h include/slib/history.h include/slib/itoa.h include/slib/math.h include/slib/regex.h include/slib.h 
+libsbl_la_SOURCES = src/average.c src/calc.c src/clearstack.c \
+src/colorprintf.c src/destorystack.c src/eular.c \
+src/fnmatch.c src/fsize.c src/gcf.c src/getch.c src/getlen.c \
+src/getopt.c src/history.c src/initstack.c src/iofile.c \
+src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/mret.c \
+src/mtscat.c src/pop.c src/prtpn.c src/push.c src/randomnum.c \
+src/regex.c src/sleepS.c src/splitpathS.c include/slib/fnmatch.h \
+include/slib/general.h include/slib/getopt.h include/slib/history.h \
+include/slib/itoa.h include/slib/math.h include/slib/regex.h include/slib.h 
+
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -497,8 +503,6 @@ src/libsbl_la-colorprintf.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-destorystack.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libsbl_la-error.lo: src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-eular.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-fnmatch.lo: src/$(am__dirstamp) \
@@ -531,8 +535,6 @@ src/libsbl_la-mret.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-mtscat.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libsbl_la-mysh.lo: src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-pop.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-prtpn.lo: src/$(am__dirstamp) \
@@ -564,7 +566,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-clearstack.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-colorprintf.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-destorystack.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-error.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-eular.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-fnmatch.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-fsize.Plo@am__quote@ # am--include-marker
@@ -581,7 +582,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-lcm.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-mret.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-mtscat.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-mysh.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-pop.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-prtpn.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-push.Plo@am__quote@ # am--include-marker
@@ -654,13 +654,6 @@ src/libsbl_la-destorystack.lo: src/destorystack.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/destorystack.c' object='src/libsbl_la-destorystack.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-destorystack.lo `test -f 'src/destorystack.c' || echo '$(srcdir)/'`src/destorystack.c
-
-src/libsbl_la-error.lo: src/error.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-error.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-error.Tpo -c -o src/libsbl_la-error.lo `test -f 'src/error.c' || echo '$(srcdir)/'`src/error.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libsbl_la-error.Tpo src/$(DEPDIR)/libsbl_la-error.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/error.c' object='src/libsbl_la-error.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-error.lo `test -f 'src/error.c' || echo '$(srcdir)/'`src/error.c
 
 src/libsbl_la-eular.lo: src/eular.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-eular.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-eular.Tpo -c -o src/libsbl_la-eular.lo `test -f 'src/eular.c' || echo '$(srcdir)/'`src/eular.c
@@ -773,13 +766,6 @@ src/libsbl_la-mtscat.lo: src/mtscat.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/mtscat.c' object='src/libsbl_la-mtscat.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-mtscat.lo `test -f 'src/mtscat.c' || echo '$(srcdir)/'`src/mtscat.c
-
-src/libsbl_la-mysh.lo: src/mysh.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-mysh.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-mysh.Tpo -c -o src/libsbl_la-mysh.lo `test -f 'src/mysh.c' || echo '$(srcdir)/'`src/mysh.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libsbl_la-mysh.Tpo src/$(DEPDIR)/libsbl_la-mysh.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/mysh.c' object='src/libsbl_la-mysh.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-mysh.lo `test -f 'src/mysh.c' || echo '$(srcdir)/'`src/mysh.c
 
 src/libsbl_la-pop.lo: src/pop.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-pop.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-pop.Tpo -c -o src/libsbl_la-pop.lo `test -f 'src/pop.c' || echo '$(srcdir)/'`src/pop.c
@@ -1137,7 +1123,6 @@ distclean: distclean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-clearstack.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-colorprintf.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-destorystack.Plo
-	-rm -f src/$(DEPDIR)/libsbl_la-error.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-eular.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-fnmatch.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-fsize.Plo
@@ -1154,7 +1139,6 @@ distclean: distclean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-lcm.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mret.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mtscat.Plo
-	-rm -f src/$(DEPDIR)/libsbl_la-mysh.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-pop.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-prtpn.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-push.Plo
@@ -1164,7 +1148,7 @@ distclean: distclean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-splitpathS.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-hdr distclean-libtool distclean-local distclean-tags
+	distclean-hdr distclean-libtool distclean-tags
 
 dvi: dvi-am
 
@@ -1215,7 +1199,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-clearstack.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-colorprintf.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-destorystack.Plo
-	-rm -f src/$(DEPDIR)/libsbl_la-error.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-eular.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-fnmatch.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-fsize.Plo
@@ -1232,7 +1215,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-lcm.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mret.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mtscat.Plo
-	-rm -f src/$(DEPDIR)/libsbl_la-mysh.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-pop.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-prtpn.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-push.Plo
@@ -1267,15 +1249,14 @@ uninstall-am: uninstall-includeHEADERS uninstall-libLTLIBRARIES
 	dist-all dist-bzip2 dist-gzip dist-lzip dist-shar dist-tarZ \
 	dist-xz dist-zip distcheck distclean distclean-compile \
 	distclean-generic distclean-hdr distclean-libtool \
-	distclean-local distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am \
-	install-data-hook install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am \
-	install-includeHEADERS install-info install-info-am \
-	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	distclean-tags distcleancheck distdir distuninstallcheck dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-data install-data-am install-data-hook install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-includeHEADERS install-info \
+	install-info-am install-libLTLIBRARIES install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags tags-am uninstall uninstall-am uninstall-hook \
@@ -1283,8 +1264,6 @@ uninstall-am: uninstall-includeHEADERS uninstall-libLTLIBRARIES
 
 .PRECIOUS: Makefile
 
-distclean-local:
-	rm -f src/Makefile
 
 install-data-hook:
 	mkdir -p $(includedir)/slib
