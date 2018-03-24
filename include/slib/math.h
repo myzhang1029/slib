@@ -1,7 +1,7 @@
 /*
- *  fcopy.c - fcopy function in the slib
+ *  math.h - Arithmetic functions 
  *
- *  Copyright (C) 2016,2017 Zhang Maiyun
+ *  Copyright (C) 2018 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
@@ -22,23 +22,26 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+#ifndef SLIB_MATH_H
+#define SLIB_MATH_H
+#include <slib/general.h>
 
-#include "slib.h"
+_BEGIN_EXTERN_C
 
-OPT int fcopy(ccp oldname, ccp newname)
-{
-	FILE *fold, *fnew;
-	fold = fopen(oldname, "rb");
-	if (!fold)
-		return SERROR;
-	fnew = fopen(newname, "wb");
-	if (!fnew)
-	{
-		fclose(fold);
-		return SERROR;
-	}
-	iofile(fold, fnew);
-	fclose(fnew);
-	fclose(fold);
-	return STRUE;
-}
+OPT void slib_prtpn(unsigned long minimum, unsigned long maximum);
+
+OPT int slib_ispn(unsigned long testingnum);
+
+OPT int slib_isrp(unsigned n1, unsigned n2);
+
+OPT double slib_average(unsigned int amt, ...);
+
+OPT unsigned long slib_gcf(unsigned long n1, unsigned long n2);
+
+OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2);
+
+OPT int slib_eular(unsigned n);
+
+_END_EXTERN_C
+
+#endif /* SLIB_MATH_H */

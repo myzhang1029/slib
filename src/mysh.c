@@ -26,7 +26,7 @@
 #include <string.h>
 #include "slib.h"
 
-OPT int mysh(ccp path)
+OPT int mysh(const char * path)
 {
 	char command[20];
 	char *dir = malloc(sizeof(char) * 256);

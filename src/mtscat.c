@@ -30,7 +30,7 @@ OPT char *mtscat(unsigned amount, ...)
 {
 	va_list strs;
 	char *str;
-	count_t count;
+	unsigned int count;
 	va_start(strs, amount);
 	str = va_arg(strs, char *);
 	for (count = 0; count <= amount - 1; ++count)

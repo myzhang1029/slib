@@ -1,5 +1,5 @@
 /*
- *  lcm.c - Lowest Common Multiple function in the slib
+ *  lcm.c - Lowest Common Multiple
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -24,4 +24,7 @@
  */
 #include "slib.h"
 
-OPT unsigned long lcm(unsigned long n1, unsigned long n2) { return n1 * n2 / gcf(n1, n2); }
+OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2)
+{
+	return n1 * n2 / slib_gcf(n1, n2);
+}

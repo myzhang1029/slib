@@ -35,7 +35,7 @@ static int
 InfixToPostfix(char *infix,
 	       char *postfix); /*将中缀表达式转换为后缀表达式。例：infix={"3+5\n"} ,转换后，postfix={"3 5 + "};*/
 
-OPT double calculate(ccp infix)
+OPT double calculate(const char * infix)
 {
 	char postfix[BUFFERSIZE] = {'\0'};
 	double result;

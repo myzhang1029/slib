@@ -1,5 +1,5 @@
 /*
- *  ispn.c - ispn function in the slib
+ *  ispn.c - primary test
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -23,9 +23,9 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include <math.h>
-#include "slib.h"
+#include "slib/math.h"
 
-OPT int ispn(unsigned long testingnum)
+OPT int slib_ispn(unsigned long testingnum)
 {
 	long k = (long)sqrtl((long double)testingnum), i = 3;
 

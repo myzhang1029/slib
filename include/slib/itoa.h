@@ -1,7 +1,7 @@
 /*
- *  iofile.c - File printing function in the slib
+ *  itoa.h - itoa, ltoa ultoa
  *
- *  Copyright (C) 2016,2017 Zhang Maiyun
+ *  Copyright (C) 2016 - 2018 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
@@ -22,22 +22,17 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+#ifndef SLIB_ITOA_H
+#define SLIB_ITOA_H 1
+#include <slib/general.h>
 
-#include "slib.h"
+_BEGIN_EXTERN_C
 
-OPT int iofile(FILE *origin, FILE *dest)
-{
-	int ch;
-	rewind(origin);
-	if (feof(origin))
-		return SERROR;
-	while (1)
-	{
-		ch = fgetc(origin);
-		if (!feof(origin))
-			fputc(ch, dest);
-		else
-			break;
-	}
-	return STRUE;
-}
+OPT char *itoaS(int value, char *string, int radix);
+
+OPT char *ltoaS(long value, char *string, int radix);
+
+OPT char *ultoaS(unsigned long value, char *string, int radix);
+
+_END_EXTERN_C
+#endif /* SLIB_ITOA_H */

@@ -22,15 +22,15 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
+#include "slib/math.h"
 
-OPT int eular(unsigned n)
+OPT int slib_eular(unsigned n)
 {
-	count_t count;
+	unsigned int count;
 	unsigned result = 0;
 	for (count = 0; count < n; ++count)
 	{
-		if (isrp(n, count))
+		if (slib_isrp(n, count))
 			++result;
 	}
 	return result;

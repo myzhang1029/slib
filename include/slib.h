@@ -1,7 +1,7 @@
 /*
  *  slib.h - This is the header file of the slib
  *
- *  Copyright (C) 2016, 2017 Zhang Maiyun
+ *  Copyright (C) 2016 - 2018 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
@@ -27,114 +27,18 @@
 #pragma once
 #endif
 
-#ifndef SBLLIB_VERSION
-#define SBLLIB_VERSION 3
+#ifndef SLIB_H
+#define SLIB_H 1
 
-#define SBLLIB_MINOR 3
-#define SBLLIB_PATCHLEVEL 13
+#include <slib/general.h>
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#undef malloc
-#undef realloc
-#endif
-
-#include <errno.h>
-#include <stdio.h>
-
-#if !defined(PLAT)
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN16) || defined(_WIN32) || defined(_WIN64) ||              \
-    defined(__MSDOS__)
-#define PLAT 1
-#elif defined(__linux__) || defined(__BSD__) | defined(__APPLE__) || defined(__unix__)
-#define PLAT 0
-#else
-#error Please define PLAT, see documentation for more details
-#endif
-#endif
-
-#if PLAT
-#include <windows.h>
-#endif
-
-#ifndef _CRT_SECURE_NO_WARNINGS /*for MSVC compiling envirment*/
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-#undef _CRT_NONSTDC_NO_WARNINGS
-
-#ifndef NULL /*give default definition for NULL*/
-#define NULL (void *)0
-#endif
-
-#ifndef __set_errno
-#define __set_errno(x) errno = x
-#endif
-
-#define STRUE 1 /*status*/
-#define SFALSE 0
-#define SERROR -1
 #define STKELMT 100    /*Stack max. element count*/
 #define BUFFERSIZE 100 /*Stack buffer size*/
 
-#if PLAT
-#define OPT extern __declspec(dllexport) /*use in declartions*/
-#else
-#define OPT extern
-#endif
-
-/*BOOL*/
-#if (!defined(HAVE_BOOL) || defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L || !defined(__GNUC__) ||           \
-     __GNUC__ < 5)
-typedef enum boolS { true = 1, false = 0 } boolS;
-#define bool boolS
-#define _Bool boolS
-#endif
-
-#define S_INLINE inline
-
 #define mtreturn(lenth, ...) return mkret(lenth, __VA_ARGS__)
-
-/*debugger*/
-#define D_STABLE
-#define D_UNSTABLE
-#define D_TESTING
-
-#ifdef __cplusplus
-#define _BEGIN_EXTERN_C extern "C" {
-#define _END_EXTERN_C }
-#else
-#define _BEGIN_EXTERN_C
-#define _END_EXTERN_C
-#endif
 
 #if PLAT
 #define FOREGROUND_WHITE FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN
-#define msgloop                                                                                                        \
-	{                                                                                                              \
-		MSG msg;                                                                                               \
-		while (GetMessage(&msg, NULL, 0, 0))                                                                   \
-		{                                                                                                      \
-			TranslateMessage(&msg);                                                                        \
-			DispatchMessage(&msg);                                                                         \
-		}                                                                                                      \
-	}
-
-#define regwndcls(style, lpfnwndproc, cbextra, cbwndextra, hinstsnce, hicon, hcursor, hbrbackground, lpsenuname,       \
-		  lpszclsname)                                                                                         \
-	{                                                                                                              \
-		WNDCLASS wndcls;                                                                                       \
-		wndcls.cbClsExtra = (cbextra);                                                                         \
-		wndcls.cbWndExtra = (cbwndextra);                                                                      \
-		wndcls.hbrBackground = (hbrbackgrpund);                                                                \
-		wndcls.hCursor = (hcursor);                                                                            \
-		wndcls.hIcon = (hicon);                                                                                \
-		wndcls.hInstance = (hinstance);                                                                        \
-		wndcls.lpfnWndProc = (lpfnwndproc);                                                                    \
-		wndcls.lpszClassName = (lpszclsname);                                                                  \
-		wndcls.lpszMenuName = (lpszmenuname);                                                                  \
-		wndcls.style = (style);                                                                                \
-		RegisterClass(&wndcls);                                                                                \
-	}
 #endif
 
 _BEGIN_EXTERN_C
@@ -169,12 +73,6 @@ enum cpfcolors
 	unchanged
 };
 
-typedef const char *const ccp;
-
-typedef char *String;
-
-typedef unsigned count_t;
-
 /*declation start*/
 OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize);
 
@@ -188,47 +86,19 @@ OPT int DestroyStack(sqStack *s);
 
 OPT int GetLen(sqStack *s);
 
-OPT int prterr(ccp fmt, ...);
-
-OPT double calculate(ccp infix);
+OPT double calculate(const char * infix);
 
 OPT long fsize(FILE *stream); /*获取文件长度*/
 
-OPT int mysh(ccp path); /*自定义shell程序*/
-
-D_UNSTABLE OPT int fcopy(ccp oldname, ccp newname); /*文件复制函数*/
-
-OPT void prtpn(FILE *fp, unsigned long minimum, unsigned long maximum); /*输出指定范围内的质数*/
-
-OPT int ispn(unsigned long testingnum);
-
 OPT unsigned long randomnum(unsigned seed, unsigned long maximum, unsigned long minimum);
-
-OPT int isrp(unsigned n1, unsigned n2);
 
 OPT char *mtscat(unsigned amount, ...);
 
-D_UNSTABLE OPT int iofile(FILE *origin, FILE *dest);
-
-OPT int prtfile(FILE *stream);
-
-OPT double average(size_t amt, ...);
-
-OPT unsigned long gcf(unsigned long n1, unsigned long n2);
-
-OPT unsigned long lcm(unsigned long n1, unsigned long n2);
-
-OPT int eular(unsigned n);
+OPT int iofile(FILE *in, FILE *out);
 
 OPT void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext);
 
-OPT char *itoaS(int value, char *string, int radix);
-
-OPT char *ltoaS(long value, char *string, int radix);
-
-OPT char *ultoaS(unsigned long value, char *string, int radix);
-
-D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor, ccp format, ...);
+D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor, const char * format, ...);
 
 OPT int *getret(mtret ret);
 
@@ -243,4 +113,4 @@ OPT int kbhit(void);
 
 _END_EXTERN_C
 
-#endif /*SBLLIB_VERSION*/
+#endif /*SLIB_H*/

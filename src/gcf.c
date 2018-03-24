@@ -1,5 +1,5 @@
 /*
- *  gcf.c - Greatest Common Factor function in the slib
+ *  gcf.c - Greatest Common Factor
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -22,9 +22,9 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
+#include "slib/math.h"
 
-OPT unsigned long gcf(unsigned long n1, unsigned long n2)
+OPT unsigned long slib_gcf(unsigned long n1, unsigned long n2)
 {
 	unsigned long a = n1, b = n2, tmp;
 	while (a && b)

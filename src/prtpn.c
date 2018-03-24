@@ -1,5 +1,5 @@
 /*
- *  prtpn.c - prtpn function in the slib
+ *  prtpn.c - Print prime numbers
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -22,9 +22,9 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
+#include "slib/math.h"
 
-OPT void prtpn(FILE *fp, unsigned long minimum, unsigned long maximum)
+OPT void slib_prtpn(unsigned long minimum, unsigned long maximum)
 {
 	unsigned long n = 0;
 	if (maximum <= 2)
@@ -36,9 +36,9 @@ OPT void prtpn(FILE *fp, unsigned long minimum, unsigned long maximum)
 	}
 	for (n = minimum; n <= maximum; ++n)
 	{
-		if (ispn(n))
+		if (slib_ispn(n))
 		{
-			fprintf(fp, "%lu\n", n);
+			printf("%lu\n", n);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- *  isrp.c - isrp function in the slib
+ *  isrp.c - Relative prime test
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -22,6 +22,9 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
+#include "slib/math.h"
 
-OPT int isrp(unsigned n1, unsigned n2) { return 1 == gcf(n1, n2) ? STRUE : SFALSE; }
+OPT int slib_isrp(unsigned n1, unsigned n2)
+{
+	return 1 == gcf(n1, n2) ? STRUE : SFALSE;
+}

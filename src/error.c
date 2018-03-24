@@ -27,7 +27,7 @@
 #include <string.h>
 #include "slib.h"
 
-OPT int prterr(ccp fmt, ...)
+OPT int prterr(const char * fmt, ...)
 {
 	va_list argptr;
 	int saverrno = errno;

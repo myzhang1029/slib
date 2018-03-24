@@ -25,10 +25,10 @@
 #include <stdarg.h>
 #include "slib.h"
 
-OPT double average(size_t amt, ...)
+OPT double slib_average(unsigned int amt, ...)
 {
 	va_list args;
-	count_t count;
+	unsigned int count;
 	double sum = 0.0;
 	va_start(args, amt);
 	for (count = 0; count < amt; ++count)
