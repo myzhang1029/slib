@@ -27,23 +27,6 @@
 #include <string.h>
 #include "slib.h"
 
-static int Calculate(
-    char *arr,
-    void *result); /*计算表达式结果：参数一：arr为使用空格分隔的采用后缀表达式表示的要计算的字符串,例：arr={"3 5 +
-		      "}。参数二：result存放计算*/
-static int
-InfixToPostfix(char *infix,
-	       char *postfix); /*将中缀表达式转换为后缀表达式。例：infix={"3+5\n"} ,转换后，postfix={"3 5 + "};*/
-
-OPT double calculate(const char * infix)
-{
-	char postfix[BUFFERSIZE] = {'\0'};
-	double result;
-	InfixToPostfix((char *)infix, postfix);
-	Calculate(postfix, &result);
-	return result;
-}
-
 /*
 将中缀表达式转换为后缀表达式
 参数:infix 指向中缀表达式，以回车键即\n结尾。
@@ -56,7 +39,7 @@ static int InfixToPostfix(char *infix, char *postfix)
 	char c, e;
 	int j = 0, i = 0;
 	if (InitStack(&s, STKELMT * sizeof(char), sizeof(char)) == SERROR)
-		prterr("InfixToPostfix init stack error！");
+		fprintf(stderr, "InfixToPostfix: InitStack failed\n");
 	c = *(infix + i); /*取出中缀表达式中的第一个字符*/
 	i++;
 	while ('\n' != c) /*遇到换行符，表示转换结束*/
@@ -148,7 +131,7 @@ static int Calculate(char *arr, void *result)
 	char *op; /*存放后缀表达式中的每个因数或运算符*/
 	char *buf = arr;
 	if (InitStack(&s, STKELMT * sizeof(double), sizeof(double)) == SERROR)
-		prterr("Calculate init stack error!");
+		fprintf(stderr, "Calculate: InitStack failed\n");
 	while ((op = strtok(buf, " ")) != NULL)
 	{
 		buf = NULL;
@@ -193,4 +176,12 @@ static int Calculate(char *arr, void *result)
 	Pop(&s, result);
 	DestroyStack(&s);
 	return STRUE;
+}
+OPT double calculate(const char * infix)
+{
+	char postfix[BUFFERSIZE] = {'\0'};
+	double result;
+	InfixToPostfix((char *)infix, postfix);
+	Calculate(postfix, &result);
+	return result;
 }
