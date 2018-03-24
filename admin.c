@@ -25,8 +25,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "slib.h"
-ccp ver = "3.2.2"; /*版本号*/
+#include <slib.h>
+#include <slib/math.h>
+
+const char *ver = "3.2.2"; /*版本号*/
 
 void usage(void); /*使用方法*/
 
@@ -53,7 +55,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 				usage();
 			else
 			{
-				if (isrp(atol(argv[2]), atol(argv[3])) == STRUE)
+				if (slib_isrp(atol(argv[2]), atol(argv[3])) == STRUE)
 					printf("互质！");
 				else
 					printf("不互质！");
@@ -65,7 +67,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 			if (argc < 4)
 				usage();
 			else
-				printf("%lu", gcf(atol(argv[2]), atol(argv[3])));
+				printf("%lu", slib_gcf(atol(argv[2]), atol(argv[3])));
 			return 0;
 		}
 		else if (strcmp(argv[1], "-l") == 0)
@@ -73,7 +75,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 			if (argc < 4)
 				usage();
 			else
-				printf("%lu", lcm(atol(argv[2]), atol(argv[3])));
+				printf("%lu", slib_lcm(atol(argv[2]), atol(argv[3])));
 			return 0;
 		}
 		else if (strcmp(argv[1], "-p") == 0)
@@ -81,7 +83,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 			if (argc < 4)
 				usage();
 			else
-				prtpn(stdout, atol(argv[2]), atol(argv[3]));
+				slib_prtpn(atol(argv[2]), atol(argv[3]));
 			return 0;
 		}
 		else if (strcmp(argv[1], "-d") == 0)
@@ -90,7 +92,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 				usage();
 			else
 			{
-				if (ispn(atol(argv[2])) == STRUE)
+				if (slib_ispn(atol(argv[2])) == STRUE)
 					printf("是质数！");
 				else
 					printf("不是质数！");
@@ -177,7 +179,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 				scanf("%d", &pn1);
 				printf("\n输入最大值：");
 				scanf("%d", &pn2);
-				prtpn(stdout, pn1, pn2);
+				slib_prtpn(pn1, pn2);
 				break;
 			}
 			case 6: /*测试一个数是否质数*/
@@ -185,7 +187,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 				int pn;
 				printf("输入待测试数:");
 				scanf("%d", &pn);
-				if (ispn(pn) == STRUE)
+				if (slib_ispn(pn) == STRUE)
 					printf("\n是质数！\n");
 				else
 					printf("\n不是质数！\n");
@@ -198,7 +200,7 @@ int main(int argc, const char *argv[]) /* 主函数 */
 				scanf("%d", &num1);
 				printf("\n输入数二:");
 				scanf("%d", &num2);
-				if (isrp(num1, num2) == STRUE)
+				if (slib_isrp(num1, num2) == STRUE)
 					printf("\n互质！\n");
 				else
 					printf("不互质！\n");
