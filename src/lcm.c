@@ -22,7 +22,7 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
+#include "slib/math.h"
 
 OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2)
 {
