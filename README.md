@@ -8,6 +8,12 @@
 [Binary Download Link](https://github.com/myzhang1029/slib/releases)
 
 ## Description
+This project is seperated from myzhang1029/admin, 
+which has brought me to the world of C, in the computer room 
+of Primary School Attached to Yunnnan Normal University(in Yunnan, China),
+in 2015 when I was 11.
+So therefore don't laugh at these projects, because they're from a beginner.
+
 The slib stands for Slib: the portable programming interface LIBrary.
 It is a library written in C, and for any usage.
 
@@ -42,6 +48,7 @@ Microsoft Visual Studio nmake is NOT yet supported.(If you have finished this, p
 if you want to contribute to this project, please start a pull request.   
 
 ## build time count(commit 21d9693) (AVG5)
+### These results are deprecated
  1.
      - System: macOS 10.12(Darwin-16.6.0)
      - CPU: 3.8 GHz Intel Core i5
