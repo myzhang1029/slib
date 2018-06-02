@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([libsbl], [3.4.3], [myzhang1029@hotmail.com])
 AM_INIT_AUTOMAKE
-LT_INIT
+LT_INIT([win32-dll])
 AC_CONFIG_SRCDIR([src/gcf.c])
 AC_CONFIG_HEADERS([config.h])
 AC_DEFINE([SLIB_LIBRARY], [1], [Define to disable linker-only features and enable builder-only features])

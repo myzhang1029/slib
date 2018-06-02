@@ -133,7 +133,8 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libsbl_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_libsbl_la_OBJECTS = src/libsbl_la-average.lo src/libsbl_la-calc.lo \
+am_libsbl_la_OBJECTS = src/libsbl_la-malloc.lo \
+	src/libsbl_la-average.lo src/libsbl_la-calc.lo \
 	src/libsbl_la-clearstack.lo src/libsbl_la-colorprintf.lo \
 	src/libsbl_la-destorystack.lo src/libsbl_la-eular.lo \
 	src/libsbl_la-fnmatch.lo src/libsbl_la-fsize.lo \
@@ -152,6 +153,9 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+libsbl_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(libsbl_la_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -186,6 +190,7 @@ am__depfiles_remade = src/$(DEPDIR)/libsbl_la-average.Plo \
 	src/$(DEPDIR)/libsbl_la-isrp.Plo \
 	src/$(DEPDIR)/libsbl_la-itoa.Plo \
 	src/$(DEPDIR)/libsbl_la-lcm.Plo \
+	src/$(DEPDIR)/libsbl_la-malloc.Plo \
 	src/$(DEPDIR)/libsbl_la-mret.Plo \
 	src/$(DEPDIR)/libsbl_la-mtscat.Plo \
 	src/$(DEPDIR)/libsbl_la-pop.Plo \
@@ -269,6 +274,7 @@ ALLOCA = @ALLOCA@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -389,7 +395,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 lib_LTLIBRARIES = libsbl.la
 include_HEADERS = include/slib.h
 libsbl_la_CPPFLAGS = -Iinclude
-libsbl_la_SOURCES = src/average.c src/calc.c src/clearstack.c \
+libsbl_la_LDFLAGS = -no-undefined
+libsbl_la_SOURCES = src/malloc.c src/average.c src/calc.c src/clearstack.c \
 src/colorprintf.c src/destorystack.c src/eular.c \
 src/fnmatch.c src/fsize.c src/gcf.c src/getch.c src/getlen.c \
 src/getopt.c src/history.c src/initstack.c src/iofile.c \
@@ -493,6 +500,8 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
+src/libsbl_la-malloc.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-average.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libsbl_la-calc.lo: src/$(am__dirstamp) \
@@ -551,7 +560,7 @@ src/libsbl_la-splitpathS.lo: src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 
 libsbl.la: $(libsbl_la_OBJECTS) $(libsbl_la_DEPENDENCIES) $(EXTRA_libsbl_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libsbl_la_OBJECTS) $(libsbl_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(libsbl_la_LINK) -rpath $(libdir) $(libsbl_la_OBJECTS) $(libsbl_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -580,6 +589,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-isrp.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-itoa.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-lcm.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-malloc.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-mret.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-mtscat.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libsbl_la-pop.Plo@am__quote@ # am--include-marker
@@ -619,6 +629,13 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+src/libsbl_la-malloc.lo: src/malloc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-malloc.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-malloc.Tpo -c -o src/libsbl_la-malloc.lo `test -f 'src/malloc.c' || echo '$(srcdir)/'`src/malloc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libsbl_la-malloc.Tpo src/$(DEPDIR)/libsbl_la-malloc.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/malloc.c' object='src/libsbl_la-malloc.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libsbl_la-malloc.lo `test -f 'src/malloc.c' || echo '$(srcdir)/'`src/malloc.c
 
 src/libsbl_la-average.lo: src/average.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbl_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libsbl_la-average.lo -MD -MP -MF src/$(DEPDIR)/libsbl_la-average.Tpo -c -o src/libsbl_la-average.lo `test -f 'src/average.c' || echo '$(srcdir)/'`src/average.c
@@ -1137,6 +1154,7 @@ distclean: distclean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-isrp.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-itoa.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-lcm.Plo
+	-rm -f src/$(DEPDIR)/libsbl_la-malloc.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mret.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mtscat.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-pop.Plo
@@ -1213,6 +1231,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/$(DEPDIR)/libsbl_la-isrp.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-itoa.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-lcm.Plo
+	-rm -f src/$(DEPDIR)/libsbl_la-malloc.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mret.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-mtscat.Plo
 	-rm -f src/$(DEPDIR)/libsbl_la-pop.Plo

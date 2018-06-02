@@ -2,7 +2,8 @@ AUTOMAKE_OPTIONS=foreign subdir-objects
 lib_LTLIBRARIES=libsbl.la
 include_HEADERS=include/slib.h
 libsbl_la_CPPFLAGS=-Iinclude
-libsbl_la_SOURCES=src/average.c src/calc.c src/clearstack.c \
+libsbl_la_LDFLAGS=-no-undefined
+libsbl_la_SOURCES=src/malloc.c src/average.c src/calc.c src/clearstack.c \
 src/colorprintf.c src/destorystack.c src/eular.c \
 src/fnmatch.c src/fsize.c src/gcf.c src/getch.c src/getlen.c \
 src/getopt.c src/history.c src/initstack.c src/iofile.c \
