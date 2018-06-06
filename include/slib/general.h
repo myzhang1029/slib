@@ -82,13 +82,16 @@
 #endif
 
 /*BOOL*/
-#if !((defined(__bool_true_false_are_defined) && __bool_true_false_are_defined == 1) || defined(HAVE_BOOL) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || !defined(__GNUC__) ||           \
-     __GNUC__ < 5)
-typedef struct boolS { unsigned val:1; } boolS;
+#if !((defined(__bool_true_false_are_defined) && __bool_true_false_are_defined == 1) || defined(HAVE_BOOL) ||          \
+      (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || !defined(__GNUC__) || __GNUC__ < 5)
+typedef struct boolS
+{
+	unsigned val : 1;
+} boolS;
 #define bool boolS
 #define _Bool boolS
-#define true (struct boolS){1}
-#define false (struct boolS){0}
+#define true(struct boolS){1 }
+#define false(struct boolS){0 }
 #define __bool_true_false_are_defined 1
 #endif
 

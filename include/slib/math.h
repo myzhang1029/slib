@@ -1,5 +1,5 @@
 /*
- *  math.h - Arithmetic functions 
+ *  math.h - Arithmetic functions
  *
  *  Copyright (C) 2018 Zhang Maiyun
  *

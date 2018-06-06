@@ -177,7 +177,7 @@ static int Calculate(char *arr, void *result)
 	DestroyStack(&s);
 	return STRUE;
 }
-OPT double calculate(const char * infix)
+OPT double calculate(const char *infix)
 {
 	char postfix[BUFFERSIZE] = {'\0'};
 	double result;

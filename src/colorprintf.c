@@ -33,7 +33,7 @@
  * bcolor: Background color
  * Return vaule: status of printf returns
  */
-OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor, const char * format, ...)
+OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor, const char *format, ...)
 {
 	int stat = 1;
 	va_list args;

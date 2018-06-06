@@ -1306,18 +1306,18 @@ char *current_line; /* for !# */
 	return (print_only);
 }
 
-	/* Expand the string STRING, placing the result into OUTPUT, a pointer
-	   to a string.  Returns:
+/* Expand the string STRING, placing the result into OUTPUT, a pointer
+   to a string.  Returns:
 
-	  -1) If there was an error in expansion.
-	   0) If no expansions took place (or, if the only change in
-	      the text was the de-slashifying of the history expansion
-	      character)
-	   1) If expansions did take place
-	   2) If the `p' modifier was given and the caller should print the result
+  -1) If there was an error in expansion.
+   0) If no expansions took place (or, if the only change in
+      the text was the de-slashifying of the history expansion
+      character)
+   1) If expansions did take place
+   2) If the `p' modifier was given and the caller should print the result
 
-	  If an error occurred in expansion, then OUTPUT contains a descriptive
-	  error message. */
+  If an error occurred in expansion, then OUTPUT contains a descriptive
+  error message. */
 
 #define ADD_STRING(s)                                                                                                  \
 	do                                                                                                             \
@@ -2103,7 +2103,7 @@ int ind;
 	xfree(words);
 	return s;
 }
-	/* histfile.c - functions to manipulate the history file. */
+/* histfile.c - functions to manipulate the history file. */
 
 #if defined(__TANDEM)
 #include <floss.h>
@@ -2121,8 +2121,8 @@ int ind;
 #include <sys/file.h>
 #endif
 
-	/* posixstat.h -- Posix stat(2) definitions for systems that
-	   don't have them. */
+/* posixstat.h -- Posix stat(2) definitions for systems that
+   don't have them. */
 
 #if !defined(_POSIXSTAT_H_)
 #define _POSIXSTAT_H_
@@ -2146,10 +2146,10 @@ int ind;
 #define S_IFMT 0170000
 #endif /* !S_IFMT */
 
-	/* Posix 1003.1 5.6.1.1 <sys/stat.h> file types */
+/* Posix 1003.1 5.6.1.1 <sys/stat.h> file types */
 
-	/* Some Posix-wannabe systems define _S_IF* macros instead of S_IF*, but
-	   do not provide the S_IS* macros that Posix requires. */
+/* Some Posix-wannabe systems define _S_IF* macros instead of S_IF*, but
+   do not provide the S_IS* macros that Posix requires. */
 
 #if defined(_S_IFMT) && !defined(S_IFMT)
 #define S_IFMT _S_IFMT
@@ -2176,8 +2176,8 @@ int ind;
 #define S_IFSOCK _S_IFSOCK
 #endif
 
-	/* Test for each symbol individually and define the ones necessary (some
-	   systems claiming Posix compatibility define some but not all). */
+/* Test for each symbol individually and define the ones necessary (some
+   systems claiming Posix compatibility define some but not all). */
 
 #if defined(S_IFBLK) && !defined(S_ISBLK)
 #define S_ISBLK(m) (((m)&S_IFMT) == S_IFBLK) /* block device */
@@ -2207,9 +2207,9 @@ int ind;
 #define S_ISSOCK(m) (((m)&S_IFMT) == S_IFSOCK) /* socket */
 #endif
 
-	/*
-	 * POSIX 1003.1 5.6.1.2 <sys/stat.h> File Modes
-	 */
+/*
+ * POSIX 1003.1 5.6.1.2 <sys/stat.h> File Modes
+ */
 
 #if !defined(S_IRWXU)
 #if !defined(S_IREAD)
@@ -2243,7 +2243,7 @@ int ind;
 #define S_IXUGO (S_IXUSR | S_IXGRP | S_IXOTH)
 
 #endif /* _POSIXSTAT_H_ */
-	/* End posixstat.h */
+       /* End posixstat.h */
 
 #include <fcntl.h>
 

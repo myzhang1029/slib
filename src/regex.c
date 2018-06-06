@@ -227,7 +227,8 @@ typedef char boolean;
    So regex.h defines a symbol `RE_EXACTN_VALUE' to be 1; the value of
    `exactn' we use here must also be 1.  */
 
-typedef enum {
+typedef enum
+{
 	no_op = 0,
 
 	/* Followed by one byte giving n, then by n literal bytes.  */
@@ -406,8 +407,8 @@ unsigned char *source;
 
 #endif /* DEBUG */
 
-	/* Same as EXTRACT_NUMBER, except increment SOURCE to after the number.
-	   SOURCE must be an lvalue.  */
+/* Same as EXTRACT_NUMBER, except increment SOURCE to after the number.
+   SOURCE must be an lvalue.  */
 
 #define EXTRACT_NUMBER_AND_INCR(destination, source)                                                                   \
 	do                                                                                                             \
@@ -431,11 +432,11 @@ unsigned char **source;
 
 #endif /* DEBUG */
 
-	/* If DEBUG is defined, Regex prints many voluminous messages about what
-	   it is doing (if the variable `debug' is nonzero).  If linked with the
-	   main program in `iregex.c', you can enter patterns and strings
-	   interactively.  And if linked with the main program in `main.c' and
-	   the other test files, you can run the already-written tests.  */
+/* If DEBUG is defined, Regex prints many voluminous messages about what
+   it is doing (if the variable `debug' is nonzero).  If linked with the
+   main program in `iregex.c', you can enter patterns and strings
+   interactively.  And if linked with the main program in `main.c' and
+   the other test files, you can run the already-written tests.  */
 
 #ifdef DEBUG
 
@@ -2893,8 +2894,8 @@ typedef union
 	fail_stack_elt_t word;
 	struct
 	{
-	/* This field is one if this group can match the empty string,
-	   zero if not.  If not yet determined,  `MATCH_NULL_UNSET_VALUE'.  */
+		/* This field is one if this group can match the empty string,
+		   zero if not.  If not yet determined,  `MATCH_NULL_UNSET_VALUE'.  */
 #define MATCH_NULL_UNSET_VALUE 3
 		unsigned match_null_string_p : 2;
 		unsigned is_active : 1;
@@ -3371,7 +3372,7 @@ int stop;
 			return mcnt;
 		}
 
-			/* Otherwise match next pattern command.  */
+		/* Otherwise match next pattern command.  */
 #ifdef SWITCH_ENUM_BUG
 		switch ((int)((re_opcode_t)*p++))
 #else
@@ -4454,8 +4455,8 @@ struct re_pattern_bufferGS *bufp;
 	return re_error_msg[(int)ret];
 }
 
-	/* Entry points compatible with 4.2 BSD regex library.  We don't define
-	   them if this is an Emacs or POSIX compilation.  */
+/* Entry points compatible with 4.2 BSD regex library.  We don't define
+   them if this is an Emacs or POSIX compilation.  */
 
 #if !defined(emacs) && !defined(_POSIX_SOURCE)
 
@@ -4504,7 +4505,7 @@ int re_execGS(s) const char *s;
 }
 #endif /* not emacs and not _POSIX_SOURCE */
 
-	/* POSIX.2 functions.  Don't define these for Emacs.  */
+/* POSIX.2 functions.  Don't define these for Emacs.  */
 
 #ifndef emacs
 
