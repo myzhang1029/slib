@@ -41,7 +41,7 @@ OPT unsigned long slib_permu(unsigned long num, unsigned long chosen)
 	if (chosen == 1)
 		return num;
 	if (chosen == num)
-		return factorial(num);
+		return slib_factorial(num);
 	if (num < chosen)
 		return 0;
 	/* code */
