@@ -32,7 +32,7 @@
 
 #define SBLLIB_VERSION 3
 #define SBLLIB_MINOR 4
-#define SBLLIB_PATCHLEVEL 3
+#define SBLLIB_PATCHLEVEL 4
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -90,8 +90,8 @@ typedef struct boolS
 } boolS;
 #define bool boolS
 #define _Bool boolS
-#define true(struct boolS){1 }
-#define false(struct boolS){0 }
+#define true ((struct boolS){1})
+#define false ((struct boolS){0})
 #define __bool_true_false_are_defined 1
 #endif
 
