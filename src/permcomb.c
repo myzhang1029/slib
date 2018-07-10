@@ -1,5 +1,5 @@
 /*
- *  math.h - Arithmetic functions
+ *  permcomb.c - Factorial, Permutation and Combination
  *
  *  Copyright (C) 2018 Zhang Maiyun
  *
@@ -22,31 +22,36 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#ifndef SLIB_MATH_H
-#define SLIB_MATH_H
-#include <slib/general.h>
 
-_BEGIN_EXTERN_C
+#include "slib/math.h"
 
-OPT void slib_prtpn(unsigned long minimum, unsigned long maximum);
+OPT unsigned long slib_factorial(unsigned long oper)
+{
+	unsigned long n = oper;
+	while (n != 2)
+		oper *= --n;
+	return oper;
+}
 
-OPT int slib_ispn(unsigned long testingnum);
+/* nPr Permutation */
+OPT unsigned long slib_permu(unsigned long num, unsigned long chosen)
+{
+	unsigned long result = 1, choosable = num - chosen;
+	/* optimizations */
+	if (chosen == 1)
+		return num;
+	if (chosen == num)
+		return factorial(num);
+	if (num < chosen)
+		return 0;
+	/* code */
+	while (num > choosable)
+		result *= num--;
+	return result;
+}
 
-OPT int slib_isrp(unsigned n1, unsigned n2);
-
-OPT double slib_average(unsigned int amt, ...);
-
-OPT unsigned long slib_gcf(unsigned long n1, unsigned long n2);
-
-OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2);
-
-OPT int slib_eular(unsigned n);
-
-OPT unsigned long slib_factorial(unsigned long oper);
-
-OPT unsigned long slib_combi(unsigned long num, unsigned long chosen);
-
-OPT unsigned long slib_permu(unsigned long num, unsigned long chosen);
-_END_EXTERN_C
-
-#endif /* SLIB_MATH_H */
+/* nCr Combination */
+OPT unsigned long slib_combi(unsigned long num, unsigned long chosen)
+{
+	return slib_permu(num, chosen)/slib_factorial(chosen);
+}
