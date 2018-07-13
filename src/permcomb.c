@@ -53,5 +53,5 @@ OPT unsigned long slib_permu(unsigned long num, unsigned long chosen)
 /* nCr Combination */
 OPT unsigned long slib_combi(unsigned long num, unsigned long chosen)
 {
-	return slib_permu(num, chosen)/slib_factorial(chosen);
+	return slib_permu(num, chosen) / slib_factorial(chosen);
 }

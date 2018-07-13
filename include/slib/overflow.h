@@ -28,14 +28,14 @@
 
 /* Static overflow check */
 #ifndef SLIB_MATH_CHECK_OVERFLOW
-# define slib_add(r, a, b) (r) = ((a) + (b))
-# define slib_sub(r, a, b) (r) = ((a) - (b))
-# define slib_mul(r, a, b) (r) = ((a) * (b))
-# define slib_div(r, a, b) (r) = ((a) / (b))
+#define slib_add(r, a, b) (r) = ((a) + (b))
+#define slib_sub(r, a, b) (r) = ((a) - (b))
+#define slib_mul(r, a, b) (r) = ((a) * (b))
+#define slib_div(r, a, b) (r) = ((a) / (b))
 #else
-# include <assert.h>
-# define slib_add(r, a, b) (assert(((r) = ((a) + (b))) - (b) == (a)),r)
-# define slib_sub(r, a, b) (assert(((r) = ((a) - (b))) + (b) == (a)),r)
-# define slib_mul(r, a, b) (assert(((r) = ((a) * (b))) / (b) == (a)),r)
-# define slib_div(r, a, b) (assert(((r) = ((a) / (b))) * (b) == (a)),r)
+#include <assert.h>
+#define slib_add(r, a, b) (assert(((r) = ((a) + (b))) - (b) == (a)), r)
+#define slib_sub(r, a, b) (assert(((r) = ((a) - (b))) + (b) == (a)), r)
+#define slib_mul(r, a, b) (assert(((r) = ((a) * (b))) / (b) == (a)), r)
+#define slib_div(r, a, b) (assert(((r) = ((a) / (b))) * (b) == (a)), r)
 #endif
