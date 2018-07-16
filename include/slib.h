@@ -88,15 +88,9 @@ OPT int GetLen(sqStack *s);
 
 OPT double calculate(const char *infix);
 
-OPT long fsize(FILE *stream); /*获取文件长度*/
-
 OPT unsigned long randomnum(unsigned seed, unsigned long maximum, unsigned long minimum);
 
 OPT char *mtscat(unsigned amount, ...);
-
-OPT int iofile(FILE *in, FILE *out);
-
-OPT void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext);
 
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor, const char *format, ...);
 
@@ -105,11 +99,6 @@ OPT int *getret(mtret ret);
 OPT mtret mkret(size_t lenth, ...);
 
 OPT void sleepS(int seconds);
-
-#if !PLAT
-OPT int getch(void);
-OPT int kbhit(void);
-#endif
 
 _END_EXTERN_C
 
