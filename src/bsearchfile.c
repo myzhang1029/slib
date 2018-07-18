@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* count lines in file, returns the ftell() position of the start of each line, free() result please */
 long *slib_count_fl (FILE *file, long *pcount) 
 {
 	int ch;
@@ -56,11 +57,12 @@ long *slib_count_fl (FILE *file, long *pcount)
 /* bsearch() for a file, returns the ftell() position of the start of the line */
 int slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 {
-	int oldlines;
+	long oldlines, totallines, *linelist;
+	linelist = slib_count_fl(fp, &totallines);
 	while (1)
 	{
-		oldlines = lines;
-		lines /= 2;
+		oldlines = totallines;
+		totallines /= 2;
 		if (oldfs == filesize)
 		{
 			/* already at position 0 */
