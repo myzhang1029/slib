@@ -27,25 +27,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static long slib_count_fl(FILE *fp, long **line_starts)
+long *slib_count_fl (FILE *file, long *pcount) 
 {
-	int the_char;
-	int have_size = 32;
-	long count = -1; /* count starts at line 0 */
-	*line_starts = malloc(sizeof(long) * 32); /* initial size */
-	while ((the_char = fgetc(fp)) != EOF)
+	int ch;
+	long count = 0;
+	long *line_starts = malloc(sizeof(int) * 32);/* list of the position of the char after the '\n' */
+	size_t have_size = 32;
+	if(file == NULL)
 	{
-		if (the_char == '\n')
+		return NULL;
+	}
+	line_starts[0] = 0;/* the first line */
+	while((ch = fgetc(file)) != EOF)
+	{
+		if (ch == '\n')
 		{
-			++count;
-			if (count == have_size)
-				*line_starts = realloc(*line_starts, (have_size*=2));
-			(*line_starts)[count] = ftell(fp) + 1;
+			if (count + 2 == have_size)
+				line_starts = realloc(line_starts, (have_size += 32));
+			line_starts[++count] = ftell(file);/* first run: line_starts[1] */
 		}
 	}
-	(*line_starts)[count+1] = EOF;/* EOF-terminate */
-	return count;
+	*pcount = count;
+	line_starts = realloc(line_starts, count - 1);/* resize to minimal, throw away the last one since no line is there */
+	return line_starts;/* count - 1 is the maximum index of line_starts */
 }
+
 #if 0
 /* bsearch() for a file, returns the ftell() position of the start of the line */
 int slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
@@ -88,16 +94,11 @@ int slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 /* qsort() for a file, uses a non-just-in-place bubble sort */
 void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2)) {}
 #endif
-int main (int i, char **a)
+int main(void)
 {
-	volatile int check = 1/(i-1);
-	long *l;
-	FILE *fp = fopen(a[1], "r");
-	printf("%ld\n", slib_count_fl(fp, &l));
-	for(int j = 0;l[j] != EOF; ++j)
-	{
-		printf("%ld\n", l[j]);
-	}
-	free(l);
+	long count, *list = slib_count_fl(stdin, &count);
+	printf("%ld\n", count);
+	for(long i = 0; i < count; ++i)
+		printf("%ld\n", list[i]);
 	return 0;
 }
