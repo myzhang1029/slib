@@ -1,14 +1,59 @@
-#Build
+# Prerequisites
+*.d
 
-*.[oa]
+# Object files
+*.o
 *.ko
 *.obj
 *.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
 *.dll
 *.def
 *.so
+*.so
+*.so.*
 *.dylib
-*.l[oa]
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Build
 *-*.*.*.tar.gz
 cscope.files
 cscope.in.out
@@ -21,15 +66,12 @@ GTAGS
 build/
 .libs/
 
-#Editor
+# Editor
 
-*.gch
-*.pch
 *~
 *.swp
 
-#Config
-
+# Config
 autom4te.cache
 .xmake/
 Makefile
@@ -42,12 +84,7 @@ src/.deps
 src/Makefile
 src/.dirstamp
 
-#Test
-
-test/test-*
-
 # OS
-
 .DS_Store
 .DS_Store?
 ._*
