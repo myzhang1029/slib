@@ -30,11 +30,17 @@
 
 _BEGIN_EXTERN_C
 
-OPT long fsize(FILE *stream); /*获取文件长度*/
+OPT long fsize(FILE *stream);
 
 OPT int iofile(FILE *in, FILE *out);
 
 OPT void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext);
+
+OPT long *slib_count_fl(FILE *file, long *pcount);
+
+OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2));
+
+OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2));
 
 #if !PLAT
 OPT int getch(void);

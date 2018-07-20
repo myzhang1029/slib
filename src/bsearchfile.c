@@ -23,84 +23,121 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-#include "slib/fileopt.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "slib/fileopt.h"
 
 /* count lines in file, returns the ftell() position of the start of each line, free() result please */
-long *slib_count_fl (FILE *file, long *pcount) 
+OPT long *slib_count_fl(FILE *file, long *pcount)
 {
 	int ch;
 	long count = 0;
-	long *line_starts = malloc(sizeof(int) * 32);/* list of the position of the char after the '\n' */
+	/* list of the position of the char after the '\n' */
+	long *line_starts = malloc(sizeof(long) * 32);
+	long *reallocmem;
 	size_t have_size = 32;
-	if(file == NULL)
+	if (line_starts == NULL)
 	{
+		*pcount = 0;
+		perror("slib_count_fl: malloc failed");
 		return NULL;
 	}
-	line_starts[0] = 0;/* the first line */
-	while((ch = fgetc(file)) != EOF)
+	if (file == NULL) /* EINVAL */
+	{
+		*pcount = 0;
+		free(line_starts);
+		return NULL;
+	}
+	line_starts[0] = 0; /* the first line */
+	while ((ch = fgetc(file)) != EOF)
 	{
 		if (ch == '\n')
 		{
-			if (count + 2 == have_size)
-				line_starts = realloc(line_starts, (have_size += 32));
-			line_starts[++count] = ftell(file);/* first run: line_starts[1] */
+			if (count + 1 >= have_size)
+			{
+				reallocmem = realloc(line_starts, sizeof(long) * (have_size *= 2));
+				if (reallocmem != NULL)
+					line_starts = reallocmem;
+				else
+				{
+					free(line_starts);
+					*pcount = 0;
+					perror("slib_count_fl: realloc failed");
+					return NULL;
+				}
+			}
+			line_starts[++count] = ftell(file); /* first run: line_starts[1] since line_starts[0] is 0 */
 		}
 	}
 	*pcount = count;
-	line_starts = realloc(line_starts, count - 1);/* resize to minimal, throw away the last one since no line is there */
-	return line_starts;/* count - 1 is the maximum index of line_starts */
+	/* resize to minimal, throw away the last one since no line is there */
+	/* don't think this will fail, but still handle it */
+	reallocmem = realloc(line_starts, sizeof(long) * count);
+	if (reallocmem == NULL && count != 0)
+		free(line_starts);
+	return reallocmem;
+	/* count - 1 is the maximum index of line_starts */
 }
 
-#if 0
 /* bsearch() for a file, returns the ftell() position of the start of the line */
-int slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
+OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 {
-	long oldlines, totallines, *linelist;
-	linelist = slib_count_fl(fp, &totallines);
-	while (1)
+	int r;
+	long low, mid, high, *linelist, tmp;
+	char *cmp = malloc(strlen(key) + 1); /* don't think a line longer than key will be the same */
+	if (cmp == NULL)
 	{
-		oldlines = totallines;
-		totallines /= 2;
-		if (oldfs == filesize)
-		{
-			/* already at position 0 */
-			fclose(fp);
-			free(pathname);
-			return 0;
-		}
-		fseek(fp, base + filesize, SEEK_SET);
-		if (fgets(line, 36, fp) == NULL)
-		{
-			if (ferror(fp))
-				perror("is_dep_met: fgets");
-			fclose(fp);
-			free(pathname);
-			return 0;
-		}
-		/* good, we found it */
-		if ((cmpdiff = goodstrcmp(line, name)) == 0)
-		{
-			fclose(fp);
-			free(pathname);
-			return 1;
-		}
-		else if (cmpdiff < 0)
-			continue;
-		else /* cmpdiff > 0 */
-			base = filesize;
+		perror("slib_fbsearch: malloc failed");
+		return -2;
 	}
+	if ((linelist = slib_count_fl(fp, &high)) == NULL)
+	{
+		free(cmp);
+		return -2;
+	}
+	low = 0;
+	while (low < high)
+	{
+		mid = low + ((high - low) >> 1);
+		fseek(fp, linelist[mid - 1], SEEK_SET);
+		fgets(cmp, strlen(key) + 1, fp);
+		if (cmp[strlen(cmp) - 1] == '\n')
+			cmp[strlen(cmp) - 1] = 0; /* strip the \n */
+		r = (*compar)(key, cmp);
+		if (r > 0)
+		{
+			low = mid + 1;
+		}
+		else if (r < 0)
+		{
+			high = mid;
+		}
+		else /* r == 0 */
+		{
+			free(cmp);
+			tmp = linelist[mid - 1];
+			free(linelist);
+			return tmp;
+		}
+	}
+	free(cmp);
+	free(linelist);
+	return -1; /* not found */
 }
 
 /* qsort() for a file, uses a non-just-in-place bubble sort */
-void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2)) {}
-#endif
-int main(void)
+OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2)) {}
+#include <assert.h>
+static int main(int i, char **a)
 {
-	long count, *list = slib_count_fl(stdin, &count);
-	printf("%ld\n", count);
-	for(long i = 0; i < count; ++i)
-		printf("%ld\n", list[i]);
+	assert(i == 3);
+	FILE *fp = fopen(a[1], "r");
+	long count, *list = slib_count_fl(fp, &count);
+	printf("have %ld lines\n", count);
+	for (long j = 0; j < count; ++j)
+		printf("line %ld at %ld\n", j + 1, list[j]);
+	free(list);
+	printf("found at %ld\n", slib_fbsearch(a[2], fp, &strcmp));
 	return 0;
 }
