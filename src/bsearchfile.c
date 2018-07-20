@@ -96,11 +96,12 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 		free(cmp);
 		return -2;
 	}
+	--high;
 	low = 0;
 	while (low < high)
 	{
 		mid = low + ((high - low) >> 1);
-		fseek(fp, linelist[mid - 1], SEEK_SET);
+		fseek(fp, linelist[mid], SEEK_SET);
 		fgets(cmp, strlen(key) + 1, fp);
 		if (cmp[strlen(cmp) - 1] == '\n')
 			cmp[strlen(cmp) - 1] = 0; /* strip the \n */
@@ -116,7 +117,7 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 		else /* r == 0 */
 		{
 			free(cmp);
-			tmp = linelist[mid - 1];
+			tmp = linelist[mid];
 			free(linelist);
 			return tmp;
 		}
@@ -129,14 +130,17 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 /* qsort() for a file, uses a non-just-in-place bubble sort */
 OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2)) {}
 #include <assert.h>
-static int main(int i, char **a)
+int main(int i, char **a)
 {
 	assert(i == 3);
 	FILE *fp = fopen(a[1], "r");
 	long count, *list = slib_count_fl(fp, &count);
 	printf("have %ld lines\n", count);
 	for (long j = 0; j < count; ++j)
-		printf("line %ld at %ld\n", j + 1, list[j]);
+	{
+		fseek(fp, list[j], SEEK_SET);
+		printf("line %ld at %ld, first char is %c\n", j + 1, list[j], fgetc(fp));
+	}
 	free(list);
 	printf("found at %ld\n", slib_fbsearch(a[2], fp, &strcmp));
 	return 0;
