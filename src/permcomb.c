@@ -27,31 +27,31 @@
 
 OPT unsigned long slib_factorial(unsigned long oper)
 {
-        unsigned long n = oper;
-        while (n != 2)
-                oper *= --n;
-        return oper;
+    unsigned long n = oper;
+    while (n != 2)
+        oper *= --n;
+    return oper;
 }
 
 /* nPr Permutation */
 OPT unsigned long slib_permu(unsigned long num, unsigned long chosen)
 {
-        unsigned long result = 1, choosable = num - chosen;
-        /* optimizations */
-        if (chosen == 1)
-                return num;
-        if (chosen == num)
-                return slib_factorial(num);
-        if (num < chosen)
-                return 0;
-        /* code */
-        while (num > choosable)
-                result *= num--;
-        return result;
+    unsigned long result = 1, choosable = num - chosen;
+    /* optimizations */
+    if (chosen == 1)
+        return num;
+    if (chosen == num)
+        return slib_factorial(num);
+    if (num < chosen)
+        return 0;
+    /* code */
+    while (num > choosable)
+        result *= num--;
+    return result;
 }
 
 /* nCr Combination */
 OPT unsigned long slib_combi(unsigned long num, unsigned long chosen)
 {
-        return slib_permu(num, chosen) / slib_factorial(chosen);
+    return slib_permu(num, chosen) / slib_factorial(chosen);
 }

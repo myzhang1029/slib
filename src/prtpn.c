@@ -26,19 +26,19 @@
 
 OPT void slib_prtpn(unsigned long minimum, unsigned long maximum)
 {
-        unsigned long n = 0;
-        if (maximum <= 2)
-                return;
-        if (maximum <= minimum)
+    unsigned long n = 0;
+    if (maximum <= 2)
+        return;
+    if (maximum <= minimum)
+    {
+        __set_errno(EINVAL);
+        return;
+    }
+    for (n = minimum; n <= maximum; ++n)
+    {
+        if (slib_ispn(n))
         {
-                __set_errno(EINVAL);
-                return;
+            printf("%lu\n", n);
         }
-        for (n = minimum; n <= maximum; ++n)
-        {
-                if (slib_ispn(n))
-                {
-                        printf("%lu\n", n);
-                }
-        }
+    }
 }

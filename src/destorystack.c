@@ -26,8 +26,8 @@
 #include "slib.h"
 OPT int DestroyStack(sqStack *s)
 {
-        free(s->base);
-        s->top = s->base = NULL;
-        s->stackSize = s->typeSize = 0;
-        return STRUE;
+    free(s->base);
+    s->top = s->base = NULL;
+    s->stackSize = s->typeSize = 0;
+    return STRUE;
 }

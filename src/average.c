@@ -27,14 +27,14 @@
 
 OPT double slib_average(unsigned int amt, ...)
 {
-        va_list args;
-        unsigned int count;
-        double sum = 0.0;
-        va_start(args, amt);
-        for (count = 0; count < amt; ++count)
-        {
-                sum += va_arg(args, double);
-        }
-        va_end(args);
-        return (sum / amt);
+    va_list args;
+    unsigned int count;
+    double sum = 0.0;
+    va_start(args, amt);
+    for (count = 0; count < amt; ++count)
+    {
+        sum += va_arg(args, double);
+    }
+    va_end(args);
+    return (sum / amt);
 }

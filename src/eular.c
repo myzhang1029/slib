@@ -26,12 +26,12 @@
 
 OPT int slib_eular(unsigned n)
 {
-        unsigned int count;
-        unsigned result = 0;
-        for (count = 0; count < n; ++count)
-        {
-                if (slib_isrp(n, count))
-                        ++result;
-        }
-        return result;
+    unsigned int count;
+    unsigned result = 0;
+    for (count = 0; count < n; ++count)
+    {
+        if (slib_isrp(n, count))
+            ++result;
+    }
+    return result;
 }

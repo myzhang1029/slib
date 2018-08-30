@@ -51,10 +51,10 @@ extern char *optargGS;
 
 struct optionGS
 {
-        const char *name;
-        int has_arg;
-        int *flag;
-        int val;
+    const char *name;
+    int has_arg;
+    int *flag;
+    int val;
 };
 
 int getoptGS(int argc, char *const *argv, const char *optstring);

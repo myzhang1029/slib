@@ -28,15 +28,15 @@
 
 OPT char *mtscat(unsigned amount, ...)
 {
-        va_list strs;
-        char *str;
-        unsigned int count;
-        va_start(strs, amount);
-        str = va_arg(strs, char *);
-        for (count = 0; count <= amount - 1; ++count)
-        {
-                strcat(str, va_arg(strs, char *));
-        }
-        va_end(strs);
-        return str;
+    va_list strs;
+    char *str;
+    unsigned int count;
+    va_start(strs, amount);
+    str = va_arg(strs, char *);
+    for (count = 0; count <= amount - 1; ++count)
+    {
+        strcat(str, va_arg(strs, char *));
+    }
+    va_end(strs);
+    return str;
 }
