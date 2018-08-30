@@ -55,10 +55,10 @@ typedef unsigned reg_syntax_tGS;
 /* If this bit is set, then ^ and $ are always anchors (outside bracket
      expressions, of course).
    If this bit is not set, then it depends:
-	^  is an anchor if it is at the beginning of a regular
-	   expression or after an open-group or an alternation operator;
-	$  is an anchor if it is at the end of a regular expression, or
-	   before a close-group or an alternation operator.
+    ^  is an anchor if it is at the beginning of a regular
+       expression or after an open-group or an alternation operator;
+    $  is an anchor if it is at the end of a regular expression, or
+       before a close-group or an alternation operator.
 
    This bit could be (re)combined with RE_CONTEXT_INDEP_OPS, because
    POSIX draft 11.2 says that * etc. in leading positions is undefined.
@@ -143,16 +143,16 @@ extern reg_syntax_tGS re_syntax_optionsGS;
 #define RE_SYNTAX_EMACS 0
 
 #define RE_SYNTAX_AWK                                                                                                  \
-	(RE_BACKSLASH_ESCAPE_IN_LISTS | RE_DOT_NOT_NULL | RE_NO_BK_PARENS | RE_NO_BK_REFS | RE_NO_BK_VBAR |            \
-	 RE_NO_EMPTY_RANGES | RE_UNMATCHED_RIGHT_PAREN_ORD)
+        (RE_BACKSLASH_ESCAPE_IN_LISTS | RE_DOT_NOT_NULL | RE_NO_BK_PARENS | RE_NO_BK_REFS | RE_NO_BK_VBAR |            \
+         RE_NO_EMPTY_RANGES | RE_UNMATCHED_RIGHT_PAREN_ORD)
 
 #define RE_SYNTAX_POSIX_AWK (RE_SYNTAX_POSIX_EXTENDED | RE_BACKSLASH_ESCAPE_IN_LISTS)
 
 #define RE_SYNTAX_GREP (RE_BK_PLUS_QM | RE_CHAR_CLASSES | RE_HAT_LISTS_NOT_NEWLINE | RE_INTERVALS | RE_NEWLINE_ALT)
 
 #define RE_SYNTAX_EGREP                                                                                                \
-	(RE_CHAR_CLASSES | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS | RE_HAT_LISTS_NOT_NEWLINE |                \
-	 RE_NEWLINE_ALT | RE_NO_BK_PARENS | RE_NO_BK_VBAR)
+        (RE_CHAR_CLASSES | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS | RE_HAT_LISTS_NOT_NEWLINE |                \
+         RE_NEWLINE_ALT | RE_NO_BK_PARENS | RE_NO_BK_VBAR)
 
 #define RE_SYNTAX_POSIX_EGREP (RE_SYNTAX_EGREP | RE_INTERVALS | RE_NO_BK_BRACES)
 
@@ -172,14 +172,14 @@ extern reg_syntax_tGS re_syntax_optionsGS;
 #define RE_SYNTAX_POSIX_MINIMAL_BASIC (_RE_SYNTAX_POSIX_COMMON | RE_LIMITED_OPS)
 
 #define RE_SYNTAX_POSIX_EXTENDED                                                                                       \
-	(_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS | RE_NO_BK_BRACES |                 \
-	 RE_NO_BK_PARENS | RE_NO_BK_VBAR | RE_UNMATCHED_RIGHT_PAREN_ORD)
+        (_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS | RE_NO_BK_BRACES |                 \
+         RE_NO_BK_PARENS | RE_NO_BK_VBAR | RE_UNMATCHED_RIGHT_PAREN_ORD)
 
 /* Differs from ..._POSIX_EXTENDED in that RE_CONTEXT_INVALID_OPS
    replaces RE_CONTEXT_INDEP_OPS and RE_NO_BK_REFS is added.  */
 #define RE_SYNTAX_POSIX_MINIMAL_EXTENDED                                                                               \
-	(_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INVALID_OPS | RE_NO_BK_BRACES |               \
-	 RE_NO_BK_PARENS | RE_NO_BK_REFS | RE_NO_BK_VBAR | RE_UNMATCHED_RIGHT_PAREN_ORD)
+        (_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INVALID_OPS | RE_NO_BK_BRACES |               \
+         RE_NO_BK_PARENS | RE_NO_BK_REFS | RE_NO_BK_VBAR | RE_UNMATCHED_RIGHT_PAREN_ORD)
 /* [[[end syntaxes]]] */
 
 /* Maximum number of duplicates an interval can allow.  Some systems
@@ -225,28 +225,28 @@ extern reg_syntax_tGS re_syntax_optionsGS;
    `re_error_msg' table in regex.c.  */
 typedef enum
 {
-	REG_NOERROR = 0, /* Success.  */
-	REG_NOMATCH,     /* Didn't find a match (for regexecGS).  */
+        REG_NOERROR = 0, /* Success.  */
+        REG_NOMATCH,     /* Didn't find a match (for regexecGS).  */
 
-	/* POSIX regcompGS return error codes.  (In the order listed in the
-	   standard.)  */
-	REG_BADPAT,   /* Invalid pattern.  */
-	REG_ECOLLATE, /* Not implemented.  */
-	REG_ECTYPE,   /* Invalid character class name.  */
-	REG_EESCAPE,  /* Trailing backslash.  */
-	REG_ESUBREG,  /* Invalid back reference.  */
-	REG_EBRACK,   /* Unmatched left bracket.  */
-	REG_EPAREN,   /* Parenthesis imbalance.  */
-	REG_EBRACE,   /* Unmatched \{.  */
-	REG_BADBR,    /* Invalid contents of \{\}.  */
-	REG_ERANGE,   /* Invalid range end.  */
-	REG_ESPACE,   /* Ran out of memory.  */
-	REG_BADRPT,   /* No preceding re for repetition op.  */
+        /* POSIX regcompGS return error codes.  (In the order listed in the
+           standard.)  */
+        REG_BADPAT,   /* Invalid pattern.  */
+        REG_ECOLLATE, /* Not implemented.  */
+        REG_ECTYPE,   /* Invalid character class name.  */
+        REG_EESCAPE,  /* Trailing backslash.  */
+        REG_ESUBREG,  /* Invalid back reference.  */
+        REG_EBRACK,   /* Unmatched left bracket.  */
+        REG_EPAREN,   /* Parenthesis imbalance.  */
+        REG_EBRACE,   /* Unmatched \{.  */
+        REG_BADBR,    /* Invalid contents of \{\}.  */
+        REG_ERANGE,   /* Invalid range end.  */
+        REG_ESPACE,   /* Ran out of memory.  */
+        REG_BADRPT,   /* No preceding re for repetition op.  */
 
-	/* Error codes we've added.  */
-	REG_EEND,   /* Premature end.  */
-	REG_ESIZE,  /* Compiled pattern bigger than 2^16 bytes.  */
-	REG_ERPAREN /* Unmatched ) or \); not returned from regcompGS.  */
+        /* Error codes we've added.  */
+        REG_EEND,   /* Premature end.  */
+        REG_ESIZE,  /* Compiled pattern bigger than 2^16 bytes.  */
+        REG_ERPAREN /* Unmatched ) or \); not returned from regcompGS.  */
 } reg_errcode_tGS;
 
 /* This data structure represents a compiled pattern.  Before calling
@@ -257,70 +257,70 @@ typedef enum
 
 struct re_pattern_bufferGS
 {
-	/* [[[begin pattern_buffer]]] */
-	/* Space that holds the compiled pattern.  It is declared as
-	  `unsigned char *' because its elements are
-	   sometimes used as array indexes.  */
-	unsigned char *buffer;
+        /* [[[begin pattern_buffer]]] */
+        /* Space that holds the compiled pattern.  It is declared as
+          `unsigned char *' because its elements are
+           sometimes used as array indexes.  */
+        unsigned char *buffer;
 
-	/* Number of bytes to which `buffer' points.  */
-	unsigned long allocated;
+        /* Number of bytes to which `buffer' points.  */
+        unsigned long allocated;
 
-	/* Number of bytes actually used in `buffer'.  */
-	unsigned long used;
+        /* Number of bytes actually used in `buffer'.  */
+        unsigned long used;
 
-	/* Syntax setting with which the pattern was compiled.  */
-	reg_syntax_tGS syntax;
+        /* Syntax setting with which the pattern was compiled.  */
+        reg_syntax_tGS syntax;
 
-	/* Pointer to a fastmap, if any, otherwise zero.  re_searchGS uses
-	   the fastmap, if there is one, to skip over impossible
-	   starting points for matches.  */
-	char *fastmap;
+        /* Pointer to a fastmap, if any, otherwise zero.  re_searchGS uses
+           the fastmap, if there is one, to skip over impossible
+           starting points for matches.  */
+        char *fastmap;
 
-	/* Either a translate table to apply to all characters before
-	   comparing them, or zero for no translation.  The translation
-	   is applied to a pattern when it is compiled and to a string
-	   when it is matched.  */
-	char *translate;
+        /* Either a translate table to apply to all characters before
+           comparing them, or zero for no translation.  The translation
+           is applied to a pattern when it is compiled and to a string
+           when it is matched.  */
+        char *translate;
 
-	/* Number of subexpressions found by the compiler.  */
-	size_t re_nsub;
+        /* Number of subexpressions found by the compiler.  */
+        size_t re_nsub;
 
-	/* Zero if this pattern cannot match the empty string, one else.
-	   Well, in truth it's used only in `re_searchGS_2', to see
-	   whether or not we should use the fastmap, so we don't set
-	   this absolutely perfectly; see `re_compGSile_fastmapGS' (the
-	   `duplicate' case).  */
-	unsigned can_be_null : 1;
+        /* Zero if this pattern cannot match the empty string, one else.
+           Well, in truth it's used only in `re_searchGS_2', to see
+           whether or not we should use the fastmap, so we don't set
+           this absolutely perfectly; see `re_compGSile_fastmapGS' (the
+           `duplicate' case).  */
+        unsigned can_be_null : 1;
 
-	/* If REGS_UNALLOCATED, allocate space in the `regs' structure
-	     for `max (RE_NREGS, re_nsub + 1)' groups.
-	   If REGS_REALLOCATE, reallocate space if necessary.
-	   If REGS_FIXED, use what's there.  */
+        /* If REGS_UNALLOCATED, allocate space in the `regs' structure
+             for `max (RE_NREGS, re_nsub + 1)' groups.
+           If REGS_REALLOCATE, reallocate space if necessary.
+           If REGS_FIXED, use what's there.  */
 #define REGS_UNALLOCATED 0
 #define REGS_REALLOCATE 1
 #define REGS_FIXED 2
-	unsigned regs_allocated : 2;
+        unsigned regs_allocated : 2;
 
-	/* Set to zero when `regex_compile' compiles a pattern; set to one
-	   by `re_compGSile_fastmapGS' if it updates the fastmap.  */
-	unsigned fastmap_accurate : 1;
+        /* Set to zero when `regex_compile' compiles a pattern; set to one
+           by `re_compGSile_fastmapGS' if it updates the fastmap.  */
+        unsigned fastmap_accurate : 1;
 
-	/* If set, `re_matchGS_2' does not return information about
-	   subexpressions.  */
-	unsigned no_sub : 1;
+        /* If set, `re_matchGS_2' does not return information about
+           subexpressions.  */
+        unsigned no_sub : 1;
 
-	/* If set, a beginning-of-line anchor doesn't match at the
-	   beginning of the string.  */
-	unsigned not_bol : 1;
+        /* If set, a beginning-of-line anchor doesn't match at the
+           beginning of the string.  */
+        unsigned not_bol : 1;
 
-	/* Similarly for an end-of-line anchor.  */
-	unsigned not_eol : 1;
+        /* Similarly for an end-of-line anchor.  */
+        unsigned not_eol : 1;
 
-	/* If true, an anchor at a newline matches.  */
-	unsigned newline_anchor : 1;
+        /* If true, an anchor at a newline matches.  */
+        unsigned newline_anchor : 1;
 
-	/* [[[end pattern_buffer]]] */
+        /* [[[end pattern_buffer]]] */
 };
 
 typedef struct re_pattern_bufferGS regex_t;
@@ -336,9 +336,9 @@ typedef int regoff_tGS;
    regex.texinfo for a full description of what registers match.  */
 struct re_registersGS
 {
-	unsigned num_regs;
-	regoff_tGS *start;
-	regoff_tGS *end;
+        unsigned num_regs;
+        regoff_tGS *start;
+        regoff_tGS *end;
 };
 
 /* If `regs_allocated' is REGS_UNALLOCATED in the pattern buffer,
@@ -353,8 +353,8 @@ struct re_registersGS
    structure of arrays.  */
 typedef struct
 {
-	regoff_tGS rm_so; /* Byte offset from string's start to substring's start.  */
-	regoff_tGS rm_eo; /* Byte offset from string's start to substring's end.  */
+        regoff_tGS rm_so; /* Byte offset from string's start to substring's start.  */
+        regoff_tGS rm_eo; /* Byte offset from string's start to substring's end.  */
 } regmatch_tGS;
 
 /* Declarations for routines.  */
@@ -383,7 +383,7 @@ extern reg_syntax_tGS re_set_syntax _RE_ARGS((reg_syntax_tGS syntax));
    and syntax given by the global `re_syntax_optionsGS', into the buffer
    BUFFER.  Return NULL if successful, and an error string if not.  */
 extern const char *re_compGSile_patternGS _RE_ARGS((const char *pattern, int length,
-						    struct re_pattern_bufferGS *buffer));
+                                                    struct re_pattern_bufferGS *buffer));
 
 /* Compile a fastmap for the compiled pattern in BUFFER; used to
    accelerate searches.  Return 0 if successful and -2 if was an
@@ -396,22 +396,22 @@ extern int re_compGSile_fastmapGS _RE_ARGS((struct re_pattern_bufferGS * buffer)
    match, or -2 for an internal error.  Also return register
    information in REGS (if REGS and BUFFER->no_sub are nonzero).  */
 extern int re_searchGS _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string, int length, int start,
-				 int range, struct re_registersGS *regs));
+                                 int range, struct re_registersGS *regs));
 
 /* Like `re_searchGS', but search in the concatenation of STRING1 and
    STRING2.  Also, stop searching at index START + STOP.  */
 extern int re_searchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string1, int length1,
-				   const char *string2, int length2, int start, int range, struct re_registersGS *regs,
-				   int stop));
+                                   const char *string2, int length2, int start, int range, struct re_registersGS *regs,
+                                   int stop));
 
 /* Like `re_searchGS', but return how many characters in STRING the regexp
    in BUFFER matched, starting at position START.  */
 extern int re_matchGS _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string, int length, int start,
-				struct re_registersGS *regs));
+                                struct re_registersGS *regs));
 
 /* Relates to `re_matchGS' as `re_searchGS_2' relates to `re_searchGS'.  */
 extern int re_matchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string1, int length1,
-				  const char *string2, int length2, int start, struct re_registersGS *regs, int stop));
+                                  const char *string2, int length2, int start, struct re_registersGS *regs, int stop));
 
 /* Set REGS to hold NUM_REGS registers, storing them in STARTS and
    ENDS.  Subsequent matches using BUFFER and REGS will use this memory
@@ -426,7 +426,7 @@ extern int re_matchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer, const cha
    PATTERN_BUFFER will allocate its own register data, without
    freeing the old data.  */
 extern void re_set_registersGS _RE_ARGS((struct re_pattern_bufferGS * buffer, struct re_registersGS *regs,
-					 unsigned num_regs, regoff_tGS *starts, regoff_tGS *ends));
+                                         unsigned num_regs, regoff_tGS *starts, regoff_tGS *ends));
 
 /* 4.2 bsd compatibility.  */
 extern char *re_compGS _RE_ARGS((const char *));
@@ -435,7 +435,7 @@ extern int re_execGS _RE_ARGS((const char *));
 /* POSIX compatibility.  */
 extern int regcompGS _RE_ARGS((regex_t * preg, const char *pattern, int cflags));
 extern int regexecGS _RE_ARGS((const regex_t *preg, const char *string, size_t nmatch, regmatch_tGS pmatch[],
-			       int eflags));
+                               int eflags));
 extern size_t regerrorGS _RE_ARGS((int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size));
 extern void regfreeGS _RE_ARGS((regex_t * preg));
 

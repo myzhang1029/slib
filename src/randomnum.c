@@ -27,6 +27,6 @@
 
 OPT unsigned long randomnum(unsigned seed, unsigned long maximum, unsigned long minimum)
 {
-	srand(seed);
-	return minimum + rand() % (maximum - minimum);
+        srand(seed);
+        return minimum + rand() % (maximum - minimum);
 }

@@ -35,7 +35,7 @@ extern "C" {
 
 /* A function can be defined using prototypes and compile on both ANSI C
    and traditional C compilers with something like this:
-	extern char *func PARAMS((char *, char *, int)); */
+    extern char *func PARAMS((char *, char *, int)); */
 #if !defined(_RL_STDC_H_)
 #define _RL_STDC_H_
 
@@ -158,9 +158,9 @@ typedef char *histdata_t;
 /* The structure used to store a history entry. */
 typedef struct _hist_entry
 {
-	char *line;
-	char *timestamp; /* char * rather than time_t for read/write */
-	histdata_t data;
+        char *line;
+        char *timestamp; /* char * rather than time_t for read/write */
+        histdata_t data;
 } HIST_ENTRY;
 
 /* Size of the history-library-managed space in history entry HS. */
@@ -169,11 +169,11 @@ typedef struct _hist_entry
 /* A structure used to pass the current state of the history stuff around. */
 typedef struct _hist_state
 {
-	HIST_ENTRY **entries; /* Pointer to the entries themselves. */
-	int offset;	   /* The location pointer within this array. */
-	int length;	   /* Number of elements within this array. */
-	int size;	     /* Number of slots allocated to this array. */
-	int flags;
+        HIST_ENTRY **entries; /* Pointer to the entries themselves. */
+        int offset;           /* The location pointer within this array. */
+        int length;           /* Number of elements within this array. */
+        int size;             /* Number of slots allocated to this array. */
+        int flags;
 } HISTORY_STATE;
 
 /* Flag values for the `flags' member of HISTORY_STATE. */
@@ -437,8 +437,8 @@ extern char *strchr();
 
 #ifndef FREE
 #define FREE(x)                                                                                                        \
-	if (x)                                                                                                         \
-	free(x)
+        if (x)                                                                                                         \
+        free(x)
 #endif
 
 /* Possible history errors passed to hist_error. */

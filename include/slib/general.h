@@ -86,7 +86,7 @@
       (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || !defined(__GNUC__) || __GNUC__ < 5)
 typedef struct boolS
 {
-	unsigned val : 1;
+        unsigned val : 1;
 } boolS;
 #define bool boolS
 #define _Bool boolS

@@ -51,19 +51,19 @@ extern char *optargGS;
 
 struct optionGS
 {
-	const char *name;
-	int has_arg;
-	int *flag;
-	int val;
+        const char *name;
+        int has_arg;
+        int *flag;
+        int val;
 };
 
 int getoptGS(int argc, char *const *argv, const char *optstring);
 
 int getopt_longGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options,
-		  int *opt_index);
+                  int *opt_index);
 
 int getopt_long_onlyGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options,
-		       int *opt_index);
+                       int *opt_index);
 
 _END_EXTERN_C
 

@@ -39,83 +39,83 @@
 
 static void __split_whole_name(const char *whole_name, char *fname, char *ext)
 {
-	char *p_ext;
+        char *p_ext;
 
-	/*The start of extend name*/
-	p_ext = strrchr(whole_name, '.');
+        /*The start of extend name*/
+        p_ext = strrchr(whole_name, '.');
 
-	/*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not
-	 * allowed file in MS-Windows*/
-	if (NULL != p_ext)
-	{
-		if (NULL != ext)
-			strcpy(ext, p_ext);
-		if (NULL != fname)
-			snprintf(fname, p_ext - whole_name + 1, "%s", whole_name);
-	}
-	else
-	{
-		if (NULL != ext)
-			ext[0] = '\0';
-		if (NULL != fname)
-			strcpy(fname, whole_name);
-	}
+        /*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not
+         * allowed file in MS-Windows*/
+        if (NULL != p_ext)
+        {
+                if (NULL != ext)
+                        strcpy(ext, p_ext);
+                if (NULL != fname)
+                        snprintf(fname, p_ext - whole_name + 1, "%s", whole_name);
+        }
+        else
+        {
+                if (NULL != ext)
+                        ext[0] = '\0';
+                if (NULL != fname)
+                        strcpy(fname, whole_name);
+        }
 }
 
 void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext)
 {
-	char *p_whole_name;
-	if (NULL != drive)
-	{
+        char *p_whole_name;
+        if (NULL != drive)
+        {
 #if !PLAT
-		/*No such concept "drive" in unix*/
-		drive[0] = '\0';
+                /*No such concept "drive" in unix*/
+                drive[0] = '\0';
 #else
-		snprintf(drive, ((int *)strchr(path, '\\') - (int *)path), "%s", path);
+                snprintf(drive, ((int *)strchr(path, '\\') - (int *)path), "%s", path);
 #endif
-	}
+        }
 
-	/*If the path is null, just set all the vaules blank*/
-	if (NULL == path)
-	{
-		if (NULL != dir)
-			dir[0] = '\0';
-		if (NULL != fname)
-			fname[0] = '\0';
-		if (NULL != ext)
-			ext[0] = '\0';
-		return;
-	}
+        /*If the path is null, just set all the vaules blank*/
+        if (NULL == path)
+        {
+                if (NULL != dir)
+                        dir[0] = '\0';
+                if (NULL != fname)
+                        fname[0] = '\0';
+                if (NULL != ext)
+                        ext[0] = '\0';
+                return;
+        }
 
-	/*If there is just directory in the path, don't seperate file name*/
-	if (pathsep == path[strlen(path)])
-	{
-		if (NULL != dir)
-			strcpy(dir, path);
-		if (NULL != fname)
-			fname[0] = '\0';
-		if (NULL != ext)
-			ext[0] = '\0';
-		return;
-	}
+        /*If there is just directory in the path, don't seperate file name*/
+        if (pathsep == path[strlen(path)])
+        {
+                if (NULL != dir)
+                        strcpy(dir, path);
+                if (NULL != fname)
+                        fname[0] = '\0';
+                if (NULL != ext)
+                        ext[0] = '\0';
+                return;
+        }
 
-	/*The start of whole file name*/
-	p_whole_name = strrchr(path, pathsep);
+        /*The start of whole file name*/
+        p_whole_name = strrchr(path, pathsep);
 
-	/*If p_whole_name is null, means there is no directory infomation in path*/
-	if (NULL != p_whole_name)
-	{
-		p_whole_name++;
-		__split_whole_name(p_whole_name, fname, ext);
+        /*If p_whole_name is null, means there is no directory infomation in path*/
+        if (NULL != p_whole_name)
+        {
+                p_whole_name++;
+                __split_whole_name(p_whole_name, fname, ext);
 
-		if (NULL != dir)
-			snprintf(dir, p_whole_name - path, "%s", path);
-	}
-	else
-	{
-		__split_whole_name(path, fname, ext);
-		if (NULL != dir)
-			dir[0] = '\0';
-	}
-	return;
+                if (NULL != dir)
+                        snprintf(dir, p_whole_name - path, "%s", path);
+        }
+        else
+        {
+                __split_whole_name(path, fname, ext);
+                if (NULL != dir)
+                        dir[0] = '\0';
+        }
+        return;
 }

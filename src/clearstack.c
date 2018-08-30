@@ -26,6 +26,6 @@
 
 OPT int ClearStack(sqStack *s)
 {
-	s->top = s->base;
-	return STRUE;
+        s->top = s->base;
+        return STRUE;
 }

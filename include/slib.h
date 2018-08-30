@@ -49,28 +49,28 @@ extern unsigned retind;
 /*Structures, Enums, Unions, typedefs*/
 typedef struct Stack
 {
-	void *base;
-	void *top;
-	int stackSize;
-	int typeSize;
+        void *base;
+        void *top;
+        int stackSize;
+        int typeSize;
 } sqStack;
 
 typedef struct mtrt
 {
-	size_t lenth;
-	int **val;
+        size_t lenth;
+        int **val;
 } mtret;
 
 enum cpfcolors
 {
-	red = 1,
-	green,
-	yellow,
-	black,
-	blue,
-	magenta,
-	cyan,
-	unchanged
+        red = 1,
+        green,
+        yellow,
+        black,
+        blue,
+        magenta,
+        cyan,
+        unchanged
 };
 
 /*declation start*/

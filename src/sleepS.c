@@ -4,10 +4,10 @@
 
 OPT void sleepS(int seconds)
 {
-	clock_t t = clock();
-	while (1)
-	{
-		if ((int)((clock() - t) / CLOCKS_PER_SEC) >= seconds)
-			return;
-	}
+        clock_t t = clock();
+        while (1)
+        {
+                if ((int)((clock() - t) / CLOCKS_PER_SEC) >= seconds)
+                        return;
+        }
 }
