@@ -48,4 +48,7 @@ mtret mkret(size_t lenth, ...)
     return ret;
 }
 
-int *getret(mtret ret) { return ((retind < ret.lenth) ? (ret.val[retind++]) : (free(ret.val), NULL)); }
+int *getret(mtret ret)
+{
+    return ((retind < ret.lenth) ? (ret.val[retind++]) : (free(ret.val), NULL));
+}

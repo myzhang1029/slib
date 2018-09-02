@@ -44,12 +44,16 @@ static int InfixToPostfix(char *infix, char *postfix)
     i++;
     while ('\n' != c) /*遇到换行符，表示转换结束*/
     {
-        while (c >= '0' && c <= '9') /*先判断一下取出的字符是否是数字，如果是数字的话，则直接存入postfix数组*/
+        while (
+            c >= '0' &&
+            c <=
+                '9') /*先判断一下取出的字符是否是数字，如果是数字的话，则直接存入postfix数组*/
         {
             postfix[j++] = c;
             c = *(infix + i);
             i++;
-            if (c < '0' || c > '9') /*如果不是数字，则在后面添加空格，以便区分各个符号*/
+            if (c < '0' ||
+                c > '9') /*如果不是数字，则在后面添加空格，以便区分各个符号*/
             {
                 postfix[j++] = ' ';
             }
@@ -88,12 +92,15 @@ static int InfixToPostfix(char *infix, char *postfix)
                         postfix[j++] = e;
                         postfix[j++] = ' ';
                     }
-                } while (GetLen(&s) && '(' != e); /*将栈里的所有符号出栈(除非遇到左括号)*/
-                Push(&s, (void *)&c);             /*最后将新来的加减号再入栈*/
+                } while (GetLen(&s) &&
+                         '(' != e); /*将栈里的所有符号出栈(除非遇到左括号)*/
+                Push(&s, (void *)&c); /*最后将新来的加减号再入栈*/
             }
         }
-        else if ('*' == c || '/' == c || '(' == c ||
-                 '^' == c) /*如果是乘除号,^或左括号，因为他们的优先级高，所以直接入栈。*/
+        else if (
+            '*' == c || '/' == c || '(' == c ||
+            '^' ==
+                c) /*如果是乘除号,^或左括号，因为他们的优先级高，所以直接入栈。*/
         {
             Push(&s, (void *)&c);
         }
@@ -168,7 +175,8 @@ static int Calculate(char *arr, void *result)
                 Push(&s, &f);
                 break;
             default:
-                d = atof(op); /*不是运算符，就肯定是因数了。所以，用atof函数，将字符串转换为double类型*/
+                d = atof(
+                    op); /*不是运算符，就肯定是因数了。所以，用atof函数，将字符串转换为double类型*/
                 Push(&s, &d);
                 break;
         }

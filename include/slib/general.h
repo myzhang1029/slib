@@ -44,10 +44,11 @@
 #include <stdio.h>
 
 #if !defined(PLAT)
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN16) || defined(_WIN32) || defined(_WIN64) ||              \
-    defined(__MSDOS__)
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN16) ||            \
+    defined(_WIN32) || defined(_WIN64) || defined(__MSDOS__)
 #define PLAT 1
-#elif defined(__linux__) || defined(__BSD__) | defined(__APPLE__) || defined(__unix__)
+#elif defined(__linux__) || defined(__BSD__) | defined(__APPLE__) ||           \
+    defined(__unix__)
 #define PLAT 0
 #else
 #error Please define PLAT, see documentation for more details
@@ -82,8 +83,11 @@
 #endif
 
 /*BOOL*/
-#if !((defined(__bool_true_false_are_defined) && __bool_true_false_are_defined == 1) || defined(HAVE_BOOL) ||          \
-      (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || !defined(__GNUC__) || __GNUC__ < 5)
+#if !((defined(__bool_true_false_are_defined) &&                               \
+       __bool_true_false_are_defined == 1) ||                                  \
+      defined(HAVE_BOOL) ||                                                    \
+      (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) ||          \
+      !defined(__GNUC__) || __GNUC__ < 5)
 typedef struct boolS
 {
     unsigned val : 1;

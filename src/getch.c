@@ -26,7 +26,8 @@
 #include <memory.h>
 #include "slib.h"
 
-#if (!PLAT) || (defined(HAVE_FCNTL_H) && defined(HAVE_TERMIOS_H) && defined(HAVE_UNISTD_H))
+#if (!PLAT) || (defined(HAVE_FCNTL_H) && defined(HAVE_TERMIOS_H) &&            \
+                defined(HAVE_UNISTD_H))
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
@@ -41,7 +42,8 @@ OPT int getch(void)
     assert(res == 0);
 
     memcpy(&new_opts, &org_opts, sizeof(new_opts));
-    new_opts.c_lflag &= ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
+    new_opts.c_lflag &=
+        ~(ICANON | ECHO | ECHOE | ECHOK | ECHONL | ECHOPRT | ECHOKE | ICRNL);
     tcsetattr(STDIN_FILENO, TCSANOW, &new_opts);
     c = getchar();
     res = tcsetattr(STDIN_FILENO, TCSANOW, &org_opts);

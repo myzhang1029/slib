@@ -97,7 +97,9 @@ static void exchange(char **argv, struct _getopt_data *d)
     d->__first_nonopt += (d->optind - d->__last_nonopt);
     d->__last_nonopt = d->optind;
 }
-static const char *_getopt_initialize(const char *optstring, struct _getopt_data *d, int posixly_correct)
+static const char *_getopt_initialize(const char *optstring,
+                                      struct _getopt_data *d,
+                                      int posixly_correct)
 {
     d->__first_nonopt = d->__last_nonopt = d->optind;
     d->__nextchar = NULL;
@@ -118,8 +120,10 @@ static const char *_getopt_initialize(const char *optstring, struct _getopt_data
         d->__ordering = PERMUTE;
     return optstring;
 }
-int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, const struct optionGS *longopts,
-                         int *longind, int long_only, struct _getopt_data *d, int posixly_correct)
+int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring,
+                         const struct optionGS *longopts, int *longind,
+                         int long_only, struct _getopt_data *d,
+                         int posixly_correct)
 {
     int print_errors = d->opterr;
     if (argc < 1)
@@ -144,18 +148,21 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
             d->__first_nonopt = d->optind;
         if (d->__ordering == PERMUTE)
         {
-            if (d->__first_nonopt != d->__last_nonopt && d->__last_nonopt != d->optind)
+            if (d->__first_nonopt != d->__last_nonopt &&
+                d->__last_nonopt != d->optind)
                 exchange((char **)argv, d);
             else if (d->__last_nonopt != d->optind)
                 d->__first_nonopt = d->optind;
-            while (d->optind < argc && (argv[d->optind][0] != '-' || argv[d->optind][1] == '\0'))
+            while (d->optind < argc &&
+                   (argv[d->optind][0] != '-' || argv[d->optind][1] == '\0'))
                 d->optind++;
             d->__last_nonopt = d->optind;
         }
         if (d->optind != argc && !strcmp(argv[d->optind], "--"))
         {
             d->optind++;
-            if (d->__first_nonopt != d->__last_nonopt && d->__last_nonopt != d->optind)
+            if (d->__first_nonopt != d->__last_nonopt &&
+                d->__last_nonopt != d->optind)
                 exchange((char **)argv, d);
             else if (d->__first_nonopt == d->__last_nonopt)
                 d->__first_nonopt = d->optind;
@@ -175,10 +182,13 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
             d->optarg = argv[d->optind++];
             return 1;
         }
-        d->__nextchar = (argv[d->optind] + 1 + (longopts != NULL && argv[d->optind][1] == '-'));
+        d->__nextchar = (argv[d->optind] + 1 +
+                         (longopts != NULL && argv[d->optind][1] == '-'));
     }
     if (longopts != NULL &&
-        (argv[d->optind][1] == '-' || (long_only && (argv[d->optind][2] || !strchr(optstring, argv[d->optind][1])))))
+        (argv[d->optind][1] == '-' ||
+         (long_only &&
+          (argv[d->optind][2] || !strchr(optstring, argv[d->optind][1])))))
     {
         char *nameend;
         unsigned int namelen;
@@ -195,7 +205,8 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
         for (nameend = d->__nextchar; *nameend && *nameend != '='; nameend++)
             ;
         namelen = (unsigned int)(nameend - d->__nextchar);
-        for (p = longopts, option_index = 0; p->name != NULL; p++, option_index++)
+        for (p = longopts, option_index = 0; p->name != NULL;
+             p++, option_index++)
             if (!strncmp(p->name, d->__nextchar, namelen))
             {
                 if (namelen == (unsigned int)strlen(p->name))
@@ -210,9 +221,11 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                     pfound = p;
                     indfound = option_index;
                 }
-                else if (long_only || pfound->has_arg != p->has_arg || pfound->flag != p->flag || pfound->val != p->val)
+                else if (long_only || pfound->has_arg != p->has_arg ||
+                         pfound->flag != p->flag || pfound->val != p->val)
                 {
-                    struct option_list *newp = (struct option_list *)alloca(sizeof(*newp));
+                    struct option_list *newp =
+                        (struct option_list *)alloca(sizeof(*newp));
                     newp->p = p;
                     newp->next = ambig_list;
                     ambig_list = newp;
@@ -226,7 +239,9 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                 first.p = pfound;
                 first.next = ambig_list;
                 ambig_list = &first;
-                fprintf(stderr, "%s: option '%s' is ambiguous; possibilities:", argv[0], argv[d->optind]);
+                fprintf(stderr,
+                        "%s: option '%s' is ambiguous; possibilities:", argv[0],
+                        argv[d->optind]);
                 do
                 {
                     fprintf(stderr, " '--%s'", ambig_list->p->name);
@@ -253,12 +268,17 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                     {
                         if (argv[d->optind - 1][1] == '-')
                         {
-                            fprintf(stderr, "%s: option '--%s' doesn't allow an argument\n", argv[0], pfound->name);
+                            fprintf(
+                                stderr,
+                                "%s: option '--%s' doesn't allow an argument\n",
+                                argv[0], pfound->name);
                         }
                         else
                         {
-                            fprintf(stderr, "%s: option '%c%s' doesn't allow an argument\n", argv[0],
-                                    argv[d->optind - 1][0], pfound->name);
+                            fprintf(
+                                stderr,
+                                "%s: option '%c%s' doesn't allow an argument\n",
+                                argv[0], argv[d->optind - 1][0], pfound->name);
                         }
                     }
                     d->__nextchar += strlen(d->__nextchar);
@@ -274,7 +294,9 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                 {
                     if (print_errors)
                     {
-                        fprintf(stderr, "%s: option '--%s' requires an argument\n", argv[0], pfound->name);
+                        fprintf(stderr,
+                                "%s: option '--%s' requires an argument\n",
+                                argv[0], pfound->name);
                     }
                     d->__nextchar += strlen(d->__nextchar);
                     d->optopt = pfound->val;
@@ -291,17 +313,20 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
             }
             return pfound->val;
         }
-        if (!long_only || argv[d->optind][1] == '-' || strchr(optstring, *d->__nextchar) == NULL)
+        if (!long_only || argv[d->optind][1] == '-' ||
+            strchr(optstring, *d->__nextchar) == NULL)
         {
             if (print_errors)
             {
                 if (argv[d->optind][1] == '-')
                 {
-                    fprintf(stderr, "%s: unrecognized option '--%s'\n", argv[0], d->__nextchar);
+                    fprintf(stderr, "%s: unrecognized option '--%s'\n", argv[0],
+                            d->__nextchar);
                 }
                 else
                 {
-                    fprintf(stderr, "%s: unrecognized option '%c%s'\n", argv[0], argv[d->optind][0], d->__nextchar);
+                    fprintf(stderr, "%s: unrecognized option '%c%s'\n", argv[0],
+                            argv[d->optind][0], d->__nextchar);
                 }
             }
             d->__nextchar = (char *)"";
@@ -344,7 +369,8 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
             {
                 if (print_errors)
                 {
-                    fprintf(stderr, "%s: option requires an argument -- '%c'\n", argv[0], c);
+                    fprintf(stderr, "%s: option requires an argument -- '%c'\n",
+                            argv[0], c);
                 }
                 d->optopt = c;
                 if (optstring[0] == ':')
@@ -355,12 +381,15 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
             }
             else
                 d->optarg = argv[d->optind++];
-            for (d->__nextchar = nameend = d->optarg; *nameend && *nameend != '='; nameend++)
+            for (d->__nextchar = nameend = d->optarg;
+                 *nameend && *nameend != '='; nameend++)
                 ;
-            for (p = longopts, option_index = 0; p->name != NULL; p++, option_index++)
+            for (p = longopts, option_index = 0; p->name != NULL;
+                 p++, option_index++)
                 if (!strncmp(p->name, d->__nextchar, nameend - d->__nextchar))
                 {
-                    if ((unsigned int)(nameend - d->__nextchar) == strlen(p->name))
+                    if ((unsigned int)(nameend - d->__nextchar) ==
+                        strlen(p->name))
                     {
                         pfound = p;
                         indfound = option_index;
@@ -372,15 +401,16 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                         pfound = p;
                         indfound = option_index;
                     }
-                    else if (long_only || pfound->has_arg != p->has_arg || pfound->flag != p->flag ||
-                             pfound->val != p->val)
+                    else if (long_only || pfound->has_arg != p->has_arg ||
+                             pfound->flag != p->flag || pfound->val != p->val)
                         ambig = 1;
                 }
             if (ambig && !exact)
             {
                 if (print_errors)
                 {
-                    fprintf(stderr, "%s: option '-W %s' is ambiguous\n", argv[0], d->optarg);
+                    fprintf(stderr, "%s: option '-W %s' is ambiguous\n",
+                            argv[0], d->optarg);
                 }
                 d->__nextchar += strlen(d->__nextchar);
                 d->optind++;
@@ -397,7 +427,10 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                     {
                         if (print_errors)
                         {
-                            fprintf(stderr, "%s: option '-W %s' doesn't allow an argument\n", argv[0], pfound->name);
+                            fprintf(stderr,
+                                    "%s: option '-W %s' doesn't allow an "
+                                    "argument\n",
+                                    argv[0], pfound->name);
                         }
                         d->__nextchar += strlen(d->__nextchar);
                         return '?';
@@ -411,7 +444,9 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                     {
                         if (print_errors)
                         {
-                            fprintf(stderr, "%s: option '-W %s' requires an argument\n", argv[0], pfound->name);
+                            fprintf(stderr,
+                                    "%s: option '-W %s' requires an argument\n",
+                                    argv[0], pfound->name);
                         }
                         d->__nextchar += strlen(d->__nextchar);
                         return optstring[0] == ':' ? ':' : '?';
@@ -457,7 +492,9 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
                 {
                     if (print_errors)
                     {
-                        fprintf(stderr, "%s: option requires an argument -- '%c'\n", argv[0], c);
+                        fprintf(stderr,
+                                "%s: option requires an argument -- '%c'\n",
+                                argv[0], c);
                     }
                     d->optopt = c;
                     if (optstring[0] == ':')
@@ -473,13 +510,15 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring, con
         return c;
     }
 }
-int _getopt_internalGS(int argc, char *const *argv, const char *optstring, const struct optionGS *longopts,
-                       int *longind, int long_only, int posixly_correct)
+int _getopt_internalGS(int argc, char *const *argv, const char *optstring,
+                       const struct optionGS *longopts, int *longind,
+                       int long_only, int posixly_correct)
 {
     int result;
     getopt_data.optind = optindGS;
     getopt_data.opterr = opterrGS;
-    result = _getopt_internal_rGS(argc, argv, optstring, longopts, longind, long_only, &getopt_data, posixly_correct);
+    result = _getopt_internal_rGS(argc, argv, optstring, longopts, longind,
+                                  long_only, &getopt_data, posixly_correct);
     optindGS = getopt_data.optind;
     optargGS = getopt_data.optarg;
     optoptGS = getopt_data.optopt;
@@ -487,15 +526,20 @@ int _getopt_internalGS(int argc, char *const *argv, const char *optstring, const
 }
 int getoptGS(int argc, char *const *argv, const char *optstring) _GETOPT_THROW
 {
-    return _getopt_internalGS(argc, argv, optstring, (const struct optionGS *)0, (int *)0, 0, 0);
+    return _getopt_internalGS(argc, argv, optstring, (const struct optionGS *)0,
+                              (int *)0, 0, 0);
 }
-int getopt_longGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options,
+int getopt_longGS(int argc, char *const *argv, const char *options,
+                  const struct optionGS *long_options,
                   int *opt_index) _GETOPT_THROW
 {
-    return _getopt_internalGS(argc, argv, options, long_options, opt_index, 0, 0);
+    return _getopt_internalGS(argc, argv, options, long_options, opt_index, 0,
+                              0);
 }
-int getopt_long_onlyGS(int argc, char *const *argv, const char *options, const struct optionGS *long_options,
+int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
+                       const struct optionGS *long_options,
                        int *opt_index) _GETOPT_THROW
 {
-    return _getopt_internalGS(argc, argv, options, long_options, opt_index, 1, 0);
+    return _getopt_internalGS(argc, argv, options, long_options, opt_index, 1,
+                              0);
 }

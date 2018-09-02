@@ -28,7 +28,8 @@
 #include <string.h>
 #include "slib/fileopt.h"
 
-/* count lines in file, returns the ftell() position of the start of each line, free() result please */
+/* count lines in file, returns the ftell() position of the start of each line,
+ * free() result please */
 OPT long *slib_count_fl(FILE *file, long *pcount)
 {
     int ch;
@@ -56,7 +57,8 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
         {
             if (count + 1 >= have_size)
             {
-                reallocmem = realloc(line_starts, sizeof(long) * (have_size *= 2));
+                reallocmem =
+                    realloc(line_starts, sizeof(long) * (have_size *= 2));
                 if (reallocmem != NULL)
                     line_starts = reallocmem;
                 else
@@ -67,7 +69,8 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
                     return NULL;
                 }
             }
-            line_starts[++count] = ftell(file); /* first run: line_starts[1] since line_starts[0] is 0 */
+            line_starts[++count] = ftell(
+                file); /* first run: line_starts[1] since line_starts[0] is 0 */
         }
     }
     *pcount = count;
@@ -80,12 +83,14 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
     /* count - 1 is the maximum index of line_starts */
 }
 
-/* bsearch() for a file, returns the ftell() position of the start of the line */
+/* bsearch() for a file, returns the ftell() position of the start of the line
+ */
 OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 {
     int r;
     long low, mid, high, *linelist, tmp;
-    char *cmp = malloc(strlen(key) + 1); /* don't think a line longer than key will be the same */
+    char *cmp = malloc(strlen(key) + 1); /* don't think a line longer than key
+                                            will be the same */
     if (cmp == NULL)
     {
         perror("slib_fbsearch: malloc failed");
@@ -139,7 +144,8 @@ int main(int i, char **a)
     for (long j = 0; j < count; ++j)
     {
         fseek(fp, list[j], SEEK_SET);
-        printf("line %ld at %ld, first char is %c\n", j + 1, list[j], fgetc(fp));
+        printf("line %ld at %ld, first char is %c\n", j + 1, list[j],
+               fgetc(fp));
     }
     free(list);
     printf("found at %ld\n", slib_fbsearch(a[2], fp, &strcmp));

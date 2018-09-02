@@ -46,7 +46,8 @@
 #if !defined(_RL_MBUTIL_H_)
 #define _RL_MBUTIL_H_
 
-/* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers. */
+/* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers.
+ */
 
 #if !defined(_RL_STDC_H_)
 #define _RL_STDC_H_
@@ -96,9 +97,10 @@
 #if defined(HAVE_WCTYPE_H) && defined(HAVE_WCHAR_H) && defined(HAVE_LOCALE_H)
 #include <wchar.h>
 #include <wctype.h>
-#if defined(HAVE_ISWCTYPE) && defined(HAVE_ISWLOWER) && defined(HAVE_ISWUPPER) && defined(HAVE_MBSRTOWCS) &&           \
-    defined(HAVE_MBRTOWC) && defined(HAVE_MBRLEN) && defined(HAVE_TOWLOWER) && defined(HAVE_TOWUPPER) &&               \
-    defined(HAVE_WCHAR_T) && defined(HAVE_WCWIDTH)
+#if defined(HAVE_ISWCTYPE) && defined(HAVE_ISWLOWER) &&                        \
+    defined(HAVE_ISWUPPER) && defined(HAVE_MBSRTOWCS) &&                       \
+    defined(HAVE_MBRTOWC) && defined(HAVE_MBRLEN) && defined(HAVE_TOWLOWER) && \
+    defined(HAVE_TOWUPPER) && defined(HAVE_WCHAR_T) && defined(HAVE_WCWIDTH)
 /* system is supposed to support XPG5 */
 #define HANDLE_MULTIBYTE 1
 #endif
@@ -151,7 +153,8 @@ extern int _rl_find_next_mbchar PARAMS((char *, int, int, int));
 
 #ifdef HANDLE_MULTIBYTE
 
-extern int _rl_compare_chars PARAMS((char *, int, mbstate_t *, char *, int, mbstate_t *));
+extern int _rl_compare_chars PARAMS((char *, int, mbstate_t *, char *, int,
+                                     mbstate_t *));
 extern int _rl_get_char_len PARAMS((char *, mbstate_t *));
 extern int _rl_adjust_point PARAMS((char *, int, mbstate_t *));
 
@@ -166,9 +169,14 @@ extern int _rl_walphabetic PARAMS((wchar_t));
 #define _rl_to_wupper(wc) (iswlower(wc) ? towupper(wc) : (wc))
 #define _rl_to_wlower(wc) (iswupper(wc) ? towlower(wc) : (wc))
 
-#define MB_NEXTCHAR(b, s, c, f)                                                                                        \
-    ((MB_CUR_MAX > 1 && rl_byte_oriented == 0) ? _rl_find_next_mbchar((b), (s), (c), (f)) : ((s) + (c)))
-#define MB_PREVCHAR(b, s, f) ((MB_CUR_MAX > 1 && rl_byte_oriented == 0) ? _rl_find_prev_mbchar((b), (s), (f)) : ((s)-1))
+#define MB_NEXTCHAR(b, s, c, f)                                                \
+    ((MB_CUR_MAX > 1 && rl_byte_oriented == 0)                                 \
+         ? _rl_find_next_mbchar((b), (s), (c), (f))                            \
+         : ((s) + (c)))
+#define MB_PREVCHAR(b, s, f)                                                   \
+    ((MB_CUR_MAX > 1 && rl_byte_oriented == 0)                                 \
+         ? _rl_find_prev_mbchar((b), (s), (f))                                 \
+         : ((s)-1))
 
 #define MB_INVALIDCH(x) ((x) == (size_t)-1 || (x) == (size_t)-2)
 #define MB_NULLWCH(x) ((x) == 0)
@@ -281,7 +289,8 @@ static inline int _rl_wcwidth(wc) wchar_t wc;
 #define UNICODE_COMBINING_CHAR(x) ((x) >= 768 && (x) <= 879)
 
 #if defined(WCWIDTH_BROKEN)
-#define WCWIDTH(wc) ((_rl_utf8locale && UNICODE_COMBINING_CHAR(wc)) ? 0 : _rl_wcwidth(wc))
+#define WCWIDTH(wc)                                                            \
+    ((_rl_utf8locale && UNICODE_COMBINING_CHAR(wc)) ? 0 : _rl_wcwidth(wc))
 #else
 #define WCWIDTH(wc) _rl_wcwidth(wc)
 #endif
@@ -381,7 +390,9 @@ extern int rl_byte_oriented;
 #endif
 
 #if !defined(isxdigit) && !defined(HAVE_ISXDIGIT) && !defined(__cplusplus)
-#define isxdigit(c) (isdigit((unsigned char)(c)) || ((c) >= 'a' && (c) <= 'f') || ((c) >= 'A' && (c) <= 'F'))
+#define isxdigit(c)                                                            \
+    (isdigit((unsigned char)(c)) || ((c) >= 'a' && (c) <= 'f') ||              \
+     ((c) >= 'A' && (c) <= 'F'))
 #endif
 
 #if defined(CTYPE_NON_ASCII)
@@ -428,8 +439,10 @@ extern int rl_byte_oriented;
 #endif
 #define OCTVALUE(c) ((c) - '0')
 
-#define HEXVALUE(c)                                                                                                    \
-    (((c) >= 'a' && (c) <= 'f') ? (c) - 'a' + 10 : (c) >= 'A' && (c) <= 'F' ? (c) - 'A' + 10 : (c) - '0')
+#define HEXVALUE(c)                                                            \
+    (((c) >= 'a' && (c) <= 'f')                                                \
+         ? (c) - 'a' + 10                                                      \
+         : (c) >= 'A' && (c) <= 'F' ? (c) - 'A' + 10 : (c) - '0')
 
 #ifndef NEWLINE
 #define NEWLINE '\n'
@@ -552,7 +565,8 @@ static char *search_match;
    characters `:', ` ', `\t', `\n', and sometimes `?'.
    So you might call this function like:
    line = get_history_event ("!echo:p", &index, 0);  */
-char *get_history_event(string, caller_index, delimiting_quote) const char *string;
+char *get_history_event(string, caller_index, delimiting_quote) const
+    char *string;
 int *caller_index;
 int delimiting_quote;
 {
@@ -585,7 +599,8 @@ int delimiting_quote;
     sign = 1;
     substring_okay = 0;
 
-#define RETURN_ENTRY(e, w) return ((e = history_get(w)) ? e->line : (char *)NULL)
+#define RETURN_ENTRY(e, w)                                                     \
+    return ((e = history_get(w)) ? e->line : (char *)NULL)
 
     /* Handle !! case. */
     if (string[i] == history_expansion_char)
@@ -648,8 +663,10 @@ int delimiting_quote;
 
 #endif /* HANDLE_MULTIBYTE */
         if ((!substring_okay && (whitespace(c) || c == ':' ||
-                                 (history_event_delimiter_chars && member(c, history_event_delimiter_chars)) ||
-                                 (history_search_delimiter_chars && member(c, history_search_delimiter_chars)) ||
+                                 (history_event_delimiter_chars &&
+                                  member(c, history_event_delimiter_chars)) ||
+                                 (history_search_delimiter_chars &&
+                                  member(c, history_search_delimiter_chars)) ||
                                  string[i] == delimiting_quote)) ||
             string[i] == '\n' || (substring_okay && string[i] == '?'))
             break;
@@ -666,12 +683,12 @@ int delimiting_quote;
 
     *caller_index = i;
 
-#define FAIL_SEARCH()                                                                                                  \
-    do                                                                                                                 \
-    {                                                                                                                  \
-        history_offset = history_length;                                                                               \
-        xfree(temp);                                                                                                   \
-        return (char *)NULL;                                                                                           \
+#define FAIL_SEARCH()                                                          \
+    do                                                                         \
+    {                                                                          \
+        history_offset = history_length;                                       \
+        xfree(temp);                                                           \
+        return (char *)NULL;                                                   \
     } while (0)
 
     /* If there is no search string, try to use the previous search string,
@@ -735,7 +752,8 @@ int delimiting_quote;
    following the opening single quote; on exit, SINDEX is left pointing
    to the closing single quote.  FLAGS currently used to allow backslash
    to escape a single quote (e.g., for bash $'...'). */
-static void hist_string_extract_single_quoted(string, sindex, flags) char *string;
+static void hist_string_extract_single_quoted(string, sindex,
+                                              flags) char *string;
 int *sindex, flags;
 {
     register int i;
@@ -912,7 +930,8 @@ static void postproc_subst_rhs()
         if (subst_rhs[i] == '&')
         {
             if (j + subst_lhs_len >= new_size)
-                new = (char *)xrealloc(new, (new_size = new_size * 2 + subst_lhs_len));
+                new = (char *)xrealloc(
+                    new, (new_size = new_size * 2 + subst_lhs_len));
             strcpy(new + j, subst_lhs);
             j += subst_lhs_len;
         }
@@ -965,7 +984,8 @@ static char *sh_single_quote(string) char *string;
    if the `p' modifier was supplied and the caller should just print
    the returned string.  Returns the new index into string in
    *END_INDEX_PTR, and the expanded specifier in *RET_STRING. */
-static int history_expand_internal(string, start, qc, end_index_ptr, ret_string, current_line) char *string;
+static int history_expand_internal(string, start, qc, end_index_ptr, ret_string,
+                                   current_line) char *string;
 int start, qc, *end_index_ptr;
 char **ret_string;
 char *current_line; /* for !# */
@@ -1144,7 +1164,8 @@ char *current_line; /* for !# */
 
                     i += 3;
 
-                    t = get_subst_pattern(string, &i, delimiter, 0, &subst_lhs_len);
+                    t = get_subst_pattern(string, &i, delimiter, 0,
+                                          &subst_lhs_len);
                     /* An empty substitution lhs with no previous substitution
                        uses the last search string as the lhs. */
                     if (t)
@@ -1167,7 +1188,8 @@ char *current_line; /* for !# */
                     }
 
                     FREE(subst_rhs);
-                    subst_rhs = get_subst_pattern(string, &i, delimiter, 1, &subst_rhs_len);
+                    subst_rhs = get_subst_pattern(string, &i, delimiter, 1,
+                                                  &subst_rhs_len);
 
                     /* If `&' appears in the rhs, it's supposed to be replaced
                        with the lhs. */
@@ -1180,7 +1202,8 @@ char *current_line; /* for !# */
                 /* If there is no lhs, the substitution can't succeed. */
                 if (subst_lhs_len == 0)
                 {
-                    *ret_string = hist_error(string, starting_index, i, NO_PREV_SUBST);
+                    *ret_string =
+                        hist_error(string, starting_index, i, NO_PREV_SUBST);
                     xfree(result);
                     xfree(temp);
                     return -1;
@@ -1190,7 +1213,8 @@ char *current_line; /* for !# */
                 /* Ignore impossible cases. */
                 if (subst_lhs_len > l_temp)
                 {
-                    *ret_string = hist_error(string, starting_index, i, SUBST_FAILED);
+                    *ret_string =
+                        hist_error(string, starting_index, i, SUBST_FAILED);
                     xfree(result);
                     xfree(temp);
                     return (-1);
@@ -1204,8 +1228,8 @@ char *current_line; /* for !# */
                  2.  substitute_globally == 1 && subst_bywords == 0
                  3.  substitute_globally == 0 && subst_bywords == 1
 
-                   In the first case, we substitute for the first occurrence only.
-                   In the second case, we substitute for every occurrence.
+                   In the first case, we substitute for the first occurrence
+                 only. In the second case, we substitute for every occurrence.
                    In the third case, we tokenize into words and substitute the
                    first occurrence of each word. */
 
@@ -1229,7 +1253,8 @@ char *current_line; /* for !# */
                         new_event = (char *)xmalloc(1 + len);
                         strncpy(new_event, temp, si);
                         strncpy(new_event + si, subst_rhs, subst_rhs_len);
-                        strncpy(new_event + si + subst_rhs_len, temp + si + subst_lhs_len,
+                        strncpy(new_event + si + subst_rhs_len,
+                                temp + si + subst_lhs_len,
                                 l_temp - (si + subst_lhs_len));
                         new_event[len] = '\0';
                         xfree(temp);
@@ -1239,9 +1264,10 @@ char *current_line; /* for !# */
 
                         if (substitute_globally)
                         {
-                            /* Reported to fix a bug that causes it to skip every
-                               other match when matching a single character.  Was
-                               si += subst_rhs_len previously. */
+                            /* Reported to fix a bug that causes it to skip
+                               every other match when matching a single
+                               character.  Was si += subst_rhs_len previously.
+                             */
                             si += subst_rhs_len - 1;
                             l_temp = strlen(temp);
                             substitute_globally++;
@@ -1267,7 +1293,8 @@ char *current_line; /* for !# */
                 if (failed == 0)
                     continue; /* don't want to increment i */
 
-                *ret_string = hist_error(string, starting_index, i, SUBST_FAILED);
+                *ret_string =
+                    hist_error(string, starting_index, i, SUBST_FAILED);
                 xfree(result);
                 xfree(temp);
                 return (-1);
@@ -1318,34 +1345,35 @@ char *current_line; /* for !# */
   If an error occurred in expansion, then OUTPUT contains a descriptive
   error message. */
 
-#define ADD_STRING(s)                                                                                                  \
-    do                                                                                                                 \
-    {                                                                                                                  \
-        int sl = strlen(s);                                                                                            \
-        j += sl;                                                                                                       \
-        if (j >= result_len)                                                                                           \
-        {                                                                                                              \
-            while (j >= result_len)                                                                                    \
-                result_len += 128;                                                                                     \
-            result = (char *)xrealloc(result, result_len);                                                             \
-        }                                                                                                              \
-        strcpy(result + j - sl, s);                                                                                    \
+#define ADD_STRING(s)                                                          \
+    do                                                                         \
+    {                                                                          \
+        int sl = strlen(s);                                                    \
+        j += sl;                                                               \
+        if (j >= result_len)                                                   \
+        {                                                                      \
+            while (j >= result_len)                                            \
+                result_len += 128;                                             \
+            result = (char *)xrealloc(result, result_len);                     \
+        }                                                                      \
+        strcpy(result + j - sl, s);                                            \
     } while (0)
 
-#define ADD_CHAR(c)                                                                                                    \
-    do                                                                                                                 \
-    {                                                                                                                  \
-        if (j >= result_len - 1)                                                                                       \
-            result = (char *)xrealloc(result, result_len += 64);                                                       \
-        result[j++] = c;                                                                                               \
-        result[j] = '\0';                                                                                              \
+#define ADD_CHAR(c)                                                            \
+    do                                                                         \
+    {                                                                          \
+        if (j >= result_len - 1)                                               \
+            result = (char *)xrealloc(result, result_len += 64);               \
+        result[j++] = c;                                                       \
+        result[j] = '\0';                                                      \
     } while (0)
 
 int history_expand(hstring, output) char *hstring;
 char **output;
 {
     register int j;
-    int i, r, l, passc, cc, modified, eindex, only_printing, dquote, squote, flag;
+    int i, r, l, passc, cc, modified, eindex, only_printing, dquote, squote,
+        flag;
     char *string;
 
     /* The output string, and its length. */
@@ -1428,7 +1456,8 @@ char **output;
                of a word signifies that the rest of the line should not have
                history expansion performed on it.
                Skip the rest of the line and break out of the loop. */
-            if (history_comment_char && string[i] == history_comment_char && dquote == 0 &&
+            if (history_comment_char && string[i] == history_comment_char &&
+                dquote == 0 &&
                 (i == 0 || member(string[i - 1], history_word_delimiters)))
             {
                 while (string[i])
@@ -1451,7 +1480,8 @@ char **output;
                  for special cases that should not be history expanded,
                  call the function and skip the expansion if it returns a
                  non-zero value. */
-                else if (history_inhibit_expansion_function && (*history_inhibit_expansion_function)(string, i))
+                else if (history_inhibit_expansion_function &&
+                         (*history_inhibit_expansion_function)(string, i))
                     continue;
                 else
                     break;
@@ -1468,7 +1498,8 @@ char **output;
             {
                 dquote = 1 - dquote;
             }
-            else if (dquote == 0 && history_quotes_inhibit_expansion && string[i] == '\'')
+            else if (dquote == 0 && history_quotes_inhibit_expansion &&
+                     string[i] == '\'')
             {
                 /* If this is bash, single quotes inhibit history expansion. */
                 flag = (i > 0 && string[i - 1] == '$');
@@ -1574,7 +1605,8 @@ char **output;
                     ADD_STRING(temp);
                     xfree(temp);
                 }
-                else if (dquote == 0 && squote == 0 && history_quotes_inhibit_expansion == 0)
+                else if (dquote == 0 && squote == 0 &&
+                         history_quotes_inhibit_expansion == 0)
                 {
                     squote = 1;
                     ADD_CHAR(string[i]);
@@ -1604,19 +1636,21 @@ char **output;
                 /* If the history_expansion_char is followed by one of the
                    characters in history_no_expand_chars, then it is not a
                    candidate for expansion of any kind. */
-                if (cc == 0 || member(cc, history_no_expand_chars) || (dquote && cc == '"') ||
-                    (history_inhibit_expansion_function && (*history_inhibit_expansion_function)(string, i)))
+                if (cc == 0 || member(cc, history_no_expand_chars) ||
+                    (dquote && cc == '"') ||
+                    (history_inhibit_expansion_function &&
+                     (*history_inhibit_expansion_function)(string, i)))
                 {
                     ADD_CHAR(string[i]);
                     break;
                 }
 
 #if defined(NO_BANG_HASH_MODIFIERS)
-                /* There is something that is listed as a `word specifier' in csh
-                   documentation which means `the expanded text to this point'.
-                   That is not a word specifier, it is an event specifier.  If we
-                   don't want to allow modifiers with `!#', just stick the current
-                   output line in again. */
+                /* There is something that is listed as a `word specifier' in
+                   csh documentation which means `the expanded text to this
+                   point'. That is not a word specifier, it is an event
+                   specifier.  If we don't want to allow modifiers with `!#',
+                   just stick the current output line in again. */
                 if (cc == '#')
                 {
                     if (result)
@@ -1631,7 +1665,8 @@ char **output;
                 }
 #endif
                 qc = squote ? '\'' : (dquote ? '"' : 0);
-                r = history_expand_internal(string, i, qc, &eindex, &temp, result);
+                r = history_expand_internal(string, i, qc, &eindex, &temp,
+                                            result);
                 if (r < 0)
                 {
                     *output = temp;
@@ -1676,7 +1711,8 @@ char **output;
    ERROR_POINTER is returned if the word specified cannot be found.
    CALLER_INDEX is the offset in SPEC to start looking; it is updated
    to point to just after the last character parsed. */
-static char *get_history_word_specifier(spec, from, caller_index) char *spec, *from;
+static char *get_history_word_specifier(spec, from, caller_index) char *spec,
+    *from;
 int *caller_index;
 {
     register int i = *caller_index;
@@ -1894,14 +1930,16 @@ int ind;
                 j++;
             return j;
         }
-        else if ((peek == '>' && string[i] == '&') || (peek == '|' && string[i] == '>'))
+        else if ((peek == '>' && string[i] == '&') ||
+                 (peek == '|' && string[i] == '>'))
         {
             i += 2;
             return i;
         }
         /* XXX - separated out for later -- bash-4.2 */
-        else if ((peek == '(' && (string[i] == '>' || string[i] == '<')) || /* ) */
-                 (peek == '(' && string[i] == '$'))                         /*)*/
+        else if ((peek == '(' &&
+                  (string[i] == '>' || string[i] == '<')) || /* ) */
+                 (peek == '(' && string[i] == '$'))          /*)*/
         {
             i += 2;
             delimopen = '(';
@@ -1953,7 +1991,8 @@ get_word:
             continue;
         }
 
-        if (string[i] == '\\' && delimiter != '\'' && (delimiter != '"' || member(string[i], slashify_in_quotes)))
+        if (string[i] == '\\' && delimiter != '\'' &&
+            (delimiter != '"' || member(string[i], slashify_in_quotes)))
         {
             i++;
             continue;
@@ -2317,7 +2356,8 @@ int history_lines_written_to_file = 0;
 
 /* Does S look like the beginning of a history timestamp entry?  Placeholder
    for more extensive tests. */
-#define HIST_TIMESTAMP_START(s) (*(s) == history_comment_char && isdigit((unsigned char)(s)[1]))
+#define HIST_TIMESTAMP_START(s)                                                \
+    (*(s) == history_comment_char && isdigit((unsigned char)(s)[1]))
 
 static char *history_backupfile PARAMS((const char *));
 static char *history_tempfile PARAMS((const char *));
@@ -2354,7 +2394,8 @@ static char *history_filename(filename) const char *filename;
     else
         home_len = strlen(home);
 
-    return_val = (char *)xmalloc(2 + home_len + 8); /* strlen(".history") == 8 */
+    return_val =
+        (char *)xmalloc(2 + home_len + 8); /* strlen(".history") == 8 */
     strcpy(return_val, home);
     return_val[home_len] = '/';
 #if defined(__MSDOS__)
@@ -2481,7 +2522,8 @@ int from, to;
 #ifdef HISTORY_USE_MMAP
     /* We map read/write and private so we can change newlines to NULs without
        affecting the underlying object. */
-    buffer = (char *)mmap(0, file_size, PROT_READ | PROT_WRITE, MAP_RFLAGS, file, 0);
+    buffer =
+        (char *)mmap(0, file_size, PROT_READ | PROT_WRITE, MAP_RFLAGS, file, 0);
     if ((void *)buffer == MAP_FAILED)
     {
         errno = overflow_errno;
@@ -2530,7 +2572,8 @@ int from, to;
        have timestamps if the buffer starts with `#[:digit:]' and temporarily
        set history_comment_char so timestamp parsing works right */
     reset_comment_char = 0;
-    if (history_comment_char == '\0' && buffer[0] == '#' && isdigit((unsigned char)buffer[1]))
+    if (history_comment_char == '\0' && buffer[0] == '#' &&
+        isdigit((unsigned char)buffer[1]))
     {
         history_comment_char = '#';
         reset_comment_char = 1;
@@ -2540,7 +2583,8 @@ int from, to;
     history_multiline_entries += has_timestamps && history_write_timestamps;
 
     /* Skip lines until we are at FROM. */
-    for (line_start = line_end = buffer; line_end < bufend && current_line < from; line_end++)
+    for (line_start = line_end = buffer;
+         line_end < bufend && current_line < from; line_end++)
         if (*line_end == '\n')
         {
             p = line_end + 1;
@@ -2754,7 +2798,8 @@ int lines;
 
     tempname = history_tempfile(filename);
 
-    if ((file = open(tempname, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0600)) != -1)
+    if ((file = open(tempname, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY,
+                     0600)) != -1)
     {
         if (write(file, bp, chars_read - (bp - buffer)) < 0)
             rv = errno;
@@ -2796,7 +2841,8 @@ truncate_exit:
 /* Workhorse function for writing history.  Writes the last NELEMENT entries
    from the history list to FILENAME.  OVERWRITE is non-zero if you
    wish to replace FILENAME with the entries. */
-static int history_do_write(filename, nelements, overwrite) const char *filename;
+static int history_do_write(filename, nelements, overwrite) const
+    char *filename;
 int nelements, overwrite;
 {
     register int i;
@@ -2808,14 +2854,18 @@ int nelements, overwrite;
 
     history_lines_written_to_file = 0;
 
-    mode = overwrite ? O_RDWR | O_CREAT | O_TRUNC | O_BINARY : O_RDWR | O_APPEND | O_BINARY;
+    mode = overwrite ? O_RDWR | O_CREAT | O_TRUNC | O_BINARY
+                     : O_RDWR | O_APPEND | O_BINARY;
 #else
-    mode = overwrite ? O_WRONLY | O_CREAT | O_TRUNC | O_BINARY : O_WRONLY | O_APPEND | O_BINARY;
+    mode = overwrite ? O_WRONLY | O_CREAT | O_TRUNC | O_BINARY
+                     : O_WRONLY | O_APPEND | O_BINARY;
 #endif
     histname = history_filename(filename);
     exists = histname ? (stat(histname, &finfo) == 0) : 0;
 
-    tempname = (overwrite && exists && S_ISREG(finfo.st_mode)) ? history_tempfile(histname) : 0;
+    tempname = (overwrite && exists && S_ISREG(finfo.st_mode))
+                   ? history_tempfile(histname)
+                   : 0;
     output = tempname ? tempname : histname;
 
     file = output ? open(output, mode, 0600) : -1;
@@ -2846,12 +2896,14 @@ int nelements, overwrite;
 
         the_history = history_list();
         /* Calculate the total number of bytes to write. */
-        for (buffer_size = 0, i = history_length - nelements; i < history_length; i++)
+        for (buffer_size = 0, i = history_length - nelements;
+             i < history_length; i++)
 #if 0
 			buffer_size += 2 + HISTENT_BYTES (the_history[i]);
 #else
         {
-            if (history_write_timestamps && the_history[i]->timestamp && the_history[i]->timestamp[0])
+            if (history_write_timestamps && the_history[i]->timestamp &&
+                the_history[i]->timestamp[0])
                 buffer_size += strlen(the_history[i]->timestamp) + 1;
             buffer_size += strlen(the_history[i]->line) + 1;
         }
@@ -2861,7 +2913,8 @@ int nelements, overwrite;
 #ifdef HISTORY_USE_MMAP
             if (ftruncate(file, buffer_size + cursize) == -1)
                 goto mmap_error;
-        buffer = (char *)mmap(0, buffer_size, PROT_READ | PROT_WRITE, MAP_WFLAGS, file, cursize);
+        buffer = (char *)mmap(0, buffer_size, PROT_READ | PROT_WRITE,
+                              MAP_WFLAGS, file, cursize);
         if ((void *)buffer == MAP_FAILED)
         {
         mmap_error:
@@ -2889,7 +2942,8 @@ int nelements, overwrite;
 
         for (j = 0, i = history_length - nelements; i < history_length; i++)
         {
-            if (history_write_timestamps && the_history[i]->timestamp && the_history[i]->timestamp[0])
+            if (history_write_timestamps && the_history[i]->timestamp &&
+                the_history[i]->timestamp[0])
             {
                 strcpy(buffer + j, the_history[i]->timestamp);
                 j += strlen(the_history[i]->timestamp);
@@ -2901,7 +2955,8 @@ int nelements, overwrite;
         }
 
 #ifdef HISTORY_USE_MMAP
-        if (msync(buffer, buffer_size, MS_ASYNC) != 0 || munmap(buffer, buffer_size) != 0)
+        if (msync(buffer, buffer_size, MS_ASYNC) != 0 ||
+            munmap(buffer, buffer_size) != 0)
             rv = errno;
 #else
         if (write(file, buffer, buffer_size) < 0)
@@ -2971,7 +3026,8 @@ static int history_search_internal PARAMS((const char *, int, int));
    string was found in.  Otherwise, nothing is changed, and a -1 is
    returned. */
 
-static int history_search_internal(string, direction, anchored) const char *string;
+static int history_search_internal(string, direction, anchored) const
+    char *string;
 int direction, anchored;
 {
     register int i, reverse;
@@ -2993,13 +3049,13 @@ int direction, anchored;
     if (reverse && (i >= history_length))
         i = history_length - 1;
 
-#define NEXT_LINE()                                                                                                    \
-    do                                                                                                                 \
-    {                                                                                                                  \
-        if (reverse)                                                                                                   \
-            i--;                                                                                                       \
-        else                                                                                                           \
-            i++;                                                                                                       \
+#define NEXT_LINE()                                                            \
+    do                                                                         \
+    {                                                                          \
+        if (reverse)                                                           \
+            i--;                                                               \
+        else                                                                   \
+            i++;                                                               \
     } while (0)
 
     the_history = history_list();
@@ -3213,20 +3269,26 @@ HIST_ENTRY **history_list() { return (the_history); }
    history_offset.  If there is no entry there, return a NULL pointer. */
 HIST_ENTRY *current_history()
 {
-    return ((history_offset == history_length) || the_history == 0) ? (HIST_ENTRY *)NULL : the_history[history_offset];
+    return ((history_offset == history_length) || the_history == 0)
+               ? (HIST_ENTRY *)NULL
+               : the_history[history_offset];
 }
 
 /* Back up history_offset to the previous history entry, and return
    a pointer to that entry.  If there is no previous entry then return
    a NULL pointer. */
-HIST_ENTRY *previous_history() { return history_offset ? the_history[--history_offset] : (HIST_ENTRY *)NULL; }
+HIST_ENTRY *previous_history()
+{
+    return history_offset ? the_history[--history_offset] : (HIST_ENTRY *)NULL;
+}
 
 /* Move history_offset forward to the next history entry, and return
    a pointer to that entry.  If there is no next entry then return a
    NULL pointer. */
 HIST_ENTRY *next_history()
 {
-    return (history_offset == history_length) ? (HIST_ENTRY *)NULL : the_history[++history_offset];
+    return (history_offset == history_length) ? (HIST_ENTRY *)NULL
+                                              : the_history[++history_offset];
 }
 
 /* Return the history entry which is logically at OFFSET in the history array.
@@ -3236,8 +3298,10 @@ HIST_ENTRY *history_get(offset) int offset;
     int local_index;
 
     local_index = offset - history_base;
-    return (local_index >= history_length || local_index < 0 || the_history == 0) ? (HIST_ENTRY *)NULL
-                                                                                  : the_history[local_index];
+    return (local_index >= history_length || local_index < 0 ||
+            the_history == 0)
+               ? (HIST_ENTRY *)NULL
+               : the_history[local_index];
 }
 
 HIST_ENTRY *alloc_history_entry(string, ts) char *string;
@@ -3265,7 +3329,8 @@ time_t history_get_time(hist) HIST_ENTRY *hist;
     if (ts[0] != history_comment_char)
         return 0;
     errno = 0;
-    t = (time_t)strtol(ts + 1, (char **)NULL, 10); /* XXX - should use strtol() here */
+    t = (time_t)strtol(ts + 1, (char **)NULL,
+                       10); /* XXX - should use strtol() here */
     if (errno == ERANGE)
         return (time_t)0;
     return t;
@@ -3307,13 +3372,14 @@ void add_history(string) const char *string;
         if (the_history[0])
             (void)free_history_entry(the_history[0]);
 
-            /* Copy the rest of the entries, moving down one slot.  Copy includes
-            trailing NULL.  */
+            /* Copy the rest of the entries, moving down one slot.  Copy
+            includes trailing NULL.  */
 #if 0
 		for (i = 0; i < history_length; i++)
 			the_history[i] = the_history[i + 1];
 #else
-        memmove(the_history, the_history + 1, history_length * sizeof(HIST_ENTRY *));
+        memmove(the_history, the_history + 1,
+                history_length * sizeof(HIST_ENTRY *));
 #endif
 
         history_base++;
@@ -3326,7 +3392,8 @@ void add_history(string) const char *string;
                 history_size = history_max_entries + 2;
             else
                 history_size = DEFAULT_HISTORY_INITIAL_SIZE;
-            the_history = (HIST_ENTRY **)xmalloc(history_size * sizeof(HIST_ENTRY *));
+            the_history =
+                (HIST_ENTRY **)xmalloc(history_size * sizeof(HIST_ENTRY *));
             history_length = 1;
         }
         else
@@ -3334,7 +3401,8 @@ void add_history(string) const char *string;
             if (history_length == (history_size - 1))
             {
                 history_size += DEFAULT_HISTORY_GROW_SIZE;
-                the_history = (HIST_ENTRY **)xrealloc(the_history, history_size * sizeof(HIST_ENTRY *));
+                the_history = (HIST_ENTRY **)xrealloc(
+                    the_history, history_size * sizeof(HIST_ENTRY *));
             }
             history_length++;
         }
@@ -3448,7 +3516,8 @@ histdata_t *old, *new;
     HIST_ENTRY *entry;
     register int i, last;
 
-    if (which < -2 || which >= history_length || history_length == 0 || the_history == 0)
+    if (which < -2 || which >= history_length || history_length == 0 ||
+        the_history == 0)
         return;
 
     if (which >= 0)
@@ -3487,7 +3556,8 @@ HIST_ENTRY *remove_history(which) int which;
     HIST_ENTRY *return_value;
     register int i;
 
-    if (which < 0 || which >= history_length || history_length == 0 || the_history == 0)
+    if (which < 0 || which >= history_length || history_length == 0 ||
+        the_history == 0)
         return ((HIST_ENTRY *)NULL);
 
     return_value = the_history[which];

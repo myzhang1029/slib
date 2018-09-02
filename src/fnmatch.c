@@ -36,7 +36,8 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 #if defined(STDC_HEADERS) || !defined(isascii)
 #define FOLD(c) ((flags & FNM_CASEFOLD) && isupper(c) ? tolower(c) : (c))
 #else
-#define ISUPPER(c) ((flags & FNM_CASEFOLD) && (isascii(c) && isupper(c)) ? tolower(c) : (c))
+#define ISUPPER(c)                                                             \
+    ((flags & FNM_CASEFOLD) && (isascii(c) && isupper(c)) ? tolower(c) : (c))
 #endif
 
     while ((c = *p++) != '\0')
@@ -51,7 +52,8 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                 else if ((flags & FNM_FILE_NAME) && *n == '/')
                     return FNM_NOMATCH;
                 else if ((flags & FNM_PERIOD) && *n == '.' &&
-                         (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
+                         (n == string ||
+                          ((flags & FNM_FILE_NAME) && n[-1] == '/')))
                     return FNM_NOMATCH;
                 break;
 
@@ -69,13 +71,15 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                 break;
 
             case '*':
-                if ((flags & FNM_PERIOD) && *n == '.' && (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
+                if ((flags & FNM_PERIOD) && *n == '.' &&
+                    (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
                     return FNM_NOMATCH;
 
                 for (c = *p++; c == '?' || c == '*'; c = *p++)
                 {
                     if ((flags & FNM_FILE_NAME) && *n == '/')
-                        /* A slash does not match a wildcard under FNM_FILE_NAME.  */
+                        /* A slash does not match a wildcard under
+                         * FNM_FILE_NAME.  */
                         return FNM_NOMATCH;
                     else if (c == '?')
                     {
@@ -84,9 +88,9 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                             /* There isn't another character; no match.  */
                             return FNM_NOMATCH;
                         else
-                            /* One character of the string is consumed in matching
-                               this ? wildcard, so *??? won't match if there are
-                               less than three characters.  */
+                            /* One character of the string is consumed in
+                               matching this ? wildcard, so *??? won't match if
+                               there are less than three characters.  */
                             ++n;
                     }
                 }
@@ -99,7 +103,8 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 
                     c1 = FOLD(c1);
                     for (--p; *n != '\0'; ++n)
-                        if ((c == '[' || FOLD(*n) == c1) && fnmatchGS(p, n, flags & ~FNM_PERIOD) == 0)
+                        if ((c == '[' || FOLD(*n) == c1) &&
+                            fnmatchGS(p, n, flags & ~FNM_PERIOD) == 0)
                             return 0;
                     return FNM_NOMATCH;
                 }
@@ -112,7 +117,8 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                 if (*n == '\0')
                     return FNM_NOMATCH;
 
-                if ((flags & FNM_PERIOD) && *n == '.' && (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
+                if ((flags & FNM_PERIOD) && *n == '.' &&
+                    (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
                     return FNM_NOMATCH;
 
                 not = (*p == '!' || *p == '^');
@@ -200,7 +206,8 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
         return 0;
 
     if ((flags & FNM_LEADING_DIR) && *n == '/')
-        /* The FNM_LEADING_DIR flag says that "foo*" matches "foobar/frobozz".  */
+        /* The FNM_LEADING_DIR flag says that "foo*" matches "foobar/frobozz".
+         */
         return 0;
 
     return FNM_NOMATCH;

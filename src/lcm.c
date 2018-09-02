@@ -24,4 +24,7 @@
  */
 #include "slib/math.h"
 
-OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2) { return n1 * n2 / slib_gcf(n1, n2); }
+OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2)
+{
+    return n1 * n2 / slib_gcf(n1, n2);
+}

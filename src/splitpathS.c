@@ -1,5 +1,6 @@
 /*
- *  splitpathS.c - Path seperate function splitpathS (aka _splitpath on MS-Windows) of the slib.
+ *  splitpathS.c - Path seperate function splitpathS (aka _splitpath on
+ *MS-Windows) of the slib.
  *
  *  Copyright (C) 2014 CSDN chinaeran
  *	- The original file was not copyrighted.
@@ -44,8 +45,8 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
     /*The start of extend name*/
     p_ext = strrchr(whole_name, '.');
 
-    /*If p_ext is null, the file is a file without real file name(hided in unix), like .gitignore, or it is a not
-     * allowed file in MS-Windows*/
+    /*If p_ext is null, the file is a file without real file name(hided in
+     * unix), like .gitignore, or it is a not allowed file in MS-Windows*/
     if (NULL != p_ext)
     {
         if (NULL != ext)
@@ -62,7 +63,8 @@ static void __split_whole_name(const char *whole_name, char *fname, char *ext)
     }
 }
 
-void splitpathS(const char *path, char *drive, char *dir, char *fname, char *ext)
+void splitpathS(const char *path, char *drive, char *dir, char *fname,
+                char *ext)
 {
     char *p_whole_name;
     if (NULL != drive)

@@ -1,8 +1,8 @@
 /* Definitions for data structures and routines for the regular
    expression library, version 0.12.
 
-   Copyright (C) 1985, 1989, 1990, 1991, 1992, 1993 Free Software Foundation, Inc.
-   Copyregit (C) 2017 Zhang Maiyun.
+   Copyright (C) 1985, 1989, 1990, 1991, 1992, 1993 Free Software Foundation,
+   Inc. Copyregit (C) 2017 Zhang Maiyun.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -142,17 +142,22 @@ extern reg_syntax_tGS re_syntax_optionsGS;
 /* [[[begin syntaxes]]] */
 #define RE_SYNTAX_EMACS 0
 
-#define RE_SYNTAX_AWK                                                                                                  \
-    (RE_BACKSLASH_ESCAPE_IN_LISTS | RE_DOT_NOT_NULL | RE_NO_BK_PARENS | RE_NO_BK_REFS | RE_NO_BK_VBAR |                \
-     RE_NO_EMPTY_RANGES | RE_UNMATCHED_RIGHT_PAREN_ORD)
+#define RE_SYNTAX_AWK                                                          \
+    (RE_BACKSLASH_ESCAPE_IN_LISTS | RE_DOT_NOT_NULL | RE_NO_BK_PARENS |        \
+     RE_NO_BK_REFS | RE_NO_BK_VBAR | RE_NO_EMPTY_RANGES |                      \
+     RE_UNMATCHED_RIGHT_PAREN_ORD)
 
-#define RE_SYNTAX_POSIX_AWK (RE_SYNTAX_POSIX_EXTENDED | RE_BACKSLASH_ESCAPE_IN_LISTS)
+#define RE_SYNTAX_POSIX_AWK                                                    \
+    (RE_SYNTAX_POSIX_EXTENDED | RE_BACKSLASH_ESCAPE_IN_LISTS)
 
-#define RE_SYNTAX_GREP (RE_BK_PLUS_QM | RE_CHAR_CLASSES | RE_HAT_LISTS_NOT_NEWLINE | RE_INTERVALS | RE_NEWLINE_ALT)
+#define RE_SYNTAX_GREP                                                         \
+    (RE_BK_PLUS_QM | RE_CHAR_CLASSES | RE_HAT_LISTS_NOT_NEWLINE |              \
+     RE_INTERVALS | RE_NEWLINE_ALT)
 
-#define RE_SYNTAX_EGREP                                                                                                \
-    (RE_CHAR_CLASSES | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS | RE_HAT_LISTS_NOT_NEWLINE | RE_NEWLINE_ALT |   \
-     RE_NO_BK_PARENS | RE_NO_BK_VBAR)
+#define RE_SYNTAX_EGREP                                                        \
+    (RE_CHAR_CLASSES | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS |       \
+     RE_HAT_LISTS_NOT_NEWLINE | RE_NEWLINE_ALT | RE_NO_BK_PARENS |             \
+     RE_NO_BK_VBAR)
 
 #define RE_SYNTAX_POSIX_EGREP (RE_SYNTAX_EGREP | RE_INTERVALS | RE_NO_BK_BRACES)
 
@@ -162,7 +167,9 @@ extern reg_syntax_tGS re_syntax_optionsGS;
 #define RE_SYNTAX_SED RE_SYNTAX_POSIX_BASIC
 
 /* Syntax bits common to both basic and extended POSIX regex syntax.  */
-#define _RE_SYNTAX_POSIX_COMMON (RE_CHAR_CLASSES | RE_DOT_NEWLINE | RE_DOT_NOT_NULL | RE_INTERVALS | RE_NO_EMPTY_RANGES)
+#define _RE_SYNTAX_POSIX_COMMON                                                \
+    (RE_CHAR_CLASSES | RE_DOT_NEWLINE | RE_DOT_NOT_NULL | RE_INTERVALS |       \
+     RE_NO_EMPTY_RANGES)
 
 #define RE_SYNTAX_POSIX_BASIC (_RE_SYNTAX_POSIX_COMMON | RE_BK_PLUS_QM)
 
@@ -171,14 +178,16 @@ extern reg_syntax_tGS re_syntax_optionsGS;
    isn't minimal, since other operators, such as \`, aren't disabled.  */
 #define RE_SYNTAX_POSIX_MINIMAL_BASIC (_RE_SYNTAX_POSIX_COMMON | RE_LIMITED_OPS)
 
-#define RE_SYNTAX_POSIX_EXTENDED                                                                                       \
-    (_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INDEP_OPS | RE_NO_BK_BRACES | RE_NO_BK_PARENS |   \
+#define RE_SYNTAX_POSIX_EXTENDED                                               \
+    (_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS |                      \
+     RE_CONTEXT_INDEP_OPS | RE_NO_BK_BRACES | RE_NO_BK_PARENS |                \
      RE_NO_BK_VBAR | RE_UNMATCHED_RIGHT_PAREN_ORD)
 
 /* Differs from ..._POSIX_EXTENDED in that RE_CONTEXT_INVALID_OPS
    replaces RE_CONTEXT_INDEP_OPS and RE_NO_BK_REFS is added.  */
-#define RE_SYNTAX_POSIX_MINIMAL_EXTENDED                                                                               \
-    (_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS | RE_CONTEXT_INVALID_OPS | RE_NO_BK_BRACES | RE_NO_BK_PARENS | \
+#define RE_SYNTAX_POSIX_MINIMAL_EXTENDED                                       \
+    (_RE_SYNTAX_POSIX_COMMON | RE_CONTEXT_INDEP_ANCHORS |                      \
+     RE_CONTEXT_INVALID_OPS | RE_NO_BK_BRACES | RE_NO_BK_PARENS |              \
      RE_NO_BK_REFS | RE_NO_BK_VBAR | RE_UNMATCHED_RIGHT_PAREN_ORD)
 /* [[[end syntaxes]]] */
 
@@ -353,7 +362,8 @@ struct re_registersGS
    structure of arrays.  */
 typedef struct
 {
-    regoff_tGS rm_so; /* Byte offset from string's start to substring's start.  */
+    regoff_tGS rm_so; /* Byte offset from string's start to substring's start.
+                       */
     regoff_tGS rm_eo; /* Byte offset from string's start to substring's end.  */
 } regmatch_tGS;
 
@@ -382,36 +392,43 @@ extern reg_syntax_tGS re_set_syntax _RE_ARGS((reg_syntax_tGS syntax));
 /* Compile the regular expression PATTERN, with length LENGTH
    and syntax given by the global `re_syntax_optionsGS', into the buffer
    BUFFER.  Return NULL if successful, and an error string if not.  */
-extern const char *re_compGSile_patternGS _RE_ARGS((const char *pattern, int length,
-                                                    struct re_pattern_bufferGS *buffer));
+extern const char *re_compGSile_patternGS _RE_ARGS(
+    (const char *pattern, int length, struct re_pattern_bufferGS *buffer));
 
 /* Compile a fastmap for the compiled pattern in BUFFER; used to
    accelerate searches.  Return 0 if successful and -2 if was an
    internal error.  */
-extern int re_compGSile_fastmapGS _RE_ARGS((struct re_pattern_bufferGS * buffer));
+extern int re_compGSile_fastmapGS _RE_ARGS((struct re_pattern_bufferGS *
+                                            buffer));
 
 /* Search in the string STRING (with length LENGTH) for the pattern
    compiled into BUFFER.  Start searching at position START, for RANGE
    characters.  Return the starting position of the match, -1 for no
    match, or -2 for an internal error.  Also return register
    information in REGS (if REGS and BUFFER->no_sub are nonzero).  */
-extern int re_searchGS _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string, int length, int start,
+extern int re_searchGS _RE_ARGS((struct re_pattern_bufferGS * buffer,
+                                 const char *string, int length, int start,
                                  int range, struct re_registersGS *regs));
 
 /* Like `re_searchGS', but search in the concatenation of STRING1 and
    STRING2.  Also, stop searching at index START + STOP.  */
-extern int re_searchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string1, int length1,
-                                   const char *string2, int length2, int start, int range, struct re_registersGS *regs,
+extern int re_searchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer,
+                                   const char *string1, int length1,
+                                   const char *string2, int length2, int start,
+                                   int range, struct re_registersGS *regs,
                                    int stop));
 
 /* Like `re_searchGS', but return how many characters in STRING the regexp
    in BUFFER matched, starting at position START.  */
-extern int re_matchGS _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string, int length, int start,
+extern int re_matchGS _RE_ARGS((struct re_pattern_bufferGS * buffer,
+                                const char *string, int length, int start,
                                 struct re_registersGS *regs));
 
 /* Relates to `re_matchGS' as `re_searchGS_2' relates to `re_searchGS'.  */
-extern int re_matchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer, const char *string1, int length1,
-                                  const char *string2, int length2, int start, struct re_registersGS *regs, int stop));
+extern int re_matchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer,
+                                  const char *string1, int length1,
+                                  const char *string2, int length2, int start,
+                                  struct re_registersGS *regs, int stop));
 
 /* Set REGS to hold NUM_REGS registers, storing them in STARTS and
    ENDS.  Subsequent matches using BUFFER and REGS will use this memory
@@ -425,21 +442,27 @@ extern int re_matchGS_2 _RE_ARGS((struct re_pattern_bufferGS * buffer, const cha
    Unless this function is called, the first search or match using
    PATTERN_BUFFER will allocate its own register data, without
    freeing the old data.  */
-extern void re_set_registersGS _RE_ARGS((struct re_pattern_bufferGS * buffer, struct re_registersGS *regs,
-                                         unsigned num_regs, regoff_tGS *starts, regoff_tGS *ends));
+extern void re_set_registersGS _RE_ARGS((struct re_pattern_bufferGS * buffer,
+                                         struct re_registersGS *regs,
+                                         unsigned num_regs, regoff_tGS *starts,
+                                         regoff_tGS *ends));
 
 /* 4.2 bsd compatibility.  */
 extern char *re_compGS _RE_ARGS((const char *));
 extern int re_execGS _RE_ARGS((const char *));
 
 /* POSIX compatibility.  */
-extern int regcompGS _RE_ARGS((regex_t * preg, const char *pattern, int cflags));
-extern int regexecGS _RE_ARGS((const regex_t *preg, const char *string, size_t nmatch, regmatch_tGS pmatch[],
+extern int regcompGS _RE_ARGS((regex_t * preg, const char *pattern,
+                               int cflags));
+extern int regexecGS _RE_ARGS((const regex_t *preg, const char *string,
+                               size_t nmatch, regmatch_tGS pmatch[],
                                int eflags));
-extern size_t regerrorGS _RE_ARGS((int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size));
+extern size_t regerrorGS _RE_ARGS((int errcode, const regex_t *preg,
+                                   char *errbuf, size_t errbuf_size));
 extern void regfreeGS _RE_ARGS((regex_t * preg));
 
-/* These following are *GS definitions, which intends to be a strong alias to those symbols without GS */
+/* These following are *GS definitions, which intends to be a strong alias to
+ * those symbols without GS */
 #ifndef SLIB_LIBRARY
 #define re_syntax_table re_syntax_tableGS
 #define re_syntax_options re_syntax_optionsGS

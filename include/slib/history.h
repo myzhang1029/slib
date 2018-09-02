@@ -29,7 +29,8 @@ extern "C" {
 
 #include <time.h> /* XXX - for history timestamp code */
 
-/* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers. */
+/* stdc.h -- macros to make source compile on both ANSI C and K&R C compilers.
+ */
 
 /* Adapted from BSD /usr/include/sys/cdefs.h. */
 
@@ -220,7 +221,8 @@ extern histdata_t free_history_entry PARAMS((HIST_ENTRY *));
 /* Make the history entry at WHICH have LINE and DATA.  This returns
    the old entry so you can dispose of the data.  In the case of an
    invalid WHICH, a NULL pointer is returned. */
-extern HIST_ENTRY *replace_history_entry PARAMS((int, const char *, histdata_t));
+extern HIST_ENTRY *replace_history_entry PARAMS((int, const char *,
+                                                 histdata_t));
 
 /* Clear the history list and start over. */
 extern void clear_history PARAMS((void));
@@ -409,7 +411,8 @@ extern rl_linebuf_func_t *history_inhibit_expansion_function;
 
 #if !defined(STREQ)
 #define STREQ(a, b) (((a)[0] == (b)[0]) && (strcmp((a), (b)) == 0))
-#define STREQN(a, b, n) (((n) == 0) ? (1) : ((a)[0] == (b)[0]) && (strncmp((a), (b), (n)) == 0))
+#define STREQN(a, b, n)                                                        \
+    (((n) == 0) ? (1) : ((a)[0] == (b)[0]) && (strncmp((a), (b), (n)) == 0))
 #endif
 
 #ifndef savestring
@@ -436,8 +439,8 @@ extern char *strchr();
 #endif
 
 #ifndef FREE
-#define FREE(x)                                                                                                        \
-    if (x)                                                                                                             \
+#define FREE(x)                                                                \
+    if (x)                                                                     \
     free(x)
 #endif
 
