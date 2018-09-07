@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libsbl], [3.6.0], [myzhang1029@hotmail.com])
+AC_INIT([libsbl], [3.7.0], [myzhang1029@hotmail.com])
 AM_INIT_AUTOMAKE
 LT_INIT([win32-dll])
 AC_CONFIG_SRCDIR([src/gcf.c])

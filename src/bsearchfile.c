@@ -50,6 +50,7 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
         free(line_starts);
         return NULL;
     }
+    rewind(file);
     line_starts[0] = 0; /* the first line */
     while ((ch = fgetc(file)) != EOF)
     {
@@ -90,7 +91,7 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
     int r;
     long low, mid, high, *linelist, tmp;
     char *cmp = malloc(strlen(key) + 1); /* don't think a line longer than key
-                                            will be the same */
+                                            will be the same as key */
     if (cmp == NULL)
     {
         perror("slib_fbsearch: malloc failed");
@@ -101,7 +102,6 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
         free(cmp);
         return -2;
     }
-    --high;
     low = 0;
     while (low < high)
     {
