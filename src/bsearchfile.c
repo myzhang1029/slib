@@ -86,7 +86,7 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
 
 /* bsearch() for a file, returns the ftell() position of the start of the line
  */
-OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
+OPT long slib_fbsearch(char *key, FILE *fp, long *insertloc, int (*compar)(char *s1, char *s2))
 {
     int r;
     long low, mid, high, *linelist, tmp;
@@ -134,20 +134,3 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 
 /* qsort() for a file, uses a non-just-in-place bubble sort */
 OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2)) {}
-#include <assert.h>
-int main(int i, char **a)
-{
-    assert(i == 3);
-    FILE *fp = fopen(a[1], "r");
-    long count, *list = slib_count_fl(fp, &count);
-    printf("have %ld lines\n", count);
-    for (long j = 0; j < count; ++j)
-    {
-        fseek(fp, list[j], SEEK_SET);
-        printf("line %ld at %ld, first char is %c\n", j + 1, list[j],
-               fgetc(fp));
-    }
-    free(list);
-    printf("found at %ld\n", slib_fbsearch(a[2], fp, &strcmp));
-    return 0;
-}

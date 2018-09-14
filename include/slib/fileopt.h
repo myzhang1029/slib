@@ -39,7 +39,7 @@ OPT void splitpathS(const char *path, char *drive, char *dir, char *fname,
 
 OPT long *slib_count_fl(FILE *file, long *pcount);
 
-OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2));
+OPT long slib_fbsearch(char *key, FILE *fp, long *insertloc, int (*compar)(char *s1, char *s2));
 
 OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2));
 
