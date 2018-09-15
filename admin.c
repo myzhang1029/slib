@@ -21,211 +21,189 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-/* 包含头文件 */
+#include <slib.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <slib.h>
+#include <slib/getopt.h>
 #include <slib/math.h>
 
-const char *ver = "3.2.2"; /*版本号*/
+const char *ver = "4.0.0";
 
-void usage(void); /*使用方法*/
-
-int main(int argc, const char *argv[]) /* 主函数 */
+void usage(void);
+int ui()
 {
-	union main_variable
-	{
-		unsigned int content;
-		unsigned int shutdownsys;
-	} m_v;
-	// char *soptions=":hr:g:l:p:d:c:";
-	if (argc > 1)
-	{
-		if (strcmp(argv[1], "-u") == 0)
-			;
-		else if (strcmp(argv[1], "-h") == 0)
-		{
-			usage();
-			return 0;
-		}
-		else if (strcmp(argv[1], "-r") == 0)
-		{
-			if (argc < 4)
-				usage();
-			else
-			{
-				if (slib_isrp(atol(argv[2]), atol(argv[3])) == STRUE)
-					printf("互质！");
-				else
-					printf("不互质！");
-			}
-			return 0;
-		}
-		else if (strcmp(argv[1], "-g") == 0)
-		{
-			if (argc < 4)
-				usage();
-			else
-				printf("%lu", slib_gcf(atol(argv[2]), atol(argv[3])));
-			return 0;
-		}
-		else if (strcmp(argv[1], "-l") == 0)
-		{
-			if (argc < 4)
-				usage();
-			else
-				printf("%lu", slib_lcm(atol(argv[2]), atol(argv[3])));
-			return 0;
-		}
-		else if (strcmp(argv[1], "-p") == 0)
-		{
-			if (argc < 4)
-				usage();
-			else
-				slib_prtpn(atol(argv[2]), atol(argv[3]));
-			return 0;
-		}
-		else if (strcmp(argv[1], "-d") == 0)
-		{
-			if (argc < 3)
-				usage();
-			else
-			{
-				if (slib_ispn(atol(argv[2])) == STRUE)
-					printf("是质数！");
-				else
-					printf("不是质数！");
-			}
-			return 0;
-		}
-		else if (strcmp(argv[1], "-c") == 0)
-		{
-			if (argc < 3)
-				usage();
-			else
-			{
-				double result;
-				puts(argv[2]);
-				result = calculate(argv[2]);
-				printf("%s", argv[2]);
-				printf("%lf", result);
-			}
-			return 0;
-		}
-		else
-		{
-			usage();
-			return 0;
-		}
-	}
-	for (;;)
-	{
-		printf("\n1=查看系统版本\n2=产生随机数\n3=计算器\n4=自动关机\n5=输出指定范围内的质数"
-		       "\n6=判断一个数是否质数\n7=判断两数是否互质\n请选择："); /*程序主菜单*/
-		scanf("%d", &m_v.content);
-		switch (m_v.content)
-		{
-			case 1: /*显示软件版本*/
-			{
-				printf("sbl admin %s\n", ver);
-				printf("于%s，%s发布\n", __DATE__, __TIME__);
-				break;
-			}
+    char selection = 0;
+    for (;;)
+    {
+        printf(
+            "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4="
+            "输出指定范围内的质数"
+            "\n5=判断一个数是否质数\n6=判断两数是否互质\n请选择："); /*程序主菜单*/
+        fflush(stdin);
+        scanf("%c", &selection);
+        switch (selection)
+        {
+            case '1': /* version */
+            {
+                printf("sbl admin %s\n", ver);
+                printf("Build %s，%s\n", __DATE__, __TIME__);
+                break;
+            }
+            case '2':
+            {
+                unsigned int radmax = 0, radmin = 0;
+                printf("输入最小值：");
+                scanf("%d", &radmin);
+                printf("输入最大值：");
+                scanf("%d", &radmax);
+                printf("您的随机数是：%ld\n\n",
+                       randomnum(clock(), radmax, radmin));
+                break;
+            }
+            case '3': /*计算器*/
+            {
+                char infix[BUFFERSIZE];
+                fflush(stdin);
+                printf("输入算式：");
+                fflush(stdin);
+                fgets(infix, BUFFERSIZE, stdin);
+                printf("%lf\n", calculate(infix));
+                break;
+            }
+            case '4': /*输出指定范围内的指数 */
+            {
+                int pn1, pn2;
+                printf("输入最小值：");
+                scanf("%d", &pn1);
+                printf("\n输入最大值：");
+                scanf("%d", &pn2);
+                slib_prtpn(pn1, pn2);
+                break;
+            }
+            case '5': /*测试一个数是否质数*/
+            {
+                int pn;
+                printf("输入待测试数:");
+                scanf("%d", &pn);
+                if (slib_ispn(pn) == STRUE)
+                    printf("\n是质数！\n");
+                else
+                    printf("\n不是质数！\n");
+                break;
+            }
+            case '6': /*测试两个数是否互质*/
+            {
+                int num1, num2;
+                printf("输入数一:");
+                scanf("%d", &num1);
+                printf("\n输入数二:");
+                scanf("%d", &num2);
+                if (slib_isrp(num1, num2) == STRUE)
+                    printf("\n互质！\n");
+                else
+                    printf("不互质！\n");
+                break;
+            }
+            case 'q':
+                return 0;
+            default:
+                printf("%d: Unknown option\n", selection);
+        } /*switch(m_v.content)*/
+    }
+}
 
-			case 2:
-			{
-				unsigned int radmax = 0, radmin = 0; /*随机数变量*/
-				printf("输入最小值：");
-				scanf("%d", &radmin);
-				printf("输入最大值：");
-				scanf("%d", &radmax);
-				printf("您的随机数是：%ld\n\n", randomnum(clock(), radmax, radmin));
-				break;
-			}
-
-			case 3: /*计算器*/
-			{
-				char infix[BUFFERSIZE];
-				fflush(stdin);
-				printf("输入算式：");
-				fflush(stdin);
-				fgets(infix, BUFFERSIZE, stdin);
-				printf("%lf\n", calculate(infix)); /*使用libsbl中的函数进行计算*/
-				break;
-			}
-
-			case 4: /*关机器*/
-			{
-#if PLAT
-				system("shutdown /t 20");
-#else
-				system("shutdown +0.3");
-#endif
-				printf("输入1来阻止关闭系统");
-				if (scanf("%d", &m_v.shutdownsys) == 1)
-#if PLAT
-					system("shutdown /a");
-#else
-					system("shutdown -c");
-#endif
-				break;
-			}
-
-			case 5: /*输出指定范围内的指数 */
-			{
-				int pn1, pn2;
-				printf("输入最小值：");
-				scanf("%d", &pn1);
-				printf("\n输入最大值：");
-				scanf("%d", &pn2);
-				slib_prtpn(pn1, pn2);
-				break;
-			}
-			case 6: /*测试一个数是否质数*/
-			{
-				int pn;
-				printf("输入待测试数:");
-				scanf("%d", &pn);
-				if (slib_ispn(pn) == STRUE)
-					printf("\n是质数！\n");
-				else
-					printf("\n不是质数！\n");
-				break;
-			}
-			case 7: /*测试两个数是否互质*/
-			{
-				int num1, num2;
-				printf("输入数一:");
-				scanf("%d", &num1);
-				printf("\n输入数二:");
-				scanf("%d", &num2);
-				if (slib_isrp(num1, num2) == STRUE)
-					printf("\n互质！\n");
-				else
-					printf("不互质！\n");
-				break;
-			}
-			case 'q':
-				return 0;
-			default:
-				printf("%d: Unknown option\n", m_v.content);
-		} /*switch(m_v.content)*/
-	}
-	return 0;
-} /*main*/
+int main(int argc, const char *argv[])
+{
+    int c;
+    char *sopts = ":uhvr:g:l:p:d:c:";
+    if (argc > 1)
+    {
+        while ((c = getoptGS(argc, argv, sopts)) != -1)
+        {
+            switch (c)
+            {
+                case 'u':
+                    return ui();
+                case 'h':
+                    usage();
+                    return 0;
+                case 'v':
+                {
+                    printf("sbl admin %s\n", ver);
+                    printf("Build %s，%s\n", __DATE__, __TIME__);
+                    break;
+                }
+                case 'r':
+                {
+                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    printf("%ld and %ld are", n1, n2);
+                    if (!slib_isrp(n1, n2))
+                        printf(" not");
+                    puts(" coprime");
+                    break;
+                }
+                case 'g':
+                {
+                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    printf("gcf(%ld, %ld) = %ld", n1, n2, slib_gcf(n1, n2));
+                    break;
+                }
+                case 'l':
+                {
+                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    printf("lcm(%ld, %ld) = %ld", n1, n2, slib_gcf(n1, n2));
+                    break;
+                }
+                case 'p':
+                {
+                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    slib_prtpn(n1, n2);
+                    break;
+                }
+                case 'd':
+                {
+                    long n = atol(optargGS);
+                    printf("%ld is", n);
+                    if (!slib_ispn(n))
+                        printf(" not");
+                    puts(" a prime number");
+                    break;
+                }
+                case 'c':
+                case '?':
+                    usage();
+                    fprintf(stderr, "admin: unknown option -%c\n", optopt);
+                    return 1;
+                case ':':
+                    usage();
+                    fprintf(stderr, "admin: option -%c needs an argument\n",
+                            optopt);
+                    return 1;
+                default:;
+            }
+        }
+        return 0;
+    }
+    else
+    {
+        return ui();
+    }
+}
 
 void usage(void)
 {
-	printf("Usage:admin [-u] [-h] [-r <n1> <n2>] [-g <n1> <n2>] [-l <n1> <n2>]\n"
-	       "\t[-p <n1> <n2>] [-d <num>] [-c <exp>]\n"
-	       "options:"
-	       "\n\t-u 用户界面，和不键入任何内容是一样的;"
-	       "\n\t-h 帮助页面;"
-	       "\n\t-r 判断n1, n2是否互质;"
-	       "\n\t-g 得到n1,n2的最大公约数;"
-	       "\n\t-l 得到n1,n2的最小公倍数;"
-	       "\n\t-p 得到介于n1和n2之间的质数;"
-	       "\n\t-d 判断num是否质数;"
-	       "\n\t-c 计算表达式的值;");
+    printf("Usage:\n"
+           "\tadmin [-uhv] [-r <n1> <n2>] [-g <n1> <n2>] [-l <n1> <n2>]\n"
+           "\t[-p <n1> <n2>] [-d <num>] [-c <exp>]\n"
+           "Options:"
+           "\n\t-u Interactive mode, same as no options"
+           "\n\t-h Show this page."
+           "\n\t-v Show version."
+           "\n\t-r Show whether n1 and n2 are coprime."
+           "\n\t-g Greatest common factor(divisor) of n1 and n2."
+           "\n\t-l Least common multiple of n1 and n2."
+           "\n\t-p Print prime numbers between n1 and n2."
+           "\n\t-d Primality test."
+           "\n\t-c Calculate exp.\n");
 }
