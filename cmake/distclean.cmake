@@ -3,6 +3,8 @@ set(cmake_generated
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/cmake_install.cmake
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/install_manifest.txt
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/Makefile
+    ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/rules.ninja
+    ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/build.ninja
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/CMakeFiles
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/sbl.pc
 )
