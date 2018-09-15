@@ -14,7 +14,8 @@ add_custom_target(distclean
         ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake
     COMMAND ${CMAKE_COMMAND} -DRUNNING_DIR=src -P
         ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake)
-
+    add_custom_target(uninstall
+        COMMAND ${CMAKE_SOURCE_DIR}/cmake/uninstall.sh)
 install(FILES include/slib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY include/slib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_BINARY_DIR}/sbl.pc
