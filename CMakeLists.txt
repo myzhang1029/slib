@@ -1,14 +1,21 @@
-cmake_minimum_required(VERSION 2.6)
-project(sbl)
+cmake_minimum_required(VERSION 3.0)
+include(GNUInstallDirs)
 
-# version 3.7.0
-set(libsbl_VERSION_MAJOR 3)
-set(libsbl_VERSION_MINOR 7)
-
+project(libsbl VERSION 3.7.0
+    DESCRIPTION "A C library providing many useful operations")
 include_directories(include)
-aux_source_directory(src LIBFILES)
-add_library(sbl ${LIBFILES})
+add_subdirectory(src)
 
-install(TARGETS sbl DESTINATION lib)
-install(FILES include/slib.h DESTINATION include)
-install(DIRECTORY include/slib DESTINATION include)
+configure_file(sbl.pc.in sbl.pc @ONLY)
+
+add_custom_target(distclean
+    COMMAND ${CMAKE_BUILD_TOOL} clean
+    COMMAND ${CMAKE_COMMAND} -P
+        ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake
+    COMMAND ${CMAKE_COMMAND} -DRUNNING_DIR=src -P
+        ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake)
+
+install(FILES include/slib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(DIRECTORY include/slib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_BINARY_DIR}/sbl.pc
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
