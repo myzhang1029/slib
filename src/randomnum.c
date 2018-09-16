@@ -28,6 +28,8 @@
 OPT unsigned long randomnum(unsigned seed, unsigned long maximum,
                             unsigned long minimum)
 {
+    if(maximum == minimum)/* prevent SIGFPE */
+        return maximum;
     srand(seed);
     return minimum + rand() % (maximum - minimum);
 }
