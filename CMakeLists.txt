@@ -1,13 +1,31 @@
 cmake_minimum_required(VERSION 3.0)
 include(GNUInstallDirs)
+include(CheckIncludeFiles)
+include(CheckFunctionExists)
+include(CheckTypeSize)
 
 project(libsbl VERSION 3.8.1
     DESCRIPTION "A C library providing many useful operations")
 include_directories(include)
 add_subdirectory(src)
 
+# checks
+check_include_files(alloca.h HAVE_ALLOCA_H)
+check_include_files(fcntl.h HAVE_FCNTL_H)
+check_include_files(termios.h HAVE_TERMIOS_H)
+check_include_files(unistd.h HAVE_UNISTD_H)
+check_function_exists(alloca HAVE_ALLOCA)
+check_type_size(size_t SIZE_T)
+if(NOT SIZE_T)
+    set(size_t int)
+endif()
+
 # pkg-config file
 configure_file(sbl.pc.in sbl.pc @ONLY)
+
+# config.h
+configure_file(config.h.in config.h)
+set(CMAKE_CPP_FLAGS "-DHAVE_CONFIG_H")
 
 # distclean target
 add_custom_target(distclean

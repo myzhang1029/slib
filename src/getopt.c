@@ -30,6 +30,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(HAVE_ALLOCA_H) && defined(HAVE_ALLOCA)
+#include <alloca.h>
+#define alloca_free()
+#else
+#undef alloca
+#define alloca malloc
+#define alloca_free free
+#endif
+
 #ifdef __cplusplus
 #define _GETOPT_THROW throw()
 #else
@@ -229,6 +238,7 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring,
                     newp->p = p;
                     newp->next = ambig_list;
                     ambig_list = newp;
+                    alloca_free(newp);
                 }
             }
         if (ambig_list != NULL && !exact)

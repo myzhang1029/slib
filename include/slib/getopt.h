@@ -23,6 +23,10 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
+#ifndef SLIB_GETOPT_H
+#define SLIB_GETOPT_H
+#include <slib/general.h>
+
 #ifdef __cplusplus
 #define _BEGIN_EXTERN_C extern "C" {
 #define _END_EXTERN_C }
@@ -67,14 +71,4 @@ int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
 
 _END_EXTERN_C
 
-#ifndef _SLIB_LIBRARY
-#define optind optindGS
-#define optarg optargGS
-#define opterr opterrGS
-#define optopt optoptGS
-#define getopt getoptGS
-#define getopt_long getopt_longGS
-#define getopt_long_only getopt_long_onlyGS
-#define _getopt_internal _getopt_internalGS
-#define _getopt_internal_r _getopt_internal_rGS
-#endif /* not _SLIB_LIBRARY */
+#endif /* SLIB_GETOPT_H */
