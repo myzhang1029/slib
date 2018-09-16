@@ -6,16 +6,20 @@ project(libsbl VERSION 3.7.0
 include_directories(include)
 add_subdirectory(src)
 
+# pkg-config file
 configure_file(sbl.pc.in sbl.pc @ONLY)
 
+# distclean target
 add_custom_target(distclean
     COMMAND ${CMAKE_BUILD_TOOL} clean
     COMMAND ${CMAKE_COMMAND} -P
-        ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake
+    ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake
     COMMAND ${CMAKE_COMMAND} -DRUNNING_DIR=src -P
-        ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake)
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_SOURCE_DIR}/cmake/uninstall.sh)
+    ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake)
+# uninstall target    
+add_custom_target(uninstall
+    COMMAND ${CMAKE_SOURCE_DIR}/cmake/uninstall.sh)
+
 install(FILES include/slib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY include/slib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_BINARY_DIR}/sbl.pc
