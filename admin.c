@@ -27,6 +27,7 @@
 #include <time.h>
 #include <slib/getopt.h>
 #include <slib/math.h>
+#include <slib/stack.h>
 
 const char *ver = "4.0.0";
 
@@ -34,82 +35,90 @@ void usage(void);
 int ui()
 {
     char selection = 0;
+helpme:
+    printf("1: Pseudo-random number genertor\n"
+           "2: Calculator\n"
+           "3: Prime numbers in a range\n"
+           "4: Primality test\n"
+           "5: Coprime test\n");
     for (;;)
     {
-        printf(
-            "\n1=查看系统版本\n2=产生随机数\n3=计算器\n4="
-            "输出指定范围内的质数"
-            "\n5=判断一个数是否质数\n6=判断两数是否互质\n请选择："); /*程序主菜单*/
+        printf("(admin) ");
         fflush(stdin);
-        scanf("%c", &selection);
+reparse:
+        selection = getchar();
+        if (feof(stdin))
+        {
+            puts("");
+            return 0;
+        }
         switch (selection)
         {
-            case '1': /* version */
-            {
-                printf("sbl admin %s\n", ver);
-                printf("Build %s，%s\n", __DATE__, __TIME__);
-                break;
-            }
-            case '2':
+            case '\n':
+            case ' ':
+                goto reparse;
+            case '1':
             {
                 unsigned int radmax = 0, radmin = 0;
-                printf("输入最小值：");
+                printf("Minimum: ");
                 scanf("%d", &radmin);
-                printf("输入最大值：");
+                printf("Maximum: ");
                 scanf("%d", &radmax);
-                printf("您的随机数是：%ld\n\n",
-                       randomnum(clock(), radmax, radmin));
+                printf("Output: %ld\n", randomnum(clock(), radmax, radmin));
                 break;
             }
-            case '3': /*计算器*/
+            case '2': /*计算器*/
             {
                 char infix[BUFFERSIZE];
                 fflush(stdin);
-                printf("输入算式：");
+                printf("Enter expression: ");
                 fflush(stdin);
                 fgets(infix, BUFFERSIZE, stdin);
-                printf("%lf\n", calculate(infix));
+                printf("Result: %lf\n", calculate(infix));
                 break;
             }
-            case '4': /*输出指定范围内的指数 */
+            case '3': /*输出指定范围内的指数 */
             {
                 int pn1, pn2;
-                printf("输入最小值：");
+                printf("Minimum: ");
                 scanf("%d", &pn1);
-                printf("\n输入最大值：");
+                printf("Maximum: ");
                 scanf("%d", &pn2);
                 slib_prtpn(pn1, pn2);
                 break;
             }
-            case '5': /*测试一个数是否质数*/
+            case '4': /*测试一个数是否质数*/
             {
                 int pn;
-                printf("输入待测试数:");
+                printf("Which number to test: ");
                 scanf("%d", &pn);
                 if (slib_ispn(pn) == STRUE)
-                    printf("\n是质数！\n");
+                    printf("Is a prime number!\n");
                 else
-                    printf("\n不是质数！\n");
+                    printf("Not a prime number!\n");
                 break;
             }
-            case '6': /*测试两个数是否互质*/
+            case '5': /*测试两个数是否互质*/
             {
                 int num1, num2;
-                printf("输入数一:");
+                printf("First number: ");
                 scanf("%d", &num1);
-                printf("\n输入数二:");
+                printf("Second number: ");
                 scanf("%d", &num2);
                 if (slib_isrp(num1, num2) == STRUE)
-                    printf("\n互质！\n");
+                    printf("They are coprime!\n");
                 else
-                    printf("不互质！\n");
+                    printf("They are not coprime!\n");
                 break;
             }
             case 'q':
                 return 0;
+            case 'h':
+                goto helpme;
             default:
-                printf("%d: Unknown option\n", selection);
-        } /*switch(m_v.content)*/
+                printf("%c: Unknown option\n", selection);
+                goto helpme;
+        }
     }
 }
 
@@ -146,13 +155,13 @@ int main(int argc, const char *argv[])
                 case 'g':
                 {
                     long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
-                    printf("gcf(%ld, %ld) = %ld", n1, n2, slib_gcf(n1, n2));
+                    printf("gcf(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 }
                 case 'l':
                 {
                     long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
-                    printf("lcm(%ld, %ld) = %ld", n1, n2, slib_gcf(n1, n2));
+                    printf("lcm(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 }
                 case 'p':
@@ -171,6 +180,10 @@ int main(int argc, const char *argv[])
                     break;
                 }
                 case 'c':
+                {
+                    printf("%lf\n", calculate(optargGS));
+                    break;
+                }
                 case '?':
                     usage();
                     fprintf(stderr, "admin: unknown option -%c\n", optopt);
