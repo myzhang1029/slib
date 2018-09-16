@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 include(GNUInstallDirs)
 
-project(libsbl VERSION 3.7.0
+project(libsbl VERSION 3.8.0
     DESCRIPTION "A C library providing many useful operations")
 include_directories(include)
 add_subdirectory(src)
