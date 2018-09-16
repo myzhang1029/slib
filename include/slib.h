@@ -32,9 +32,6 @@
 
 #include <slib/general.h>
 
-#define STKELMT 100    /*Stack max. element count*/
-#define BUFFERSIZE 100 /*Stack buffer size*/
-
 #define mtreturn(lenth, ...) return mkret(lenth, __VA_ARGS__)
 
 #if PLAT
@@ -45,15 +42,6 @@ _BEGIN_EXTERN_C
 
 /*External variables*/
 extern unsigned retind;
-
-/*Structures, Enums, Unions, typedefs*/
-typedef struct Stack
-{
-    void *base;
-    void *top;
-    int stackSize;
-    int typeSize;
-} sqStack;
 
 typedef struct mtrt
 {
@@ -74,18 +62,6 @@ enum cpfcolors
 };
 
 /*declation start*/
-OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize);
-
-OPT int Push(sqStack *s, void *e);
-
-OPT int Pop(sqStack *s, void *e);
-
-OPT int ClearStack(sqStack *s);
-
-OPT int DestroyStack(sqStack *s);
-
-OPT int GetLen(sqStack *s);
-
 OPT double calculate(const char *infix);
 
 OPT unsigned long randomnum(unsigned seed, unsigned long maximum,

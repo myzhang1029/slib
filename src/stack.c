@@ -1,5 +1,5 @@
 /*
- *  getlen.c - Get stack lenth function in the Slib library
+ *  stack.c - stack in the slib
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *  Thanks a user on CSDN.NET for most of the code.
@@ -22,9 +22,53 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib.h"
+#include <string.h>
+#include "slib/stack.h"
+
+OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize)
+{
+    s->base = malloc(stackSize);
+    if (!s->base)
+        return SERROR;
+    s->top = s->base;
+    s->stackSize = stackSize;
+    s->typeSize = typeSize;
+    return STRUE;
+}
+
+OPT int Push(sqStack *s, void *e)
+{
+    if ((int)s->top - (int)s->base + s->typeSize > s->stackSize)
+        return SFALSE;
+    memcpy(s->top, e, s->typeSize);
+    s->top = (void *)((int)s->top + s->typeSize);
+    return STRUE;
+}
+
+OPT int Pop(sqStack *s, void *e)
+{
+    if (s->top == s->base)
+        return SFALSE;
+    s->top = (void *)((int)s->top - (int)s->typeSize);
+    memcpy(e, s->top, s->typeSize);
+    return STRUE;
+}
 
 OPT int GetLen(sqStack *s)
 {
     return ((int)s->top - (int)s->base) / s->typeSize;
+}
+
+OPT int ClearStack(sqStack *s)
+{
+    s->top = s->base;
+    return STRUE;
+}
+
+OPT int DestroyStack(sqStack *s)
+{
+    free(s->base);
+    s->top = s->base = NULL;
+    s->stackSize = s->typeSize = 0;
+    return STRUE;
 }

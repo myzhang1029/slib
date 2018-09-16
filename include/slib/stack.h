@@ -1,8 +1,7 @@
 /*
- *  initstack.c - Inital stack function in the slib
+ *  stack.h - Stack functions
  *
- *  Copyright (C) 2017 Zhang Maiyun
- *  Thanks a user on CSDN.NET for most of the code.
+ *  Copyright (C) 2018 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
@@ -23,16 +22,34 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include <stdlib.h>
-#include "slib.h"
+#ifndef SLIB_STACK_H
+#define SLIB_STACK_H
+#include <slib/general.h>
 
-OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize)
+#define STKELMT 100    /*Stack max. element count*/
+#define BUFFERSIZE 100 /*Stack buffer size*/
+
+_BEGIN_EXTERN_C
+
+typedef struct Stack
 {
-    s->base = malloc(stackSize);
-    if (!s->base)
-        return SERROR;
-    s->top = s->base;
-    s->stackSize = stackSize;
-    s->typeSize = typeSize;
-    return STRUE;
-}
+    void *base;
+    void *top;
+    int stackSize;
+    int typeSize;
+} sqStack;
+
+OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize);
+
+OPT int Push(sqStack *s, void *e);
+
+OPT int Pop(sqStack *s, void *e);
+
+OPT int ClearStack(sqStack *s);
+
+OPT int DestroyStack(sqStack *s);
+
+OPT int GetLen(sqStack *s);
+_END_EXTERN_C
+
+#endif /* SLIB_STACK_H */

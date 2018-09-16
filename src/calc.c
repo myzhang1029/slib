@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "slib.h"
+#include "slib/stack.h"
 
 /*
 将中缀表达式转换为后缀表达式
