@@ -22,75 +22,36 @@
  #
  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CROSS=
-CC=$(CROSS)gcc
-AR=$(CROSS)ar
-RM=rm
-CFLAGS=-Wno-int-to-pointer-cast -Wno-variadic-macros -W -Wall -pedantic -c -O2 -Iinclude
-PREFIX=/usr/local
-CFILES= \
-src/average.c \
-src/bsearchfile.c \
-src/calc.c \
-src/colorprintf.c \
-src/eular.c \
-src/fnmatch.c \
-src/fsize.c \
-src/gcf.c \
-src/getch.c \
-src/getopt.c \
-src/iofile.c \
-src/ispn.c \
-src/isrp.c \
-src/itoa.c \
-src/lcm.c \
-src/mret.c \
-src/mtscat.c \
-src/permcomb.c \
-src/prtpn.c \
-src/randomnum.c \
-src/sleepS.c \
-src/splitpathS.c \
-src/stack.c
-
-HFILES= \
-include/slib/fileopt.h \
-include/slib/fnmatch.h \
-include/slib/general.h \
-include/slib/getopt.h \
-include/slib/itoa.h \
-include/slib/math.h \
-include/slib/overflow.h \
-include/slib/stack.h \
-include/slib.h
-
-EXESUF=.dll
-SOFLAGS=-shared
-LIBDIR=$(PREFIX)/lib
-INCLUDEDIR=$(PREFIX)/include
+include config.mk
 
 .PHONY: install clean all tags
 
 all:libsbl$(EXESUF)
 
-libsbl$(EXESUF): $(HFILES) $(CFILES:.c=.o)
-	$(CC) $(SOFLAGS) src/*.o -o $@
-	$(AR) rcs ./libsbl.a src/*.o
+libsbl$(EXESUF): src $(HFILES) $(CFILES:.c=.o)
+	$(CC) $(SOFLAGS) $(CFILES:.c=.o) -o $@
+	$(AR) rcs ./libsbl.a $(CFILES:.c=.o)
 
-%.o:%.c
+src:
+	mkdir src
+
+$(CFILES:.c=.o):%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(PLAT) $^ -o $@
 
 install:
 	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR) $(INCLUDEDIR)/slib
 	install -c -p -m 644 include/slib.h $(INCLUDEDIR)
 	install -c -p -m 644 include/slib $(INCLUDEDIR)
+	install -c -p -m 644 sbl.pc $(LIBDIR)/pkgconfig
 	install -c -p -m 644 libsbl.a $(LIBDIR)
 	install -c -p -m 755 libsbl$(EXESUF) $(LIBDIR)
 
 clean:
-	-$(RM) libsbl.dll libsbl.so *.o */*.o *.a -f 2>/dev/null
+	$(RM) -f libsbl.dylib libsbl.dll libsbl.so *.o */*.o *.a
+	-rmdir src 2>/dev/null
 
 tags:
 	ctags -R
 	
 distclean: clean
+	$(RM) -f Makefile config.mk config.h sbl.pc
