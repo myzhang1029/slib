@@ -65,6 +65,7 @@ ETAGS
 GTAGS
 build/
 .libs/
+sbl.pc
 
 # CMake
 CMakeCache.txt
@@ -82,8 +83,6 @@ CTestTestfile.cmake
 *.swp
 
 # Config
-autom4te.cache
-.xmake/
 Makefile
 config.h
 config.log
@@ -93,6 +92,7 @@ stamp-h1
 src/.deps
 src/Makefile
 src/.dirstamp
+config.mk
 
 # OS
 .DS_Store
