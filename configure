@@ -1,6 +1,5 @@
 #!/bin/sh
-# GEN:config.mk
-# 
+#
 #  Guess values for system-dependent variables and create Makefiles.
 #
 #  Copyright (C) 2017, 2018 Zhang Maiyun
@@ -46,35 +45,12 @@ name="libsbl"
 version="`grep project ${srcdir}/CMakeLists.txt|cut -d\  -f3`"
 description="`grep DESCRIPTION ${srcdir}/CMakeLists.txt|cut -f2 -d$'\"'`"
 
-# Function strstr
-strstr(){
-	expr match "$1" ".*$2" >/dev/null&&return 0
-	return 1
-}
+. $srcdir/cmake/acconf.sh
 
-# Header file check
-# $1: name
-check_header(){
-    printf "Checking for $1... "
-    cat > conftest.c << ACEOF
-#include <$1>
-int main(){}
-ACEOF
-    if ! ${cc} conftest.c -o conftest;
-    then
-        echo no
-        rm -f conftest.c conftest conftest.exe
-        return 1
-    else
-        echo yes
-        rm -f conftest.c conftest conftest.exe
-        return 0
-    fi
-}
+check_progs printf cut sed
 
 # Help
-help_me()
-{
+help_me(){
 	printf 'Usage: %s/configure [option=<vaule> | --help]\n' ${srcdir}
 	printf 'Options:\n'
 	printf '  --prefix=PREFIX\tSet prefix;\n'
@@ -96,118 +72,78 @@ help_me()
 
 # Parse arguments
 for opt do
-  eval opt=\"${opt}\"
-  case "${opt}" in
-  --prefix=*) prefix=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --host=*) cross=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --build=*)
-  ;;
-  --target=*)
-  ;;
-  --rm=*) rm=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --exesuffix=*) exesuf=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --bindir=*) bindir=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --libdir=*) libdir=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --includedir=*) includedir=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --mandir=*) mandir=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --infodir=*) infodir=`echo ${opt} | cut -d '=' -f 2`
-  ;;
-  --soflags=*) soflags="${soflags} `echo ${opt} | cut -d '=' -f 2`"
-  ;;
-  --help|-h) help_me
-  ;;
-  *) printf '\033[1mconfigure: \033[33mWarning: \033[0munrecognized option %s\n' "${opt}"
-  ;;
-  esac
+    eval opt=\"${opt}\"
+    case "${opt}" in
+        --prefix=*) prefix=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --host=*) cross=`echo ${opt} | cut -d '=' -f 2`
+            if ! [ "$cross" = "" ];
+            then
+                cross=`${srcdir}/cmake/config.sub $cross` || exit 
+            fi
+            ;;
+        --build=*|--target=*)
+            ;;
+        --rm=*) rm=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --exesuffix=*) exesuf=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --bindir=*) bindir=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --libdir=*) libdir=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --includedir=*) includedir=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --mandir=*) mandir=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --infodir=*) infodir=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --soflags=*) soflags="${soflags} `echo ${opt} | cut -d '=' -f 2`"
+            ;;
+        --help|-h) help_me
+            ;;
+        *) echo configure: Warning: unrecognized option ${opt}
+            ;;
+    esac
 done
 
-w=0
-# Check for C compiler
-printf "Checking for C Compiler... "
-if [ "$cc" = "" ] ; then
-  if ${cross}-clang -v > /dev/null 2>&1; then
-    cc="${cross}-clang"
-  elif ${cross}-gcc -v > /dev/null 2>&1; then
-    cc="${cross}-gcc"
-    cflags="-Wno-misleading-indentation $cflags"
-  elif ${cross}-tcc -v > /dev/null 2>&1; then
-    cc="${cross}-tcc"
-  elif ${cross}-cc -v > /dev/null 2>&1; then
-    cc="${cross}-cc"
-  elif clang -v > /dev/null 2>&1; then
-    cc="clang"
-    w=1
-  elif gcc -v > /dev/null 2>&1; then
-    cc="gcc"
-    w=1
-    cflags="-Wno-misleading-indentation $cflags"
-  elif tcc -v > /dev/null 2>&1; then
-    cc="tcc"
-    w=1
-  elif cc -v > /dev/null 2>&1; then
-    cc="cc"
-    w=1
-  else
-    echo no
-    printf '\033[1mconfigure: \033[31mError: \033[30mNo C compiler found!\nPlease specify. Read "./configure --help" for more infomation\033[0m\n'
-    exit 1
-  fi
-else 
-  strstr "$cc" "gcc" && cflags="-Wno-misleading-indentation $cflags"
-fi
-echo $cc
-if [ "$cross" != "" ] && [ $w -eq 1 ];
+# system name for the host platform
+if [ "$cross" = "" ];
 then
-    echo '\033[1mconfigure: \033[33mWarning: \033[0musing unprefixed cc when cross-compiling'
+    system_name=`$srcdir/cmake/config.guess`
+else
+    system_name=$cross
+fi
+echo Starting configuration for host $system_name
+system_name=`extract_os $system_name`
+
+# Check for C compiler
+if [ "$cc" = "" ];
+then
+    check_cc $cross
 fi
 
-w=0
 # Check for ar
-printf "Checking for ar... "
 if [ "$ar" = "" ] ; then
-  if which ${cross}-ar > /dev/null 2>&1; then
-    ar="${cross}-ar"
-  elif which ar > /dev/null 2>&1; then
-    ar="ar"
-    w=1
-  else
-    echo no
-    printf '\033[1mconfigure: \033[31mError: \033[30mNo ar found!\nPlease specify. Read "./configure --help" for more infomation\033[0m\n'
-    exit 1
-  fi
-fi
-echo $ar
-if [ "$cross" != "" ] && [ $w -eq 1 ];
-then
-    echo '\033[1mconfigure: \033[33mWarning: \033[0musing unprefixed ar when cross-compiling'
+    check_ar $cross
 fi
 
 # For exesuf
 printf "Checking suffix for shared objects... "
 
-if [ "$exesuf" = "" ] ; then
-  case `uname` in
-    Linux|*BSD|GNU) exesuf=".so";
-	    soflags="-fPIC -shared -Os"
-    ;;
-    Darwin) exesuf=".dylib";
-	    soflags="-dynamiclib -current_version $version"
-    ;;
-    MINGW*|MSYS*|CYGWIN*) exesuf=".dll";soflags="-shared"
-    ;;
+case $system_name in
+    *linux*|*bsd*|sunos*|minix*|solaris*) exesuf=".so"
+        soflags="-fPIC -shared -Os"
+        ;;
+    darwin*|*step*) exesuf=".dylib"
+        soflags="-dynamiclib -current_version $version"
+        ;;
+    windows*|mingw*|msys*|cygwin*) exesuf=".dll";soflags="-shared"
+        ;;
     *) echo unknown
-	    printf '\033[1mconfigure: \033[31mError: \033[0munable to determine suffix for shared objects(aka dylib/so/dll), please add option --exesuffix\n'
-      exit 1
-  esac
-fi
+        echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --exesuffix
+        exit 1
+esac
 echo $exesuf
 
 if check_header "alloca.h";
@@ -269,4 +205,3 @@ sed "s,@CMAKE_INSTALL_PREFIX@,${prefix},;s,@CMAKE_INSTALL_LIBDIR@,lib,;\
     s,@PROJECT_VERSION@,${version},;" ${srcdir}/sbl.pc.in > sbl.pc
 
 echo Generating config.h
-printf 'configure: \033[32mfinished\033[30m\n'
