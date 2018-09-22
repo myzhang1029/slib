@@ -98,6 +98,25 @@ check_cc(){
     then
         echo configure: Warning: Using unprefixed cc while cross-compiling.
     fi
+    printf 'Checking whether the C Compiler works... '
+    cat > conftest.c << ACEOF
+#include <stdio.h>
+int main(){}
+ACEOF
+    if ${cc} conftest.c -o conftest >/dev/null 2>&1;
+    then
+        echo yes
+        rm -f conftest.c conftest conftest.exe
+        return 0
+    else
+        echo no
+        echo The C Compiler cannot compile a simple source file
+        echo The failed source file was:
+        echo "#include <stdio.h>"
+        echo "int main(){}"
+        rm -f conftest.c conftest conftest.exe
+        exit 1
+    fi
 }
 
 # AC_PROG_AR
