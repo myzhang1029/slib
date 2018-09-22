@@ -5,8 +5,8 @@ include(CheckFunctionExists)
 include(CheckTypeSize)
 
 project(libsbl VERSION 3.8.1
-    LANGUAGES "C"
-    DESCRIPTION "A C library providing many useful operations")
+    LANGUAGES "C")
+set(PROJECT_DESCRIPTION "A C library providing many useful operations")
 include_directories(include)
 add_subdirectory(src)
 
