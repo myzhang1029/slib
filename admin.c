@@ -1,5 +1,5 @@
 /*
- *  admin.c – The admin project
+ *  admin.c - The admin project
  *
  *  Copyright (C) 2016, 2017 Zhang Maiyun
  *
@@ -29,7 +29,7 @@
 #include <slib/math.h>
 #include <slib/stack.h>
 
-const char *ver = "4.0.0";
+const char *ver = "4.0.1";
 
 void usage(void);
 int ui()
@@ -186,12 +186,12 @@ int main(int argc, const char *argv[])
                 }
                 case '?':
                     usage();
-                    fprintf(stderr, "admin: unknown option -%c\n", optopt);
+                    fprintf(stderr, "admin: unknown option -%c\n", optoptGS);
                     return 1;
                 case ':':
                     usage();
                     fprintf(stderr, "admin: option -%c needs an argument\n",
-                            optopt);
+                            optoptGS);
                     return 1;
                 default:;
             }
