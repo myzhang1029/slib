@@ -36,7 +36,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
 #if defined(STDC_HEADERS) || !defined(isascii)
 #define FOLD(c) ((flags & FNM_CASEFOLD) && isupper(c) ? tolower(c) : (c))
 #else
-#define ISUPPER(c)                                                             \
+#define FOLD(c)                                                             \
     ((flags & FNM_CASEFOLD) && (isascii(c) && isupper(c)) ? tolower(c) : (c))
 #endif
 
