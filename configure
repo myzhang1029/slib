@@ -132,7 +132,7 @@ fi
 printf "Checking suffix for shared objects... "
 
 case $system_name in
-    *linux*|*bsd*|sunos*|minix*|solaris*) exesuf=".so"
+    *gnu*|*bsd*|sunos*|minix*|solaris*) exesuf=".so"
         soflags="-fPIC -shared -Os"
         ;;
     darwin*|*step*) exesuf=".dylib"
