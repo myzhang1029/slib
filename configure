@@ -217,8 +217,8 @@ distclean: clean
 ACEOF
 for file in $cfiles;
 do
-	echo ${file}.o:${srcdir}/${file} >> Makefile
-    echo "	${cc} ${cflags} -c -o \$@ \$^" >> Makefile
+    echo ${file}.o:${srcdir}/${file} >> Makefile
+    echo "	${cc} ${cflags} -c -o \$@ ${srcdir}/${file}" >> Makefile
 done
 
 echo Generating sbl.pc
