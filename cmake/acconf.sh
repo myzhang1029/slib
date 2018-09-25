@@ -50,6 +50,7 @@ check_progs(){
         then
             echo no
             echo configure: Error: Required program $1 not found, you may need to install one.
+            exit 1
         fi
         shift
     done
