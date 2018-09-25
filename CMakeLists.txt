@@ -10,6 +10,9 @@ set(PROJECT_DESCRIPTION "A C library providing many useful operations")
 include_directories(include)
 add_subdirectory(src)
 
+add_executable(sbltool sbltool.c)
+target_link_libraries(sbltool sbl)
+
 # checks
 check_include_files(alloca.h HAVE_ALLOCA_H)
 check_include_files(fcntl.h HAVE_FCNTL_H)
@@ -39,6 +42,7 @@ add_custom_target(distclean
 add_custom_target(uninstall
     COMMAND ${CMAKE_SOURCE_DIR}/cmake/uninstall.sh)
 
+install(TARGETS sbltool DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES include/slib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(DIRECTORY include/slib DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES ${CMAKE_BINARY_DIR}/sbl.pc

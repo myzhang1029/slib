@@ -33,6 +33,7 @@ check_progs make
 # Default/init vaule of variables
 cross=""
 prefix="/usr/local"
+bindir=""
 libdir=""
 includedir=""
 mandir=""
@@ -41,11 +42,12 @@ cc="${CC}"
 ar="${AR}"
 rm="rm"
 build=""
-cflags="${CFLAGS} ${CPPFLAGS} -Wno-variadic-macros -W -Wall -pedantic -c -O3 -I${srcdir}/include"
+cflags="${CFLAGS} ${CPPFLAGS} -Wno-variadic-macros -W -Wall -pedantic -O3 -I${srcdir}/include"
 soflags=""
 cfiles="`cd ${srcdir};find src -name '*.c' -type f | tr '\n' ' '`"
 hfiles="`find ${srcdir}/include -name '*.h' -type f | tr '\n' ' '`"
 exesuf=""
+sosuf=""
 # Get constants defined in CMakeLists.txt
 name="libsbl"
 version="`grep project ${srcdir}/CMakeLists.txt|cut -d\  -f3`"
@@ -60,7 +62,8 @@ help_me(){
 	printf '  --host=HOST\tcross-compile to build programs to run on HOST [BUILD]'
 	printf '  --target=TARGET\tIgnored'
     printf '  --rm=RM\tSet remover(Should support "-f" option);\n'
-	printf '  --exesuf=SUFFIX\tSet suffix of shared objects;\n'
+	printf '  --sosuffix=EXT_WITH_A_DOT\tSet extension of shared objects;\n'
+	printf '  --exesuffix=EXT_WITH_A_DOT\tSet extension of executables;\n'
 	printf '  --soflags=SOFLAGS\tSet CFLAGS for shared objects\n'
 	printf '  --{bin,lib,include,man,info}dir=DIR\t Set bindir, libdir, includedir, mandir, infodir;\n'
 	printf '  --help,-h\tDisplay this help information.\n\n'
@@ -87,6 +90,8 @@ for opt do
         --build=*|--target=*)
             ;;
         --rm=*) rm=`echo ${opt} | cut -d '=' -f 2`
+            ;;
+        --sosuffix=*) sosuf=`echo ${opt} | cut -d '=' -f 2`
             ;;
         --exesuffix=*) exesuf=`echo ${opt} | cut -d '=' -f 2`
             ;;
@@ -130,21 +135,33 @@ if [ "$ar" = "" ] ; then
     check_ar $cross
 fi
 
-# For exesuf
-printf "Checking suffix for shared objects... "
+# For sosuf
+printf "Checking for extension of shared objects... "
 
 case $system_name in
-    *gnu*|*bsd*|sunos*|minix*|solaris*) exesuf=".so"
+    *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
         soflags="-fPIC -shared -Os"
         ;;
-    darwin*|*step*) exesuf=".dylib"
+    darwin*|*step*) sosuf=".dylib"
         soflags="-dynamiclib -current_version $version"
         ;;
-    windows*|mingw*|msys*|cygwin*) exesuf=".dll";soflags="-shared"
+    windows*|mingw*|msys*|cygwin*) sosuf=".dll"
+        soflags="-shared"
         ;;
     *) echo unknown
-        echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --exesuffix
+        echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --sosuffix
         exit 1
+esac
+echo $sosuf
+
+# For exesuf
+printf "Checking for extension of executables... "
+
+case $system_name in
+    windows*|mingw*|msys*|cygwin*) exesuf=".exe"
+        ;;
+    *) exesuf=""
+        ;;
 esac
 echo $exesuf
 
@@ -179,6 +196,9 @@ fi
 if [ "$libdir" = "" ] ; then
 	libdir="$prefix/lib"
 fi
+if [ "$bindir" = "" ] ; then
+	bindir="$prefix/bin"
+fi
 if [ "$includedir" = "" ] ; then
 	includedir="$prefix/include"
 fi
@@ -190,26 +210,30 @@ cat > Makefile << ACEOF
 OBJECTS=`echo ${cfiles} | sed s/\\\.c/.c.o/g`
 
 # Always write an all target
-all:libsbl${exesuf}
+all:libsbl${sosuf} sbltool
 
-libsbl${exesuf}: src ${hfiles} \$(OBJECTS)
+libsbl${sosuf}: src ${hfiles} \$(OBJECTS)
 	${cc} ${soflags} \$(OBJECTS) -o \$@
 	${ar} rcs ./libsbl.a \$(OBJECTS)
-    
+
+sbltool${exesuf}: libsbl${sosuf} ${srcdir}/sbltool.c
+	${cc} ${cflags} -o \$@ ${srcdir}/sbltool.c -L. -lsbl
+
 src:
 	mkdir src
 
-install:all
+install: all
 	install -c -d -m 755 ${libdir} ${includedir} ${includedir}/slib
-	install -c -p -m 644 include/slib.h ${includedir}
-	install -c -p -m 644 include/slib ${includedir}
+	install -c -p -m 644 ${srcdir}/include/slib.h ${includedir}
+	install -c -p -m 644 ${srcdir}/include/slib/*.h ${includedir}/slib
 	install -c -p -m 644 sbl.pc ${libdir}/pkgconfig
 	install -c -p -m 644 libsbl.a ${libdir}
-	install -c -p -m 755 libsbl${exesuf} ${libdir}
+	install -c -p -m 755 libsbl${sosuf} ${libdir}
+	install -c -p -m 755 sbltool${exesuf} ${bindir}
 
 .PHONY: clean
 clean:
-	${rm} -f libsbl.dylib libsbl.dll libsbl.so *.o */*.o *.a
+	${rm} -f libsbl.dylib libsbl.dll libsbl.so sbltool sbltool.exe *.o */*.o *.a
 	-rmdir src 2>/dev/null
 
 distclean: clean

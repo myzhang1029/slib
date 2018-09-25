@@ -1,7 +1,7 @@
 /*
- *  admin.c - The admin project
+ *  sbltool.c - Executable tool of the slib, preceded by the admin project
  *
- *  Copyright (C) 2016, 2017 Zhang Maiyun
+ *  Copyright (C) 2016 - 2018 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *

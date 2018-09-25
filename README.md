@@ -41,7 +41,7 @@ $ cmake .. -G Ninja
 $ ninja install
 ```
 ## Usage
-You could see [admin.c](https://github.com/myzhang1029/admin/blob/master/admin.c) for a rough idea.
+You could see [sbltool.c](https://github.com/myzhang1029/slib/blob/master/sbltool.c) for a rough idea.
 
 ## Contributing
 if you want to contribute to this project, please start a pull request.   
