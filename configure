@@ -25,7 +25,7 @@
 
 . $srcdir/cmake/acconf.sh
 
-check_progs printf cut sed find
+check_progs printf cut sed find tr dirname
 
 # Default/init vaule of variables
 srcdir=`dirname $0`
