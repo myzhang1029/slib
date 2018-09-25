@@ -26,7 +26,9 @@
 srcdir=`dirname $0`
 . $srcdir/cmake/acconf.sh
 
-check_progs printf cut sed find tr
+# Plus which, cc, ar and sh, these are minimal requirement to build this project
+check_progs cat rm mkdir cut sed find tr grep printf uname
+check_progs make
 
 # Default/init vaule of variables
 cross=""
