@@ -26,8 +26,8 @@ CROSS=
 CC=$(CROSS)gcc
 AR=$(CROSS)ar
 RM=rm
-CFLAGS=-Wno-int-to-pointer-cast -Wno-variadic-macros -W -Wall -pedantic -c -O2 -Iinclude
-PREFIX=/usr/local
+CFLAGS=-Wno-int-to-pointer-cast -Wno-variadic-macros -W -Wall -pedantic -O2 -Iinclude
+PREFIX=C:/Program Files/libsbl
 CFILES= \
 src/average.c \
 src/bsearchfile.c \
@@ -64,31 +64,37 @@ include/slib/overflow.h \
 include/slib/stack.h \
 include/slib.h
 
-EXESUF=.dll
+SOSUF=.dll
+EXESUF=.exe
 SOFLAGS=-shared
 LIBDIR=$(PREFIX)/lib
+BINDIR=$(PREFIX)/bin
 INCLUDEDIR=$(PREFIX)/include
 
 .PHONY: install clean all tags
 
-all:libsbl$(EXESUF)
+all:libsbl$(SOSUF) sbltool$(EXESUF)
 
-libsbl$(EXESUF): $(HFILES) $(CFILES:.c=.o)
+libsbl$(SOSUF): $(HFILES) $(CFILES:.c=.o)
 	$(CC) $(SOFLAGS) src/*.o -o $@
 	$(AR) rcs ./libsbl.a src/*.o
 
+sbltool${EXESUF}: libsbl${SOSUF} sbltool.c
+	${CC} ${CFLAGS} -o $@ sbltool.c -L. -lsbl
+
 %.o:%.c
-	$(CC) $(CFLAGS) $(PLAT) $^ -o $@
+	$(CC) $(CFLAGS) $(PLAT) -c $^ -o $@
 
 install:
 	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR) $(INCLUDEDIR)/slib
 	install -c -p -m 644 include/slib.h $(INCLUDEDIR)
 	install -c -p -m 644 include/slib $(INCLUDEDIR)
 	install -c -p -m 644 libsbl.a $(LIBDIR)
-	install -c -p -m 755 libsbl$(EXESUF) $(LIBDIR)
+	install -c -p -m 755 libsbl$(SOSUF) $(LIBDIR)
+	install -c -p -m 755 sbltool${EXESUF} ${BINDIR}
 
 clean:
-	-$(RM) libsbl.dll libsbl.so *.o */*.o *.a -f 2>/dev/null
+	-$(RM) libsbl.dll libsbl.so sbltool.exe sbltool *.o */*.o *.a -f 2>/dev/null
 
 tags:
 	ctags -R
