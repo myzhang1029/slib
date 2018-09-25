@@ -23,12 +23,12 @@
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+srcdir=`dirname $0`
 . $srcdir/cmake/acconf.sh
 
-check_progs printf cut sed find tr dirname
+check_progs printf cut sed find tr
 
 # Default/init vaule of variables
-srcdir=`dirname $0`
 cross=""
 prefix="/usr/local"
 libdir=""
