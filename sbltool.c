@@ -44,7 +44,7 @@ helpme:
     {
         printf("(admin) ");
         fflush(stdin);
-reparse:
+    reparse:
         selection = getchar();
         if (feof(stdin))
         {

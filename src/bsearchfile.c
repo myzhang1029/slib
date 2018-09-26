@@ -86,7 +86,8 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
 
 /* bsearch() for a file, returns the ftell() position of the start of the line
  */
-OPT long slib_fbsearch(char *key, FILE *fp, long *insertloc, int (*compar)(char *s1, char *s2))
+OPT long slib_fbsearch(char *key, FILE *fp, long *insertloc,
+                       int (*compar)(char *s1, char *s2))
 {
     int r;
     long low, mid, high, *linelist, tmp;
