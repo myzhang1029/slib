@@ -31,7 +31,6 @@ PREFIX=C:/Program Files/libsbl
 CFILES= \
 src/average.c \
 src/bsearchfile.c \
-src/calc.c \
 src/colorprintf.c \
 src/eular.c \
 src/fnmatch.c \
@@ -48,7 +47,6 @@ src/mret.c \
 src/mtscat.c \
 src/permcomb.c \
 src/prtpn.c \
-src/randomnum.c \
 src/sleepS.c \
 src/splitpathS.c \
 src/stack.c

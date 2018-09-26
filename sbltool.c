@@ -29,18 +29,17 @@
 #include <slib/math.h>
 #include <slib/stack.h>
 
-const char *ver = "4.0.1";
+const char *ver = "4.0.2";
 
 void usage(void);
 int ui()
 {
     char selection = 0;
 helpme:
-    printf("1: Pseudo-random number genertor\n"
-           "2: Calculator\n"
-           "3: Prime numbers in a range\n"
-           "4: Primality test\n"
-           "5: Coprime test\n");
+    printf("1: Print program version\n"
+           "2: Prime numbers in a range\n"
+           "3: Primality test\n"
+           "4: Coprime test\n");
     for (;;)
     {
         printf("(admin) ");
@@ -59,25 +58,11 @@ reparse:
                 goto reparse;
             case '1':
             {
-                unsigned int radmax = 0, radmin = 0;
-                printf("Minimum: ");
-                scanf("%d", &radmin);
-                printf("Maximum: ");
-                scanf("%d", &radmax);
-                printf("Output: %ld\n", randomnum(clock(), radmax, radmin));
+                printf("sbl admin %s\n", ver);
+                printf("Build %s，%s\n", __DATE__, __TIME__);
                 break;
             }
-            case '2': /*计算器*/
-            {
-                char infix[BUFFERSIZE];
-                fflush(stdin);
-                printf("Enter expression: ");
-                fflush(stdin);
-                fgets(infix, BUFFERSIZE, stdin);
-                printf("Result: %lf\n", calculate(infix));
-                break;
-            }
-            case '3': /*输出指定范围内的指数 */
+            case '2':
             {
                 int pn1, pn2;
                 printf("Minimum: ");
@@ -87,7 +72,7 @@ reparse:
                 slib_prtpn(pn1, pn2);
                 break;
             }
-            case '4': /*测试一个数是否质数*/
+            case '3':
             {
                 int pn;
                 printf("Which number to test: ");
@@ -98,7 +83,7 @@ reparse:
                     printf("Not a prime number!\n");
                 break;
             }
-            case '5': /*测试两个数是否互质*/
+            case '4':
             {
                 int num1, num2;
                 printf("First number: ");
@@ -179,11 +164,6 @@ int main(int argc, const char *argv[])
                     puts(" a prime number");
                     break;
                 }
-                case 'c':
-                {
-                    printf("%lf\n", calculate(optargGS));
-                    break;
-                }
                 case '?':
                     usage();
                     fprintf(stderr, "admin: unknown option -%c\n", optoptGS);
@@ -209,14 +189,13 @@ void usage(void)
     printf("Usage:\n"
            "\tadmin [-uhv] [-r <n1> <n2>] [-g <n1> <n2>] [-l <n1> <n2>]\n"
            "\t[-p <n1> <n2>] [-d <num>] [-c <exp>]\n"
-           "Options:"
-           "\n\t-u Interactive mode, same as no options"
-           "\n\t-h Show this page."
-           "\n\t-v Show version."
-           "\n\t-r Show whether n1 and n2 are coprime."
-           "\n\t-g Greatest common factor(divisor) of n1 and n2."
-           "\n\t-l Least common multiple of n1 and n2."
-           "\n\t-p Print prime numbers between n1 and n2."
-           "\n\t-d Primality test."
-           "\n\t-c Calculate exp.\n");
+           "Options:\n"
+           "\t-u\tInteractive mode, same as no options\n"
+           "\t-h\tShow this page.\n"
+           "\t-v\tShow version.\n"
+           "\t-r\tShow whether n1 and n2 are coprime.\n"
+           "\t-g\tGreatest common factor(divisor) of n1 and n2.\n"
+           "\t-l\tLeast common multiple of n1 and n2.\n"
+           "\t-p\tPrint prime numbers between n1 and n2.\n"
+           "\t-d\tPrimality test.\n");
 }

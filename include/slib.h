@@ -62,11 +62,6 @@ enum cpfcolors
 };
 
 /*declation start*/
-OPT double calculate(const char *infix);
-
-OPT unsigned long randomnum(unsigned seed, unsigned long maximum,
-                            unsigned long minimum);
-
 OPT char *mtscat(unsigned amount, ...);
 
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
