@@ -231,6 +231,15 @@ install: all
 	install -c -p -m 755 libsbl${sosuf} ${libdir}
 	install -c -p -m 755 sbltool${exesuf} ${bindir}
 
+test: all
+	faileds=0; \\
+	for file in `cat $srcdir/test/enabledtests`; \\
+	do \\
+		${cc} -o test ${srcdir}/test/\$\${file}-test.c libsbl.a; \\
+        ./test || (( faileds += 1 )); \\
+	done; \\
+	echo Have \$\${faileds} tests failed
+
 .PHONY: clean
 clean:
 	${rm} -f libsbl.dylib libsbl.dll libsbl.so sbltool sbltool.exe *.o */*.o *.a

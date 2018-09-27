@@ -7,7 +7,7 @@ int main()
         "test-stack:Creating stack s by InitStack with 7 integer elements\n");
     if (InitStack(&s, sizeof(int) * 7, sizeof(int)) == SERROR)
     {
-        prterr("Initstack failed");
+        perror("Initstack failed");
         return 1;
     }
     printf("test-stack:Pushing integer 5, 6, 4766, -1, 30000, -30000, 0\n");
