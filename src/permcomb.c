@@ -28,6 +28,9 @@
 OPT unsigned long slib_factorial(unsigned long oper)
 {
     unsigned long n = oper;
+    /* It's unsigned so I don't have to care about negative n */
+    if (n < 2)
+        return 1;
     while (n != 2)
         oper *= --n;
     return oper;
