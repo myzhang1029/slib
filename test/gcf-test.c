@@ -1,28 +1,10 @@
-#include <slib.h>
-
+#include <slib/math.h>
+#include "tests.h"
 int main(void)
 {
-    int errorlevel = 0;
-    if (gcf(1, 2) != 1)
-    {
-        errorlevel = 1;
-        prterr("test-gcf: 1, 2failed\n");
-    }
-    if (gcf(2, 4) != 2)
-    {
-        errorlevel = 1;
-        prterr("test-gcf: 2, 4failed\n");
-    }
-    if (gcf(17, 23) != 1)
-    {
-        errorlevel = 1;
-        prterr("test-gcf: 17, 23failed\n");
-    }
-    if (gcf(3, 9) != 3)
-    {
-        errorlevel = 1;
-        prterr("test-gcf: 3, 9failed\n");
-    }
-    printf("test-gcf: End\n");
-    return errorlevel;
+    asrt_equ(slib_gcf(1, 2), 1, "gcf-1,2");
+    asrt_equ(slib_gcf(2, 4), 2, "gcf-2,4");
+    asrt_equ(slib_gcf(17, 23), 1, "gcf-17,23");
+    asrt_equ(slib_gcf(3, 9), 3, "gcf-3,9");
+    return 0;
 }

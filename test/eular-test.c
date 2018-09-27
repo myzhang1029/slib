@@ -3,10 +3,9 @@
 
 int main()
 {
-    asrt_equ(80, slib_eular(123));
-    asrt_equ(6, slib_eular(9));
-    asrt_equ(72, slib_eular(270));
-    asrt_equ(3276, slib_eular(3397));
-    asrt_equ(0, slib_eular(0));
+    asrt_equ(slib_eular(123), 80, "eular-123");
+    asrt_equ(slib_eular(9), 6, "eular-9");
+    asrt_equ(slib_eular(270), 72, "eular-270");
+    asrt_equ(slib_eular(3397), 3276, "eular-3397");
     return 0;
 }
