@@ -11,3 +11,5 @@
 #define asrt_equ(a, b, s) (printf("The result should be %d, and it's actually %d\n", (b), (a)),asrt_or_fail((a) == (b), s))
 #define asrt_neq(a, b, s) (printf("The result should not be %d, and it's actually %d\n", (b), (a)),asrt_or_fail((a) != (b), s))
 #endif
+#define quiet_asrt_equ(a, b, s) assert((a) == (b))
+#define quiet_asrt_neq(a, b, s) assert((a) != (b))

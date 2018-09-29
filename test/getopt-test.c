@@ -1,4 +1,4 @@
-#include <slib.h>
+#include <slib/getopt.h>
 
 int main(int argc, char **argv)
 {
@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 
     while (1)
     {
-        int this_option_optindGS = optind ? optind : 1;
+        int this_option_optindGS = optindGS ? optindGS : 1;
         int option_index = 0;
         static struct optionGS long_options[] = {
             {"add", 1, 0, 0},     {"append", 0, 0, 0}, {"delete", 1, 0, 0},
