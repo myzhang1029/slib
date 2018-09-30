@@ -62,8 +62,6 @@ enum cpfcolors
 };
 
 /*declation start*/
-OPT char *mtscat(unsigned amount, ...);
-
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
                               const char *format, ...);
 
