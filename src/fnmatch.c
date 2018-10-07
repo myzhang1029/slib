@@ -22,7 +22,6 @@
 #endif
 
 #include <ctype.h>
-#include <errno.h>
 #include "slib/fnmatch.h"
 
 /* Match STRING against the filename pattern PATTERN, returning zero if

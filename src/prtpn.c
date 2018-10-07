@@ -30,10 +30,7 @@ OPT void slib_prtpn(unsigned long minimum, unsigned long maximum)
     if (maximum <= 2)
         return;
     if (maximum <= minimum)
-    {
-        __set_errno(EINVAL);
         return;
-    }
     for (n = minimum; n <= maximum; ++n)
     {
         if (slib_ispn(n))

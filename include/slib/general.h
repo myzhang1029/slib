@@ -68,10 +68,6 @@
 #define NULL (void *)0
 #endif
 
-#ifndef __set_errno
-#define __set_errno(x) errno = x
-#endif
-
 #define STRUE 1 /*status*/
 #define SFALSE 0
 #define SERROR -1

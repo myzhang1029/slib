@@ -1,5 +1,5 @@
 /*
- *  itoa.c - Itoa functions of the slib
+ *  itoa.c - integer to string functions of the slib
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -34,10 +34,7 @@ char *itoaS(int value, char *string, int radix)
     char *sp;
 
     if (radix > 36 || radix <= 1)
-    {
-        __set_errno(EDOM);
-        return 0;
-    }
+        return NULL;
 
     sign = (radix == 10 && value < 0);
     if (sign)
@@ -76,10 +73,7 @@ char *ltoaS(long value, char *string, int radix)
     char *sp;
 
     if (radix > 36 || radix <= 1)
-    {
-        __set_errno(EDOM);
-        return 0;
-    }
+        return NULL;
 
     sign = (radix == 10 && value < 0);
     if (sign)
@@ -117,10 +111,7 @@ char *ultoaS(unsigned long value, char *string, int radix)
     char *sp;
 
     if (radix > 36 || radix <= 1)
-    {
-        __set_errno(EDOM);
-        return 0;
-    }
+        return NULL;
 
     while (v || tp == tmp)
     {
