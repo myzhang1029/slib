@@ -27,7 +27,7 @@
 
 OPT int slib_ispn(unsigned long testingnum)
 {
-    long k = (long)sqrt((long double)testingnum), i = 3;
+    long k = (long)sqrt((double)testingnum), i = 3;
 
     if (testingnum == 1 || ((testingnum & 1) == 0 && testingnum != 2))
         return SFALSE;
