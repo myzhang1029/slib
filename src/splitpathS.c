@@ -1,10 +1,7 @@
 /*
- *  splitpathS.c - Path seperate function splitpathS (aka _splitpath on
- *MS-Windows) of the slib.
+ *  splitpathS.c - Path seperate function of the slib.
  *
- *  Copyright (C) 2014 CSDN chinaeran
- *	- The original file was not copyrighted.
- *  Copyright (C) 2017 Zhang Maiyun
+ *  Copyright (C) 2018 Zhang Maiyun
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
@@ -29,16 +26,9 @@
 #include <string.h>
 #include "slib.h"
 
-/*File path seperater*/
-#if PLAT
-#define pathsep '\\'
-#else
-#define pathsep '/'
-#endif
+/*seperate file name and file extend name*/
 
-/*To seperate file name and file extend name*/
-
-static void __split_whole_name(const char *whole_name, char *fname, char *ext)
+static void split_whole_name(const char *whole_name, char *fname, char *ext)
 {
     char *p_ext;
 
@@ -67,14 +57,9 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname,
                 char *ext)
 {
     char *p_whole_name;
-    if (NULL != drive)
+    if (drive != NULL)
     {
-#if !PLAT
-        /*No such concept "drive" in unix*/
-        drive[0] = '\0';
-#else
-        snprintf(drive, ((int *)strchr(path, '\\') - (int *)path), "%s", path);
-#endif
+        snprintf(drive, ((int *)strchr(path, '/') - (int *)path), "%s", path);
     }
 
     /*If the path is null, just set all the vaules blank*/
@@ -90,10 +75,14 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname,
     }
 
     /*If there is just directory in the path, don't seperate file name*/
-    if (pathsep == path[strlen(path)])
+    if (path[strlen(path)] == '/')
     {
         if (NULL != dir)
+        {
             strcpy(dir, path);
+            /* don't keep the trailing / */
+            dir[strlen(dir)] = 0;
+        }
         if (NULL != fname)
             fname[0] = '\0';
         if (NULL != ext)
@@ -102,20 +91,20 @@ void splitpathS(const char *path, char *drive, char *dir, char *fname,
     }
 
     /*The start of whole file name*/
-    p_whole_name = strrchr(path, pathsep);
+    p_whole_name = strrchr(path, '/');
 
-    /*If p_whole_name is null, means there is no directory infomation in path*/
+    /*If p_whole_name is null, there is no directory infomation in path*/
     if (NULL != p_whole_name)
     {
         p_whole_name++;
-        __split_whole_name(p_whole_name, fname, ext);
+        split_whole_name(p_whole_name, fname, ext);
 
         if (NULL != dir)
             snprintf(dir, p_whole_name - path, "%s", path);
     }
     else
     {
-        __split_whole_name(path, fname, ext);
+        split_whole_name(path, fname, ext);
         if (NULL != dir)
             dir[0] = '\0';
     }

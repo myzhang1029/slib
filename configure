@@ -231,14 +231,17 @@ install: all
 	install -c -p -m 755 libsbl${sosuf} ${libdir}
 	install -c -p -m 755 sbltool${exesuf} ${bindir}
 
+# The test, always ensure the built version is used
 test: all
-	faileds=0; \\
-	for file in `cat $srcdir/test/enabledtests`; \\
+	for file in $srcdir/test/*.c; \\
 	do \\
-		${cc} -o test ${srcdir}/test/\$\${file}-test.c libsbl.a; \\
+        (( total += 1 )); \\
+		${cc} -I${srcdir}/include -o test \$\${file} libsbl.a; \\
         ./test || (( faileds += 1 )); \\
+        rm test; \\
 	done; \\
-	echo Have \$\${faileds} tests failed
+	echo \$\${faileds}/\$\${total} failed; \\
+	[ \$\${faileds} -eq 0 ]
 
 .PHONY: clean
 clean:
