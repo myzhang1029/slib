@@ -141,6 +141,7 @@ printf "Checking for extension of shared objects... "
 case $system_name in
     *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
         soflags="-fPIC -shared -Os"
+        cflags="${cflags} -fPIC"
         ;;
     darwin*|*step*) sosuf=".dylib"
         soflags="-dynamiclib -current_version $version"
