@@ -1,11 +1,11 @@
 # slib
 ![License](https://www.gnu.org/graphics/lgplv3-88x31.png)
 
+[![Build Status](https://travis-ci.com/myzhang1029/slib.svg?branch=master)](https://travis-ci.com/myzhang1029/slib)
+
 <a href="https://codeclimate.com/github/myzhang1029/slib"><img src="https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg" /></a>
 
 <a href="https://codeclimate.com/github/myzhang1029/slib"><img src="https://codeclimate.com/github/myzhang1029/slib/badges/gpa.svg" /></a>
-
-[Binary Download Link](https://github.com/myzhang1029/slib/releases)
 
 ## Description
 This project is seperated from myzhang1029/admin, 
