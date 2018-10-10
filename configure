@@ -234,15 +234,17 @@ install: all
 
 # The test, always ensure the built version is used
 test: all
+	total=0; \\
+	faileds=0; \\
 	for file in $srcdir/test/*.c; \\
 	do \\
-        (( total += 1 )); \\
+        total=\$\$(( total + 1 )); \\
 		${cc} -I${srcdir}/include -o testexe \$\${file} libsbl.a; \\
-        ./testexe || (( faileds += 1 )); \\
+        ./testexe || faileds=\$\$(( faileds + 1 )); \\
         rm testexe; \\
 	done; \\
 	echo \$\${faileds}/\$\${total} failed; \\
-	[ \$\${faileds} -eq 0 ]
+	test \$\${faileds} -eq 0
 
 .PHONY: clean
 clean:
