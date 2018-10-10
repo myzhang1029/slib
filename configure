@@ -237,9 +237,9 @@ test: all
 	for file in $srcdir/test/*.c; \\
 	do \\
         (( total += 1 )); \\
-		${cc} -I${srcdir}/include -o test \$\${file} libsbl.a; \\
-        ./test || (( faileds += 1 )); \\
-        rm test; \\
+		${cc} -I${srcdir}/include -o testexe \$\${file} libsbl.a; \\
+        ./testexe || (( faileds += 1 )); \\
+        rm testexe; \\
 	done; \\
 	echo \$\${faileds}/\$\${total} failed; \\
 	[ \$\${faileds} -eq 0 ]
