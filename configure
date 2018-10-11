@@ -43,6 +43,7 @@ ar="${AR}"
 rm="rm"
 build=""
 cflags="${CFLAGS} ${CPPFLAGS} -Wno-variadic-macros -W -Wall -pedantic -O3 -I${srcdir}/include"
+ldflags="${LDFLAGS} -lm"
 soflags=""
 cfiles="`cd ${srcdir};find src -name '*.c' -type f | tr '\n' ' '`"
 hfiles="`find ${srcdir}/include -name '*.h' -type f | tr '\n' ' '`"
@@ -214,11 +215,11 @@ OBJECTS=`echo ${cfiles} | sed s/\\\.c/.c.o/g`
 all:libsbl${sosuf} sbltool
 
 libsbl${sosuf}: src ${hfiles} \$(OBJECTS)
-	${cc} ${soflags} \$(OBJECTS) -o \$@
+	${cc} ${soflags} \$(OBJECTS) -o \$@ ${ldflags}
 	${ar} rcs ./libsbl.a \$(OBJECTS)
 
 sbltool${exesuf}: libsbl${sosuf} ${srcdir}/sbltool.c
-	${cc} ${cflags} -o \$@ ${srcdir}/sbltool.c -L. -lsbl -lm
+	${cc} ${cflags} -o \$@ ${srcdir}/sbltool.c -L. -lsbl ${ldflags}
 
 src:
 	mkdir src
@@ -239,7 +240,7 @@ test: all
 	for file in $srcdir/test/*.c; \\
 	do \\
         total=\$\$(( total + 1 )); \\
-		${cc} -I${srcdir}/include -o testexe \$\${file} libsbl.a; \\
+		${cc} ${cflags} -o testexe \$\${file} libsbl.a ${ldflags}; \\
         ./testexe || faileds=\$\$(( faileds + 1 )); \\
         rm testexe; \\
 	done; \\
