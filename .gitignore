@@ -31,6 +31,7 @@
 *.dylib
 
 # Executables
+sbltool
 *.exe
 *.out
 *.app
