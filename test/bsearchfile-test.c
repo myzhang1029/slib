@@ -1,4 +1,4 @@
 #include <slib/fileopt.h>
 #include "tests.h"
 
-int main() {}
+int main() { return 114; }

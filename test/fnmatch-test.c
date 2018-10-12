@@ -90,5 +90,5 @@ int main(void)
             ++errors;
     }
 
-    return errors != 0;
+    return errors != 0 ? 116 : 0;
 }

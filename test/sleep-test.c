@@ -1,6 +1,3 @@
 #include <stdio.h>
 
-int main(void)
-{
-    return 115;
-}
+int main(void) { return 115; }

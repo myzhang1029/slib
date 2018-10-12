@@ -249,9 +249,15 @@ test: test-bin
 		if [ \$\${result} -eq 0 ]; \\
 		then \\
 			echo "\$\${testname}	OK"; \\
+		elif [ \$\${result} -eq 114 ]; \\
+		then \\
+			echo "\$\${testname}	NOT FINISHED"; \\
 		elif [ \$\${result} -eq 115 ]; \\
 		then \\
 			echo "\$\${testname}	SKIP"; \\
+		elif [ \$\${result} -eq 116 ]; \\
+		then \\
+			echo "\$\${testname}	NOT OK"; \\
 		else \\
 			echo "\$\${testname}	FAIL"; \\
 			faileds=\$\$(( faileds + 1 )); \\
