@@ -214,7 +214,7 @@ OBJECTS=`echo ${cfiles} | sed s/\\\.c/.c.o/g`
 # Always write an all target
 all:libsbl${sosuf} sbltool
 
-libsbl${sosuf}: src ${hfiles} \$(OBJECTS)
+libsbl${sosuf}: ${hfiles} \$(OBJECTS)
 	${cc} ${soflags} \$(OBJECTS) -o \$@ ${ldflags}
 	${ar} rcs ./libsbl.a \$(OBJECTS)
 
@@ -237,7 +237,7 @@ install: all
 	install -c -p -m 755 sbltool${exesuf} ${bindir}
 
 # The test, always ensure the built version is used
-test: all test-bin
+test: test-bin
 	total=0; \\
 	faileds=0; \\
 	for file in testbin/*.exe; \\
@@ -262,7 +262,7 @@ test: all test-bin
 
 .PHONY: clean
 clean:
-	${rm} -f libsbl.dylib libsbl.dll libsbl.so sbltool sbltool.exe *.o */*.o *.a
+	${rm} -f libsbl.dylib libsbl.dll libsbl.so sbltool sbltool.exe testbin/* *.o */*.o *.a
 	-rmdir src testbin 2>/dev/null
 
 distclean: clean
@@ -275,13 +275,13 @@ for file in $srcdir/test/*-test.c;
 do
     testname=`echo ${file} | sed s,.*/,, | cut -f1 -d-`
     tmp="${tmp} testbin/${testname}.exe"
-    echo testbin/${testname}.exe:${file} >> Makefile
+    echo testbin/${testname}.exe:${file} all testbin >> Makefile
     echo "	${cc} ${cflags} -DQUIET -o \$@ ${file} libsbl.a ${ldflags}" >> Makefile
 done
-echo "test-bin:testbin ${tmp}" >> Makefile
+echo "test-bin:${tmp}" >> Makefile
 for file in $cfiles;
 do
-    echo ${file}.o:${srcdir}/${file} >> Makefile
+    echo ${file}.o:${srcdir}/${file} src >> Makefile
     echo "	${cc} ${cflags} -c -o \$@ ${srcdir}/${file}" >> Makefile
 done
 
