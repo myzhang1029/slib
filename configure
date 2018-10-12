@@ -221,6 +221,9 @@ libsbl${sosuf}: src ${hfiles} \$(OBJECTS)
 sbltool${exesuf}: libsbl${sosuf} ${srcdir}/sbltool.c
 	${cc} ${cflags} -o \$@ ${srcdir}/sbltool.c -L. -lsbl ${ldflags}
 
+testbin:
+	mkdir testbin
+
 src:
 	mkdir src
 
@@ -234,15 +237,25 @@ install: all
 	install -c -p -m 755 sbltool${exesuf} ${bindir}
 
 # The test, always ensure the built version is used
-test: all
+test: all test-bin
 	total=0; \\
 	faileds=0; \\
-	for file in $srcdir/test/*.c; \\
+	for file in testbin/*.exe; \\
 	do \\
-        total=\$\$(( total + 1 )); \\
-		${cc} ${cflags} -o testexe \$\${file} libsbl.a ${ldflags}; \\
-        ./testexe || faileds=\$\$(( faileds + 1 )); \\
-        rm testexe; \\
+		total=\$\$(( total + 1 )); \\
+		\$\${file}; \\
+		result=\$\$?; \\
+		testname=\`echo \$\${file} | sed s,.*/,, | cut -f1 -d.\`; \\
+		if [ \$\${result} -eq 0 ]; \\
+		then \\
+			echo "\$\${testname}	OK"; \\
+		elif [ \$\${result} -eq 115 ]; \\
+		then \\
+			echo "\$\${testname}	SKIP"; \\
+		else \\
+			echo "\$\${testname}	FAIL"; \\
+			faileds=\$\$(( faileds + 1 )); \\
+		fi \\
 	done; \\
 	echo \$\${faileds}/\$\${total} failed; \\
 	test \$\${faileds} -eq 0
@@ -250,13 +263,22 @@ test: all
 .PHONY: clean
 clean:
 	${rm} -f libsbl.dylib libsbl.dll libsbl.so sbltool sbltool.exe *.o */*.o *.a
-	-rmdir src 2>/dev/null
+	-rmdir src testbin 2>/dev/null
 
 distclean: clean
 	${rm} -f Makefile config.mk config.h sbl.pc
 
 # Everything below is the same, you will not like to read it line by line
 ACEOF
+tmp='' 
+for file in $srcdir/test/*-test.c;
+do
+    testname=`echo ${file} | sed s,.*/,, | cut -f1 -d-`
+    tmp="${tmp} testbin/${testname}.exe"
+    echo testbin/${testname}.exe:${file} >> Makefile
+    echo "	${cc} ${cflags} -DQUIET -o \$@ ${file} libsbl.a ${ldflags}" >> Makefile
+done
+echo "test-bin:testbin ${tmp}" >> Makefile
 for file in $cfiles;
 do
     echo ${file}.o:${srcdir}/${file} >> Makefile

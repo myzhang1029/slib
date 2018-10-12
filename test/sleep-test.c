@@ -2,6 +2,5 @@
 
 int main(void)
 {
-    printf("sleepS not testable, skipping\n");
-    return 0;
+    return 115;
 }
