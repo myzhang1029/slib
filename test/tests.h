@@ -33,3 +33,5 @@
     (printf("The result should not be \"%s\", and it's actually \"%s\"\n", (b), (a)),  \
      asrt_or_fail(strcmp((a), (b)) != 0, s))
 #endif
+#define quiet_asrt_equ(a, b, s) assert((a) == (b))
+#define quiet_asrt_neq(a, b, s) assert((a) != (b))
