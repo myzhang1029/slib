@@ -7,13 +7,15 @@ int main(void)
     unsigned long ul = 12;
     char *result = malloc(4);
     itoaS(i, result, 10);
-    asrt_equ(result, "12", "itoaS");
+    asrt_equ(strcmp(result, "12"), 0, "itoaS");
     ltoaS(l, result, 10);
-    asrt_equ(result, "12", "ltoaS");
+    asrt_equ(strcmp(result, "12"), 0, "ltoaS");
+    ltoaS(-l, result, 10);
+    asrt_equ(strcmp(result, "-12"), 0, "ltoaS");
     ultoaS(ul, result, 16);
-    asrt_equ(result, "c", "ultoaS");
-    ultoaS(-ul, result, 10);
-    asrt_equ(result, "-12", "ultoaS");
+    asrt_equ(strcmp(result, "c"), 0, "ultoaS");
+    ultoaS(ul, result, 12);
+    asrt_equ(strcmp(result, "10"), 0, "ultoaS");
     free(result);
     return 0;
 }
