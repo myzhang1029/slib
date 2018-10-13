@@ -10,7 +10,7 @@
     ((e) ? (printf("Test %s\nOK\n", (s))) : (printf("Test %s\nFAILED\n", (s))))
 #else
 #define asrt_or_fail(e, s)                                                     \
-    ((e) ? (printf("Test %s\nOK\n", (s))) : (printf("Test %s\nFAILED\n", (s))))
+    ((e) ? (printf("Test %s\nOK\n", (s))) : (printf("Test %s\nFAILED\n", (s)), abort(), 0))
 #endif
 #ifndef DEBUG
 #define asrt_equ(a, b, s) asrt_or_fail((a) == (b), s)
@@ -19,11 +19,11 @@
 #define asrt_str_neq(a, b, s) asrt_or_fail(strcmp((a), (b)) != 0, s)
 #else
 #define asrt_equ(a, b, s)                                                      \
-    (printf("The result should be \"%s\", and it's actually \"%s\"\n", (b),    \
+    (printf("The result should be %d, and it's actually %d\n", (b),    \
             (a)),                                                              \
      asrt_or_fail((a) == (b), s))
 #define asrt_neq(a, b, s)                                                      \
-    (printf("The result should not be \"%s\", and it's actually \"%s\"\n",     \
+    (printf("The result should not be %d, and it's actually %d\n",     \
             (b), (a)),                                                         \
      asrt_or_fail((a) != (b), s))
 #define asrt_str_equ(a, b, s)                                                  \
