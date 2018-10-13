@@ -34,7 +34,7 @@ OPT long fsize(FILE *stream);
 
 OPT int iofile(FILE *in, FILE *out);
 
-OPT void splitpathS(const char *path, char *drive, char *dir, char *fname,
+OPT void splitpathS(const char *path, char *drive, char *dirname, char *basename,
                     char *ext);
 
 OPT long *slib_count_fl(FILE *file, long *pcount);

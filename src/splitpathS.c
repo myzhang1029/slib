@@ -26,87 +26,94 @@
 #include <string.h>
 #include "slib.h"
 
-/*seperate file name and file extend name*/
-
-static void split_whole_name(const char *whole_name, char *fname, char *ext)
+/* seperate base name and extension */
+static void split_whole_name(const char *filename, char *basename, char *ext)
 {
     char *p_ext;
 
-    /*The start of extend name*/
-    p_ext = strrchr(whole_name, '.');
+    /* The start of extension, including leading dot */
+    p_ext = strrchr(filename, '.');
 
-    /*If p_ext is null, the file is a file without real file name(hided in
-     * unix), like .gitignore, or it is a not allowed file in MS-Windows*/
-    if (NULL != p_ext)
+    /* If p_ext is null, the file is a file without extension like README */
+    if (p_ext == NULL)
     {
-        if (NULL != ext)
-            strcpy(ext, p_ext);
-        if (NULL != fname)
-            snprintf(fname, p_ext - whole_name + 1, "%s", whole_name);
+        if (ext != NULL)
+            ext[0] = 0;/* Truncate it */
+        if (basename != NULL)
+            strcpy(basename, filename);
     }
     else
     {
-        if (NULL != ext)
-            ext[0] = '\0';
-        if (NULL != fname)
-            strcpy(fname, whole_name);
+        if (ext != NULL)
+            strcpy(ext, p_ext);
+        if (basename != NULL)
+            snprintf(basename, p_ext - filename + 1, "%s", filename);
     }
 }
 
-void splitpathS(const char *path, char *drive, char *dir, char *fname,
-                char *ext)
+void splitpathS(const char *path, char *drive, char *dirname, char *basename, char *ext)
 {
-    char *p_whole_name;
-    if (drive != NULL)
+    char *filename;
+    
+    /* If the path is null, just set all the vaules blank */
+    if (path == NULL)
     {
-        snprintf(drive, ((int *)strchr(path, '/') - (int *)path), "%s", path);
-    }
-
-    /*If the path is null, just set all the vaules blank*/
-    if (NULL == path)
-    {
-        if (NULL != dir)
-            dir[0] = '\0';
-        if (NULL != fname)
-            fname[0] = '\0';
-        if (NULL != ext)
-            ext[0] = '\0';
+        if (drive != NULL)
+            drive[0] = 0;
+        if (dirname != NULL)
+            dirname[0] = 0;
+        if (basename != NULL)
+            basename[0] = 0;
+        if (ext != NULL)
+            ext[0] = 0;
         return;
     }
+    
+    filename = strchr(path, '/');
+    if (filename - path == 2 && *(filename-1) == ':')
+    {
+        /* drive */
+        if (drive != NULL)
+            /* followed by a colon according to MSDN */
+            snprintf(drive, filename - path + 1, "%s", path);
+        path += 2;
+    }
 
-    /*If there is just directory in the path, don't seperate file name*/
+    /* If there is a trailing slash, treat it as a directory */
     if (path[strlen(path)] == '/')
     {
-        if (NULL != dir)
+        if (dirname != NULL)
         {
-            strcpy(dir, path);
-            /* don't keep the trailing / */
-            dir[strlen(dir)] = 0;
+            strcpy(dirname, path);
+            /* keep the trailing slash according to MSDN */
+            dirname[strlen(dirname)+1] = 0;
         }
-        if (NULL != fname)
-            fname[0] = '\0';
-        if (NULL != ext)
-            ext[0] = '\0';
+        if (basename != NULL)
+            basename[0] = 0;
+        if (ext != NULL)
+            ext[0] = 0;
         return;
     }
+    /* Else treat it as a file even if it is really a directory */
 
-    /*The start of whole file name*/
-    p_whole_name = strrchr(path, '/');
+    /* Cut everything before the last slash */
+    filename = strrchr(path, '/');
 
-    /*If p_whole_name is null, there is no directory infomation in path*/
-    if (NULL != p_whole_name)
+    /* If filename is null, there is no directory infomation */
+    if (filename == NULL)
     {
-        p_whole_name++;
-        split_whole_name(p_whole_name, fname, ext);
-
-        if (NULL != dir)
-            snprintf(dir, p_whole_name - path, "%s", path);
+        split_whole_name(filename, basename, ext);
+        if (dirname != NULL)
+            dirname[0] = 0;
     }
     else
     {
-        split_whole_name(path, fname, ext);
-        if (NULL != dir)
-            dir[0] = '\0';
+        /* Move away the slash */
+        ++filename;
+        split_whole_name(filename, basename, ext);
+        if (dirname != NULL)
+            /* Also keep the trailing slash */
+            snprintf(dirname, filename - path + 1, "%s", path);
     }
     return;
 }
