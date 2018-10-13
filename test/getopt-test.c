@@ -11,33 +11,26 @@ int main()
         {"four", required_argument, NULL, '4'},
         {NULL, 0, NULL, 0}};
 
-    char *argv[] = {
-    "test", "--on", "--two", "-3", "-4", "90"
-    };
+    char *argv[] = {"test", "--on", "--two", "-3", "-4", "90"};
     int argc = 6;
     struct should
     {
         int ret;
         char *arg;
         int isok;
-    }shouldlst[]={
-        {1, NULL, 0},
-        {2, NULL, 0},
-        {3, NULL, 0},
-        {4, "90", 0},
-        {0, NULL, 0}
-    };
-    while((c=getopt_longGS(argc, argv, "123::4:", opts, NULL)) != -1)
+    } shouldlst[] = {
+        {1, NULL, 0}, {2, NULL, 0}, {3, NULL, 0}, {4, "90", 0}, {0, NULL, 0}};
+    while ((c = getopt_longGS(argc, argv, "123::4:", opts, NULL)) != -1)
     {
 #ifdef DEBUG
         printf("%d returned\n", c);
 #endif
         c -= '1' - 1;
-        if (shouldlst[c-1].arg == NULL || shouldlst[c-1].arg == optargGS)
-            shouldlst[c-1].isok = 1;
+        if (shouldlst[c - 1].arg == NULL || shouldlst[c - 1].arg == optargGS)
+            shouldlst[c - 1].isok = 1;
     }
-    c=0;
-    while(shouldlst[c].ret)
+    c = 0;
+    while (shouldlst[c].ret)
     {
         asrt_equ(shouldlst[c].isok, 1, "getopt");
         ++c;

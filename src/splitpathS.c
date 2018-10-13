@@ -38,7 +38,7 @@ static void split_whole_name(const char *filename, char *basename, char *ext)
     if (p_ext == NULL)
     {
         if (ext != NULL)
-            ext[0] = 0;/* Truncate it */
+            ext[0] = 0; /* Truncate it */
         if (basename != NULL)
             strcpy(basename, filename);
     }
@@ -51,10 +51,11 @@ static void split_whole_name(const char *filename, char *basename, char *ext)
     }
 }
 
-void splitpathS(const char *path, char *drive, char *dirname, char *basename, char *ext)
+void splitpathS(const char *path, char *drive, char *dirname, char *basename,
+                char *ext)
 {
     char *filename;
-    
+
     /* If the path is null, just set all the vaules blank */
     if (path == NULL)
     {
@@ -68,9 +69,9 @@ void splitpathS(const char *path, char *drive, char *dirname, char *basename, ch
             ext[0] = 0;
         return;
     }
-    
+
     filename = strchr(path, '/');
-    if (filename - path == 2 && *(filename-1) == ':')
+    if (filename - path == 2 && *(filename - 1) == ':')
     {
         /* drive */
         if (drive != NULL)
@@ -86,7 +87,7 @@ void splitpathS(const char *path, char *drive, char *dirname, char *basename, ch
         {
             strcpy(dirname, path);
             /* keep the trailing slash according to MSDN */
-            dirname[strlen(dirname)+1] = 0;
+            dirname[strlen(dirname) + 1] = 0;
         }
         if (basename != NULL)
             basename[0] = 0;

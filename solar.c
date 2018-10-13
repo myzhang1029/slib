@@ -49,7 +49,8 @@ double slib_julian_date(struct tm tm)
                  (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 -
                  (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075;
     /* note the result of slib_hms2h might be negative */
-    return jdn + (tm.tm_hour + 1.0 - 12.0 /* midnight2noon */)/24.0 + tm.tm_min/1440.0 + tm.tm_sec/86400.0;
+    return jdn + (tm.tm_hour + 1.0 - 12.0 /* midnight2noon */) / 24.0 +
+           tm.tm_min / 1440.0 + tm.tm_sec / 86400.0;
 }
 
 /* get the time difference(in hours) between UTC and true local time
