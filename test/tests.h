@@ -3,12 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef QUIET
+#if defined(QUIET)
 #define asrt_or_fail(e, s) ((e) ? (0) : (abort(), 0))
+#elif defined(NOABORT)
+#define asrt_or_fail(e, s)                                                     \
+    ((e) ? (printf("Test %s\nOK\n", (s)))                                      \
+         : (printf("Test %s\nFAILED\n", (s))))
 #else
 #define asrt_or_fail(e, s)                                                     \
     ((e) ? (printf("Test %s\nOK\n", (s)))                                      \
-         : (printf("Test %s\nFAILED\n", (s)), abort(), 0))
+         : (printf("Test %s\nFAILED\n", (s))))
 #endif
 #ifndef DEBUG
 #define asrt_equ(a, b, s) asrt_or_fail((a) == (b), s)
