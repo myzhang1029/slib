@@ -79,6 +79,11 @@ void splitpathS(const char *path, char *drive, char *dirname, char *basename,
             snprintf(drive, filename - path + 1, "%s", path);
         path += 2;
     }
+    else
+    {
+        if (drive != NULL)
+            drive[0] = 0;
+    }
 
     /* If there is a trailing slash, treat it as a directory */
     if (path[strlen(path)] == '/')
@@ -103,7 +108,7 @@ void splitpathS(const char *path, char *drive, char *dirname, char *basename,
     /* If filename is null, there is no directory infomation */
     if (filename == NULL)
     {
-        split_whole_name(filename, basename, ext);
+        split_whole_name(path, basename, ext);
         if (dirname != NULL)
             dirname[0] = 0;
     }
