@@ -32,7 +32,7 @@
 
 #include <slib/general.h>
 
-#define mtreturn(lenth, ...) return mkret(lenth, __VA_ARGS__)
+#define mtreturn return mkret
 
 #if PLAT
 #define FOREGROUND_WHITE (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN)
@@ -40,12 +40,10 @@
 
 _BEGIN_EXTERN_C
 
-/*External variables*/
-extern unsigned retind;
-
 typedef struct mtrt
 {
     size_t lenth;
+    size_t retind;
     int **val;
 } mtret;
 
@@ -65,7 +63,7 @@ enum cpfcolors
 D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
                               const char *format, ...);
 
-OPT int *getret(mtret ret);
+OPT int *getret(mtret *ret);
 
 OPT mtret mkret(size_t lenth, ...);
 
