@@ -28,8 +28,8 @@
 #include <string.h>
 #include "slib/fileopt.h"
 
-/* count lines in file, returns the ftell() position of the start of each line,
- * free() result please */
+/* count lines in file, returns the ftell() position of '\n' before the line,
+ * except for the first line which returns 0, free() result please */
 OPT long *slib_count_fl(FILE *file, long *pcount)
 {
     int ch;
@@ -37,7 +37,7 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
     /* list of the position of the char after the '\n' */
     long *line_starts = malloc(sizeof(long) * 32);
     long *reallocmem;
-    size_t have_size = 32;
+    long have_size = 32;
     if (line_starts == NULL)
     {
         *pcount = 0;
@@ -84,10 +84,12 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
     /* count - 1 is the maximum index of line_starts */
 }
 
-/* bsearch() for a file, returns the ftell() position of the start of the line
+/* bsearch() for a file, returns the ftell() position of '\n' before the line,
+ * except for the first line which returns 0, that is, if you fseek() to the
+ * result and fgets() a line, it will be identical to KEY if the KEY isn't
+ * found, returns -1
  */
-OPT long slib_fbsearch(char *key, FILE *fp, long *insertloc,
-                       int (*compar)(char *s1, char *s2))
+OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 {
     int r;
     long low, mid, high, *linelist, tmp;
@@ -134,4 +136,7 @@ OPT long slib_fbsearch(char *key, FILE *fp, long *insertloc,
 }
 
 /* qsort() for a file, uses a non-just-in-place bubble sort */
-OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2)) {}
+OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2))
+{
+    (void)fp, (void)compar; /* TODO */
+}
