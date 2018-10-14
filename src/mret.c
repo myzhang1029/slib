@@ -25,7 +25,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "slib.h"
-unsigned retind = 0;
 
 mtret mkret(size_t lenth, ...)
 {
@@ -34,7 +33,7 @@ mtret mkret(size_t lenth, ...)
     int count = 0;
     va_list args;
     if (elems == NULL)
-        return (mtret){0, NULL};
+        return (mtret){0, 0, NULL};
     va_start(args, lenth);
 
     ret.lenth = lenth;
@@ -45,10 +44,14 @@ mtret mkret(size_t lenth, ...)
     ret.val = elems;
     va_end(args);
     elems = NULL;
+    ret.retind = 0;
     return ret;
 }
 
-int *getret(mtret ret)
+int *getret(mtret *ret)
 {
-    return ((retind < ret.lenth) ? (ret.val[retind++]) : (free(ret.val), NULL));
+    if (ret->retind < ret->lenth)
+        return ret->val[ret->retind++];
+    free(ret->val);
+    return NULL;
 }

@@ -19,6 +19,7 @@
 #define asrt_str_equ(a, b, s) asrt_or_fail(strcmp((a), (b)) == 0, s)
 #define asrt_str_neq(a, b, s) asrt_or_fail(strcmp((a), (b)) != 0, s)
 #else
+/* Note a and b will be evaluated twice */
 #define asrt_equ(a, b, s)                                                      \
     (printf("The result should be %d, and it's actually %d\n", (b), (a)),      \
      asrt_or_fail((a) == (b), s))

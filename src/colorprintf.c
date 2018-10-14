@@ -101,9 +101,7 @@ OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
     }
     SetConsoleTextAttribute(hstdout, colornum);
     stat = vprintf(format, args);
-    va_end(args);
     SetConsoleTextAttribute(hstdout, csbInfo.wAttributes);
-    return stat;
 #else
     switch (fcolor)
     {
@@ -159,6 +157,7 @@ OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
     }
     stat = vprintf(format, args);
     printf("\033[0m");
-    return stat;
 #endif
+    va_end(args);
+    return stat;
 }
