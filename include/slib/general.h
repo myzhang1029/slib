@@ -40,7 +40,6 @@
 #undef realloc
 #endif
 
-#include <errno.h>
 #include <stdio.h>
 
 #if !defined(PLAT)
