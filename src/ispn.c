@@ -29,11 +29,11 @@ OPT int slib_ispn(slib_uint testingnum)
 {
     slib_uint k = (slib_uint)sqrt((double)testingnum), i = 3;
 
-    if (testingnum == 1 || ((fmod(testingnum, 2)) == 0 && testingnum != 2))
+    if (testingnum == 1 || ((testingnum & 1) == 0 && testingnum != 2))
         return SFALSE;
 
     for (; i <= k; i++)
-        if (fmod(testingnum, i) == 0)
+        if (testingnum % i == 0)
             break;
 
     return i > k ? STRUE : SFALSE;
