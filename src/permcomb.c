@@ -25,9 +25,9 @@
 
 #include "slib/math.h"
 
-OPT unsigned long slib_factorial(unsigned long oper)
+OPT slib_uint slib_factorial(slib_uint oper)
 {
-    unsigned long n = oper;
+    slib_uint n = oper;
     /* It's unsigned so I don't have to care about negative n */
     if (n < 2)
         return 1;
@@ -37,9 +37,9 @@ OPT unsigned long slib_factorial(unsigned long oper)
 }
 
 /* nPr Permutation */
-OPT unsigned long slib_permu(unsigned long num, unsigned long chosen)
+OPT slib_uint slib_permu(slib_uint num, slib_uint chosen)
 {
-    unsigned long result = 1, choosable = num - chosen;
+    slib_uint result = 1, choosable = num - chosen;
     /* optimizations */
     if (chosen == 1)
         return num;
@@ -54,7 +54,7 @@ OPT unsigned long slib_permu(unsigned long num, unsigned long chosen)
 }
 
 /* nCr Combination */
-OPT unsigned long slib_combi(unsigned long num, unsigned long chosen)
+OPT slib_uint slib_combi(slib_uint num, slib_uint chosen)
 {
     return slib_permu(num, chosen) / slib_factorial(chosen);
 }

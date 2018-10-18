@@ -26,27 +26,31 @@
 #define SLIB_MATH_H
 #include <slib/general.h>
 
+#ifndef slib_uint
+#define slib_uint unsigned long
+#endif
+
 _BEGIN_EXTERN_C
 
-OPT void slib_prtpn(unsigned long minimum, unsigned long maximum);
+OPT void slib_prtpn(slib_uint minimum, slib_uint maximum);
 
-OPT int slib_ispn(unsigned long testingnum);
+OPT int slib_ispn(slib_uint testingnum);
 
-OPT int slib_isrp(unsigned n1, unsigned n2);
+OPT int slib_isrp(slib_uint n1, slib_uint n2);
 
 OPT double slib_average(unsigned int amt, ...);
 
-OPT unsigned long slib_gcf(unsigned long n1, unsigned long n2);
+OPT slib_uint slib_gcf(slib_uint n1, slib_uint n2);
 
-OPT unsigned long slib_lcm(unsigned long n1, unsigned long n2);
+OPT slib_uint slib_lcm(slib_uint n1, slib_uint n2);
 
-OPT int slib_eular(unsigned n);
+OPT slib_uint slib_eular(slib_uint n);
 
-OPT unsigned long slib_factorial(unsigned long oper);
+OPT slib_uint slib_factorial(slib_uint oper);
 
-OPT unsigned long slib_combi(unsigned long num, unsigned long chosen);
+OPT slib_uint slib_combi(slib_uint num, slib_uint chosen);
 
-OPT unsigned long slib_permu(unsigned long num, unsigned long chosen);
+OPT slib_uint slib_permu(slib_uint num, slib_uint chosen);
 _END_EXTERN_C
 
 #endif /* SLIB_MATH_H */

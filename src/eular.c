@@ -24,10 +24,10 @@
  */
 #include "slib/math.h"
 
-OPT int slib_eular(unsigned n)
+OPT slib_uint slib_eular(slib_uint n)
 {
-    unsigned int count;
-    unsigned result = 0;
+    slib_uint count;
+    slib_uint result = 0;
     for (count = 0; count < n; ++count)
     {
         if (slib_isrp(n, count))

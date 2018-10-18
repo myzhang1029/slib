@@ -24,9 +24,9 @@
  */
 #include "slib/math.h"
 
-OPT void slib_prtpn(unsigned long minimum, unsigned long maximum)
+OPT void slib_prtpn(slib_uint minimum, slib_uint maximum)
 {
-    unsigned long n = 0;
+    slib_uint n = 0;
     if (maximum <= 2)
         return;
     if (maximum <= minimum)

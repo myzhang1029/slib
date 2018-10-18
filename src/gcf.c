@@ -24,9 +24,9 @@
  */
 #include "slib/math.h"
 
-OPT unsigned long slib_gcf(unsigned long n1, unsigned long n2)
+OPT slib_uint slib_gcf(slib_uint n1, slib_uint n2)
 {
-    unsigned long tmp;
+    slib_uint tmp;
     while (n2 != 0)
     {
         tmp = n1 % n2;

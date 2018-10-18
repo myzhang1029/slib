@@ -24,7 +24,7 @@
  */
 #include "slib/math.h"
 
-OPT int slib_isrp(unsigned n1, unsigned n2)
+OPT int slib_isrp(slib_uint n1, slib_uint n2)
 {
     return 1 == slib_gcf(n1, n2) ? STRUE : SFALSE;
 }
