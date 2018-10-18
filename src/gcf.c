@@ -26,12 +26,12 @@
 
 OPT unsigned long slib_gcf(unsigned long n1, unsigned long n2)
 {
-    unsigned long a = n1, b = n2, tmp;
-    while (a && b)
+    unsigned long tmp;
+    while (n2 != 0)
     {
-        tmp = a > b ? a - b : b - a;
-        a = a > b ? b : a;
-        b = tmp;
+        tmp = n1 % n2;
+        n1 = n2;
+        n2 = tmp;
     }
-    return a = 0 ? b : a;
+    return n1;
 }
