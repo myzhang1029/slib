@@ -27,7 +27,7 @@
 #include <slib/general.h>
 
 #ifndef slib_uint
-#define slib_uint unsigned long
+#define slib_uint double
 #endif
 
 _BEGIN_EXTERN_C

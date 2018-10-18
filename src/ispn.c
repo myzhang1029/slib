@@ -17,7 +17,7 @@
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  aslib_uint with this program; if not, write to the Free Software
+ *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,11 +29,11 @@ OPT int slib_ispn(slib_uint testingnum)
 {
     slib_uint k = (slib_uint)sqrt((double)testingnum), i = 3;
 
-    if (testingnum == 1 || ((testingnum & 1) == 0 && testingnum != 2))
+    if (testingnum == 1 || ((fmod(testingnum, 2)) == 0 && testingnum != 2))
         return SFALSE;
 
     for (; i <= k; i++)
-        if (testingnum % i == 0)
+        if (fmod(testingnum, i) == 0)
             break;
 
     return i > k ? STRUE : SFALSE;

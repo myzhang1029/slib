@@ -64,19 +64,19 @@ helpme:
             }
             case '2':
             {
-                int pn1, pn2;
+                double pn1, pn2;
                 printf("Minimum: ");
-                scanf("%d", &pn1);
+                scanf("%lf", &pn1);
                 printf("Maximum: ");
-                scanf("%d", &pn2);
+                scanf("%lf", &pn2);
                 slib_prtpn(pn1, pn2);
                 break;
             }
             case '3':
             {
-                int pn;
+                double pn;
                 printf("Which number to test: ");
-                scanf("%d", &pn);
+                scanf("%lf", &pn);
                 if (slib_ispn(pn) == STRUE)
                     printf("Is a prime number!\n");
                 else
@@ -85,11 +85,11 @@ helpme:
             }
             case '4':
             {
-                int num1, num2;
+                double num1, num2;
                 printf("First number: ");
-                scanf("%d", &num1);
+                scanf("%lf", &num1);
                 printf("Second number: ");
-                scanf("%d", &num2);
+                scanf("%lf", &num2);
                 if (slib_isrp(num1, num2) == STRUE)
                     printf("They are coprime!\n");
                 else
@@ -130,8 +130,8 @@ int main(int argc, const char *argv[])
                 }
                 case 'r':
                 {
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
-                    printf("%ld and %ld are", n1, n2);
+                    double n1 = atof(optargGS), n2 = atof(argv[optindGS]);
+                    printf("%.0f and %.0f are", n1, n2);
                     if (!slib_isrp(n1, n2))
                         printf(" not");
                     puts(" coprime");
@@ -139,26 +139,26 @@ int main(int argc, const char *argv[])
                 }
                 case 'g':
                 {
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
-                    printf("gcf(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
+                    double n1 = atof(optargGS), n2 = atof(argv[optindGS]);
+                    printf("gcf(%.0f, %.0f) = %.0f\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 }
                 case 'l':
                 {
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
-                    printf("lcm(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
+                    double n1 = atof(optargGS), n2 = atof(argv[optindGS]);
+                    printf("lcm(%.0f, %.0f) = %.0f\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 }
                 case 'p':
                 {
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    double n1 = atof(optargGS), n2 = atof(argv[optindGS]);
                     slib_prtpn(n1, n2);
                     break;
                 }
                 case 'd':
                 {
-                    long n = atol(optargGS);
-                    printf("%ld is", n);
+                    double n = atof(optargGS);
+                    printf("%.0f is", n);
                     if (!slib_ispn(n))
                         printf(" not");
                     puts(" a prime number");

@@ -29,7 +29,7 @@ OPT slib_uint slib_gcf(slib_uint n1, slib_uint n2)
     slib_uint tmp;
     while (n2 != 0)
     {
-        tmp = n1 % n2;
+        tmp = fmod(n1, n2);
         n1 = n2;
         n2 = tmp;
     }
