@@ -223,7 +223,7 @@ sbltool${exesuf}: libsbl${sosuf} ${srcdir}/sbltool.c
 	${cc} ${cflags} -o \$@ ${srcdir}/sbltool.c -L. -lsbl ${ldflags}
 
 install: all
-	install -c -d -m 755 ${libdir} ${includedir} ${includedir}/slib
+	install -c -d -m 755 ${bindir} ${libdir} ${includedir} ${includedir}/slib
 	install -c -p -m 644 ${srcdir}/include/slib.h ${includedir}
 	install -c -p -m 644 ${srcdir}/include/slib/*.h ${includedir}/slib
 	install -c -p -m 644 sbl.pc ${libdir}/pkgconfig
