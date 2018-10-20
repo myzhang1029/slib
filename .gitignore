@@ -68,6 +68,10 @@ build/
 .libs/
 sbl.pc
 
+# Cython compiled result
+sbl.c
+*.pyd
+
 # CMake
 CMakeCache.txt
 CMakeFiles
