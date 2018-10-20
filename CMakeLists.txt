@@ -4,7 +4,7 @@ include(CheckIncludeFiles)
 include(CheckFunctionExists)
 include(CheckTypeSize)
 
-project(libsbl VERSION 3.12.0
+project(libsbl VERSION 3.13.0
     LANGUAGES "C")
 set(PROJECT_DESCRIPTION "A C library providing many useful operations")
 include_directories(include)

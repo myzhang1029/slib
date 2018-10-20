@@ -26,7 +26,7 @@ CROSS=
 CC=$(CROSS)gcc
 AR=$(CROSS)ar
 RM=rm
-CFLAGS=-Wno-int-to-pointer-cast -Wno-variadic-macros -W -Wall -pedantic -O2 -Iinclude
+CFLAGS=-W -Wall -pedantic -O2 -Iinclude
 PREFIX=C:/Program Files/libsbl
 CFILES= \
 src/average.c \
@@ -38,7 +38,6 @@ src/fsize.c \
 src/gcf.c \
 src/getch.c \
 src/getopt.c \
-src/iofile.c \
 src/ispn.c \
 src/isrp.c \
 src/itoa.c \
@@ -77,8 +76,8 @@ libsbl$(SOSUF): $(HFILES) $(CFILES:.c=.o)
 	$(CC) $(SOFLAGS) src/*.o -o $@
 	$(AR) rcs ./libsbl.a src/*.o
 
-sbltool${EXESUF}: libsbl${SOSUF} sbltool.c
-	${CC} ${CFLAGS} -o $@ sbltool.c -L. -lsbl
+sbltool$(EXESUF): libsbl$(SOSUF) sbltool.c
+	$(CC) $(CFLAGS) -o $@ sbltool.c -L. -lsbl
 
 %.o:%.c
 	$(CC) $(CFLAGS) $(PLAT) -c $^ -o $@

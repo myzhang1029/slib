@@ -32,8 +32,6 @@ _BEGIN_EXTERN_C
 
 OPT long fsize(FILE *stream);
 
-OPT int iofile(FILE *in, FILE *out);
-
 OPT void splitpathS(const char *path, char *drive, char *dirname,
                     char *basename, char *ext);
 
