@@ -25,7 +25,7 @@
 #include <math.h>
 #include "slib/math.h"
 
-OPT int slib_ispn(slib_uint testingnum)
+OPT int slib_old_ispn(slib_uint testingnum)
 {
     slib_uint k = (slib_uint)sqrt((double)testingnum), i = 3;
 
@@ -34,7 +34,21 @@ OPT int slib_ispn(slib_uint testingnum)
 
     for (; i <= k; i++)
         if (testingnum % i == 0)
-            break;
+            return SFALSE;
 
-    return i > k ? STRUE : SFALSE;
+    return STRUE;
+}
+
+OPT int slib_ispn(slib_uint testingnum)
+{
+    slib_uint i = 3;
+
+    if (testingnum & 1 == 0 && testingnum != 2 || testingnum == 1)
+        return SFALSE;
+
+    for (; i*i <= testingnum; i++)
+        if (testingnum % i == 0)
+            return SFALSE;
+
+    return STRUE;
 }
