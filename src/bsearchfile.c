@@ -35,7 +35,7 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
     int ch;
     long count = 0;
     /* list of the position of the char after the '\n' */
-    long *line_starts = malloc(sizeof(long) * 32);
+    long *line_starts = (long *)malloc(sizeof(long) * 32);
     long *reallocmem;
     long have_size = 32;
     if (line_starts == NULL)
@@ -58,8 +58,8 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
         {
             if (count + 1 >= have_size)
             {
-                reallocmem =
-                    realloc(line_starts, sizeof(long) * (have_size *= 2));
+                reallocmem = (long *)realloc(line_starts,
+                                             sizeof(long) * (have_size *= 2));
                 if (reallocmem != NULL)
                     line_starts = reallocmem;
                 else
@@ -77,7 +77,7 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
     *pcount = count;
     /* resize to minimal, throw away the last one since no line is there */
     /* don't think this will fail, but still handle it */
-    reallocmem = realloc(line_starts, sizeof(long) * count);
+    reallocmem = (long *)realloc(line_starts, sizeof(long) * count);
     if (reallocmem == NULL && count != 0)
         free(line_starts);
     return reallocmem;
@@ -93,8 +93,8 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 {
     int r;
     long low, mid, high, *linelist, tmp;
-    char *cmp = malloc(strlen(key) + 1); /* don't think a line longer than key
-                                            will be the same as key */
+    char *cmp = (char *)malloc(strlen(key) + 1); /* don't think a line longer
+                                             than key will be the same as key */
     if (cmp == NULL)
     {
         perror("slib_fbsearch: malloc failed");

@@ -29,7 +29,7 @@
 mtret mkret(size_t lenth, ...)
 {
     mtret ret;
-    int **elems = malloc(sizeof(int *) * lenth);
+    int **elems = (int **)malloc(sizeof(int *) * lenth);
     int count = 0;
     va_list args;
     if (elems == NULL)

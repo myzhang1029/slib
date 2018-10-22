@@ -46,7 +46,7 @@ OPT int slib_ispn(slib_uint testingnum)
     if (testingnum & 1 == 0 && testingnum != 2 || testingnum == 1)
         return SFALSE;
 
-    for (; i*i <= testingnum; i++)
+    for (; i * i <= testingnum; i++)
         if (testingnum % i == 0)
             return SFALSE;
 
