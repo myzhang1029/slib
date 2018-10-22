@@ -39,12 +39,6 @@
 #define alloca_free free
 #endif
 
-#ifdef __cplusplus
-#define _GETOPT_THROW throw()
-#else
-#define _GETOPT_THROW
-#endif
-
 int optindGS = 1;
 int opterrGS = 1;
 int optoptGS = '?';
@@ -534,21 +528,19 @@ int _getopt_internalGS(int argc, char *const *argv, const char *optstring,
     optoptGS = getopt_data.optopt;
     return result;
 }
-int getoptGS(int argc, char *const *argv, const char *optstring) _GETOPT_THROW
+int getoptGS(int argc, char *const *argv, const char *optstring)
 {
     return _getopt_internalGS(argc, argv, optstring, (const struct optionGS *)0,
                               (int *)0, 0, 0);
 }
 int getopt_longGS(int argc, char *const *argv, const char *options,
-                  const struct optionGS *long_options,
-                  int *opt_index) _GETOPT_THROW
+                  const struct optionGS *long_options, int *opt_index)
 {
     return _getopt_internalGS(argc, argv, options, long_options, opt_index, 0,
                               0);
 }
 int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
-                       const struct optionGS *long_options,
-                       int *opt_index) _GETOPT_THROW
+                       const struct optionGS *long_options, int *opt_index)
 {
     return _getopt_internalGS(argc, argv, options, long_options, opt_index, 1,
                               0);
