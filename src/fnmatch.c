@@ -28,8 +28,8 @@
    it matches, nonzero if not.  */
 int fnmatchGS(const char *pattern, const char *string, int flags)
 {
-    register const char *p = pattern, *n = string;
-    register char c;
+    S_REGISTER const char *p = pattern, *n = string;
+    S_REGISTER char c;
 
     /* Note that this evaluates C many times.  */
 #if defined(STDC_HEADERS) || !defined(isascii)
@@ -111,7 +111,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
             case '[':
             {
                 /* Nonzero if the sense of the character class is inverted.  */
-                register int not;
+                S_REGISTER int isnot;
 
                 if (*n == '\0')
                     return FNM_NOMATCH;
@@ -120,14 +120,14 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                     (n == string || ((flags & FNM_FILE_NAME) && n[-1] == '/')))
                     return FNM_NOMATCH;
 
-                not = (*p == '!' || *p == '^');
-                if (not)
+                isnot = (*p == '!' || *p == '^');
+                if (isnot)
                     ++p;
 
                 c = *p++;
                 for (;;)
                 {
-                    register char cstart = c, cend = c;
+                    S_REGISTER char cstart = c, cend = c;
 
                     if (!(flags & FNM_NOESCAPE) && c == '\\')
                     {
@@ -167,7 +167,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                     if (c == ']')
                         break;
                 }
-                if (!not)
+                if (!isnot)
                     return FNM_NOMATCH;
                 break;
 
@@ -188,7 +188,7 @@ int fnmatchGS(const char *pattern, const char *string, int flags)
                         ++p;
                     }
                 }
-                if (not)
+                if (isnot)
                     return FNM_NOMATCH;
             }
             break;

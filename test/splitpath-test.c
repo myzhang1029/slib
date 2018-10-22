@@ -4,8 +4,8 @@
 
 int main()
 {
-    char *path1 = "/usr/local/bin/gcc";
-    char *path2 = "C:/Program Files/test/test.exe";
+    const char *path1 = "/usr/local/bin/gcc";
+    const char *path2 = "C:/Program Files/test/test.exe";
     char drive[3];
     char dirname[21];
     char basename[5];

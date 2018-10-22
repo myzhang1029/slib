@@ -89,7 +89,8 @@ OPT long *slib_count_fl(FILE *file, long *pcount)
  * result and fgets() a line, it will be identical to KEY if the KEY isn't
  * found, returns -1
  */
-OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
+OPT long slib_fbsearch(const char *key, FILE *fp,
+                       int (*compar)(const char *s1, const char *s2))
 {
     int r;
     long low, mid, high, *linelist, tmp;
@@ -136,7 +137,7 @@ OPT long slib_fbsearch(char *key, FILE *fp, int (*compar)(char *s1, char *s2))
 }
 
 /* qsort() for a file, uses a non-just-in-place bubble sort */
-OPT void slib_fqsort(FILE *fp, int (*compar)(char *s1, char *s2))
+OPT void slib_fqsort(FILE *fp, int (*compar)(const char *s1, const char *s2))
 {
     (void)fp, (void)compar; /* TODO */
 }

@@ -5,7 +5,7 @@
 int main()
 {
     FILE *testfile;
-    char *str = "HelloFsize";
+    const char *str = "HelloFsize";
     testfile = tmpfile();
     quiet_asrt_neq(testfile, NULL, "fopen");
     fputs(str, testfile);

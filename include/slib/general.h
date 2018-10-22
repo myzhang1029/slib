@@ -32,7 +32,7 @@
 
 #define SBLLIB_VERSION 3
 #define SBLLIB_MINOR 13
-#define SBLLIB_PATCHLEVEL 0
+#define SBLLIB_PATCHLEVEL 1
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -77,21 +77,9 @@
 #define OPT extern
 #endif
 
-/*BOOL*/
-#if !((defined(__bool_true_false_are_defined) &&                               \
-       __bool_true_false_are_defined == 1) ||                                  \
-      defined(HAVE_BOOL) ||                                                    \
-      (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) ||          \
-      !defined(__GNUC__) || __GNUC__ < 5)
-typedef struct boolS
-{
-    unsigned val : 1;
-} boolS;
-#define bool boolS
-#define _Bool boolS
-#define true((struct boolS){1})
-#define false((struct boolS){0})
-#define __bool_true_false_are_defined 1
+/* register storage specifier */
+#ifndef S_REGISTER
+#define S_REGISTER register
 #endif
 
 #define S_INLINE inline

@@ -23,6 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include "slib/stack.h"
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -39,10 +40,10 @@ OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize)
 
 OPT int Push(sqStack *s, void *e)
 {
-    if ((int)s->top - (int)s->base + s->typeSize > s->stackSize)
+    if ((intptr_t)s->top - (intptr_t)s->base + s->typeSize > s->stackSize)
         return SFALSE;
     memcpy(s->top, e, s->typeSize);
-    s->top = (void *)((int)s->top + s->typeSize);
+    s->top = (void *)((intptr_t)s->top + s->typeSize);
     return STRUE;
 }
 
@@ -50,14 +51,14 @@ OPT int Pop(sqStack *s, void *e)
 {
     if (s->top == s->base)
         return SFALSE;
-    s->top = (void *)((int)s->top - (int)s->typeSize);
+    s->top = (void *)((intptr_t)s->top - (intptr_t)s->typeSize);
     memcpy(e, s->top, s->typeSize);
     return STRUE;
 }
 
 OPT int GetLen(sqStack *s)
 {
-    return ((int)s->top - (int)s->base) / s->typeSize;
+    return ((intptr_t)s->top - (intptr_t)s->base) / s->typeSize;
 }
 
 OPT int ClearStack(sqStack *s)

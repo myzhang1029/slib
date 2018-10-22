@@ -75,7 +75,7 @@ static void exchange(char **argv, struct _getopt_data *d)
         if (top - middle > middle - bottom)
         {
             int len = middle - bottom;
-            register int i;
+            S_REGISTER int i;
             for (i = 0; i < len; i++)
             {
                 tem = argv[bottom + i];
@@ -87,7 +87,7 @@ static void exchange(char **argv, struct _getopt_data *d)
         else
         {
             int len = top - middle;
-            register int i;
+            S_REGISTER int i;
             for (i = 0; i < len; i++)
             {
                 tem = argv[bottom + i];

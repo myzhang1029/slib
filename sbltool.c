@@ -107,10 +107,10 @@ helpme:
     }
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
     int c;
-    char *sopts = ":uhvr:g:l:p:d:c:";
+    const char *sopts = ":uhvr:g:l:p:d:c:";
     if (argc > 1)
     {
         while ((c = getoptGS(argc, argv, sopts)) != -1)

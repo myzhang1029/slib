@@ -1,7 +1,7 @@
 #include <slib.h>
 #include "tests.h"
 
-mtret testfunc(char *arg1, char *arg2) { mtreturn(2, arg1, arg2); }
+mtret testfunc(const char *arg1, const char *arg2) { mtreturn(2, arg1, arg2); }
 
 int main()
 {

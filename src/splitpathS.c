@@ -29,7 +29,7 @@
 /* seperate base name and extension */
 static void split_whole_name(const char *filename, char *basename, char *ext)
 {
-    char *p_ext;
+    const char *p_ext;
 
     /* The start of extension, including leading dot */
     p_ext = strrchr(filename, '.');
@@ -54,7 +54,7 @@ static void split_whole_name(const char *filename, char *basename, char *ext)
 void splitpathS(const char *path, char *drive, char *dirname, char *basename,
                 char *ext)
 {
-    char *filename;
+    const char *filename;
 
     /* If the path is null, just set all the vaules blank */
     if (path == NULL)
