@@ -24,7 +24,7 @@
  */
 
 #include <string.h>
-#include "slib.h"
+#include "slib/fileopt.h"
 
 /* seperate base name and extension */
 static void split_whole_name(const char *filename, char *basename, char *ext)
