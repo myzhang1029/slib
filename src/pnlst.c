@@ -1,5 +1,5 @@
 /*
- *  mret.c - Multi return functions of the slib
+ *  pnlst.c - Generate prime number list
  *
  *  Copyright (C) 2017 Zhang Maiyun
  *
@@ -22,40 +22,12 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-#include "slib.h"
+#include "slib/math.h"
 
-mtret mkret(size_t length, ...)
+OPT void slib_pnlst(slib_uint minimum, slib_uint *buffer, slib_uint bufsize)
 {
-    mtret ret;
-    int **elems = (int **)malloc(sizeof(int *) * length);
-    size_t count = 0;
-    va_list args;
-    if (elems == NULL)
-    {
-        memset(&ret, 0, sizeof(mtret));
-        return ret;
-    }
-    va_start(args, length);
-
-    ret.length = length;
-    for (; count < length; ++count)
-    {
-        elems[count] = va_arg(args, int *);
-    }
-    ret.val = elems;
-    va_end(args);
-    elems = NULL;
-    ret.retind = 0;
-    return ret;
-}
-
-int *getret(mtret *ret)
-{
-    if (ret->retind < ret->length)
-        return ret->val[ret->retind++];
-    free(ret->val);
-    return NULL;
+    slib_uint n, count = 0;
+    for (n = minimum; count < bufsize; ++n)
+        if (slib_ispn(n))
+            buffer[count++] = n;
 }

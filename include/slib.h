@@ -42,7 +42,7 @@ _BEGIN_EXTERN_C
 
 typedef struct mtrt
 {
-    size_t lenth;
+    size_t length;
     size_t retind;
     int **val;
 } mtret;
@@ -65,7 +65,7 @@ D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
 
 OPT int *getret(mtret *ret);
 
-OPT mtret mkret(size_t lenth, ...);
+OPT mtret mkret(size_t length, ...);
 
 OPT void sleepS(int seconds);
 

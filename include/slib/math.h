@@ -34,6 +34,8 @@ _BEGIN_EXTERN_C
 
 OPT void slib_prtpn(slib_uint minimum, slib_uint maximum);
 
+OPT void slib_pnlst(slib_uint minimum, slib_uint *buffer, slib_uint bufsize);
+
 OPT int slib_ispn(slib_uint testingnum);
 
 OPT int slib_isrp(slib_uint n1, slib_uint n2);
