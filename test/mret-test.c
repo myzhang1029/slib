@@ -1,5 +1,5 @@
-#include <slib.h>
 #include "tests.h"
+#include <slib.h>
 
 mtret testfunc(const char *arg1, const char *arg2) { mtreturn(2, arg1, arg2); }
 

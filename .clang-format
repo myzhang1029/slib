@@ -53,13 +53,10 @@ DerivePointerAlignment: false
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
 IncludeCategories:
-  - Regex:       '^".*"'
-    Priority:    3
-  - Regex:       '^<.*/.*>'
-    Priority:    2
-  - Regex:       '^<.*>'
-    Priority:    1
-IncludeIsMainRegex: '(Test)?$'
+  - Regex:  '^("|<)slib/?'
+    Priority:   2
+  - Regex:  '.\*'
+    Priority:   1
 IndentCaseLabels: true
 IndentWidth:     4
 IndentWrappedFunctionNames: false

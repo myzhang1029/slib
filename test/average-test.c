@@ -1,5 +1,5 @@
-#include <slib/math.h>
 #include "tests.h"
+#include <slib/math.h>
 
 int main()
 {

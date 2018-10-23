@@ -1,6 +1,6 @@
-#include <slib.h>
 #include <stdio.h>
 #include <time.h>
+#include <slib.h>
 
 OPT void sleepS(int seconds)
 {

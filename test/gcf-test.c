@@ -1,5 +1,5 @@
-#include <slib/math.h>
 #include "tests.h"
+#include <slib/math.h>
 int main(void)
 {
     asrt_equ(slib_gcf(1, 2), 1, "gcf-1,2");

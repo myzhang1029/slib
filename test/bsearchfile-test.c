@@ -1,7 +1,7 @@
+#include "tests.h"
 #include <stdio.h>
 #include <string.h>
 #include <slib/fileopt.h>
-#include "tests.h"
 
 int main()
 {

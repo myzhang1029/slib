@@ -1,5 +1,5 @@
-#include <slib/itoa.h>
 #include "tests.h"
+#include <slib/itoa.h>
 int main(void)
 {
     int i = 12;

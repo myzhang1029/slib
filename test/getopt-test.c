@@ -1,5 +1,5 @@
-#include <slib/getopt.h>
 #include "tests.h"
+#include <slib/getopt.h>
 
 int main()
 {
@@ -11,16 +11,17 @@ int main()
         {"four", required_argument, NULL, '4'},
         {NULL, 0, NULL, 0}};
 
-    char *argv[] = {"test", "--on", "--two", "-3", "-4", "90"};
+    const char *argv[] = {"test", "--on", "--two", "-3", "-4", "90"};
     int argc = 6;
     struct should
     {
         int ret;
-        char *arg;
+        const char *arg;
         int isok;
     } shouldlst[] = {
         {1, NULL, 0}, {2, NULL, 0}, {3, NULL, 0}, {4, "90", 0}, {0, NULL, 0}};
-    while ((c = getopt_longGS(argc, argv, "123::4:", opts, NULL)) != -1)
+    while ((c = getopt_longGS(argc, (char *const *)argv, "123::4:", opts,
+                              NULL)) != -1)
     {
 #ifdef DEBUG
         printf("%d returned\n", c);
