@@ -2,7 +2,7 @@
 #include <string.h>
 #include <slib/fileopt.h>
 
-int main()
+int splitpath_main()
 {
     const char *path1 = "/usr/local/bin/gcc";
     const char *path2 = "C:/Program Files/test/test.exe";

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <slib/fileopt.h>
 
-int main()
+int fsize_main()
 {
     FILE *testfile;
     const char *str = "HelloFsize";

@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/math.h>
 
-int main(void)
+int ispn_main(void)
 {
     asrt_neq(slib_ispn(2), SFALSE, "ispn-2");
     asrt_neq(slib_ispn(1), STRUE, "ispn-1");

@@ -1,3 +1,3 @@
 #include <stdio.h>
 
-int main(void) { return 115; }
+int getch_main(void) { return 115; }

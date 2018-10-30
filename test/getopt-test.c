@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/getopt.h>
 
-int main()
+int getopt_main()
 {
     int c;
     static const struct optionGS opts[] = {

@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/math.h>
 
-int main(void)
+int permcomb_main(void)
 {
     asrt_equ(slib_factorial(0), 1, "factorial-0");
     asrt_equ(slib_factorial(1), 1, "factorial-1");

@@ -1,3 +1,3 @@
 #include <stdio.h>
 
-int main(void) { return 115; }
+int prtpn_main(void) { return 115; }

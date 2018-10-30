@@ -1,6 +1,7 @@
 #include "tests.h"
 #include <slib/itoa.h>
-int main(void)
+
+int itoa_main(void)
 {
     int i = 12;
     long l = 12;

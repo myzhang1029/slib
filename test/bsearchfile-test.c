@@ -3,7 +3,7 @@
 #include <string.h>
 #include <slib/fileopt.h>
 
-int main()
+int bsearchfile_main()
 {
     FILE *testfile;
     long found, should;

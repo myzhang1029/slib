@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/math.h>
 
-int main(void)
+int lcm_main(void)
 {
     asrt_equ(slib_lcm(1, 2), 2, "lcm-1,2");
     asrt_equ(slib_lcm(2, 4), 4, "lcm-2,4");

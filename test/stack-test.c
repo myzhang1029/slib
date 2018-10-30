@@ -1,2 +1,2 @@
 #include <slib/stack.h>
-int main() { return 114; }
+int stack_main() { return 114; }

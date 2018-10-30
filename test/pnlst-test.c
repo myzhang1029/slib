@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/math.h>
 
-int main(void)
+int pnlst_main(void)
 {
     slib_uint min = 1, buffer[25], bufsize = 25;
     slib_pnlst(min, buffer, bufsize);

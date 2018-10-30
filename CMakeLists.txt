@@ -7,8 +7,10 @@ include(CheckTypeSize)
 project(libsbl VERSION 3.14.0
     LANGUAGES "C")
 set(PROJECT_DESCRIPTION "A C library providing many useful operations")
+enable_testing()
 include_directories(include)
 add_subdirectory(src)
+add_subdirectory(test)
 
 add_executable(sbltool sbltool.c)
 target_link_libraries(sbltool sbl)
@@ -36,6 +38,8 @@ set(CMAKE_CPP_FLAGS "-DHAVE_CONFIG_H")
 add_custom_target(distclean
     COMMAND ${CMAKE_BUILD_TOOL} clean
     COMMAND ${CMAKE_COMMAND} -P
+    ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake
+    COMMAND ${CMAKE_COMMAND} -DRUNNING_DIR=test -P
     ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake
     COMMAND ${CMAKE_COMMAND} -DRUNNING_DIR=src -P
     ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake)

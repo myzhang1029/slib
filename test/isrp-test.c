@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/math.h>
 
-int main(void)
+int isrp_main(void)
 {
     asrt_equ(slib_isrp(2, 3), STRUE, "isrp-2,3");
     asrt_equ(slib_isrp(5, 7), STRUE, "isrp-5,7");

@@ -1,3 +1,3 @@
 #include <stdio.h>
 
-int main(void) { return 115; }
+int sleep_main(void) { return 115; }

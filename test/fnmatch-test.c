@@ -71,7 +71,7 @@ struct
     {"/b", "**/?", FNM_PATHNAME, 0},
 };
 
-int main(void)
+int fnmatch_main(void)
 {
     size_t i;
     int errors = 0;
