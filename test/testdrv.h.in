@@ -1,0 +1,7 @@
+#include <stdio.h>
+@TFILES@
+const struct t
+{
+    const char *name;
+    int (*entry)(void);
+} testcases[] = @TESTS@;

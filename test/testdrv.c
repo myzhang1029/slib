@@ -1,10 +1,5 @@
-#include <stdio.h>
-@TFILES@
-const struct t
-{
-    const char *name;
-    int (*entry)(void);
-} testcases[] = @TESTS@;
+#include "testdrv.h"
+
 int main(void)
 {
 	int total=0, faileds=0, i;
@@ -34,3 +29,4 @@ int main(void)
 	printf("%d/%d tests failed\n", faileds, total);
     return !(faileds==0);
 }
+

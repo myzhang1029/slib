@@ -241,7 +241,7 @@ clean:
 
 distclean: clean
 	-rmdir src testbin 2>/dev/null
-	${rm} -f Makefile config.mk config.h sbl.pc testdrv.c
+	${rm} -f Makefile config.mk config.h sbl.pc testdrv.h
 
 # Everything below is the same, you will not like to read it line by line
 ACEOF
@@ -256,9 +256,9 @@ do
     includes="${includes}#include \"${testname}-test.c\"\\n"
 done
 entries="${entries}{NULL, NULL}}"
-sed "s/@TESTS@/${entries}/;s,@TFILES@,${includes}," ${srcdir}/test/testdrv.c.in > testdrv.c
-echo testdrv.exe: testdrv.c ${tmp} libsbl${sosuf} >> Makefile
-echo "	${cc} ${cflags} -DQUIET -I${srcdir}/test -o \$@ testdrv.c libsbl.a ${ldflags}" >> Makefile
+sed "s/@TESTS@/${entries}/;s,@TFILES@,${includes}," ${srcdir}/test/testdrv.h.in > testdrv.h
+echo testdrv.exe: ${srcdir}/test/testdrv.c testdrv.h ${tmp} libsbl${sosuf} >> Makefile
+echo "	${cc} ${cflags} -DQUIET -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a ${ldflags}" >> Makefile
 for file in $cfiles;
 do
     echo ${file}.o: ${srcdir}/${file} >> Makefile

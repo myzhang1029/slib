@@ -11,7 +11,7 @@ set(cmake_generated
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/CMakeFiles
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/Testing
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/sbl.pc
-    ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/test/testdrv.c
+    ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/testdrv.h
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/config.h
 )
 foreach(file ${cmake_generated})

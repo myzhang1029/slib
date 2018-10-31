@@ -68,7 +68,7 @@ GTAGS
 build/
 .libs/
 sbl.pc
-testdrv.c
+testdrv.h
 
 # Cython compiled result
 sbl.c
