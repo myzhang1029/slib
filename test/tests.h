@@ -1,18 +1,8 @@
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#if defined(QUIET)
-#define asrt_or_fail(e, s) ((e) ? (0) : (abort(), 0))
-#elif defined(NOABORT)
-#define asrt_or_fail(e, s)                                                     \
-    ((e) ? (printf("Test %s\nOK\n", (s))) : (printf("Test %s\nFAILED\n", (s))))
-#else
-#define asrt_or_fail(e, s)                                                     \
-    ((e) ? (printf("Test %s\nOK\n", (s)))                                      \
-         : (printf("Test %s\nFAILED\n", (s)), abort(), 0))
-#endif
+#define asrt_or_fail(e, s) if(!(e))return 1
 #ifndef DEBUG
 #define asrt_equ(a, b, s) asrt_or_fail((a) == (b), s)
 #define asrt_neq(a, b, s) asrt_or_fail((a) != (b), s)
@@ -35,5 +25,5 @@
             (b), (a)),                                                         \
      asrt_or_fail(strcmp((a), (b)) != 0, s))
 #endif
-#define quiet_asrt_equ(a, b, s) assert((a) == (b))
-#define quiet_asrt_neq(a, b, s) assert((a) != (b))
+#define quiet_asrt_equ(a, b, s) if((a) != (b)) return 117
+#define quiet_asrt_neq(a, b, s) if((a) == (b)) return 117

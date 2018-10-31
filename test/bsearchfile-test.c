@@ -21,11 +21,11 @@ int bsearchfile_main()
     should = ftell(testfile) - 1;
     found = slib_fbsearch("aaa", testfile, &strcmp);
     fseek(testfile, found, SEEK_SET);
-    fgets(readbuf, 5, testfile);
+    quiet_asrt_neq(fgets(readbuf, 5, testfile), NULL, "fgets");
     asrt_str_equ(readbuf, "aaa\n", "slib_fbsearch-found1");
     found = slib_fbsearch("bbb", testfile, &strcmp);
     fseek(testfile, found, SEEK_SET);
-    fgets(readbuf, 5, testfile);
+    quiet_asrt_neq(fgets(readbuf, 5, testfile), NULL, "fgets");
     asrt_str_equ(readbuf, "bbb\n", "slib_fbsearch-found2");
     asrt_equ(found, should, "slib_fbsearch-found2-num");
     found = slib_fbsearch("eee", testfile, &strcmp);

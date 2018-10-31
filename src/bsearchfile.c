@@ -111,7 +111,13 @@ OPT long slib_fbsearch(const char *key, FILE *fp,
     {
         mid = low + ((high - low) >> 1);
         fseek(fp, linelist[mid], SEEK_SET);
-        fgets(cmp, strlen(key) + 1, fp);
+        /* Either EOF or an error */
+        if (fgets(cmp, strlen(key) + 1, fp) == NULL)
+        {
+            free(cmp);
+            free(linelist);
+            return -1;
+        }
         if (cmp[strlen(cmp) - 1] == '\n')
             cmp[strlen(cmp) - 1] = 0; /* strip the \n */
         r = (*compar)(key, cmp);

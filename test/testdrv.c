@@ -2,31 +2,33 @@
 
 int main(void)
 {
-	int total=0, faileds=0, i;
-    for(i=0;testcases[i].name;++i)
+    int total = 0, faileds = 0, i;
+    for (i = 0; testcases[i].name; ++i)
     {
-		++total;
+        ++total;
         printf("Test %s\t", testcases[i].name);
-		switch(testcases[i].entry())
+        switch (testcases[i].entry())
         {
             case 0:
                 puts("OK");
                 break;
-		    case 114:
-			    puts("NOT FINISHED");
+            case 114:
+                puts("NOT FINISHED");
                 break;
             case 115:
-			    puts("SKIP");
+                puts("SKIP");
                 break;
             case 116:
-			    puts("NOT OK");
+                puts("NOT OK");
                 break;
-		    default:
-			    puts("FAIL");
+            case 117:
+                puts("INTERNAL ERROR");
+                /* pass thru */
+            default:
+                puts("FAIL");
                 ++faileds;
         }
     }
-	printf("%d/%d tests failed\n", faileds, total);
-    return !(faileds==0);
+    printf("%d/%d tests failed\n", faileds, total);
+    return !(faileds == 0);
 }
-

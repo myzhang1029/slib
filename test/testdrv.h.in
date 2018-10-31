@@ -1,4 +1,6 @@
 #include <stdio.h>
+#define QUIET
+#define NOABORT
 @TFILES@
 const struct t
 {

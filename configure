@@ -259,7 +259,7 @@ entries="${entries}{NULL, NULL}}"
 echo "${includes}" > testdrv.h
 sed "s/@TESTS@/${entries}/;s,@TFILES@,," ${srcdir}/test/testdrv.h.in >> testdrv.h
 echo testdrv.exe: ${srcdir}/test/testdrv.c testdrv.h ${tmp} libsbl${sosuf} >> Makefile
-echo "	${cc} ${cflags} -DQUIET -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a ${ldflags}" >> Makefile
+echo "	${cc} ${cflags} -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a ${ldflags}" >> Makefile
 for file in $cfiles;
 do
     echo ${file}.o: ${srcdir}/${file} >> Makefile

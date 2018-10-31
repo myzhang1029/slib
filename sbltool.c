@@ -21,19 +21,25 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include <slib.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <slib.h>
 #include <slib/getopt.h>
 #include <slib/math.h>
 #include <slib/stack.h>
 
-const char *ver = "4.0.2";
+const char *ver = "4.0.3";
 
 void usage(void);
 int ui()
 {
+#define eio()                                                                  \
+    do                                                                         \
+    {                                                                          \
+        fprintf(stderr, "\nHmm... You've entered something I don't know!\n");  \
+        exit(2);                                                               \
+    } while (0)
     char selection = 0;
 helpme:
     printf("1: Print program version\n"
@@ -46,7 +52,8 @@ helpme:
         fflush(stdin);
     reparse:
         selection = getchar();
-        if (feof(stdin))
+        /* eof or error */
+        if (selection == EOF)
         {
             puts("");
             return 0;
@@ -66,9 +73,11 @@ helpme:
             {
                 int pn1, pn2;
                 printf("Minimum: ");
-                scanf("%d", &pn1);
+                if (scanf("%d", &pn1) != 1)
+                    eio();
                 printf("Maximum: ");
-                scanf("%d", &pn2);
+                if (scanf("%d", &pn2) != 1)
+                    eio();
                 slib_prtpn(pn1, pn2);
                 break;
             }
@@ -76,7 +85,8 @@ helpme:
             {
                 int pn;
                 printf("Which number to test: ");
-                scanf("%d", &pn);
+                if (scanf("%d", &pn) != 1)
+                    eio();
                 if (slib_ispn(pn) == STRUE)
                     printf("Is a prime number!\n");
                 else
@@ -87,9 +97,11 @@ helpme:
             {
                 int num1, num2;
                 printf("First number: ");
-                scanf("%d", &num1);
+                if (scanf("%d", &num1) != 1)
+                    eio();
                 printf("Second number: ");
-                scanf("%d", &num2);
+                if (scanf("%d", &num2) != 1)
+                    eio();
                 if (slib_isrp(num1, num2) == STRUE)
                     printf("They are coprime!\n");
                 else
