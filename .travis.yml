@@ -41,4 +41,4 @@ script:
     - ./configure && make test
     - cmake . && make && make test
     - mkdir build && cd build && ../configure && make test
-    - mkdir build && cd build && cmake .. && make && make test
+    - cmake .. && make && make test
