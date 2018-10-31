@@ -253,10 +253,11 @@ do
     tmp="${tmp} ${file}"
     testname=`echo ${file} | sed s,.*/,, | cut -f1 -d-`
     entries="${entries}{\"${testname}\", ${testname}_main}, "
-    includes="${includes}#include \"${testname}-test.c\"\\n"
+    includes="${includes}#include \"${testname}-test.c\"\n"
 done
 entries="${entries}{NULL, NULL}}"
-sed "s/@TESTS@/${entries}/;s,@TFILES@,${includes}," ${srcdir}/test/testdrv.h.in > testdrv.h
+echo "${includes}" > testdrv.h
+sed "s/@TESTS@/${entries}/;s,@TFILES@,," ${srcdir}/test/testdrv.h.in >> testdrv.h
 echo testdrv.exe: ${srcdir}/test/testdrv.c testdrv.h ${tmp} libsbl${sosuf} >> Makefile
 echo "	${cc} ${cflags} -DQUIET -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a ${ldflags}" >> Makefile
 for file in $cfiles;

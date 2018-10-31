@@ -39,6 +39,6 @@ before_install:
     - eval "${MATRIX_EVAL}"
 script:
     - ./configure && make test
-    - cmake . && make test
+    - cmake . && make && make test
     - mkdir build && cd build && ../configure && make test
-    - mkdir build && cd build && cmake .. && make test
+    - mkdir build && cd build && cmake .. && make && make test
