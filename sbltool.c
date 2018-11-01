@@ -87,7 +87,7 @@ helpme:
                 printf("Which number to test: ");
                 if (scanf("%d", &pn) != 1)
                     eio();
-                if (slib_ispn(pn) == STRUE)
+                if (slib_ispn(pn) == 1)
                     printf("Is a prime number!\n");
                 else
                     printf("Not a prime number!\n");
@@ -102,7 +102,7 @@ helpme:
                 printf("Second number: ");
                 if (scanf("%d", &num2) != 1)
                     eio();
-                if (slib_isrp(num1, num2) == STRUE)
+                if (slib_isrp(num1, num2) == 1)
                     printf("They are coprime!\n");
                 else
                     printf("They are not coprime!\n");

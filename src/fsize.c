@@ -29,7 +29,7 @@ OPT long fsize(FILE *stream)
 {
     long size;
     if (!stream)
-        return SERROR;
+        return -1;
     fseek(stream, 0L, SEEK_END);
     size = ftell(stream);
     return size;

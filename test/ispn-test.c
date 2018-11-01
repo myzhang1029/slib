@@ -3,11 +3,11 @@
 
 int ispn_main(void)
 {
-    asrt_neq(slib_ispn(2), SFALSE, "ispn-2");
-    asrt_neq(slib_ispn(1), STRUE, "ispn-1");
-    asrt_neq(slib_ispn(3), SFALSE, "ispn-3");
-    asrt_neq(slib_ispn(9), STRUE, "ispn-9");
-    asrt_neq(slib_ispn(97), SFALSE, "ispn-97");
-    asrt_neq(slib_ispn(999983), SFALSE, "ispn-999983");
+    asrt_equ(slib_ispn(2), 1, "ispn-2");
+    asrt_equ(slib_ispn(1), 0, "ispn-1");
+    asrt_equ(slib_ispn(3), 1, "ispn-3");
+    asrt_equ(slib_ispn(9), 0, "ispn-9");
+    asrt_equ(slib_ispn(97), 1, "ispn-97");
+    asrt_equ(slib_ispn(999983), 1, "ispn-999983");
     return 0;
 }

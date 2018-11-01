@@ -35,21 +35,21 @@ typedef struct Stack
 {
     void *base;
     void *top;
-    int stackSize;
-    int typeSize;
-} sqStack;
+    size_t size;
+    size_t type_size;
+} stackS;
 
-OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize);
+OPT int slib_stack_new(stackS *s, size_t size, size_t type_size);
 
-OPT int Push(sqStack *s, void *e);
+OPT int slib_stack_push(stackS *s, void *e);
 
-OPT int Pop(sqStack *s, void *e);
+OPT int slib_stack_pop(stackS *s, void *e);
 
-OPT int ClearStack(sqStack *s);
+OPT size_t slib_stack_len(stackS *s);
 
-OPT int DestroyStack(sqStack *s);
+OPT void slib_stack_clear(stackS *s);
 
-OPT int GetLen(sqStack *s);
+OPT void slib_stack_free(stackS *s);
 _END_EXTERN_C
 
 #endif /* SLIB_STACK_H */

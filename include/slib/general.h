@@ -30,8 +30,8 @@
 #ifndef SLIB_GENERAL_H
 #define SLIB_GENERAL_H
 
-#define SBLLIB_VERSION 3
-#define SBLLIB_MINOR 14
+#define SBLLIB_VERSION 4
+#define SBLLIB_MINOR 0
 #define SBLLIB_PATCHLEVEL 0
 
 #ifdef HAVE_CONFIG_H
@@ -58,21 +58,17 @@
 #include <windows.h>
 #endif
 
-#ifndef _CRT_SECURE_NO_WARNINGS /*for MSVC compiling envirment*/
+#ifndef _CRT_SECURE_NO_WARNINGS /* for MSVC */
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 #undef _CRT_NONSTDC_NO_WARNINGS
 
-#ifndef NULL /*give default definition for NULL*/
+#ifndef NULL /* default definition of NULL */
 #define NULL (void *)0
 #endif
 
-#define STRUE 1 /*status*/
-#define SFALSE 0
-#define SERROR -1
-
 #if PLAT
-#define OPT extern __declspec(dllexport) /*use in declartions*/
+#define OPT extern __declspec(dllexport) /* used in declarations */
 #else
 #define OPT extern
 #endif
@@ -83,11 +79,6 @@
 #endif
 
 #define S_INLINE inline
-
-/*debugger*/
-#define D_STABLE
-#define D_UNSTABLE
-#define D_TESTING
 
 #ifdef __cplusplus
 #define _BEGIN_EXTERN_C extern "C" {

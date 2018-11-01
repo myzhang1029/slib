@@ -60,8 +60,8 @@ enum cpfcolors
 };
 
 /*declation start*/
-D_TESTING OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
-                              const char *format, ...);
+OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
+                    const char *format, ...);
 
 OPT int *getret(mtret *ret);
 

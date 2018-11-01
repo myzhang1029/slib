@@ -2,7 +2,7 @@
  *  stack.c - stack in the slib
  *
  *  Copyright (C) 2017 Zhang Maiyun
- *  Thanks a user on CSDN.NET for most of the code.
+ *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
  *  This file is part of the slib.
@@ -27,50 +27,45 @@
 #include <stdlib.h>
 #include <string.h>
 
-OPT int InitStack(sqStack *s, unsigned stackSize, unsigned typeSize)
+OPT int slib_stack_new(stackS *s, size_t size, size_t type_size)
 {
-    s->base = malloc(stackSize);
-    if (!s->base)
-        return SERROR;
+    s->base = malloc(size);
+    if (s->base == NULL)
+        return -1;
     s->top = s->base;
-    s->stackSize = stackSize;
-    s->typeSize = typeSize;
-    return STRUE;
+    s->size = size;
+    s->type_size = type_size;
+    return 0;
 }
 
-OPT int Push(sqStack *s, void *e)
+OPT int slib_stack_push(stackS *s, void *e)
 {
-    if ((intptr_t)s->top - (intptr_t)s->base + s->typeSize > s->stackSize)
-        return SFALSE;
-    memcpy(s->top, e, s->typeSize);
-    s->top = (void *)((intptr_t)s->top + s->typeSize);
-    return STRUE;
+    if ((intptr_t)s->top - (intptr_t)s->base + s->type_size > s->size)
+        return 1;
+    memcpy(s->top, e, s->type_size);
+    s->top = (void *)((intptr_t)s->top + s->type_size);
+    return 0;
 }
 
-OPT int Pop(sqStack *s, void *e)
+OPT int slib_stack_pop(stackS *s, void *e)
 {
     if (s->top == s->base)
-        return SFALSE;
-    s->top = (void *)((intptr_t)s->top - (intptr_t)s->typeSize);
-    memcpy(e, s->top, s->typeSize);
-    return STRUE;
+        return 1;
+    s->top = (void *)((intptr_t)s->top - (intptr_t)s->type_size);
+    memcpy(e, s->top, s->type_size);
+    return 0;
 }
 
-OPT int GetLen(sqStack *s)
+OPT size_t slib_stack_len(stackS *s)
 {
-    return ((intptr_t)s->top - (intptr_t)s->base) / s->typeSize;
+    return ((intptr_t)s->top - (intptr_t)s->base) / s->type_size;
 }
 
-OPT int ClearStack(sqStack *s)
-{
-    s->top = s->base;
-    return STRUE;
-}
+OPT void slib_stack_clear(stackS *s) { s->top = s->base; }
 
-OPT int DestroyStack(sqStack *s)
+OPT void slib_stack_free(stackS *s)
 {
     free(s->base);
     s->top = s->base = NULL;
-    s->stackSize = s->typeSize = 0;
-    return STRUE;
+    s->size = s->type_size = 0;
 }

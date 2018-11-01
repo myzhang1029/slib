@@ -30,13 +30,13 @@ OPT int slib_old_ispn(slib_uint testingnum)
     slib_uint k = (slib_uint)sqrt((double)testingnum), i = 3;
 
     if (testingnum == 1 || ((testingnum & 1) == 0 && testingnum != 2))
-        return SFALSE;
+        return 0;
 
     for (; i <= k; i++)
         if (testingnum % i == 0)
-            return SFALSE;
+            return 0;
 
-    return STRUE;
+    return 1;
 }
 
 OPT int slib_ispn(slib_uint testingnum)
@@ -44,11 +44,11 @@ OPT int slib_ispn(slib_uint testingnum)
     slib_uint i = 3;
 
     if (((testingnum & 1) == 0 && testingnum != 2) || testingnum == 1)
-        return SFALSE;
+        return 0;
 
     for (; i * i <= testingnum; i++)
         if (testingnum % i == 0)
-            return SFALSE;
+            return 0;
 
-    return STRUE;
+    return 1;
 }
