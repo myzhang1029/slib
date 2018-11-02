@@ -1,6 +1,7 @@
 set(cmake_generated
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/CMakeCache.txt
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/cmake_install.cmake
+    ${CMAKE_BINARY_DIR}/uninstall.cmake
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/install_manifest.txt
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/Makefile
     ${CMAKE_BINARY_DIR}/${RUNNING_DIR}/CTestTestfile.cmake

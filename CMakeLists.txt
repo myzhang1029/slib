@@ -44,8 +44,12 @@ add_custom_target(distclean
     COMMAND ${CMAKE_COMMAND} -DRUNNING_DIR=src -P
     ${CMAKE_SOURCE_DIR}/cmake/distclean.cmake)
 # uninstall target    
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/uninstall.cmake"
+    IMMEDIATE @ONLY)
 add_custom_target(uninstall
-    COMMAND ${CMAKE_SOURCE_DIR}/cmake/uninstall.sh)
+    COMMAND "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/uninstall.cmake")
 
 install(TARGETS sbltool DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES include/slib.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
