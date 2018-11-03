@@ -1,0 +1,13 @@
+image: Visual Studio 2017
+
+init:
+    - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+
+install:
+    - cmake . -G "NMake Makefiles"
+    - nmake
+
+test_script:
+    - ctest
+
+build: off

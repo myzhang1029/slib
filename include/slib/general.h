@@ -46,6 +46,10 @@
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN16) ||            \
     defined(_WIN32) || defined(_WIN64) || defined(__MSDOS__)
 #define PLAT 1
+#ifndef _CRT_SECURE_NO_WARNINGS /* for MSVC */
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+#undef _CRT_NONSTDC_NO_WARNINGS
 #elif defined(__linux__) || defined(__BSD__) | defined(__APPLE__) ||           \
     defined(__unix__)
 #define PLAT 0
@@ -57,11 +61,6 @@
 #if PLAT
 #include <windows.h>
 #endif
-
-#ifndef _CRT_SECURE_NO_WARNINGS /* for MSVC */
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-#undef _CRT_NONSTDC_NO_WARNINGS
 
 #ifndef NULL /* default definition of NULL */
 #define NULL (void *)0
