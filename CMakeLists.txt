@@ -4,7 +4,7 @@ include(CheckIncludeFiles)
 include(CheckFunctionExists)
 include(CheckTypeSize)
 
-project(libsbl VERSION 4.0.0
+project(libsbl VERSION 4.1.0
     LANGUAGES "C")
 set(PROJECT_DESCRIPTION "A C library providing many useful operations")
 enable_testing()

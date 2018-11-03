@@ -27,35 +27,31 @@
 #include <string.h>
 #include "slib.h"
 
-mtret mkret(size_t length, ...)
+mtret *mkret(size_t length, ...)
 {
-    mtret ret;
+    mtret *ret = (mtret *)malloc(sizeof(mtret));
     int **elems = (int **)malloc(sizeof(int *) * length);
     size_t count = 0;
     va_list args;
     if (elems == NULL)
-    {
-        memset(&ret, 0, sizeof(mtret));
-        return ret;
-    }
+        return memset(ret, 0, sizeof(mtret));
     va_start(args, length);
-
-    ret.length = length;
-    for (; count < length; ++count)
-    {
-        elems[count] = va_arg(args, int *);
-    }
-    ret.val = elems;
+    ret->length = length;
+    ret->base = ret->val = elems;
+    while (length--)
+        *elems++ = va_arg(args, int *);
     va_end(args);
-    elems = NULL;
-    ret.retind = 0;
     return ret;
 }
 
 int *getret(mtret *ret)
 {
-    if (ret->retind < ret->length)
-        return ret->val[ret->retind++];
-    free(ret->val);
+    if (ret->length)
+    {
+        --(ret->length);
+        return *(ret->val)++;
+    }
+    free(ret->base);
+    free(ret);
     return NULL;
 }
