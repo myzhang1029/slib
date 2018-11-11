@@ -33,7 +33,7 @@ mtret *mkret(size_t length, ...)
     int **elems = (int **)malloc(sizeof(int *) * length);
     va_list args;
     if (elems == NULL)
-        return memset(ret, 0, sizeof(mtret));
+        return (mtret *)memset(ret, 0, sizeof(mtret));
     va_start(args, length);
     ret->length = length;
     ret->base = ret->val = elems;
