@@ -75,39 +75,47 @@ check_cc(){
     then
         cc="${hosttrip}-cc"
     else
-        hosttrip=`$srcdir/cmake/config.sub $1`
-        if ${hosttrip}-clang -v > /dev/null 2>&1;
+        if ! ["$hosttrip" = ""];
         then
-            cc="${hosttrip}-clang"
-        elif ${hosttrip}-gcc -v > /dev/null 2>&1
-        then
-            cc="${hosttrip}-gcc"
-        elif ${hosttrip}-tcc -v > /dev/null 2>&1;
-        then
-            cc="${hosttrip}-tcc"
-        elif ${hosttrip}-cc -v > /dev/null 2>&1;
-        then
-            cc="${hosttrip}-cc"
-        else # No prefixed CC to use
-            w=1
-            if clang -v > /dev/null 2>&1;
+            hosttrip=`$srcdir/cmake/config.sub $1`
+            if ${hosttrip}-clang -v > /dev/null 2>&1;
             then
-                cc="clang"
-            elif gcc -v > /dev/null 2>&1;
+                cc="${hosttrip}-clang"
+                return
+            elif ${hosttrip}-gcc -v > /dev/null 2>&1
             then
-                cc="gcc"
-            elif tcc -v > /dev/null 2>&1;
+                cc="${hosttrip}-gcc"
+                return
+            elif ${hosttrip}-tcc -v > /dev/null 2>&1;
             then
-                cc="tcc"
-            elif cc -v > /dev/null 2>&1;
+                cc="${hosttrip}-tcc"
+                return
+            elif ${hosttrip}-cc -v > /dev/null 2>&1;
             then
-                cc="cc"
-            else
-                echo no
-                echo configure: Error: Can not find a C compiler!
-                echo Please specify one. Read "./configure --help" for more information.
-                exit 1
+                cc="${hosttrip}-cc"
+                return
+            else :
             fi
+        fi
+        # No prefixed CC to use
+        w=1
+        if clang -v > /dev/null 2>&1;
+        then
+            cc="clang"
+        elif gcc -v > /dev/null 2>&1;
+        then
+            cc="gcc"
+        elif tcc -v > /dev/null 2>&1;
+        then
+            cc="tcc"
+        elif cc -v > /dev/null 2>&1;
+        then
+            cc="cc"
+        else
+            echo no
+            echo configure: Error: Can not find a C compiler!
+            echo Please specify one. Read "./configure --help" for more information.
+            exit 1
         fi
     fi
     echo $cc
@@ -181,7 +189,7 @@ ACEOF
         esac
     done
     echo $exesuf
-    rm -f $possile_files conftest.c
+    rm -f $possible_files conftest.c
 }
 
 # Check whether the compiler produces shared objects
