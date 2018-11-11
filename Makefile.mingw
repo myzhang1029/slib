@@ -43,8 +43,8 @@ src/isrp.c \
 src/itoa.c \
 src/lcm.c \
 src/mret.c \
-src/mtscat.c \
 src/permcomb.c \
+src/pnlst.c \
 src/prtpn.c \
 src/sleepS.c \
 src/splitpathS.c \
