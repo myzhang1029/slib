@@ -31,7 +31,6 @@ mtret *mkret(size_t length, ...)
 {
     mtret *ret = (mtret *)malloc(sizeof(mtret));
     int **elems = (int **)malloc(sizeof(int *) * length);
-    size_t count = 0;
     va_list args;
     if (elems == NULL)
         return memset(ret, 0, sizeof(mtret));
