@@ -27,7 +27,7 @@ srcdir=`dirname $0`
 . $srcdir/cmake/acconf.sh
 
 # Plus which, cc, ar and sh, these are minimal requirement to build this project
-check_progs cat rm mkdir cut sed find tr grep printf uname
+check_progs cat rm mkdir cut sed expr find tr grep printf uname
 check_progs make
 
 # Default/init vaule of variables
@@ -127,41 +127,16 @@ then
     check_cc $cross
 fi
 
+# For exesuf
+check_cc_works
+
 # Check for ar
 if [ "$ar" = "" ] ; then
     check_ar $cross
 fi
 
 # For sosuf
-printf "Checking for extension of shared objects... "
-
-case $system_name in
-    *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
-        soflags="-fPIC -shared -Os -lm"
-        cflags="${cflags} -fPIC"
-        ;;
-    darwin*|*step*) sosuf=".dylib"
-        soflags="-dynamiclib -current_version $version"
-        ;;
-    windows*|mingw*|msys*|cygwin*) sosuf=".dll"
-        soflags="-shared"
-        ;;
-    *) echo unknown
-        echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --sosuffix
-        exit 1
-esac
-echo $sosuf
-
-# For exesuf
-printf "Checking for extension of executables... "
-
-case $system_name in
-    windows*|mingw*|msys*|cygwin*) exesuf=".exe"
-        ;;
-    *) exesuf=""
-        ;;
-esac
-echo $exesuf
+check_shared_works
 
 if check_header "alloca.h";
 then

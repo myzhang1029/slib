@@ -115,25 +115,6 @@ check_cc(){
     then
         echo configure: Warning: Using unprefixed cc while cross-compiling.
     fi
-    printf 'Checking whether the C Compiler works... '
-    cat > conftest.c << ACEOF
-#include <stdio.h>
-int main(){}
-ACEOF
-    if ${cc} conftest.c -o conftest >/dev/null 2>&1;
-    then
-        echo yes
-        rm -f conftest.c conftest conftest.exe
-        return 0
-    else
-        echo no
-        echo The C Compiler cannot compile a simple source file
-        echo The failed source file was:
-        echo "#include <stdio.h>"
-        echo "int main(){}"
-        rm -f conftest.c conftest conftest.exe
-        exit 1
-    fi
 }
 
 # AC_PROG_AR
@@ -156,6 +137,93 @@ check_ar(){
     then
         echo configure: Warning: Using unprefixed ar while cross-compiling.
     fi
+}
+
+# Check whether the compiler works
+check_cc_works(){
+    possible_files="a.out conftest.exe conftest a.exe a_out.exe b.out conftest.*"
+    cat > conftest.c << ACEOF
+#include <stdio.h>
+int main(){;}
+ACEOF
+    printf 'Checking whether the C Compiler works... '
+    if ${cc} conftest.c >/dev/null 2>&1;
+    then
+        echo yes
+    else
+        echo no
+        echo The C Compiler cannot compile a simple source file
+        echo The failed source file was:
+        echo "#include <stdio.h>"
+        echo "int main(){;}"
+        rm -f $possible_files conftest.c
+        exit 1
+    fi
+    printf 'Checking for extension of executables... '
+    for file in $possible_files;
+    do
+        test -f "$file" || continue
+        case $file in
+            *.$ac_ext | *.xcoff | *.tds | *.d | *.pdb | *.xSYM | *.bb | *.bbg | *.map | *.inf | *.dSYM | *.o | *.obj )
+                # Not the right one
+                ;;
+            [ab].out )
+                # We found the default executable.
+                break;;
+            *.* )
+                if [ "$exesuf" = "" ];
+                then
+                    exesuf=`expr "$file" : '[^.]*\(\..*\)'`
+                fi
+                break;;
+            * )
+                break;;
+        esac
+    done
+    echo $exesuf
+    rm -f $possile_files conftest.c
+}
+
+# Check whether the compiler produces shared objects
+check_shared_works() {
+    printf 'Checking whether the C Compiler accepts -shared... '
+    cat > conftest.c << ACEOF
+#include <stdio.h>
+int main(){;}
+ACEOF
+    if ${cc} -shared -o conftest.so conftest.c >/dev/null 2>&1;
+    then
+        echo yes
+    else
+        echo no
+        echo The C Compiler cannot produce shared objects
+        echo The failed source file was:
+        echo "#include <stdio.h>"
+        echo "int main(){;}"
+        rm -f $possible_files
+        exit 1
+    fi
+    rm -f conftest.so conftest.c
+    # For sosuf
+    printf "Checking for extension of shared objects... "
+    
+    case $system_name in
+        *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
+            soflags="-fPIC -shared -Os -lm"
+            cflags="${cflags} -fPIC"
+            ;;
+        darwin*|*step*) sosuf=".dylib"
+            soflags="-dynamiclib -current_version $version"
+            ;;
+        windows*|mingw*|msys*|cygwin*) sosuf=".dll"
+            soflags="-shared"
+            ;;
+        *) echo unknown
+            echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --sosuffix
+            exit 1
+    esac
+    echo $sosuf
+    return 0
 }
 
 # Extract $os from host triplet
