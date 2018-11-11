@@ -83,10 +83,6 @@ for opt do
         --prefix=*) prefix=`echo ${opt} | cut -d '=' -f 2`
             ;;
         --host=*) cross=`echo ${opt} | cut -d '=' -f 2`
-            if ! [ "$cross" = "" ];
-            then
-                cross=`${srcdir}/cmake/config.sub $cross` || exit 
-            fi
             ;;
         --build=*|--target=*)
             ;;
@@ -120,7 +116,7 @@ if [ "$cross" = "" ];
 then
     system_name=`$srcdir/cmake/config.guess`
 else
-    system_name=$cross
+    system_name=`$srcdir/cmake/config.sub $cross`
 fi
 echo Starting configuration for host $system_name
 system_name=`extract_os $system_name`

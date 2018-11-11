@@ -60,38 +60,54 @@ check_progs(){
 # $1: cross compile prefix
 check_cc(){
     w=0
+    hosttrip=$1
     printf "Checking for C Compiler... "
-    if $1-clang -v > /dev/null 2>&1;
+    if ${hosttrip}-clang -v > /dev/null 2>&1;
     then
-        cc="${cross}-clang"
-    elif ${cross}-gcc -v > /dev/null 2>&1
+        cc="${hosttrip}-clang"
+    elif ${hosttrip}-gcc -v > /dev/null 2>&1
     then
-        cc="${cross}-gcc"
-    elif ${cross}-tcc -v > /dev/null 2>&1;
+        cc="${hosttrip}-gcc"
+    elif ${hosttrip}-tcc -v > /dev/null 2>&1;
     then
-        cc="${cross}-tcc"
-    elif ${cross}-cc -v > /dev/null 2>&1;
+        cc="${hosttrip}-tcc"
+    elif ${hosttrip}-cc -v > /dev/null 2>&1;
     then
-        cc="${cross}-cc"
-    else # No prefixed CC to use
-        w=1
-        if clang -v > /dev/null 2>&1;
+        cc="${hosttrip}-cc"
+    else
+        hosttrip=`$srcdir/cmake/config.sub $1`
+        if ${hosttrip}-clang -v > /dev/null 2>&1;
         then
-            cc="clang"
-        elif gcc -v > /dev/null 2>&1;
+            cc="${hosttrip}-clang"
+        elif ${hosttrip}-gcc -v > /dev/null 2>&1
         then
-            cc="gcc"
-        elif tcc -v > /dev/null 2>&1;
+            cc="${hosttrip}-gcc"
+        elif ${hosttrip}-tcc -v > /dev/null 2>&1;
         then
-            cc="tcc"
-        elif cc -v > /dev/null 2>&1;
+            cc="${hosttrip}-tcc"
+        elif ${hosttrip}-cc -v > /dev/null 2>&1;
         then
-            cc="cc"
-        else
-            echo no
-            echo configure: Error: Can not find a C compiler!
-            echo Please specify one. Read "./configure --help" for more information.
-            exit 1
+            cc="${hosttrip}-cc"
+        else # No prefixed CC to use
+            w=1
+            if clang -v > /dev/null 2>&1;
+            then
+                cc="clang"
+            elif gcc -v > /dev/null 2>&1;
+            then
+                cc="gcc"
+            elif tcc -v > /dev/null 2>&1;
+            then
+                cc="tcc"
+            elif cc -v > /dev/null 2>&1;
+            then
+                cc="cc"
+            else
+                echo no
+                echo configure: Error: Can not find a C compiler!
+                echo Please specify one. Read "./configure --help" for more information.
+                exit 1
+            fi
         fi
     fi
     echo $cc
