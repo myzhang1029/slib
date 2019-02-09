@@ -2,8 +2,10 @@
 /* References:
  * 1. "Sunrise equation": Wikipedia
  * 2. "Julian Day": Wikipedia
- * Other formulas in this file are my own thoughts and is in public domain
- * if without further notice*/
+ * Those are available under CC-BY-SA.
+ * Other formulas in this file are my own thoughts */
+/*
+ * This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA. *
 #include <math.h>
 #include <time.h>
 
@@ -39,49 +41,6 @@ void slib_h2hms(double in_hours, double *out_hours, double *out_minutes,
 double slib_hms2h(double hours, double minutes, double seconds)
 {
     return hours + minutes / 60 + seconds / 3600;
-}
-
-/* convert tm structure to Julian Date [2] */
-double slib_julian_date(struct tm tm)
-{
-    int y = tm.tm_year + 1900, m = tm.tm_mon + 1, d = tm.tm_mday;
-    double jdn = (1461 * (y + 4800 + (m - 14) / 12)) / 4 +
-                 (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 -
-                 (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075;
-    /* note the result of slib_hms2h might be negative */
-    return jdn + (tm.tm_hour + 1.0 - 12.0 /* midnight2noon */) / 24.0 +
-           tm.tm_min / 1440.0 + tm.tm_sec / 86400.0;
-}
-
-/* get the time difference(in hours) between UTC and true local time
-   (i.e. the sun is exactly south, north or overhead at 12:00)
-   longitude in degrees */
-double slib_true_time_diff(double longitude)
-{
-    if (longitude > 0) /* east */
-    {
-        while (longitude >= 360)
-            longitude -= 360; /* make sure |longitude| < 360deg */
-        if (longitude > 180)
-            longitude -= 360; /* E2W */
-    }
-    if (longitude < 0) /* west */
-    {
-        while (longitude <= -360)
-            longitude += 360; /* make sure |longitude| < 360deg */
-        if (longitude < -180)
-            longitude += 360; /* W2E */
-    }
-    return longitude / 15.0;
-}
-double slib_local_time(double longitude, double hours, double timezone)
-{
-    return hours - timezone + slib_true_time_diff(longitude);
-}
-/* convert hour angle to hour difference */
-double slib_hour_angle_to_hour_diff(double hour_angle)
-{
-    return hour_angle / 15.0;
 }
 
 /* convert date to day count since Jan 1st, stable API*/
@@ -129,6 +88,61 @@ double slib_sun_decl_by_date(int d)
 {
     return -dasin(0.39779 *
                   dcos(0.98565 * (d + 10) + 1.914 * dsin(0.98565 * (d - 2))));
+}
+
+/* convert tm structure to Julian Date [2] */
+double slib_julian_date(struct tm tm)
+{
+    int y = tm.tm_year + 1900, m = tm.tm_mon + 1, d = tm.tm_mday;
+    double jdn = (1461 * (y + 4800 + (m - 14) / 12)) / 4 +
+                 (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 -
+                 (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075;
+    /* note the result of slib_hms2h might be negative */
+    return jdn + (tm.tm_hour + 1.0 - 12.0 /* midnight2noon */) / 24.0 +
+           tm.tm_min / 1440.0 + tm.tm_sec / 86400.0;
+}
+
+/* get the time difference(in hours) between UTC and true local time
+   (i.e. the sun is exactly south, north or overhead at 12:00)
+   longitude in degrees */
+double slib_true_time_diff(double longitude)
+{
+    if (longitude > 0) /* east */
+    {
+        while (longitude >= 360)
+            longitude -= 360; /* make sure |longitude| < 360deg */
+        if (longitude > 180)
+            longitude -= 360; /* E2W */
+    }
+    if (longitude < 0) /* west */
+    {
+        while (longitude <= -360)
+            longitude += 360; /* make sure |longitude| < 360deg */
+        if (longitude < -180)
+            longitude += 360; /* W2E */
+    }
+    return longitude / 15.0;
+}
+double slib_local_time(double longitude, double hours, double timezone)
+{
+    return hours - timezone + slib_true_time_diff(longitude);
+}
+/* convert hour angle to hour difference */
+double slib_hour_angle_to_hour_diff(double hour_angle)
+{
+    return hour_angle / 15.0;
+}
+
+/* calculate current julian day from slib_julian_date [1] */
+double slib_julian_day(double julian_date)
+{
+    return julian_date - 2451545.0 + 0.0008;
+}
+
+/* mean solar noon [1] */
+double slib_mean_solar_noon(double julian_day, double longitude)
+{
+    return julian_day - longitude / 360;
 }
 
 /* the sunrise equation [1]
