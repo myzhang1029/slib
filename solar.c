@@ -133,76 +133,45 @@ double slib_tm2jd(struct tm tm)
     double jdn = (1461 * (y + 4800 + (m - 14) / 12)) / 4 +
                  (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 -
                  (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075;
+    if (y < -4713 || y == -4713 && m < 11 ||
+        y == -4713 && m == 11 &&
+            d <= 23) /* The algorithm is invalid here TODO */
+        return -1;
     /* note the result of slib_hms2h might be negative */
     return jdn + (tm.tm_hour - 12.0 /* midnight2noon */) / 24.0 +
            tm.tm_min / 1440.0 + tm.tm_sec / 86400.0;
 }
 
-/* convert Julian Date back to tm structure */
+/* convert Julian Date back to tm structure [2], stable for all AD times */
 void slib_jd2tm(double jd, struct tm *tm)
 {
     int jdn = (int)jd;
     double frac = jd - jdn;
-    int day = 1, month = 1, year = -4713;
+    int day, month, year;
     double hour, min, sec;
-    /* TODO */
-    for (;; ++year)
-    {
-        if (isleap(year))
-        {
-            if (jdn < 366) /* current year found */
-                break;
-            jdn -= 366;
-        }
-        else
-        {
-            if (jdn < 365) /* current year found */
-                break;
-            jdn -= 365;
-        }
-    }
-    for (;; ++month)
-    {
-        int n = 28;
-        if (isleap(year))
-            n = 29;
-        if (month == 1 || month == 3 || month == 5 || month == 7 ||
-            month == 8 || month == 10 || month == 12)
-        {
-            if (jdn < 31) /* current month found */
-                break;
-            jdn -= 31;
-        }
-        else if (month == 4 || month == 6 || month == 9 || month == 11)
-        {
-            if (jdn < 30) /* current month found */
-                break;
-            jdn -= 30;
-        }
-        else /* February */
-        {
-            if (jdn < n)
-                break;
-            jdn -= n;
-        }
-    }
-    day = jdn;
-    if (frac >= 0.5) /* the next day */
+    int e, f, g, h, j, m, n, p, r, s, u, v, w, y, B, C;
+    y = 4716, j = 1401, m = 2, n = 12, r = 4, p = 1461, v = 3, u = 5, s = 153,
+    w = 2, B = 274277, C = -38;
+    f = jdn + j + (((4 * jdn + B) / 146097) * 3) / 4 + C;
+    e = r * f + v;
+    g = e % p / r;
+    h = u * g + w;
+    day = h % s / u + 1;
+    month = (h / s + m) % n + 1;
+    year = e / p - y + (n + m - month) / n;
+    if (frac >= 0.5)
     {
         ++day;
         frac -= 0.5;
-        slib_h2hms(frac / 3600.0, &hour, &min, &sec);
     }
-    else /* today afternoon/evening */
+    else
     {
         frac += 0.5;
-        slib_h2hms(frac / 3600.0, &hour, &min, &sec);
     }
-
-    printf("%4d/%02d/%02d,%02d:%02d:%02d\n", year, month, day, (int)hour,
-           (int)min, (int)sec);
+    slib_h2hms(frac * 24, &hour, &min, &sec);
     tm->tm_sec = sec;
     tm->tm_min = min;
+    tm->tm_hour = hour;
     tm->tm_mday = day;
     tm->tm_mon = month - 1;
     tm->tm_year = year - 1900;
@@ -300,21 +269,22 @@ double slib_sf_csha(double latitude, double longitude, double elevation,
 }
 
 #include <stdio.h>
-int test()
+int main()
 {
     time_t rawtm;
     struct tm *tm;
     double sunset, sha, st, lat = 25.0, lon = 102.7, elev = 1904, jd;
     time(&rawtm);
     tm = localtime(&rawtm);
+    tm->tm_year-=3000;
     jd = slib_tm2jd(*tm);
     slib_jd2tm(jd, tm);
+    printf("%4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
+           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
+           jd);
     sha = slib_sf_csha(lat, lon, elev, &st, *tm);
     sunset = st + sha / 360;
     slib_jd2tm(sunset, tm);
-    printf("%4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
-           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
-           sunset);
 
     return 0;
 }
