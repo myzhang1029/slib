@@ -126,10 +126,11 @@ double slib_hour_angle_to_hour_diff(double hour_angle)
     return hour_angle / 15.0;
 }
 
-/* convert tm structure to Julian Date [2], stable API */
-double slib_tm2jd(struct tm tm)
+/* convert tm structure to Julian Date [2], note that you should always use a
+ * UTC time, stable API */
+double slib_tm2jd(struct tm *tm)
 {
-    int y = tm.tm_year + 1900, m = tm.tm_mon + 1, d = tm.tm_mday;
+    int y = tm->tm_year + 1900, m = tm->tm_mon + 1, d = tm->tm_mday;
     double jdn = (1461 * (y + 4800 + (m - 14) / 12)) / 4 +
                  (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 -
                  (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075;
@@ -138,8 +139,8 @@ double slib_tm2jd(struct tm tm)
             d <= 23) /* The algorithm is invalid here TODO */
         return -1;
     /* note the result of slib_hms2h might be negative */
-    return jdn + (tm.tm_hour - 12.0 /* midnight2noon */) / 24.0 +
-           tm.tm_min / 1440.0 + tm.tm_sec / 86400.0;
+    return jdn + (tm->tm_hour - 12.0 /* midnight2noon */) / 24.0 +
+           tm->tm_min / 1440.0 + tm->tm_sec / 86400.0;
 }
 
 /* convert Julian Date back to tm structure [2], stable for all AD times */
@@ -253,9 +254,10 @@ double slib_corr_sunrise_hour_angle(double latitude, double sun_declination,
                  (dcos(latitude) * dcos(sun_declination)));
 }
 
-/* single function version */
+/* single function version. Stands for Single Function Corrected Sunrise Hour
+ * Angle. Always accepts UTC tm and returns a UTC time and UTC solartrans */
 double slib_sf_csha(double latitude, double longitude, double elevation,
-                    double *solartrans, struct tm tm)
+                    double *solartrans, struct tm *tm)
 {
     double jd = round(slib_tm2jd(tm));
     double jdy = slib_julian_day(jd);
@@ -268,36 +270,46 @@ double slib_sf_csha(double latitude, double longitude, double elevation,
     return slib_corr_sunrise_hour_angle(latitude, sundec, elevation);
 }
 
+/* Full calculation for most uses.
+ * Arguments:
+ * latitude, longitude
+ * elevation: in metres
+ * utcnow: the UTC time for now
+ * out_sunrise, out_sunset: Pointers to pre-allocated struct tm. The result time
+ * zone is the time zone of the machine doing the calculation since we don't
+ * know which time zone the destination is using */
+void slib_sf_sunrise(double latitude, double longitude, double elevation,
+                     struct tm *utcnow, struct tm *out_sunrise,
+                     struct tm *out_sunset)
+{
+    time_t localtm = mktime(utcnow); /* mktime assumes localtime */
+    time_t gmtm = mktime(gmtime(&localtm));
+    /* get timezone from gmtime and localtime */
+    double tz, sha, st, sunrise, sunset;
+    tz = difftime(localtm, gmtm) / 3600;
+    sha = slib_sf_csha(latitude, longitude, elevation, &st, utcnow);
+    sunrise = st - sha / 360;
+    sunrise += tz / 24;
+    slib_jd2tm(sunrise, out_sunrise);
+    sunset = st + sha / 360;
+    sunset += tz / 24;
+    slib_jd2tm(sunset, out_sunset);
+}
+
 #include <stdio.h>
 int main()
 {
     time_t rawtm;
-    struct tm *tm;
-    double sunrise, sunset, sha, st, lat = 25.0, lon = 102.7, elev = 1904,
-                                     tz = 8, jd;
+    struct tm *tm, sunrise, sunset;
+    double lat = 25.06, lon = 102.69, elev = 1906;
     time(&rawtm);
     tm = gmtime(&rawtm);
-    jd = slib_tm2jd(*tm);
-    printf("Now(UTC): %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
-           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
-           jd);
-    slib_jd2tm(jd, tm);
-    printf("Now converted: %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n",
-           tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour,
-           tm->tm_min, tm->tm_sec, jd);
-    sha = slib_sf_csha(lat, lon, elev, &st, *tm);
-    sunrise = st - sha / 360;
-    sunrise += tz / 24;
-    slib_jd2tm(sunrise, tm);
-    printf("Sunrise: %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
-           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
-           sunrise);
-    sunset = st + sha / 360;
-    sunset += tz / 24;
-    slib_jd2tm(sunset, tm);
-    printf("Sunset: %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
-           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
-           sunset);
-
+    slib_sf_sunrise(lat, lon, elev, tm, &sunrise, &sunset);
+    printf("Sunrise: %4d/%02d/%02d,%02d:%02d:%02d\n", sunrise.tm_year + 1900,
+           sunrise.tm_mon + 1, sunrise.tm_mday, sunrise.tm_hour, sunrise.tm_min,
+           sunrise.tm_sec);
+    printf("Sunset: %4d/%02d/%02d,%02d:%02d:%02d\n", sunset.tm_year + 1900,
+           sunset.tm_mon + 1, sunset.tm_mday, sunset.tm_hour, sunset.tm_min,
+           sunset.tm_sec);
     return 0;
 }
