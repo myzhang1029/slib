@@ -257,7 +257,7 @@ double slib_corr_sunrise_hour_angle(double latitude, double sun_declination,
 double slib_sf_csha(double latitude, double longitude, double elevation,
                     double *solartrans, struct tm tm)
 {
-    double jd = slib_tm2jd(tm);
+    double jd = round(slib_tm2jd(tm));
     double jdy = slib_julian_day(jd);
     double msn = slib_mean_solar_noon(jdy, longitude);
     double sma = slib_solar_mean_anomaly(msn);
@@ -273,18 +273,31 @@ int main()
 {
     time_t rawtm;
     struct tm *tm;
-    double sunset, sha, st, lat = 25.0, lon = 102.7, elev = 1904, jd;
+    double sunrise, sunset, sha, st, lat = 25.0, lon = 102.7, elev = 1904,
+                                     tz = 8, jd;
     time(&rawtm);
-    tm = localtime(&rawtm);
-    tm->tm_year-=3000;
+    tm = gmtime(&rawtm);
     jd = slib_tm2jd(*tm);
-    slib_jd2tm(jd, tm);
-    printf("%4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
+    printf("Now(UTC): %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
            tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
            jd);
+    slib_jd2tm(jd, tm);
+    printf("Now converted: %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n",
+           tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour,
+           tm->tm_min, tm->tm_sec, jd);
     sha = slib_sf_csha(lat, lon, elev, &st, *tm);
+    sunrise = st - sha / 360;
+    sunrise += tz / 24;
+    slib_jd2tm(sunrise, tm);
+    printf("Sunrise: %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
+           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
+           sunrise);
     sunset = st + sha / 360;
+    sunset += tz / 24;
     slib_jd2tm(sunset, tm);
+    printf("Sunset: %4d/%02d/%02d,%02d:%02d:%02d\n%lf\n", tm->tm_year + 1900,
+           tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
+           sunset);
 
     return 0;
 }
