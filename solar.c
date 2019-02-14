@@ -274,10 +274,11 @@ double slib_sf_csha(double latitude, double longitude, double elevation,
  * Arguments:
  * latitude, longitude
  * elevation: in metres
- * utcnow: the UTC time for now
- * out_sunrise, out_sunset: Pointers to pre-allocated struct tm. The result time
- * zone is the time zone of the machine doing the calculation since we don't
- * know which time zone the destination is using */
+ * utcnow: the UTC time for now, only tm_year, tm_mon and tm_mday matters(as
+ * long as tm_hour, tm_min, tm_sec are in their range ) which tell me what day
+ * to calculate for out_sunrise, out_sunset: Pointers to pre-allocated struct
+ * tm. The result time zone is the time zone of the machine doing the
+ * calculation since we don't know which time zone the destination is using */
 void slib_sf_sunrise(double latitude, double longitude, double elevation,
                      struct tm *utcnow, struct tm *out_sunrise,
                      struct tm *out_sunset)
@@ -296,15 +297,23 @@ void slib_sf_sunrise(double latitude, double longitude, double elevation,
     slib_jd2tm(sunset, out_sunset);
 }
 
+#include <memory.h>
 #include <stdio.h>
-int main()
+#include <stdlib.h>
+int main(int argc, char **argv)
 {
-    time_t rawtm;
-    struct tm *tm, sunrise, sunset;
-    double lat = 25.06, lon = 102.69, elev = 1906;
-    time(&rawtm);
-    tm = gmtime(&rawtm);
-    slib_sf_sunrise(lat, lon, elev, tm, &sunrise, &sunset);
+    struct tm tm, sunrise, sunset;
+    double lat = 25.05788418, lon = 102.69098032, elev = 1906;
+    if (argc != 4)
+    {
+        fprintf(stderr, "Usage: %s YYYY MM DD\n", argv[0]);
+        return 1;
+    }
+    memset(&tm, 0, sizeof(struct tm));
+    tm.tm_year = atoi(argv[1]) - 1900;
+    tm.tm_mon = atoi(argv[2]) - 1;
+    tm.tm_mday = atoi(argv[3]);
+    slib_sf_sunrise(lat, lon, elev, &tm, &sunrise, &sunset);
     printf("Sunrise: %4d/%02d/%02d,%02d:%02d:%02d\n", sunrise.tm_year + 1900,
            sunrise.tm_mon + 1, sunrise.tm_mday, sunrise.tm_hour, sunrise.tm_min,
            sunrise.tm_sec);
