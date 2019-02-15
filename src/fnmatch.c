@@ -26,7 +26,7 @@
 
 /* Match STRING against the filename pattern PATTERN, returning zero if
    it matches, nonzero if not.  */
-int fnmatchGS(const char *pattern, const char *string, int flags)
+OPT int fnmatchGS(const char *pattern, const char *string, int flags)
 {
     S_REGISTER const char *p = pattern, *n = string;
     S_REGISTER char c;

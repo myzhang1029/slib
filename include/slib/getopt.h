@@ -61,12 +61,12 @@ struct optionGS
     int val;
 };
 
-int getoptGS(int argc, char *const *argv, const char *optstring);
+OPT int getoptGS(int argc, char *const *argv, const char *optstring);
 
-int getopt_longGS(int argc, char *const *argv, const char *options,
+OPT int getopt_longGS(int argc, char *const *argv, const char *options,
                   const struct optionGS *long_options, int *opt_index);
 
-int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
+OPT int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
                        const struct optionGS *long_options, int *opt_index);
 
 _END_EXTERN_C
