@@ -1,6 +1,6 @@
+#include <slib/fnmatch.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <slib/fnmatch.h>
 
 struct
 {

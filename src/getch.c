@@ -24,6 +24,7 @@
  */
 #include <assert.h>
 #include <memory.h>
+
 #include "slib.h"
 
 #if (!PLAT) || (defined(HAVE_FCNTL_H) && defined(HAVE_TERMIOS_H) &&            \

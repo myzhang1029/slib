@@ -20,8 +20,8 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
 #include <ctype.h>
+
 #include "slib/fnmatch.h"
 
 /* Match STRING against the filename pattern PATTERN, returning zero if

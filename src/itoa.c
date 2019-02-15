@@ -22,9 +22,11 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include "slib/itoa.h"
 #include <stdlib.h>
-char *itoaS(int value, char *string, int radix)
+
+#include "slib/itoa.h"
+
+OPT char *itoaS(int value, char *string, int radix)
 {
     char tmp[33];
     char *tp = tmp;
@@ -63,7 +65,7 @@ char *itoaS(int value, char *string, int radix)
     return string;
 }
 
-char *ltoaS(long value, char *string, int radix)
+OPT char *ltoaS(long value, char *string, int radix)
 {
     char tmp[33];
     char *tp = tmp;
@@ -102,7 +104,7 @@ char *ltoaS(long value, char *string, int radix)
     return string;
 }
 
-char *ultoaS(unsigned long value, char *string, int radix)
+OPT char *ultoaS(unsigned long value, char *string, int radix)
 {
     char tmp[33];
     char *tp = tmp;

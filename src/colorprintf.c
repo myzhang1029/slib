@@ -24,6 +24,7 @@
  */
 
 #include <stdarg.h>
+
 #include "slib.h"
 
 /*

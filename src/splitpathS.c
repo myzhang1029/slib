@@ -24,6 +24,7 @@
  */
 
 #include <string.h>
+
 #include "slib/fileopt.h"
 
 /* seperate base name and extension */
@@ -51,8 +52,8 @@ static void split_whole_name(const char *filename, char *basename, char *ext)
     }
 }
 
-void splitpathS(const char *path, char *drive, char *dirname, char *basename,
-                char *ext)
+OPT void splitpathS(const char *path, char *drive, char *dirname,
+                    char *basename, char *ext)
 {
     const char *filename;
 

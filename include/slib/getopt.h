@@ -24,7 +24,7 @@
  */
 
 #ifndef SLIB_GETOPT_H
-#define SLIB_GETOPT_H
+#define SLIB_GETOPT_H 1
 #include <slib/general.h>
 
 #ifdef __cplusplus

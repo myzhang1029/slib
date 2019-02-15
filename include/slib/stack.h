@@ -23,7 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #ifndef SLIB_STACK_H
-#define SLIB_STACK_H
+#define SLIB_STACK_H 1
 #include <slib/general.h>
 
 #define STKELMT 100    /*Stack max. element count*/

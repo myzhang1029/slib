@@ -25,9 +25,10 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "slib.h"
 
-mtret *mkret(size_t length, ...)
+OPT mtret *mkret(size_t length, ...)
 {
     mtret *ret = (mtret *)malloc(sizeof(mtret));
     int **elems = (int **)malloc(sizeof(int *) * length);
@@ -43,7 +44,7 @@ mtret *mkret(size_t length, ...)
     return ret;
 }
 
-int *getret(mtret *ret)
+OPT int *getret(mtret *ret)
 {
     if (ret->length)
     {

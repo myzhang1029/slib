@@ -23,7 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #ifndef SLIB_MATH_H
-#define SLIB_MATH_H
+#define SLIB_MATH_H 1
 #include <slib/general.h>
 
 #ifndef slib_uint

@@ -25,10 +25,11 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #define _CRT_SECURE_NO_WARNINGS
-#include "slib/getopt.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "slib/getopt.h"
 
 #if defined(HAVE_ALLOCA_H) && defined(HAVE_ALLOCA)
 #include <alloca.h>
@@ -123,10 +124,10 @@ static const char *_getopt_initialize(const char *optstring,
         d->__ordering = PERMUTE;
     return optstring;
 }
-int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring,
-                         const struct optionGS *longopts, int *longind,
-                         int long_only, struct _getopt_data *d,
-                         int posixly_correct)
+OPT int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring,
+                             const struct optionGS *longopts, int *longind,
+                             int long_only, struct _getopt_data *d,
+                             int posixly_correct)
 {
     int print_errors = d->opterr;
     if (argc < 1)
@@ -514,9 +515,9 @@ int _getopt_internal_rGS(int argc, char *const *argv, const char *optstring,
         return c;
     }
 }
-int _getopt_internalGS(int argc, char *const *argv, const char *optstring,
-                       const struct optionGS *longopts, int *longind,
-                       int long_only, int posixly_correct)
+OPT int _getopt_internalGS(int argc, char *const *argv, const char *optstring,
+                           const struct optionGS *longopts, int *longind,
+                           int long_only, int posixly_correct)
 {
     int result;
     getopt_data.optind = optindGS;
@@ -528,19 +529,19 @@ int _getopt_internalGS(int argc, char *const *argv, const char *optstring,
     optoptGS = getopt_data.optopt;
     return result;
 }
-int getoptGS(int argc, char *const *argv, const char *optstring)
+OPT int getoptGS(int argc, char *const *argv, const char *optstring)
 {
     return _getopt_internalGS(argc, argv, optstring, (const struct optionGS *)0,
                               (int *)0, 0, 0);
 }
-int getopt_longGS(int argc, char *const *argv, const char *options,
-                  const struct optionGS *long_options, int *opt_index)
+OPT int getopt_longGS(int argc, char *const *argv, const char *options,
+                      const struct optionGS *long_options, int *opt_index)
 {
     return _getopt_internalGS(argc, argv, options, long_options, opt_index, 0,
                               0);
 }
-int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
-                       const struct optionGS *long_options, int *opt_index)
+OPT int getopt_long_onlyGS(int argc, char *const *argv, const char *options,
+                           const struct optionGS *long_options, int *opt_index)
 {
     return _getopt_internalGS(argc, argv, options, long_options, opt_index, 1,
                               0);

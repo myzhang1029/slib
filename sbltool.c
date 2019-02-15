@@ -21,9 +21,11 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
 #include <slib.h>
 #include <slib/getopt.h>
 #include <slib/math.h>

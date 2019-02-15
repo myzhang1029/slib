@@ -1,7 +1,7 @@
 #include "tests.h"
+#include <slib/fileopt.h>
 #include <stdio.h>
 #include <string.h>
-#include <slib/fileopt.h>
 
 int bsearchfile_main()
 {
