@@ -23,6 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 #include <math.h>
+#define __STDC_WANT_LIB_EXT1__ 1
 #include <time.h>
 
 #include "slib/astro.h"
@@ -71,7 +72,13 @@ OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
                          struct tm *out_sunset)
 {
     time_t localtm = mktime(utcnow); /* mktime assumes localtime */
-    time_t gmtm = mktime(gmtime(&localtm));
+    time_t gmtm;
+#ifdef __STDC_LIB_EXT1__
+    struct tm buf;
+    gmtm = mktime(gmtime(&localtm, &buf));
+#else
+    gmtm = mktime(gmtime(&localtm));
+#endif
     /* get timezone from gmtime and localtime */
     double tz, sha, st, sunrise, sunset;
     tz = difftime(localtm, gmtm) / 3600;
