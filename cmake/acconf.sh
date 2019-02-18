@@ -152,7 +152,8 @@ check_cc_works(){
     possible_files="a.out conftest.exe conftest a.exe a_out.exe b.out conftest.*"
     cat > conftest.c << ACEOF
 #include <stdio.h>
-int main(){;}
+int main()
+{return 0;}
 ACEOF
     printf 'Checking whether the C Compiler works... '
     if ${cc} conftest.c >/dev/null 2>&1;
@@ -162,8 +163,7 @@ ACEOF
         echo no
         echo The C Compiler cannot compile a simple source file
         echo The failed source file was:
-        echo "#include <stdio.h>"
-        echo "int main(){;}"
+        cat conftest.c
         rm -f $possible_files conftest.c
         exit 1
     fi

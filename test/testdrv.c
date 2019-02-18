@@ -23,7 +23,7 @@ int main(void)
                 break;
             case 117:
                 puts("INTERNAL ERROR");
-                /* pass thru */
+                /* fallthru */
             default:
                 puts("FAIL");
                 ++faileds;
