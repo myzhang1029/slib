@@ -73,9 +73,12 @@ OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
 {
     time_t localtm = mktime(utcnow); /* mktime assumes localtime */
     time_t gmtm;
-#ifdef __STDC_LIB_EXT1__
+#if defined(__STDC_LIB_EXT1__) || defined(_MSC_VER)
     struct tm buf;
-    gmtm = mktime(gmtime(&localtm, &buf));
+    gmtm = mktime(gmtime_s(&localtm, &buf));
+#elif defined(__unix__)
+    struct tm buf;
+    gmtm = mktime(gmtime_r(&localtm, &buf));
 #else
     gmtm = mktime(gmtime(&localtm));
 #endif
