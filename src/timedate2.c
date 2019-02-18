@@ -36,7 +36,7 @@ OPT double slib_tm2jd(struct tm *tm)
 /* convert Julian Date back to tm structure [1] */
 OPT void slib_jd2tm(double jd, struct tm *tm)
 {
-    int jdn = (int)jd;
+    long jdn = (long)jd;
     double frac = jd - jdn;
     int day, month, year;
     double hour, min, sec;
