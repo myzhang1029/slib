@@ -106,7 +106,7 @@ OPT void splitpathS(const char *path, char *drive, char *dirname,
     /* Cut everything before the last slash */
     filename = strrchr(path, '/');
 
-    /* If filename is null, there is no directory infomation */
+    /* If filename is null, there is no directory information */
     if (filename == NULL)
     {
         split_whole_name(path, basename, ext);
