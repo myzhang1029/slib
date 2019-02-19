@@ -80,7 +80,7 @@ OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
     struct tm buf;
     gmtime_s(&buf, &localtm);
     gmtm = mktime(&buf);
-#elif defined(__unix__)
+#elif defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
     struct tm buf;
     gmtm = mktime(gmtime_r(&localtm, &buf));
 #else

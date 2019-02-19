@@ -43,23 +43,15 @@
 #include <stdio.h>
 
 #if !defined(PLAT)
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN16) ||            \
-    defined(_WIN32) || defined(_WIN64) || defined(__MSDOS__)
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN32) ||            \
+    defined(__MSDOS__)
 #define PLAT 1
-#ifndef _CRT_SECURE_NO_WARNINGS /* for MSVC */
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-#undef _CRT_NONSTDC_NO_WARNINGS
-#elif defined(__linux__) || defined(__BSD__) | defined(__APPLE__) ||           \
-    defined(__unix__)
+#include <windows.h>
+#elif defined(__unix__) || defined(__BSD__) || defined(__APPLE__)
 #define PLAT 0
 #else
 #error Please define PLAT, see documentation for more details
 #endif
-#endif
-
-#if PLAT
-#include <windows.h>
 #endif
 
 #ifndef NULL /* default definition of NULL */
