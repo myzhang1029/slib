@@ -73,6 +73,7 @@ OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
 {
     time_t localtm = mktime(utcnow); /* mktime assumes localtime */
     time_t gmtm;
+    double tz, sha, st, sunrise, sunset;
 #if defined(__STDC_LIB_EXT1__)
     struct tm buf;
     gmtm = mktime(gmtime_s(&localtm, &buf));
@@ -87,7 +88,6 @@ OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
     gmtm = mktime(gmtime(&localtm));
 #endif
     /* get timezone from gmtime and localtime */
-    double tz, sha, st, sunrise, sunset;
     tz = difftime(localtm, gmtm) / 3600;
     sha = slib_sf_csha(latitude, longitude, elevation, &st, utcnow);
     sunrise = st - sha / 360;
