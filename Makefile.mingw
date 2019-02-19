@@ -29,6 +29,8 @@ RM=rm
 CFLAGS=-W -Wall -pedantic -O2 -Iinclude
 PREFIX=C:/Program Files/libsbl
 CFILES= \
+src/astro.c \
+src/astor2.c \
 src/average.c \
 src/bsearchfile.c \
 src/colorprintf.c \
@@ -48,9 +50,12 @@ src/pnlst.c \
 src/prtpn.c \
 src/sleepS.c \
 src/splitpathS.c \
-src/stack.c
+src/stack.c \
+src/timedate.c \
+src/timedate2.c
 
 HFILES= \
+include/slib/astro.h \
 include/slib/fileopt.h \
 include/slib/fnmatch.h \
 include/slib/general.h \
@@ -59,6 +64,7 @@ include/slib/itoa.h \
 include/slib/math.h \
 include/slib/overflow.h \
 include/slib/stack.h \
+include/slib/timedate.h \
 include/slib.h
 
 SOSUF=.dll
