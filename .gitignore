@@ -70,6 +70,11 @@ build/
 sbl.pc
 testdrv.h
 
+# Emscripten compiled result
+*.bc
+*.js
+*.wasm
+
 # Cython compiled result
 sbl.c
 *.pyd

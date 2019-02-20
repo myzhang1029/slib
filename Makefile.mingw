@@ -30,7 +30,7 @@ CFLAGS=-W -Wall -pedantic -O2 -Iinclude
 PREFIX=C:/Program Files/libsbl
 CFILES= \
 src/astro.c \
-src/astor2.c \
+src/astro2.c \
 src/average.c \
 src/bsearchfile.c \
 src/colorprintf.c \
@@ -78,14 +78,14 @@ INCLUDEDIR=$(PREFIX)/include
 
 all:libsbl$(SOSUF) sbltool$(EXESUF)
 
-libsbl$(SOSUF): $(HFILES) $(CFILES:.c=.o)
+libsbl$(SOSUF): $(CFILES:.c=.o)
 	$(CC) $(SOFLAGS) src/*.o -o $@
 	$(AR) rcs ./libsbl.a src/*.o
 
 sbltool$(EXESUF): libsbl$(SOSUF) sbltool.c
 	$(CC) $(CFLAGS) -o $@ sbltool.c -L. -lsbl
 
-%.o:%.c
+%.o:%.c $(HFILES)
 	$(CC) $(CFLAGS) $(PLAT) -c $^ -o $@
 
 install:
@@ -97,9 +97,21 @@ install:
 	install -c -p -m 755 sbltool${EXESUF} ${BINDIR}
 
 clean:
-	-$(RM) libsbl.dll libsbl.so sbltool.exe sbltool *.o */*.o *.a -f 2>/dev/null
+	-$(RM) libsbl.dll libsbl.so sbltool.exe sbltool *.o */*.o *.a libsbl.bc libsbl.js libsbl.wasm -f 2>/dev/null
 
 tags:
 	ctags -R
 	
 distclean: clean
+
+libsbl.bc: $(CFILES:.c=.o)
+	$(CC) -o libsbl.bc $(CFILES:.c=.o)
+
+DELETE_ON_ERROR:
+exp.txt: libsbl.bc
+	nm -defined-only libsbl.bc | grep T | cut -f3 -d' ' | sort > exp.txt
+	$${EDITOR} exp.txt
+
+libsbl.js: exp.txt
+	$(CC) -o libsbl.js -O3 --memory-init-file 0 -s WASM=0 -s ENVIRONMENT=web -s EXTRA_EXPORTED_RUNTIME_METHODS="['cwrap']" -s EXPORTED_FUNCTIONS="[$$(cat exp.txt)]" src/*.o
+	rm exp.txt
