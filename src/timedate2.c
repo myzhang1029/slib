@@ -36,8 +36,8 @@ OPT double slib_tm2jd(struct tm *tm)
 /* convert Julian Date back to tm structure [1] */
 OPT void slib_jd2tm(double jd, struct tm *tm)
 {
-    long jdn = (long)jd;
-    double frac = jd - jdn;
+    long jdn = round(jd);
+    double frac = jd > jdn ? jd - jdn : jd + 1 - jdn;
     int day, month, year;
     double hour, min, sec;
     int e, f, g, h, j, m, n, p, r, s, u, v, w, y, B, C;
@@ -51,14 +51,9 @@ OPT void slib_jd2tm(double jd, struct tm *tm)
     month = (h / s + m) % n + 1;
     year = e / p - y + (n + m - month) / n;
     if (frac >= 0.5)
-    {
-        ++day;
         frac -= 0.5;
-    }
     else
-    {
         frac += 0.5;
-    }
     slib_h2hms(frac * 24, &hour, &min, &sec);
     tm->tm_sec = sec;
     tm->tm_min = min;
@@ -67,10 +62,7 @@ OPT void slib_jd2tm(double jd, struct tm *tm)
     tm->tm_mon = month - 1;
     tm->tm_year = year - 1900;
     /* must I fill out the whole structure? */
-    if (frac < 0.5)
-        tm->tm_wday = (jdn + 1) % 7;
-    else
-        tm->tm_wday = jdn % 7 + 1;
-    tm->tm_yday = slib_d2dn(year, month, day);
+    tm->tm_wday = (jdn + 1) % 7;
+    tm->tm_yday = slib_d2dn(year, month, day) - 1;
     tm->tm_isdst = -1;
 }
