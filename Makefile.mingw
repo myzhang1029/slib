@@ -109,8 +109,7 @@ libsbl.bc: $(CFILES:.c=.o)
 
 DELETE_ON_ERROR:
 exp.txt: libsbl.bc
-	nm -defined-only libsbl.bc | grep T | cut -f3 -d' ' | sort > exp.txt
-	$${EDITOR} exp.txt
+	nm -defined-only libsbl.bc | grep T | cut -f3 -d' ' | sort | sed "s/^/'_/;s/$$/',/" | tr '\n' ' ' | sed 's/..$$//' > exp.txt
 
 libsbl.js: exp.txt
 	$(CC) -o libsbl.js -O3 --memory-init-file 0 -s WASM=0 -s ENVIRONMENT=web -s EXTRA_EXPORTED_RUNTIME_METHODS="['cwrap']" -s EXPORTED_FUNCTIONS="[$$(cat exp.txt)]" src/*.o
