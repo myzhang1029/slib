@@ -4,7 +4,10 @@
 
 #define asrt_or_fail(e, s)                                                     \
     if (!(e))                                                                  \
-    return 1
+    {                                                                          \
+        puts(s);                                                               \
+        return 1;                                                              \
+    }
 #ifndef DEBUG
 #define asrt_equ(a, b, s) asrt_or_fail((a) == (b), s)
 #define asrt_neq(a, b, s) asrt_or_fail((a) != (b), s)
