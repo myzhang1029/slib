@@ -62,33 +62,17 @@ OPT double slib_sf_csha(double latitude, double longitude, double elevation,
  * Arguments:
  * latitude, longitude
  * elevation: in metres
+ * tz: timezone for the time output
  * utcnow: the UTC time for now, only tm_year, tm_mon and tm_mday matters(as
  * long as tm_hour, tm_min, tm_sec are in their range ) which tell me what day
  * to calculate for out_sunrise, out_sunset: Pointers to pre-allocated struct
  * tm. The result time zone is the time zone of the machine doing the
  * calculation since we don't know which time zone the destination is using */
-OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
+OPT void slib_sf_sunrise(double latitude, double longitude, double elevation, double tz,
                          struct tm *utcnow, struct tm *out_sunrise,
                          struct tm *out_sunset)
 {
-    time_t localtm = mktime(utcnow); /* mktime assumes localtime */
-    time_t gmtm;
-    double tz, sha, st, sunrise, sunset;
-#if defined(__STDC_LIB_EXT1__)
-    struct tm buf;
-    gmtm = mktime(gmtime_s(&localtm, &buf));
-#elif defined(_MSC_VER)
-    struct tm buf;
-    gmtime_s(&buf, &localtm);
-    gmtm = mktime(&buf);
-#elif defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
-    struct tm buf;
-    gmtm = mktime(gmtime_r(&localtm, &buf));
-#else
-    gmtm = mktime(gmtime(&localtm));
-#endif
-    /* get timezone from gmtime and localtime */
-    tz = difftime(localtm, gmtm) / 3600;
+    double sunrise, sunset, st, sha;
     sha = slib_sf_csha(latitude, longitude, elevation, &st, utcnow);
     sunrise = st - sha / 360;
     sunrise += tz / 24;

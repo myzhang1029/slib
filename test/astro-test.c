@@ -15,7 +15,7 @@ int astro_main()
     tms.tm_year = 119;
     tms.tm_mon = 1;
     tms.tm_mday = 15;
-    slib_sf_sunrise(25.0, 102.0, 1900, &tms, &sr, &ss);
+    slib_sf_sunrise(25.0, 102.0, 1900, 8, &tms, &sr, &ss);
     asrt_equ(sr.tm_hour, 7, "sunrise_hour");
     asrt_equ(sr.tm_min, 48, "sunrise_min");
     asrt_equ(sr.tm_sec, 51, "sunrise_sec");

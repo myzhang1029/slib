@@ -44,7 +44,7 @@ OPT double slib_deg2rad(double degrees);
 OPT double slib_sun_decl_by_date(int d);
 OPT double slib_sf_csha(double latitude, double longitude, double elevation,
                         double *solartrans, struct tm *tm);
-OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
+OPT void slib_sf_sunrise(double latitude, double longitude, double elevation, double tz,
                          struct tm *utcnow, struct tm *out_sunrise,
                          struct tm *out_sunset);
 OPT double slib_julian_day(double julian_date);
