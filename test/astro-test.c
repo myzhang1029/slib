@@ -1,6 +1,6 @@
 #include "tests.h"
-#include <time.h>
 #include <memory.h>
+#include <time.h>
 
 #include <slib/astro.h>
 
@@ -24,5 +24,13 @@ int astro_main()
     asrt_equ(sr.tm_mday, 15, "sunrise_mday");
     asrt_equ(sr.tm_yday, 45, "sunrise_yday");
     asrt_equ(sr.tm_wday, 5, "sunrise_wday");
+    asrt_equ(ss.tm_hour, 19, "sunrise_hour");
+    asrt_equ(ss.tm_min, 6, "sunrise_min");
+    asrt_equ(ss.tm_sec, 2, "sunrise_sec");
+    asrt_equ(ss.tm_year, 119, "sunrise_year");
+    asrt_equ(ss.tm_mon, 1, "sunrise_mon");
+    asrt_equ(ss.tm_mday, 15, "sunrise_mday");
+    asrt_equ(ss.tm_yday, 45, "sunrise_yday");
+    asrt_equ(ss.tm_wday, 5, "sunrise_wday");
     return 0;
 }
