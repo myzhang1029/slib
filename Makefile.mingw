@@ -31,7 +31,6 @@ PREFIX=C:/Program Files/libsbl
 CFILES= \
 src/astro.c \
 src/astro2.c \
-src/average.c \
 src/bsearchfile.c \
 src/colorprintf.c \
 src/eular.c \
