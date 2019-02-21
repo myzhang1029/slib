@@ -40,8 +40,6 @@ OPT int slib_ispn(slib_uint testingnum);
 
 OPT int slib_isrp(slib_uint n1, slib_uint n2);
 
-OPT double slib_average(unsigned int amt, ...);
-
 OPT slib_uint slib_gcf(slib_uint n1, slib_uint n2);
 
 OPT slib_uint slib_lcm(slib_uint n1, slib_uint n2);
