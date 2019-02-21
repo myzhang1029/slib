@@ -25,8 +25,12 @@ check_include_files(termios.h HAVE_TERMIOS_H)
 check_include_files(unistd.h HAVE_UNISTD_H)
 check_function_exists(alloca HAVE_ALLOCA)
 check_type_size(size_t SIZE_T)
+check_type_size(intptr_t INTPTR_T)
 if(NOT SIZE_T)
     set(size_t int)
+endif()
+if(NOT INTPTR_T)
+    set(intptr_t int)
 endif()
 
 # pkg-config file

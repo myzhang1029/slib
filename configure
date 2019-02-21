@@ -166,6 +166,20 @@ else
     unistd_h=0
 fi
 
+if check_type "size_t";
+then
+    size_t=0
+else
+    size_t=1
+fi
+
+if check_type "intptr_t";
+then
+    intptr_t=0
+else
+    intptr_t=1
+fi
+
 if [ "$libdir" = "" ] ; then
 	libdir="$prefix/lib"
 fi

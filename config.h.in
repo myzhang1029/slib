@@ -17,3 +17,6 @@
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #cmakedefine size_t unsigned int
+
+/* Define to `long int' if <stdint.h> does not define. */
+#cmakedefine intptr_t long int

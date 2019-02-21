@@ -26,7 +26,8 @@ check_header(){
     printf "Checking for $1... "
     cat > conftest.c << ACEOF
 #include <$1>
-int main(){}
+int main()
+{return 0;}
 ACEOF
     if ${cc} conftest.c -o conftest >/dev/null 2>&1;
     then
@@ -37,6 +38,30 @@ ACEOF
         echo no
         rm -f conftest.c conftest conftest.exe
         return 1
+    fi
+}
+
+# Type size check
+# $1: name
+check_type(){
+    printf "Checking for size of $1... "
+    cat > conftest.c << ACEOF
+#include <stdio.h>
+#include <stdint.h>
+#include <stddef.h>
+int main()
+{printf("%zu\n", sizeof($1));return 0;}
+ACEOF
+    if ${cc} conftest.c -o conftest >/dev/null 2>&1;
+    then
+        size=`./conftest || ./conftest.exe`
+        echo ${size}
+        rm -f conftest.c conftest conftest.exe
+        return ${size}
+    else
+        echo no
+        rm -f conftest.c conftest conftest.exe
+        return 0
     fi
 }
 
