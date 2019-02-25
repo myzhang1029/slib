@@ -115,5 +115,5 @@ libsbl.js: exp.txt
 	rm exp.txt
 
 wxlibsbl.js: libsbl.bc
-	$(CC) -o wxlibsbl.js -g --memory-init-file 0 -s WASM=0 -s ENVIRONMENT=shell -s EXTRA_EXPORTED_RUNTIME_METHODS="['cwrap']" -s EXPORTED_FUNCTIONS="['_slib_combi','_slib_d2dn','_slib_deg2rad','_slib_eular','_slib_factorial','_slib_gcf','_slib_h2hms','_slib_hms2h','_slib_ispn','_slib_isrp','_slib_jd2tm','_slib_lcm','_slib_permu','_slib_pnlst','_slib_rad2deg','_slib_sf_sunrise','_slib_sun_decl_by_date','_slib_tm2jd']" libsbl.bc
+	$(CC) -o wxlibsbl.js -O3 --memory-init-file 0 -s WASM=0 -s ENVIRONMENT=shell -s EXTRA_EXPORTED_RUNTIME_METHODS="['cwrap', 'getValue', 'setValue']" -s EXPORTED_FUNCTIONS="['_slib_combi','_slib_d2dn','_slib_deg2rad','_slib_eular','_slib_factorial','_slib_gcf','_slib_h2hms','_slib_hms2h','_slib_ispn','_slib_isrp','_slib_jd2tm','_slib_lcm','_slib_permu','_slib_pnlst','_slib_rad2deg','_slib_sf_sunrise','_slib_sun_decl_by_date','_slib_tm2jd', '_malloc', '_free']" libsbl.bc
 	echo "module.exports=Module;">>wxlibsbl.js
