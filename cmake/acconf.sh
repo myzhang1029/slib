@@ -87,12 +87,12 @@ check_cc(){
     w=0
     hosttrip=$1
     printf "Checking for C Compiler... "
-    if ${hosttrip}-clang -v > /dev/null 2>&1;
-    then
-        cc="${hosttrip}-clang"
-    elif ${hosttrip}-gcc -v > /dev/null 2>&1
+    if ${hosttrip}-gcc -v > /dev/null 2>&1
     then
         cc="${hosttrip}-gcc"
+    elif ${hosttrip}-clang -v > /dev/null 2>&1;
+    then
+        cc="${hosttrip}-clang"
     elif ${hosttrip}-tcc -v > /dev/null 2>&1;
     then
         cc="${hosttrip}-tcc"
@@ -103,13 +103,13 @@ check_cc(){
         if ! ["$hosttrip" = ""];
         then
             hosttrip=`$srcdir/cmake/config.sub $1`
-            if ${hosttrip}-clang -v > /dev/null 2>&1;
-            then
-                cc="${hosttrip}-clang"
-                return
-            elif ${hosttrip}-gcc -v > /dev/null 2>&1
+            if ${hosttrip}-gcc -v > /dev/null 2>&1
             then
                 cc="${hosttrip}-gcc"
+                return
+            elif ${hosttrip}-clang -v > /dev/null 2>&1;
+            then
+                cc="${hosttrip}-clang"
                 return
             elif ${hosttrip}-tcc -v > /dev/null 2>&1;
             then
@@ -124,12 +124,12 @@ check_cc(){
         fi
         # No prefixed CC to use
         w=1
-        if clang -v > /dev/null 2>&1;
-        then
-            cc="clang"
-        elif gcc -v > /dev/null 2>&1;
+        if gcc -v > /dev/null 2>&1;
         then
             cc="gcc"
+        elif clang -v > /dev/null 2>&1;
+        then
+            cc="clang"
         elif tcc -v > /dev/null 2>&1;
         then
             cc="tcc"
