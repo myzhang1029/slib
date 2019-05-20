@@ -21,7 +21,7 @@ cdef extern from "slib/math.h":
     unsigned long slib_combi(unsigned long, unsigned long)
     unsigned long slib_permu(unsigned long, unsigned long)
 
-ctypedef int (*compar)(char *, char *)
+ctypedef int (*compar)(const char *, const char *)
 
 cdef (long *, long) _wrap_count_fl(char *file):
     cdef long count
@@ -54,11 +54,12 @@ def splitpath(path):
     return (odrv.decode(), odir.decode(), obase.decode(), oext.decode())
 
 def count_fl(file):
-    reslst = []
-    lst, count = _wrap_count_fl(_unify_o_f(file))
+    pylst = []
+    clst, count = _wrap_count_fl(_unify_o_f(file))
     for i in range(0, count):
-        reslst.append(lst[i])
-    return (reslst, count)
+        pylst.append(clst[i])
+    free(clst)
+    return (pylst, count)
 
 def fbsearch(key, file):
     cdef FILE *fp = fopen(_unify_o_f(file), "rb")
