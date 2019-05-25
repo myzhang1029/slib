@@ -1,12 +1,10 @@
 /*
  *  sbltool.c - Executable tool of the slib, preceded by the admin project
  *
- *  Copyright (C) 2016 - 2018 Zhang Maiyun
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  Copyright (C) 2016-present Zhang Maiyun
  *
  *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU  General Public License as published by
+ *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
  *
@@ -16,10 +14,7 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <stdlib.h>
@@ -43,6 +38,10 @@ int ui()
         exit(2);                                                               \
     } while (0)
     char selection = 0;
+    printf("sbltool  Copyright (C) 2016-present Zhang Maiyun\n"
+           "This program comes with ABSOLUTELY NO WARRANTY.\n"
+           "This is free software, and you are welcome to redistribute it\n"
+           "under certain conditions; visit <https://www.gnu.org/licenses/> for details.\n");
 helpme:
     printf("1: Print program version\n"
            "2: Prime numbers in a range\n"

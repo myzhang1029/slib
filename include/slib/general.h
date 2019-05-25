@@ -1,9 +1,7 @@
 /*
  *  slib.h - This is the header file of the slib
  *
- *  Copyright (C) 2016 - 2018 Zhang Maiyun
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  Copyright (C) 2016-present Zhang Maiyun
  *
  *  This file is part of the slib.
  *  The slib is free software; you can redistribute it and/or modify
@@ -17,10 +15,7 @@
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #if defined(_MSC_VER) && _MSC_VER >= 100
@@ -79,3 +74,12 @@
 #define _END_EXTERN_C
 #endif
 #endif
+
+/* likely and unlikely branches */
+#if defined(__GNUC__)     && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))
+  #define likely(x)   __builtin_expect(!!(x), 1)
+  #define unlikely(x) __builtin_expect(!!(x), 0)
+#else /* !__GNUC__ or GCC < 2.95 */
+  #define likely(x)   (x)
+  #define unlikely(x) (x)
+#endif /* __GNUC__ */

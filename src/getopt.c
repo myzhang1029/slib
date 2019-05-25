@@ -1,11 +1,9 @@
 /*
- *  getopt.c - Getopt for both MS and unix, supports unicode
+ *  getopt.c - GNU option parser
  *
- *. Copyright (C) 1987-2004 Free Software Foundation, Inc.
+ *  Copyright (C) 1987-2004 Free Software Foundation, Inc.
  *  Copyright (C) 2011-2015 Ludvik Jerabek
  *  Copyright (C) 2017 Zhang Maiyun
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
  *  This file is part of the slib.
  *  The slib is free software; you can redistribute it and/or modify
@@ -19,11 +17,9 @@
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
