@@ -3,17 +3,22 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/svfjuyxpq9ftjqrk?svg=true)](https://ci.appveyor.com/project/myzhang1029/slib-cwdar)
 
+ 
+ [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/myzhang1029/slib/master)
+
 <a href="https://codeclimate.com/github/myzhang1029/slib"><img src="https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg" /></a>
 
 ## Description
-This project is seperated from myzhang1029/admin, 
-which has brought me to the world of C, in the computer room 
-of Primary School Attached to Yunnnan Normal University(in Yunnan, China),
-in 2015 when I was 11.
+This project is seperated from myzhang1029/admin,
+which brought me to the world of C, in the computer room
+of Primary School Attached to Yunnan Normal University(in Yunnan, China),
+(hiding from the teacher), in 2015 when I was 11.  
+I just wanted to use these start-up projects to check out some C skills, tools and community integrations.  
 So therefore don't laugh at these projects, because they're from a beginner.
 
-The slib stands for Slib: the portable programming interface LIBrary.
-It is a library written in C, and for any usage.
+The slib is not an acronym, it's just a name.
+It is a portable programming interface library,
+a library written in C, and for any usage.
 
 ## Building
 
