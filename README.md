@@ -1,12 +1,9 @@
 # slib
 [![Build Status](https://travis-ci.com/myzhang1029/slib.svg?branch=master)](https://travis-ci.com/myzhang1029/slib)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/svfjuyxpq9ftjqrk?svg=true)](https://ci.appveyor.com/project/myzhang1029/slib-cwdar)
+[![Build Status](https://ci.appveyor.com/api/projects/status/svfjuyxpq9ftjqrk?svg=true)](https://ci.appveyor.com/project/myzhang1029/slib-cwdar)
 
- 
- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/myzhang1029/slib/master)
-
-<a href="https://codeclimate.com/github/myzhang1029/slib"><img src="https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg" /></a>
+[![Issue Count](https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg)](https://codeclimate.com/github/myzhang1029/slib) 
 
 ## Description
 This project is seperated from myzhang1029/admin,
