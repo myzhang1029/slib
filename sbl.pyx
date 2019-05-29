@@ -71,13 +71,6 @@ cdef extern from "slib/timedate.h":
 
 ctypedef int (*compar)(const char *, const char *)
         
-def check_version():
-    c_version = f"{SBLLIB_VERSION}.{SBLLIB_MINOR}.{SBLLIB_PATCHLEVEL}"
-    if c_version != __version__:
-        print("Version mismatch between C library and Python module", file=sys.stderr)
-        return 1
-    return 0
-
 cdef (long *, long) _wrap_count_fl(char *file):
     cdef long count
     cdef long *lst
@@ -250,3 +243,7 @@ def jd2tm(jd):
     cdef tm ctm
     slib_jd2tm(jd, &ctm)
     return ctm2pytm(&ctm)
+
+c_version = f"{SBLLIB_VERSION}.{SBLLIB_MINOR}.{SBLLIB_PATCHLEVEL}"
+if c_version != __version__:
+    raise ImportError("Version mismatch between C library and Python module")
