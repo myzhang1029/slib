@@ -4,6 +4,9 @@ from libc.string cimport strcmp
 from libc.time cimport tm
 from cython.operator cimport dereference as deref
 from time import struct_time
+import pkg_resources, sys
+
+__version__ = pkg_resources.require("sbl")[0].version
 
 cdef extern from "time.h":
     cdef struct tm:
@@ -40,6 +43,11 @@ cdef extern from "slib/fileopt.h":
     long slib_fbsearch(char *, FILE *, int (*)(char *, char *));
     void slib_fqsort(FILE *, int (*)(char *, char *));
 
+cdef extern from "slib/general.h":
+    cdef int SBLLIB_VERSION
+    cdef int SBLLIB_MINOR
+    cdef int SBLLIB_PATCHLEVEL
+
 cdef extern from "slib/math.h":
     void slib_prtpn(unsigned long, unsigned long)
     int slib_ispn(unsigned long)
@@ -63,6 +71,13 @@ cdef extern from "slib/timedate.h":
 
 ctypedef int (*compar)(const char *, const char *)
         
+def check_version():
+    c_version = f"{SBLLIB_VERSION}.{SBLLIB_MINOR}.{SBLLIB_PATCHLEVEL}"
+    if c_version != __version__:
+        print("Version mismatch between C library and Python module", file=sys.stderr)
+        return 1
+    return 0
+
 cdef (long *, long) _wrap_count_fl(char *file):
     cdef long count
     cdef long *lst

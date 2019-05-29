@@ -48,7 +48,7 @@ sosuf=""
 # Get constants defined in CMakeLists.txt
 name="libsbl"
 version="`grep project ${srcdir}/CMakeLists.txt|cut -d\  -f3`"
-description="`grep DESCRIPTION ${srcdir}/CMakeLists.txt|cut -d\\" -f2`"
+description="`grep PROJECT_DESCRIPTION ${srcdir}/CMakeLists.txt|cut -d\\" -f2`"
 
 # Help
 help_me(){
