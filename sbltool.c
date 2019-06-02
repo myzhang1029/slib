@@ -29,19 +29,17 @@
 const char *ver = "4.0.3";
 
 void usage(void);
+
+void eio(void);
+
 int ui()
 {
-#define eio()                                                                  \
-    do                                                                         \
-    {                                                                          \
-        fprintf(stderr, "\nHmm... You've entered something I don't know!\n");  \
-        exit(2);                                                               \
-    } while (0)
     char selection = 0;
     printf("sbltool  Copyright (C) 2016-present Zhang Maiyun\n"
            "This program comes with ABSOLUTELY NO WARRANTY.\n"
            "This is free software, and you are welcome to redistribute it\n"
-           "under certain conditions; visit <https://www.gnu.org/licenses/> for details.\n");
+           "under certain conditions; visit <https://www.gnu.org/licenses/> "
+           "for details.\n");
 helpme:
     printf("1: Print program version\n"
            "2: Prime numbers in a range\n"
@@ -65,13 +63,10 @@ helpme:
             case ' ':
                 goto reparse;
             case '1':
-            {
                 printf("sbl admin %s\n", ver);
                 printf("Build %s，%s\n", __DATE__, __TIME__);
                 break;
-            }
             case '2':
-            {
                 int pn1, pn2;
                 printf("Minimum: ");
                 if (scanf("%d", &pn1) != 1)
@@ -81,9 +76,7 @@ helpme:
                     eio();
                 slib_prtpn(pn1, pn2);
                 break;
-            }
             case '3':
-            {
                 int pn;
                 printf("Which number to test: ");
                 if (scanf("%d", &pn) != 1)
@@ -93,9 +86,7 @@ helpme:
                 else
                     printf("Not a prime number!\n");
                 break;
-            }
             case '4':
-            {
                 int num1, num2;
                 printf("First number: ");
                 if (scanf("%d", &num1) != 1)
@@ -108,7 +99,6 @@ helpme:
                 else
                     printf("They are not coprime!\n");
                 break;
-            }
             case 'q':
                 return 0;
             case 'h':
@@ -119,7 +109,6 @@ helpme:
         }
     }
 }
-
 int main(int argc, char *argv[])
 {
     int c;
@@ -136,47 +125,35 @@ int main(int argc, char *argv[])
                     usage();
                     return 0;
                 case 'v':
-                {
                     printf("sbl admin %s\n", ver);
                     printf("Build %s，%s\n", __DATE__, __TIME__);
                     break;
-                }
                 case 'r':
-                {
                     long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
                     printf("%ld and %ld are", n1, n2);
                     if (!slib_isrp(n1, n2))
                         printf(" not");
                     puts(" coprime");
                     break;
-                }
                 case 'g':
-                {
                     long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
                     printf("gcf(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
                     break;
-                }
                 case 'l':
-                {
                     long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
                     printf("lcm(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
                     break;
-                }
                 case 'p':
-                {
                     long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
                     slib_prtpn(n1, n2);
                     break;
-                }
                 case 'd':
-                {
                     long n = atol(optargGS);
                     printf("%ld is", n);
                     if (!slib_ispn(n))
                         printf(" not");
                     puts(" a prime number");
                     break;
-                }
                 case '?':
                     usage();
                     fprintf(stderr, "admin: unknown option -%c\n", optoptGS);
@@ -211,4 +188,9 @@ void usage(void)
            "\t-l\tLeast common multiple of n1 and n2.\n"
            "\t-p\tPrint prime numbers between n1 and n2.\n"
            "\t-d\tPrimality test.\n");
+}
+void eio(void)
+{
+    fprintf(stderr, "\nHmm... You've entered something I don't know!\n");
+    exit(2);
 }

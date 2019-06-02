@@ -3,7 +3,7 @@
 
 [![Build Status](https://ci.appveyor.com/api/projects/status/svfjuyxpq9ftjqrk?svg=true)](https://ci.appveyor.com/project/myzhang1029/slib-cwdar)
 
-[![Issue Count](https://codeclimate.com/github/myzhang1029/slib/badges/issue_count.svg)](https://codeclimate.com/github/myzhang1029/slib) 
+![License](https://img.shields.io/badge/license-LGPL-blue.svg)
 
 ## Description
 This project is seperated from myzhang1029/admin,
@@ -18,8 +18,7 @@ It is a portable programming interface library,
 a library written in C, and for any usage.
 
 ## Building
-
-#### If you are using MinGW and you don't have a MSYS, try
+If you are using MinGW and you don't have a MSYS, try:
  ```cmd
  > make -f Makefile.mingw PREFIX=prefix
  > make install 

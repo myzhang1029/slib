@@ -12,8 +12,8 @@
  * Commons, PO Box 1866, Mountain View, CA 94042, USA.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-#include <time.h>
 #include <math.h>
+#include <time.h>
 
 #include "slib/timedate.h"
 

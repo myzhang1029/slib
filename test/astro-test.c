@@ -1,7 +1,7 @@
 #include "tests.h"
+#include <math.h>
 #include <memory.h>
 #include <time.h>
-#include <math.h>
 
 #include <slib/astro.h>
 

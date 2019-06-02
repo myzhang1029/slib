@@ -64,8 +64,8 @@ OPT double slib_sf_csha(double latitude, double longitude, double elevation,
  * to calculate for out_sunrise, out_sunset: Pointers to pre-allocated struct
  * tm. The result time zone is the time zone of the machine doing the
  * calculation since we don't know which time zone the destination is using */
-OPT void slib_sf_sunrise(double latitude, double longitude, double elevation, double tz,
-                         struct tm *utcnow, struct tm *out_sunrise,
+OPT void slib_sf_sunrise(double latitude, double longitude, double elevation,
+                         double tz, struct tm *utcnow, struct tm *out_sunrise,
                          struct tm *out_sunset)
 {
     double sunrise, sunset, st, sha;
