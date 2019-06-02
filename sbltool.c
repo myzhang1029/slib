@@ -34,6 +34,7 @@ void eio(void);
 
 int ui()
 {
+    int num1, num2;
     char selection = 0;
     printf("sbltool  Copyright (C) 2016-present Zhang Maiyun\n"
            "This program comes with ABSOLUTELY NO WARRANTY.\n"
@@ -67,27 +68,24 @@ helpme:
                 printf("Build %s，%s\n", __DATE__, __TIME__);
                 break;
             case '2':
-                int pn1, pn2;
                 printf("Minimum: ");
-                if (scanf("%d", &pn1) != 1)
+                if (scanf("%d", &num1) != 1)
                     eio();
                 printf("Maximum: ");
-                if (scanf("%d", &pn2) != 1)
+                if (scanf("%d", &num2) != 1)
                     eio();
-                slib_prtpn(pn1, pn2);
+                slib_prtpn(num1, num2);
                 break;
             case '3':
-                int pn;
                 printf("Which number to test: ");
-                if (scanf("%d", &pn) != 1)
+                if (scanf("%d", &num1) != 1)
                     eio();
-                if (slib_ispn(pn) == 1)
+                if (slib_ispn(num1) == 1)
                     printf("Is a prime number!\n");
                 else
                     printf("Not a prime number!\n");
                 break;
             case '4':
-                int num1, num2;
                 printf("First number: ");
                 if (scanf("%d", &num1) != 1)
                     eio();
@@ -112,6 +110,7 @@ helpme:
 int main(int argc, char *argv[])
 {
     int c;
+    long n1, n2;
     const char *sopts = ":uhvr:g:l:p:d:c:";
     if (argc > 1)
     {
@@ -129,28 +128,32 @@ int main(int argc, char *argv[])
                     printf("Build %s，%s\n", __DATE__, __TIME__);
                     break;
                 case 'r':
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    n1 = atol(optargGS);
+                    n2 = atol(argv[optindGS]);
                     printf("%ld and %ld are", n1, n2);
                     if (!slib_isrp(n1, n2))
                         printf(" not");
                     puts(" coprime");
                     break;
                 case 'g':
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    n1 = atol(optargGS);
+                    n2 = atol(argv[optindGS]);
                     printf("gcf(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 case 'l':
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    n1 = atol(optargGS);
+                    n2 = atol(argv[optindGS]);
                     printf("lcm(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 case 'p':
-                    long n1 = atol(optargGS), n2 = atol(argv[optindGS]);
+                    n1 = atol(optargGS);
+                    n2 = atol(argv[optindGS]);
                     slib_prtpn(n1, n2);
                     break;
                 case 'd':
-                    long n = atol(optargGS);
-                    printf("%ld is", n);
-                    if (!slib_ispn(n))
+                    n1 = atol(optargGS);
+                    printf("%ld is", n1);
+                    if (!slib_ispn(n1))
                         printf(" not");
                     puts(" a prime number");
                     break;
