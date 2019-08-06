@@ -148,6 +148,20 @@ else
     fcntl_h=0
 fi
 
+if check_header "stddbool.h";
+then
+    stdbool_h=1
+else
+    stdbool_h=0
+fi
+
+if check_header "stdint.h";
+then
+    stdint_h=1
+else
+    stdint_h=0
+fi
+
 if check_header "termios.h";
 then
     termios_h=1

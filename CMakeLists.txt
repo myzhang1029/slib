@@ -21,6 +21,8 @@ endif()
 # checks
 check_include_files(alloca.h HAVE_ALLOCA_H)
 check_include_files(fcntl.h HAVE_FCNTL_H)
+check_include_files(stdbool.h HAVE_STDBOOL_H)
+check_include_files(stdint.h HAVE_STDINT_H)
 check_include_files(termios.h HAVE_TERMIOS_H)
 check_include_files(unistd.h HAVE_UNISTD_H)
 check_function_exists(alloca HAVE_ALLOCA)

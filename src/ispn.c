@@ -22,7 +22,7 @@
 
 #include "slib/math.h"
 
-OPT int slib_old_ispn(slib_uint testingnum)
+OPT slib_bool slib_old_ispn(slib_uint testingnum)
 {
     slib_uint k = (slib_uint)sqrt((double)testingnum), i = 3;
 
@@ -36,7 +36,7 @@ OPT int slib_old_ispn(slib_uint testingnum)
     return 1;
 }
 
-OPT int slib_ispn(slib_uint testingnum)
+OPT slib_bool slib_ispn(slib_uint testingnum)
 {
     slib_uint i = 3;
 

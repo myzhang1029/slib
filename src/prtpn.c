@@ -31,7 +31,7 @@ OPT void slib_prtpn(slib_uint minimum, slib_uint maximum)
     {
         if (slib_ispn(n))
         {
-            printf("%lu\n", n);
+            printf("%" PRIslib "\n", n);
         }
     }
 }

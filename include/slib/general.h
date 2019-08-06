@@ -66,6 +66,15 @@
 
 #define S_INLINE inline
 
+#ifdef HAVE_BOOL_H
+#include <stdbool.h>
+#define slib_bool _Bool
+#else
+#define slib_bool int
+#define true 1
+#define false 0
+#endif
+
 #ifdef __cplusplus
 #define _BEGIN_EXTERN_C extern "C" {
 #define _END_EXTERN_C }
