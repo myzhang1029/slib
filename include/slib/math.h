@@ -22,7 +22,7 @@
 #define SLIB_MATH_H 1
 #include <slib/general.h>
 
-#ifded HAVE_STDINT_H
+#ifdef HAVE_STDINT_H
 #include <stdint.h>
 #include <inttypes.h>
 #define slib_uint uint64_t
