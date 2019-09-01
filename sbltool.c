@@ -35,7 +35,7 @@ void eio(void);
 int ui()
 {
     int num1, num2;
-    char selection = 0;
+    signed char selection = 0;
     printf("sbltool  Copyright (C) 2016-present Zhang Maiyun\n"
            "This program comes with ABSOLUTELY NO WARRANTY.\n"
            "This is free software, and you are welcome to redistribute it\n"
