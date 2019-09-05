@@ -23,7 +23,7 @@ srcdir=`dirname $0`
 . $srcdir/cmake/acconf.sh
 
 # Plus which, cc, ar and sh, these are minimal requirement to build this project
-check_progs cat rm mkdir cut sed expr find tr grep printf uname
+check_progs cat rm mkdir cut sed expr find tr grep uname
 check_progs make
 
 # Default/init vaule of variables
@@ -51,25 +51,30 @@ version="`grep project ${srcdir}/CMakeLists.txt|cut -d\  -f3`"
 description="`grep PROJECT_DESCRIPTION ${srcdir}/CMakeLists.txt|cut -d\\" -f2`"
 
 # Help
-help_me(){
-	printf 'Usage: %s/configure [option=<vaule> | --help]\n' ${srcdir}
-	printf 'Options:\n'
-	printf '  --prefix=PREFIX\tSet prefix;\n'
-	printf '  --build=BUILD\tconfigure for building on BUILD [guessed]'
-	printf '  --host=HOST\tcross-compile to build programs to run on HOST [BUILD]'
-	printf '  --target=TARGET\tIgnored'
-    printf '  --rm=RM\tSet remover(Should support "-f" option);\n'
-	printf '  --sosuffix=EXT_WITH_A_DOT\tSet extension of shared objects;\n'
-	printf '  --exesuffix=EXT_WITH_A_DOT\tSet extension of executables;\n'
-	printf '  --soflags=SOFLAGS\tSet CFLAGS for shared objects\n'
-	printf '  --{bin,lib,include,man,info}dir=DIR\t Set bindir, libdir, includedir, mandir, infodir;\n'
-	printf '  --help,-h\tDisplay this help information.\n\n'
-    printf 'Some influential environment variables:'
-    printf '  AR\tlibmaker'
-    printf '  CC\tC compiler'
-    printf '  CFLAGS\tC flags'
-	printf '\nProject maintained by Zhang Maiyun <myzhang1029@163.com>.\n'
-	exit 0
+help_me() {
+    cat << EON
+Usage: ${srcdir}/configure [option=<vaule> | --help]
+
+Options:
+  --prefix=PREFIX            set prefix [/usr/local]
+  --build=BUILD              configure for building on BUILD [guessed]
+  --host=HOST                cross-compile to build programs to run on HOST [BUILD]
+  --target=TARGET            unused
+  --rm=RM                    file unlinking program(Should support \`-f') [rm]
+  --sosuffix=EXT_WITH_A_DOT  set extension of shared objects
+  --exesuffix=EXT_WITH_A_DOT set extension of executables
+  --soflags=SOFLAGS          set CFLAGS for shared objects
+  --*dir=DIR                 set bindir, libdir, includedir, mandir, infodir
+  --help,-h                  display this help information
+
+Some influential environment variables:
+  AR                         libmaker
+  CC                         C compiler
+  CFLAGS                     C flags
+
+Project maintained by Zhang Maiyun <myzhang1029@163.com>.
+EON
+    exit 0
 }
 
 # Parse arguments
@@ -108,7 +113,7 @@ for opt do
 done
 
 # system name for the host platform
-if [ "$cross" = "" ];
+if [ "$cross" = "" ]
 then
     system_name=`$srcdir/cmake/config.guess`
 else
@@ -118,86 +123,90 @@ echo Starting configuration for host $system_name
 system_name=`extract_os $system_name`
 
 # Check for C compiler
-if [ "$cc" = "" ];
+if [ "$cc" = "" ]
 then
     check_cc $cross
 fi
 
-# For exesuf
+# exesuf also determined here
 check_cc_works
 
 # Check for ar
-if [ "$ar" = "" ] ; then
+if [ "$ar" = "" ]
+then
     check_ar $cross
 fi
 
 # For sosuf
 check_shared_works
 
-if check_header "alloca.h";
+if check_header "alloca.h"
 then
     alloca_h=1
 else
     alloca_h=0
 fi
 
-if check_header "fcntl.h";
+if check_header "fcntl.h"
 then
     fcntl_h=1
 else
     fcntl_h=0
 fi
 
-if check_header "stddbool.h";
+if check_header "stdbool.h"
 then
     stdbool_h=1
 else
     stdbool_h=0
 fi
 
-if check_header "stdint.h";
+if check_header "stdint.h"
 then
     stdint_h=1
 else
     stdint_h=0
 fi
 
-if check_header "termios.h";
+if check_header "termios.h"
 then
     termios_h=1
 else
     termios_h=0
 fi
 
-if check_header "unistd.h";
+if check_header "unistd.h"
 then
     unistd_h=1
 else
     unistd_h=0
 fi
 
-if check_type "size_t";
+if check_type "size_t"
 then
     size_t=0
 else
     size_t=1
 fi
 
-if check_type "intptr_t";
+if check_type "intptr_t"
 then
     intptr_t=0
 else
     intptr_t=1
 fi
 
-if [ "$libdir" = "" ] ; then
-	libdir="$prefix/lib"
+if [ "$libdir" = "" ]
+then
+    libdir="$prefix/lib"
 fi
-if [ "$bindir" = "" ] ; then
-	bindir="$prefix/bin"
+if [ "$bindir" = "" ]
+then
+    bindir="$prefix/bin"
 fi
-if [ "$includedir" = "" ] ; then
-	includedir="$prefix/include"
+if [ "$includedir" = "" ]
+then
+    includedir="$prefix/include"
 fi
 
 # Write output
@@ -208,7 +217,7 @@ cat > Makefile << ACEOF
 OBJECTS=`echo ${cfiles} | sed s/\\\.c/.c.o/g`
 
 # Always write an all target
-all:libsbl${sosuf} sbltool${exesuf}
+all: libsbl${sosuf} sbltool${exesuf}
 
 libsbl${sosuf}: ${hfiles} \$(OBJECTS)
 	${cc} ${soflags} \$(OBJECTS) -o \$@ ${ldflags}
@@ -243,28 +252,84 @@ ACEOF
 tmp=''
 includes=''
 entries='{'
-for file in $srcdir/test/*-test.c;
+for file in $srcdir/test/*-test.c
 do
     tmp="${tmp} ${file}"
     testname=`echo ${file} | sed s,.*/,, | cut -f1 -d-`
     entries="${entries}{\"${testname}\", ${testname}_main}, "
     includes="${includes}#include \"${testname}-test.c\"\n"
 done
+
 entries="${entries}{NULL, NULL}}"
 echo "${includes}" > testdrv.h
 sed "s/@TESTS@/${entries}/;s,@TFILES@,," ${srcdir}/test/testdrv.h.in >> testdrv.h
 echo testdrv.exe: ${srcdir}/test/testdrv.c testdrv.h ${tmp} libsbl${sosuf} >> Makefile
 echo "	${cc} ${cflags} -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a ${ldflags}" >> Makefile
-for file in $cfiles;
+for file in $cfiles
 do
     echo ${file}.o: ${srcdir}/${file} >> Makefile
     echo "	${cc} ${cflags} -c -o \$@ ${srcdir}/${file}" >> Makefile
 done
 
 echo Generating sbl.pc
-sed "s,@CMAKE_INSTALL_PREFIX@,${prefix},;s,@CMAKE_INSTALL_LIBDIR@,lib,;\
-    s,@CMAKE_INSTALL_INCLUDEDIR@,include,;s,@PROJECT_NAME@,${name},;\
+sed "s,@CMAKE_INSTALL_PREFIX@,${prefix},;\
+    s,@CMAKE_INSTALL_LIBDIR@,lib,;\
+    s,@CMAKE_INSTALL_INCLUDEDIR@,include,;\
+    s,@PROJECT_NAME@,${name},;\
     s,@PROJECT_DESCRIPTION@,${description},;\
-    s,@PROJECT_VERSION@,${version},;" ${srcdir}/sbl.pc.in > sbl.pc
+    s,@PROJECT_VERSION@,${version},;" \
+    ${srcdir}/sbl.pc.in > sbl.pc
 
 echo Generating config.h
+if [ $alloca_h -eq 1 ]
+then
+    echo "#define HAVE_ALLOCA_H 1" > config.h
+else
+    echo "#undef HAVE_ALLOCA_H" > config.h
+fi
+
+if [ $fcntl_h -eq 1 ]
+then
+    echo "#define HAVE_FCNTL_H 1" >> config.h
+else
+    echo "#undef HAVE_FCNTL_H" >> config.h
+fi
+
+if [ $stdbool_h -eq 1 ]
+then
+    echo "#define HAVE_STDBOOL_H 1" >> config.h
+else
+    echo "#undef HAVE_STDBOOL_H" >> config.h
+fi
+
+if [ $stdint_h -eq 1 ]
+then
+    echo "#define HAVE_STDINT_H 1" >> config.h
+else
+    echo "#undef HAVE_STDINT_H" >> config.h
+fi
+
+if [ $termios_h -eq 1 ]
+then
+    echo "#define HAVE_TERMIOS_H 1" >> config.h
+else
+    echo "#undef HAVE_TERMIOS_H" >> config.h
+fi
+
+if [ $unistd_h -eq 1 ]
+then
+    echo "#define HAVE_UNISTD_H 1" >> config.h
+else
+    echo "#undef HAVE_UNISTD_H" >> config.h
+fi
+
+if [ $size_t -eq 0 ]
+then
+    echo "#define size_t unsigned int" >> config.h
+fi
+
+if [ $intptr_t -eq 0 ]
+then
+    echo "#define intptr_t long int" >> config.h
+fi
+
