@@ -30,12 +30,21 @@ OPT long fsize(FILE *stream);
 OPT void splitpathS(const char *path, char *drive, char *dirname,
                     char *basename, char *ext);
 
+OPT long *slib_count_repeats(FILE *file, long *pcount, int delim);
+
 OPT long *slib_count_fl(FILE *file, long *pcount);
 
 OPT long slib_fbsearch(const char *key, FILE *fp,
                        int (*compar)(const char *s1, const char *s2));
 
-OPT void slib_fqsort(FILE *fp, int (*compar)(const char *s1, const char *s2));
+OPT long slib_fbsearchdelim(const char *key, FILE *fp, int delim,
+                            int (*compar)(const char *s1, const char *s2));
+
+OPT void slib_fqsort(FILE *fp, FILE *fp_out,
+                     int (*compar)(const char *s1, const char *s2));
+
+OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
+                          int (*compar)(const char *s1, const char *s2));
 
 #if !PLAT
 OPT int getch(void);

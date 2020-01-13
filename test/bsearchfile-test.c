@@ -5,31 +5,34 @@
 
 int bsearchfile_main()
 {
-    FILE *testfile;
+    FILE *testfile1, *testfile2;
     long found, should;
     char readbuf[5];
-    testfile = tmpfile();
-    quiet_asrt_neq(testfile, NULL, "fopen");
-    fputs("aaa\n", testfile);
-    fputs("bbb\n", testfile);
-    fputs("ccc\n", testfile);
-    fputs("ddd\n", testfile);
-    fputs("fff\n", testfile);
-    rewind(testfile);
-    while (fgetc(testfile) != 'b')
+    testfile1 = tmpfile();
+    testfile2 = tmpfile();
+    quiet_asrt_neq(testfile1, NULL, "fopen");
+    fputs("bbb\n", testfile1);
+    fputs("aaa\n", testfile1);
+    fputs("fff\n", testfile1);
+    fputs("ddd\n", testfile1);
+    fputs("ccc\n", testfile1);
+    slib_fqsort(testfile1, testfile2, strcmp);
+    rewind(testfile2);
+    while (fgetc(testfile2) != 'b')
         /* nothing */;
-    should = ftell(testfile) - 1;
-    found = slib_fbsearch("aaa", testfile, &strcmp);
-    fseek(testfile, found, SEEK_SET);
-    quiet_asrt_neq(fgets(readbuf, 5, testfile), NULL, "fgets");
+    should = ftell(testfile2) - 1;
+    found = slib_fbsearch("aaa", testfile2, &strcmp);
+    fseek(testfile2, found, SEEK_SET);
+    quiet_asrt_neq(fgets(readbuf, 5, testfile2), NULL, "fgets");
     asrt_str_equ(readbuf, "aaa\n", "slib_fbsearch-found1");
-    found = slib_fbsearch("bbb", testfile, &strcmp);
-    fseek(testfile, found, SEEK_SET);
-    quiet_asrt_neq(fgets(readbuf, 5, testfile), NULL, "fgets");
+    found = slib_fbsearch("bbb", testfile2, &strcmp);
+    fseek(testfile2, found, SEEK_SET);
+    quiet_asrt_neq(fgets(readbuf, 5, testfile2), NULL, "fgets");
     asrt_str_equ(readbuf, "bbb\n", "slib_fbsearch-found2");
     asrt_equ(found, should, "slib_fbsearch-found2-num");
-    found = slib_fbsearch("eee", testfile, &strcmp);
+    found = slib_fbsearch("eee", testfile2, &strcmp);
     asrt_equ(found, -1, "slib_fbsearch-notfound");
-    fclose(testfile);
+    fclose(testfile1);
+    fclose(testfile2);
     return 0;
 }

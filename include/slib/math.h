@@ -23,8 +23,8 @@
 #include <slib/general.h>
 
 #ifdef HAVE_STDINT_H
-#include <stdint.h>
 #include <inttypes.h>
+#include <stdint.h>
 #define slib_uint uint64_t
 #define PRIslib PRIu64
 #else
