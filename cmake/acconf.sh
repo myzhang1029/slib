@@ -27,7 +27,7 @@ fi
 # Header file check
 # $1: name
 check_header(){
-    echo -n "Checking for $1... "
+    printf "Checking for $1... "
     cat > conftest.c << ACEOF
 #include <$1>
 int main()
@@ -48,7 +48,7 @@ ACEOF
 # Type size check
 # $1: name
 check_type(){
-    echo -n "Checking for size of $1... "
+    printf "Checking for size of $1... "
     cat > conftest.c << ACEOF
 #include <stdio.h>
 #include <stdint.h>
@@ -58,7 +58,7 @@ int main()
 ACEOF
     if ${cc} conftest.c -o conftest >/dev/null 2>${ERROR_REDIR}
     then
-        size=`./conftest || ./conftest.exe`
+        size=`./conftest 2>/dev/null|| ./conftest.exe`
         echo ${size}
         rm -f conftest.c conftest conftest.exe
         return ${size}
@@ -74,7 +74,7 @@ ACEOF
 check_progs(){
     while [ $# -ne 0 ]
     do
-        echo -n "Checking for $1... "
+        printf "Checking for $1... "
         if ! which $1 2> /dev/null
         then
             echo no
@@ -90,7 +90,7 @@ check_progs(){
 check_cc(){
     w=0
     hosttrip=$1
-    echo -n "Checking for C Compiler... "
+    printf "Checking for C Compiler... "
     if ${hosttrip}-gcc -v > /dev/null 2>${ERROR_REDIR}
     then
         cc="${hosttrip}-gcc"
@@ -157,7 +157,7 @@ check_cc(){
 # AC_PROG_AR
 check_ar(){
     w=0
-    echo -n "Checking for ar... "
+    printf "Checking for ar... "
     if which ${cross}-ar > /dev/null 2>${ERROR_REDIR}
     then
         ar="${cross}-ar"
@@ -186,7 +186,7 @@ check_cc_works(){
 int main()
 {return 0;}
 ACEOF
-    echo -n 'Checking whether the C Compiler works... '
+    printf 'Checking whether the C Compiler works... '
     if ${cc} conftest.c >/dev/null 2>${ERROR_REDIR}
     then
         echo yes
@@ -198,7 +198,7 @@ ACEOF
         rm -f $possible_files conftest.c
         exit 1
     fi
-    echo -n 'Checking for extension of executables... '
+    printf 'Checking for extension of executables... '
     for file in $possible_files
     do
         test -f "$file" || continue
@@ -225,7 +225,7 @@ ACEOF
 
 # Check whether the compiler produces shared objects
 check_shared_works() {
-    echo -n 'Checking whether the C Compiler accepts -shared... '
+    printf 'Checking whether the C Compiler accepts -shared... '
     cat > conftest.c << ACEOF
 #include <stdio.h>
 int main(){;}
@@ -244,7 +244,7 @@ ACEOF
     fi
     rm -f conftest.so conftest.c
     # For sosuf
-    echo -n "Checking for extension of shared objects... "
+    printf "Checking for extension of shared objects... "
     
     case $system_name in
         *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
