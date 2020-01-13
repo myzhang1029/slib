@@ -1,7 +1,7 @@
 /*
  *  sbltool.c - Executable tool of the slib, preceded by the admin project
  *
- *  Copyright (C) 2016-present Zhang Maiyun
+ *  Copyright (C) 2016-2020 Zhang Maiyun
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ int ui()
 {
     int num1, num2;
     signed char selection = 0;
-    printf("sbltool  Copyright (C) 2016-present Zhang Maiyun\n"
+    printf("sbltool  Copyright (C) 2016-2020 Zhang Maiyun\n"
            "This program comes with ABSOLUTELY NO WARRANTY.\n"
            "This is free software, and you are welcome to redistribute it\n"
            "under certain conditions; visit <https://www.gnu.org/licenses/> "

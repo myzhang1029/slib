@@ -1,7 +1,7 @@
 /*
  *  slib.h - This is the header file of the slib
  *
- *  Copyright (C) 2016-present Zhang Maiyun
+ *  Copyright (C) 2016-2020 Zhang Maiyun
  *
  *  This file is part of the slib.
  *  The slib is free software; you can redistribute it and/or modify

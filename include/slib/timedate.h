@@ -1,7 +1,7 @@
 /*
  *  timedate.h - Time and date operations of the slib
  *
- *  Copyright (C) 2018-present Zhang Maiyun
+ *  Copyright (C) 2018-2020 Zhang Maiyun
  *
  *  This file is part of the slib.
  *  The slib is free software; you can redistribute it and/or modify

@@ -1,7 +1,7 @@
 /*
  *  stack.c - stack in the slib
  *
- *  Copyright (C) 2017-present Zhang Maiyun
+ *  Copyright (C) 2017-2020 Zhang Maiyun
  *
  *  This file is part of the slib.
  *  The slib is free software; you can redistribute it and/or modify
