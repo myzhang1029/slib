@@ -247,13 +247,13 @@ OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
                 r = (*compar)(to_be_sorted, cmp);
                 if (cmping->next == NULL) /* Already the last one */
                     break;
-            } while (r > 0);
+            } while (r >= 0);
             /* else r <= 0, cur <= cmp */
             if (r < 0)
             {
                 /* insert cur in front of cmping. see line
-                 * 139 */
-                /* Insert cur to the appropriate postion. *
+                 * 151 */
+                /* Insert cur to the appropriate postion.
                  * Actually, this is not inserting. Instead, the old one is
                  * replaced. Therefore, there's no need to save/write FIRST.
                  * i.e. if the loop exits without running for a second time,
@@ -270,7 +270,7 @@ OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
                 cur->next = cmping->next;
                 cmping->next = cur;
             }
-            else /* r > 0 => cmping->next == NULL */
+            else /* r >= 0 => cmping->next == NULL */
                 cmping->next = cur;
             /* Reset loop condition */
             cmping = NULL;

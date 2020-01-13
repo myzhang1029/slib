@@ -11,11 +11,19 @@ int bsearchfile_main()
     testfile1 = tmpfile();
     testfile2 = tmpfile();
     quiet_asrt_neq(testfile1, NULL, "fopen");
-    fputs("bbb\n", testfile1);
-    fputs("aaa\n", testfile1);
+    /* test for list prepend */
     fputs("fff\n", testfile1);
-    fputs("ddd\n", testfile1);
+    /* test for repeated in-place */
+    fputs("aaa\n", testfile1);
+    fputs("bbb\n", testfile1);
     fputs("ccc\n", testfile1);
+    fputs("fff\n", testfile1);
+    /* test for random position */
+    fputs("ddd\n", testfile1);
+    /* test for repeated seq */
+    fputs("fff\n", testfile1);
+    fputs("fff\n", testfile1);
+    fputs("fff\n", testfile1);
     slib_fqsort(testfile1, testfile2, strcmp);
     rewind(testfile2);
     while (fgetc(testfile2) != 'b')
