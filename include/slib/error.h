@@ -1,7 +1,7 @@
 /*
- *  stack.h - Stack functions
+ *  error.h - Fatal errors handling
  *
- *  Copyright (C) 2018-2020 Zhang Maiyun
+ *  Copyright (C) 2020 Zhang Maiyun
  *
  *  This file is part of the slib.
  *  The slib is free software; you can redistribute it and/or modify
@@ -18,34 +18,30 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef SLIB_STACK_H
-#define SLIB_STACK_H 1
 #include "slib/general.h"
+#include <stdlib.h>
 
-#define STKELMT 100    /*Stack max. element count*/
-#define BUFFERSIZE 100 /*Stack buffer size*/
-
-_BEGIN_EXTERN_C
-
-typedef struct Stack
+static void Sfail_void()
 {
-    void *base;
-    void *top;
-    size_t size;
-    size_t type_size;
-} stackS;
+#ifndef S_NOABRT
+    abort();
+#endif
+    return;
+}
 
-OPT int slib_stack_new(stackS *s, size_t size, size_t type_size);
+static void *Sfail_ptr(void *ret)
+{
+#ifndef S_NOABRT
+    abort();
+#endif
+    return ret;
+}
 
-OPT int slib_stack_push(stackS *s, void *e);
-
-OPT int slib_stack_pop(stackS *s, void *e);
-
-OPT size_t slib_stack_len(stackS *s);
-
-OPT void slib_stack_clear(stackS *s);
-
-OPT void slib_stack_free(stackS *s);
-_END_EXTERN_C
-
-#endif /* SLIB_STACK_H */
+static int Sfail_int(int nret)
+{
+#ifndef S_NOABRT
+#error
+    abort();
+#endif
+    return nret;
+}

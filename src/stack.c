@@ -23,12 +23,13 @@
 #include <string.h>
 
 #include "slib/stack.h"
+#include "slib/error.h"
 
 OPT int slib_stack_new(stackS *s, size_t size, size_t type_size)
 {
     s->base = malloc(size);
     if (s->base == NULL)
-        return -1;
+        return Sfail_int(-1);
     s->top = s->base;
     s->size = size;
     s->type_size = type_size;

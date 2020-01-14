@@ -17,7 +17,7 @@
 
 #ifndef _FNMATCH_H
 #define _FNMATCH_H 1
-#include <slib/general.h>
+#include "slib/general.h"
 
 #ifdef __cplusplus
 extern "C" {

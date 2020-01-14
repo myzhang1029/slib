@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "slib/fileopt.h"
+#include "slib/error.h"
 
 /* Similar to POSIX getdelim, but returns like fgets while not including the
  * trailing DELIM */
@@ -53,13 +54,12 @@ OPT long *slib_count_repeats(FILE *file, long *pcount, int delim)
     long *line_starts = (long *)malloc(sizeof(long) * 32);
     long *reallocmem;
     long have_size = 32;
-    if (line_starts == NULL)
+    if (unlikely(line_starts == NULL))
     {
         *pcount = 0;
-        perror("slib_count_fl: malloc failed");
-        return NULL;
+        return Sfail_ptr(NULL);
     }
-    if (file == NULL) /* EINVAL */
+    if (unlikely(file == NULL)) /* EINVAL */
     {
         *pcount = 0;
         free(line_starts);
@@ -81,8 +81,7 @@ OPT long *slib_count_repeats(FILE *file, long *pcount, int delim)
                 {
                     free(line_starts);
                     *pcount = 0;
-                    perror("slib_count_fl: realloc failed");
-                    return NULL;
+                    return Sfail_ptr(NULL);
                 }
             }
             line_starts[++count] = ftell(
@@ -125,10 +124,9 @@ OPT long slib_fbsearchdelim(const char *key, FILE *fp, int delim,
     long low, mid, high, *linelist, tmp;
     char *cmp = (char *)malloc(strlen(key) + 1); /* don't think a line longer
                                              than key will be the same as key */
-    if (cmp == NULL)
+    if (unlikely(cmp == NULL))
     {
-        perror("slib_fbsearch: malloc failed");
-        return -2;
+        return Sfail_int(-2);
     }
     if ((linelist = slib_count_repeats(fp, &high, delim)) == NULL)
     {
@@ -220,11 +218,29 @@ OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
      * suite */
 
     cmp = malloc(largest_delta); /* The longest one won't include the '\n' */
+    if (unlikely(cmp == NULL))
+    {
+        Sfail_void();
+        return;
+    }
     to_be_sorted = malloc(largest_delta);
+    if (unlikely(to_be_sorted == NULL))
+    {
+        free(cmp);
+        Sfail_void();
+        return;
+    }
 
     for (iter = 0; iter < nline; ++iter)
     {
         struct line *cur = malloc(sizeof(struct line));
+        if (unlikely(cur == NULL))
+        {
+            free(cmp);
+            free(to_be_sorted);
+            Sfail_void();
+            return;
+        }
         cur->pos = linelist[iter];
         cur->next = NULL;
         fseek(fp, cur->pos, SEEK_SET);

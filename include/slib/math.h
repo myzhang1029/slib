@@ -20,7 +20,7 @@
 
 #ifndef SLIB_MATH_H
 #define SLIB_MATH_H 1
-#include <slib/general.h>
+#include "slib/general.h"
 
 #ifdef HAVE_STDINT_H
 #include <inttypes.h>

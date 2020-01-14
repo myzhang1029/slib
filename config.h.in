@@ -26,3 +26,6 @@
 
 /* Define to `long int' if <stdint.h> does not define. */
 #cmakedefine intptr_t long int
+
+/* Define to 1 if abort() should be disabled. */
+#cmakedefine S_NOABRT 1

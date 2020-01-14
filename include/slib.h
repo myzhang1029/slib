@@ -25,7 +25,7 @@
 #ifndef SLIB_H
 #define SLIB_H 1
 
-#include <slib/general.h>
+#include "slib/general.h"
 
 #define mtreturn return mkret
 

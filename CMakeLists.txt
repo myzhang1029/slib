@@ -35,6 +35,12 @@ if(NOT INTPTR_T)
     set(intptr_t int)
 endif()
 
+if(NOABRT)
+    set(S_NOABRT on)
+else()
+    set(S_NOABRT 0)
+endif()
+
 # pkg-config file
 configure_file(sbl.pc.in sbl.pc @ONLY)
 

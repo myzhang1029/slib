@@ -20,7 +20,7 @@
 
 #ifndef SLIB_ITOA_H
 #define SLIB_ITOA_H 1
-#include <slib/general.h>
+#include "slib/general.h"
 
 _BEGIN_EXTERN_C
 

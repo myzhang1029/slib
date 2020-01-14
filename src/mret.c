@@ -23,14 +23,19 @@
 #include <string.h>
 
 #include "slib.h"
+#include "slib/error.h"
 
 OPT mtret *mkret(size_t length, ...)
 {
     mtret *ret = (mtret *)malloc(sizeof(mtret));
     int **elems = (int **)malloc(sizeof(int *) * length);
     va_list args;
-    if (elems == NULL)
-        return (mtret *)memset(ret, 0, sizeof(mtret));
+    if (ret == NULL || elems == NULL)
+    {
+        /* It's OK to free(NULL) */
+        free(ret);
+        return (mtret *)Sfail_ptr(memset(ret, 0, sizeof(mtret)));
+    }
     va_start(args, length);
     ret->length = length;
     ret->base = ret->val = elems;

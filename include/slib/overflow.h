@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <slib/general.h>
+#include "slib/general.h"
 #include <stdint.h>
 
 /* Static overflow check */
