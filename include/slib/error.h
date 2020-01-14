@@ -40,7 +40,6 @@ static void *Sfail_ptr(void *ret)
 static int Sfail_int(int nret)
 {
 #ifndef S_NOABRT
-#error
     abort();
 #endif
     return nret;
