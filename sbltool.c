@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
                 case 'l':
                     n1 = (slib_uint)atol(optargGS);
                     n2 = (slib_uint)atol(argv[optindGS]);
-                    printf("lcm(%"PRIslib", %"PRIslib") = %" PRIslib "\n", n1, n2, slib_gcf(n1, n2));
+                    printf("lcm(%"PRIslib", %"PRIslib") = %" PRIslib "\n", n1, n2, slib_lcm(n1, n2));
                     break;
                 case 'p':
                     n1 = (slib_uint)atol(optargGS);
