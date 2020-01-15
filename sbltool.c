@@ -110,7 +110,7 @@ helpme:
 int main(int argc, char *argv[])
 {
     int c;
-    long n1, n2;
+    slib_uint n1, n2;
     const char *sopts = ":uhvr:g:l:p:d:c:";
     if (argc > 1)
     {
@@ -128,31 +128,31 @@ int main(int argc, char *argv[])
                     printf("Build %s，%s\n", __DATE__, __TIME__);
                     break;
                 case 'r':
-                    n1 = atol(optargGS);
-                    n2 = atol(argv[optindGS]);
-                    printf("%ld and %ld are", n1, n2);
+                    n1 = (slib_uint)atol(optargGS);
+                    n2 = (slib_uint)atol(argv[optindGS]);
+                    printf("%"PRIslib" and %"PRIslib" are", n1, n2);
                     if (!slib_isrp(n1, n2))
                         printf(" not");
                     puts(" coprime");
                     break;
                 case 'g':
-                    n1 = atol(optargGS);
-                    n2 = atol(argv[optindGS]);
-                    printf("gcf(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
+                    n1 = (slib_uint)atol(optargGS);
+                    n2 = (slib_uint)atol(argv[optindGS]);
+                    printf("gcf(%"PRIslib", %"PRIslib") = %" PRIslib "\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 case 'l':
-                    n1 = atol(optargGS);
-                    n2 = atol(argv[optindGS]);
-                    printf("lcm(%ld, %ld) = %ld\n", n1, n2, slib_gcf(n1, n2));
+                    n1 = (slib_uint)atol(optargGS);
+                    n2 = (slib_uint)atol(argv[optindGS]);
+                    printf("lcm(%"PRIslib", %"PRIslib") = %" PRIslib "\n", n1, n2, slib_gcf(n1, n2));
                     break;
                 case 'p':
-                    n1 = atol(optargGS);
-                    n2 = atol(argv[optindGS]);
+                    n1 = (slib_uint)atol(optargGS);
+                    n2 = (slib_uint)atol(argv[optindGS]);
                     slib_prtpn(n1, n2);
                     break;
                 case 'd':
-                    n1 = atol(optargGS);
-                    printf("%ld is", n1);
+                    n1 = (slib_uint)atol(optargGS);
+                    printf("%"PRIslib" is", n1);
                     if (!slib_ispn(n1))
                         printf(" not");
                     puts(" a prime number");

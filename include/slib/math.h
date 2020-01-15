@@ -28,8 +28,8 @@
 #define slib_uint uint64_t
 #define PRIslib PRIu64
 #else
-#define slib_uint unsigned long
-#define PRIslib "ld"
+#define slib_uint unsigned long int
+#define PRIslib "lu"
 #endif
 
 _BEGIN_EXTERN_C
