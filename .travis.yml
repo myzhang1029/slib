@@ -1,42 +1,27 @@
 language: c
 git:
     quiet: true
+    depth: 3
+
+os: linux
+
+compiler:
+    - clang
+    - gcc
+
 matrix:
     include:
-        # Linux clang
-        - os: linux
-          addons:
-              apt:
-                  sources:
-                      - ubuntu-toolchain-r-test
-                      - llvm-toolchain-precise-3.8
-                      - george-edison55-precise-backports
-                  packages:
-                      - clang-3.8
-                      - cmake-data
-                      - cmake
-          env:
-              - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-        # Linux GCC 
-        - os: linux
-          addons:
-              apt:
-                  sources:
-                      - ubuntu-toolchain-r-test
-                      - george-edison55-precise-backports
-                  packages:
-                      - g++-7
-                      - cmake-data
-                      - cmake
-          env:
-              - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
         # macOS GCC@4
         - os: osx
           osx_image: xcode8
           env:
-              - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+             - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+        # Windows
+        - os: windows
+
 before_install:
     - eval "${MATRIX_EVAL}"
+
 script:
     - ./configure && make test
     - cmake . && make && make test
