@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "slib/fileopt.h"
 #include "slib/error.h"
+#include "slib/fileopt.h"
 
 /* Similar to POSIX getdelim, but returns like fgets while not including the
  * trailing DELIM */
@@ -202,6 +202,8 @@ OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
     } *first = NULL, *cmping = NULL;
 
     linelist = slib_count_fl(fp, &nline);
+    if (nline == 0)
+        return; /* Zero-sized file */
 
     largest_delta = (size_t)fsize(fp) -
                     linelist[nline - 1]; /* The length of the last line */
