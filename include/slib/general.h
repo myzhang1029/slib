@@ -18,54 +18,39 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#if defined(_MSC_VER) && _MSC_VER >= 100
-#pragma once
-#endif
-
 #ifndef SLIB_GENERAL_H
 #define SLIB_GENERAL_H
-
 #define SBLLIB_VERSION 4
 #define SBLLIB_MINOR 5
 #define SBLLIB_PATCHLEVEL 0
+#endif
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #undef malloc
 #undef realloc
-#endif
+#endif /* HAVE_CONFIG_H */
 
 #include <stdio.h>
 
-#if !defined(PLAT)
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(_WIN32) ||            \
-    defined(__MSDOS__)
-#define PLAT 1
-#include <windows.h>
-#elif defined(__unix__) || defined(__BSD__) || defined(__APPLE__)
-#define PLAT 0
-#else
-#error Please define PLAT, see documentation for more details
-#endif
-#endif
-
-#ifndef NULL /* default definition of NULL */
+#ifndef NULL
 #define NULL (void *)0
-#endif
+#endif /* NULL */
 
-#if PLAT
+#ifndef OPT
+#ifdef _WIN32
 #define OPT extern __declspec(dllexport) /* used in declarations */
 #else
 #define OPT extern
-#endif
+#endif /* _WIN32 */
+#endif /* OPT */
 
-/* register storage specifier */
 #ifndef S_REGISTER
 #define S_REGISTER register
-#endif
-
 #define S_INLINE inline
+#endif /* S_REGISTER */
 
+#ifndef slib_bool
 #ifdef HAVE_BOOL_H
 #include <stdbool.h>
 #define slib_bool _Bool
@@ -73,18 +58,21 @@
 #define slib_bool int
 #define true 1
 #define false 0
-#endif
+#endif /* HAVE_BOOL_H */
+#endif /* slib_bool */
 
+#ifndef _BEGIN_EXTERN_C
 #ifdef __cplusplus
 #define _BEGIN_EXTERN_C extern "C" {
 #define _END_EXTERN_C }
 #else
 #define _BEGIN_EXTERN_C
 #define _END_EXTERN_C
-#endif
-#endif
+#endif /* __cplusplus */
+#endif /* _BEGIN_EXTERN_C */
 
 /* likely and unlikely branches */
+#ifndef likely
 #if defined(__GNUC__) &&                                                       \
     (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))
 #define likely(x) __builtin_expect(!!(x), 1)
@@ -93,3 +81,8 @@
 #define likely(x) (x)
 #define unlikely(x) (x)
 #endif /* __GNUC__ */
+#endif /* likely */
+
+#ifdef DMALLOC
+#include <dmalloc.h>
+#endif /* DMALLOC */

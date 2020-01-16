@@ -41,7 +41,7 @@ rm="rm"
 build=""
 
 cflags="${CFLAGS} ${CPPFLAGS} -Wall -Wextra -pedantic -O2 -DHAVE_CONFIG_H -I${srcdir}/include -I."
-ldflags="${LDFLAGS} -lm"
+ldflags="-lm ${LDFLAGS}"
 soflags=""
 
 cfiles="`cd ${srcdir};find src -name '*.c' -type f | tr '\n' ' '`"
@@ -51,6 +51,7 @@ exesuf=""
 sosuf=""
 
 disable_abort=""
+enable_dmalloc=""
 
 # Get constants defined in CMakeLists.txt
 name="libsbl"
@@ -75,7 +76,8 @@ Options:
   --help,-h                  display this help information
 
 Optional Features:
-  --disable-abort            disable abort on memory failure [disabled]
+  --disable-abort            disable abort on memory failure [enabled]
+  --enable-dmalloc           enable dmalloc for debug [disabled]
 
 Some influential environment variables:
   AR                         libmaker
@@ -120,12 +122,21 @@ for opt do
             ;;
         --enable-abort) disable_abort=""
             ;;
+        --disable-dmalloc) enable_dmalloc=""
+            ;;
+        --enable-dmalloc) enable_dmalloc=on
+            ;;
         --help|-h) help_me
             ;;
         *) echo configure: Warning: unrecognized option ${opt}
             ;;
     esac
 done
+
+if [ "$enable_dmalloc" = "on" ]
+then
+    ldflags="${ldflags} -ldmalloc"
+fi
 
 # system name for the host platform
 if [ "$cross" = "" ]
@@ -351,5 +362,11 @@ fi
 if [ "$disable_abort" = "on" ]
 then
     echo "#define S_NOABRT 1" >> config.h
+fi
+
+if [ "$enable_dmalloc" = "on" ]
+then
+    echo "#define DMALLOC" >> config.h
+    echo "#define DMALLOC_FUNC_CHECK" >> config.h
 fi
 

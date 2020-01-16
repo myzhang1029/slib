@@ -18,8 +18,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "slib/general.h"
 #include <stdlib.h>
+
+#include "slib/general.h"
 
 static void Sfail_void()
 {

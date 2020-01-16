@@ -18,16 +18,15 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#if !defined(_WIN32) && defined(HAVE_FCNTL_H) && defined(HAVE_TERMIOS_H) &&    \
+    defined(HAVE_UNISTD_H)
 #include <assert.h>
-#include <memory.h>
-
-#include "slib.h"
-
-#if (!PLAT) || (defined(HAVE_FCNTL_H) && defined(HAVE_TERMIOS_H) &&            \
-                defined(HAVE_UNISTD_H))
 #include <fcntl.h>
+#include <memory.h>
 #include <termios.h>
 #include <unistd.h>
+
+#include "slib.h"
 
 OPT int getch(void)
 {
@@ -69,4 +68,8 @@ OPT int kbhit(void)
     }
     return 0;
 }
+#else
+/* to silence: warning: ISO C requires a translation unit to contain at least
+ * one declaration [-Wempty-translation-unit] */
+typedef int dummy;
 #endif

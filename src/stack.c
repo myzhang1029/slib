@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "slib/stack.h"
 #include "slib/error.h"
+#include "slib/stack.h"
 
 OPT int slib_stack_new(stackS *s, size_t size, size_t type_size)
 {

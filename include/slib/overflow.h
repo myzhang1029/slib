@@ -19,7 +19,6 @@
  */
 
 #include "slib/general.h"
-#include <stdint.h>
 
 /* Static overflow check */
 #ifndef SLIB_MATH_CHECK_OVERFLOW

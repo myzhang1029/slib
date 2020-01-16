@@ -46,10 +46,9 @@ OPT void slib_fqsort(FILE *fp, FILE *fp_out,
 OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
                           int (*compar)(const char *s1, const char *s2));
 
-#if !PLAT
 OPT int getch(void);
+
 OPT int kbhit(void);
-#endif
 
 _END_EXTERN_C
 #endif

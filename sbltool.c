@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
                 case 'r':
                     n1 = (slib_uint)atol(optargGS);
                     n2 = (slib_uint)atol(argv[optindGS]);
-                    printf("%"PRIslib" and %"PRIslib" are", n1, n2);
+                    printf("%" PRIslib " and %" PRIslib " are", n1, n2);
                     if (!slib_isrp(n1, n2))
                         printf(" not");
                     puts(" coprime");
@@ -138,12 +138,14 @@ int main(int argc, char *argv[])
                 case 'g':
                     n1 = (slib_uint)atol(optargGS);
                     n2 = (slib_uint)atol(argv[optindGS]);
-                    printf("gcf(%"PRIslib", %"PRIslib") = %" PRIslib "\n", n1, n2, slib_gcf(n1, n2));
+                    printf("gcf(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n",
+                           n1, n2, slib_gcf(n1, n2));
                     break;
                 case 'l':
                     n1 = (slib_uint)atol(optargGS);
                     n2 = (slib_uint)atol(argv[optindGS]);
-                    printf("lcm(%"PRIslib", %"PRIslib") = %" PRIslib "\n", n1, n2, slib_lcm(n1, n2));
+                    printf("lcm(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n",
+                           n1, n2, slib_lcm(n1, n2));
                     break;
                 case 'p':
                     n1 = (slib_uint)atol(optargGS);
@@ -152,7 +154,7 @@ int main(int argc, char *argv[])
                     break;
                 case 'd':
                     n1 = (slib_uint)atol(optargGS);
-                    printf("%"PRIslib" is", n1);
+                    printf("%" PRIslib " is", n1);
                     if (!slib_ispn(n1))
                         printf(" not");
                     puts(" a prime number");

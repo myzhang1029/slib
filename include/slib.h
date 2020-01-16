@@ -29,10 +29,6 @@
 
 #define mtreturn return mkret
 
-#if PLAT
-#define FOREGROUND_WHITE (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN)
-#endif
-
 _BEGIN_EXTERN_C
 
 typedef struct mtrt

@@ -85,7 +85,7 @@ sbltool$(EXESUF): libsbl$(SOSUF) sbltool.c
 	$(CC) $(CFLAGS) -o $@ sbltool.c -L. -lsbl
 
 %.o:%.c $(HFILES)
-	$(CC) $(CFLAGS) $(PLAT) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 install:
 	install -c -d -m 755 $(LIBDIR) $(INCLUDEDIR) $(INCLUDEDIR)/slib

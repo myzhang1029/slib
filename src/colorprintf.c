@@ -19,6 +19,9 @@
  */
 
 #include <stdarg.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 #include "slib.h"
 
@@ -34,13 +37,13 @@ OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
 {
     int stat = 1;
     va_list args;
-#if PLAT
+#ifdef _WIN32
     HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbInfo;
     WORD colornum = 0x0;
 #endif
     va_start(args, format);
-#if PLAT
+#if defined(_WIN32)
     GetConsoleScreenBufferInfo(hstdout, &csbInfo);
     switch (fcolor)
     {
@@ -98,7 +101,7 @@ OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
     SetConsoleTextAttribute(hstdout, colornum);
     stat = vprintf(format, args);
     SetConsoleTextAttribute(hstdout, csbInfo.wAttributes);
-#else
+#elif defined(__unix__) || defined(__APPLE__)
     switch (fcolor)
     {
         case red:
@@ -153,6 +156,8 @@ OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
     }
     stat = vprintf(format, args);
     printf("\033[0m");
+#else
+    stat = vprintf(format, args);
 #endif
     va_end(args);
     return stat;

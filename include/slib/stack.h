@@ -22,8 +22,8 @@
 #define SLIB_STACK_H 1
 #include "slib/general.h"
 
-#define STKELMT 100    /*Stack max. element count*/
-#define BUFFERSIZE 100 /*Stack buffer size*/
+#define STKELMT 100    /* Stack max element count */
+#define BUFFERSIZE 100 /* Stack buffer size */
 
 _BEGIN_EXTERN_C
 
