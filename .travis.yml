@@ -18,6 +18,10 @@ matrix:
              - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
         # Windows
         - os: windows
+          script:
+              - cmake . && nmake && nmake test
+              - mkdir build && build
+              - cmake .. && nmake && nmake test
 
 before_install:
     - eval "${MATRIX_EVAL}"
