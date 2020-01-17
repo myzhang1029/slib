@@ -21,10 +21,13 @@ jobs:
         # Windows
         - os: windows
           script:
+              - export PATH="$MSBPATH:$PATH"
               - mkdir build
               - cd build
               - cmake ..
               - msbuild ALL_BUILD.vcxproj -property:Configuration=Debug
+          env:
+              - MSBPATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
 
 script:
     - ./configure && make test
