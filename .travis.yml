@@ -24,7 +24,7 @@ jobs:
               - mkdir build
               - cd build
               - cmake ..
-              - find .
+              - msbuild ALL_BUILD.vcxproj -property:Configuration=Debug
 
 script:
     - ./configure && make test
