@@ -25,8 +25,8 @@ jobs:
               - mkdir build
               - cd build
               - cmake ..
-              - find "/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools"
-              - msbuild ALL_BUILD.vcxproj -property:Configuration=Debug
+              - find "/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild"
+              #- msbuild ALL_BUILD.vcxproj -property:Configuration=Debug
           env:
               - MSBPATH="C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild\15.0\Bin"
 
