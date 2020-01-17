@@ -21,12 +21,12 @@ jobs:
         # Windows
         - os: windows
           script:
-              - cmake . && nmake && nmake test
-              - mkdir build && build
-              - cmake .. && nmake && nmake test
+              - mkdir build
+              - cd build
+              - cmake ..
+              - find .
 
 script:
     - ./configure && make test
-    - cmake . && make && make test
     - mkdir build && cd build && ../configure && make test
     - cmake .. && make && make test
