@@ -9,22 +9,19 @@ compiler:
     - clang
     - gcc
 
-matrix:
+jobs:
     include:
         # macOS GCC@4
         - os: osx
-          osx_image: xcode8
           env:
-             - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+             - CC=gcc-4.9
+             - CXX=g++-4.9"
         # Windows
         - os: windows
           script:
               - cmake . && nmake && nmake test
               - mkdir build && build
               - cmake .. && nmake && nmake test
-
-before_install:
-    - eval "${MATRIX_EVAL}"
 
 script:
     - ./configure && make test
