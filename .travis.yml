@@ -26,7 +26,7 @@ jobs:
               - cmake ..
               - $MSBPATH/MSBuild.exe ALL_BUILD.vcxproj -property:Configuration=Debug
           env:
-              - MSBPATH="/C/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin"
+              - MSBPATH="C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin"
 
 script:
     - ./configure && make test
