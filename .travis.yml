@@ -3,7 +3,9 @@ git:
     quiet: true
     depth: 3
 
-os: linux
+os:
+    - osx
+    - linux
 
 compiler:
     - clang
@@ -11,11 +13,6 @@ compiler:
 
 matrix:
     include:
-        # macOS GCC@4
-        - os: osx
-          osx_image: xcode8
-          env:
-             - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
         # Windows
         - os: windows
           script:
@@ -25,6 +22,7 @@ matrix:
 
 before_install:
     - eval "${MATRIX_EVAL}"
+    - ${CC} --version
 
 script:
     - ./configure && make test
