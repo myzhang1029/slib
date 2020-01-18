@@ -11,11 +11,17 @@ compiler:
 - gcc
 
 script:
+# Use my own Makefile for testing
 - "./configure && make test"
 - "make distclean > /dev/null 2>&1"
 - mkdir build && cd build && ../configure && make test
 - "make distclean > /dev/null 2>&1"
-- cmake .. && make
+# Use CMake for release
+- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix
+- make install clean
+- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix -DBUILD_SHARD_LIBS=true
+- make install
+- find ../prefix
 
 jobs:
   include:
@@ -29,9 +35,10 @@ jobs:
     script:
     - mkdir build
     - cd build
-    - cmake ..
+    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix
     - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe"
-      ALL_BUILD.vcxproj -property:Configuration=Release'
+      ALL_BUILD.vcxproj'
+    - find ../prefix
 
 deploy:
   password:
