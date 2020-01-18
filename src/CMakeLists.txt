@@ -15,6 +15,8 @@ target_compile_options(sbl_static PRIVATE "-DHAVE_CONFIG_H=1")
 if (NOT WIN32)
     # Only use same names for shared/static if not Windows
     set_target_properties(sbl_static PROPERTIES OUTPUT_NAME sbl)
+else()
+    target_compile_options(sbl PRIVATE "-DBUILD_DLL=1")
 endif()
 
 include(GNUInstallDirs)

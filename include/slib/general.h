@@ -39,7 +39,11 @@
 
 #ifndef OPT
 #ifdef _WIN32
+#ifdef BUILD_DLL
 #define OPT extern __declspec(dllexport) /* used in declarations */
+#else
+#define OPT extern __declspec(dllimport) /* used in declarations */
+#endif
 #else
 #define OPT extern
 #endif /* _WIN32 */
