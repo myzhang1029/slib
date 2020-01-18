@@ -35,9 +35,11 @@ jobs:
     script:
     - mkdir build
     - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix
-    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -target:install ALL_BUILD.vcxproj'
+    - cmake .. -DCMAKE_INSTALL_PREFIX=../prefix
+    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release ALL_BUILD.vcxproj'
+    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
     - find ../prefix
+    
 
 deploy:
   password:
