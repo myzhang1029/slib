@@ -1,44 +1,32 @@
 language: c
 git:
     quiet: true
-matrix:
+    depth: 3
+
+os: linux
+
+compiler:
+    - clang
+    - gcc
+
+jobs:
     include:
-        # Linux clang
-        - os: linux
-          addons:
-              apt:
-                  sources:
-                      - ubuntu-toolchain-r-test
-                      - llvm-toolchain-precise-3.8
-                      - george-edison55-precise-backports
-                  packages:
-                      - clang-3.8
-                      - cmake-data
-                      - cmake
-          env:
-              - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-        # Linux GCC 
-        - os: linux
-          addons:
-              apt:
-                  sources:
-                      - ubuntu-toolchain-r-test
-                      - george-edison55-precise-backports
-                  packages:
-                      - g++-7
-                      - cmake-data
-                      - cmake
-          env:
-              - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
         # macOS GCC@4
         - os: osx
           osx_image: xcode8
+          compiler: gcc
           env:
-              - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-before_install:
-    - eval "${MATRIX_EVAL}"
+             - CC=gcc-4.9
+             - CXX=g++-4.9
+        # Windows
+        - os: windows
+          script:
+              - mkdir build
+              - cd build
+              - cmake ..
+              - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" ALL_BUILD.vcxproj -property:Configuration=Debug'
+
 script:
     - ./configure && make test
-    - cmake . && make && make test
     - mkdir build && cd build && ../configure && make test
     - cmake .. && make && make test
