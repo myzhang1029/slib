@@ -36,8 +36,7 @@ jobs:
     - mkdir build
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix
-    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe"
-      ALL_BUILD.vcxproj' install
+    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" ALL_BUILD.vcxproj install'
     - find ../prefix
 
 deploy:
