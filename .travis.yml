@@ -18,8 +18,6 @@ script:
 - "make distclean > /dev/null 2>&1"
 # Use CMake for release
 - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix
-- make install clean
-- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix -DBUILD_SHARD_LIBS=true
 - make install
 - find ../prefix
 
