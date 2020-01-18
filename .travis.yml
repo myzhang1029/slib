@@ -35,6 +35,7 @@ jobs:
     - cd build
     - cmake .. -DCMAKE_INSTALL_PREFIX=../prefix
     - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
+    - cat sbl.exp sbl.def
     - find ../prefix
     
 
