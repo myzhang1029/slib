@@ -43,8 +43,9 @@
 #define DLLOPT __declspec(dllexport)
 #elif defined(sbl_LIBRARY) /* Building the library for Windows as LIB */
 #define DLLOPT
-#else /* Using externally on Windows */
-//#define DLLOPT __declspec(dllimport)
+#elif defined(_MSC_VER) /* Using externally with cl.exe */
+#define DLLOPT __declspec(dllimport)
+#else /* MinGW expects a __imp_ prefix so dllimport won't work on static ones */
 #define DLLOPT
 #endif
 #define OPT extern DLLOPT /* used in declarations */
