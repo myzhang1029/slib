@@ -5,11 +5,10 @@ init:
 
 install:
     - cmake . -G "NMake Makefiles"
-    - type Makefile
-    - nmake libsbl.dll
+    - nmake sbl sbltool.i
     - type sbl.exp
 
-test_script:
-    - ctest
+#test_script:
+#    - ctest
 
 build: off
