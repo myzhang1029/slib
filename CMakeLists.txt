@@ -13,7 +13,7 @@ add_subdirectory(src)
 add_subdirectory(test)
 
 add_executable(sbltool sbltool.c)
-target_link_libraries(sbltool sbl)
+target_link_libraries(sbltool sbl_static)
 if(NOT WIN32)
     target_link_libraries(sbltool m)
 endif()
