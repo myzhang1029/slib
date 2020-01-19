@@ -8,7 +8,8 @@ install:
     - nmake sbl sbltool.i
     - dir /b
     - dir /b src
-    - type CMakefiles/sbltool.dir/sbltool.i
+    - type src\sbl.exp
+    - type CMakeFiles\sbltool.dir\sbltool.i
 
 #test_script:
 #    - ctest
