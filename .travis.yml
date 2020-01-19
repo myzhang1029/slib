@@ -1,32 +1,47 @@
 language: c
+
 git:
-    quiet: true
-    depth: 3
+  quiet: true
+  depth: 1
 
 os: linux
 
 compiler:
-    - clang
-    - gcc
-
-jobs:
-    include:
-        # macOS GCC@4
-        - os: osx
-          osx_image: xcode8
-          compiler: gcc
-          env:
-             - CC=gcc-4.9
-             - CXX=g++-4.9
-        # Windows
-        - os: windows
-          script:
-              - mkdir build
-              - cd build
-              - cmake ..
-              - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" ALL_BUILD.vcxproj -property:Configuration=Debug'
+- clang
+- gcc
 
 script:
-    - ./configure && make test
-    - mkdir build && cd build && ../configure && make test
-    - cmake .. && make && make test
+# Use my own Makefile for testing
+- "./configure && make test"
+- "make distclean > /dev/null 2>&1"
+- mkdir build && cd build && ../configure && make test
+- "make distclean > /dev/null 2>&1"
+# Use CMake for release
+- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
+- make install
+- cd ..
+- mkdir -p dist
+- tar zcvf dist/libsbl-`uname -s`-`uname -m`-$CC.tar.gz libsbl
+
+jobs:
+  include:
+  - os: osx
+    osx_image: xcode8
+    compiler: gcc
+    env:
+    - CC=gcc-4.9
+    - CXX=g++-4.9
+  - os: windows
+    script:
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_INSTALL_PREFIX=../prefix
+    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
+    
+deploy:
+    provider: releases
+    file: dist/*
+    skip_cleanup: true
+    draft: true
+    #on:
+    #   tags: true

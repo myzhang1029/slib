@@ -7,7 +7,7 @@ install:
     - cmake . -G "NMake Makefiles"
     - nmake
 
-test_script:
-    - ctest
+#test_script:
+#    - ctest
 
 build: off

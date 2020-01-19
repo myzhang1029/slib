@@ -43,10 +43,10 @@
 _BEGIN_EXTERN_C
 
 /*External variables*/
-extern int optindGS;
-extern int opterrGS;
-extern int optoptGS;
-extern char *optargGS;
+OPT int optindGS;
+OPT int opterrGS;
+OPT int optoptGS;
+OPT char *optargGS;
 
 struct optionGS
 {
