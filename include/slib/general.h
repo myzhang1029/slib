@@ -39,8 +39,16 @@
 
 #ifndef OPT
 #ifdef _WIN32
-#define OPT extern __declspec(dllexport) /* used in declarations */
+#ifdef sbl_EXPORTS /* Building the library for Windows as DLL */
+#define DLLOPT __declspec(dllexport)
+#elif defined(sbl_LIBRARY) || defined(LIBSBL_STATIC) /*  for Windows as LIB */
+#define DLLOPT
 #else
+#define DLLOPT __declspec(dllimport)
+#endif
+#define OPT extern DLLOPT /* used in declarations */
+#else /* Not _WIN32 */
+#define DLLOPT
 #define OPT extern
 #endif /* _WIN32 */
 #endif /* OPT */
