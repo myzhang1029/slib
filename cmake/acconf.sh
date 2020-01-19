@@ -248,14 +248,17 @@ ACEOF
     
     case $system_name in
         *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
-            soflags="-fPIC -shared -Os -lm"
-            cflags="${cflags} -fPIC"
+            soflags="-shared -O2 -lm"
+            cflags="${cflags}"
+            append_version=true
             ;;
         darwin*|*step*) sosuf=".dylib"
             soflags="-dynamiclib -current_version $version"
+            append_version=true
             ;;
         windows*|mingw*|msys*|cygwin*) sosuf=".dll"
             soflags="-shared"
+            append_version=""
             ;;
         *) echo unknown
             echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --sosuffix

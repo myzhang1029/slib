@@ -29,3 +29,6 @@
 
 /* Define to 1 if abort() should be disabled. */
 #cmakedefine S_NOABRT 1
+
+/* Internal build marker */
+#define sbl_LIBRARY

@@ -36,9 +36,9 @@
 #define alloca_free free
 #endif
 
-int optindGS = 1;
-int opterrGS = 1;
-int optoptGS = '?';
+DLLOPT int optindGS = 1;
+DLLOPT int opterrGS = 1;
+DLLOPT int optoptGS = '?';
 enum ENUM_ORDERING
 {
     REQUIRE_ORDER,
@@ -59,7 +59,7 @@ static struct _getopt_data
     int __first_nonopt;
     int __last_nonopt;
 } getopt_data;
-char *optargGS;
+DLLOPT char *optargGS;
 
 static void exchange(char **argv, struct _getopt_data *d)
 {
