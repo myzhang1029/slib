@@ -17,11 +17,16 @@ script:
 - mkdir build && cd build && ../configure && make test
 - "make distclean > /dev/null 2>&1"
 # Use CMake for release
-- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../prefix
+- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
 - make install
-- find ../prefix
+- cd ..
+- mkdir -p dist
+- tar zcvf dist/libsbl-`uname -s`-`uname -r`.tar.gz libsbl
+- ls
 
 jobs:
+  allow_failures:
+    - os: windows
   include:
   - os: osx
     osx_image: xcode8
