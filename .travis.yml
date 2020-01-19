@@ -21,7 +21,7 @@ script:
 - make install
 - cd ..
 - mkdir -p dist
-- tar zcvf dist/libsbl-`uname -s`-`uname -r`.tar.gz libsbl
+- tar zcvf dist/libsbl-`uname -s`-`uname -m`-$CC.tar.gz libsbl
 
 jobs:
   include:
@@ -37,14 +37,10 @@ jobs:
     - cd build
     - cmake .. -DCMAKE_INSTALL_PREFIX=../prefix
     - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
-    deploy:
-        file: README.md
     
-
 deploy:
     provider: releases
-    file:
-        - "dist/libsbl-`uname -s`-`uname -r`.tar.gz"
+    file: dist/*
     skip_cleanup: true
     draft: true
     #on:
