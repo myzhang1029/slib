@@ -39,6 +39,7 @@ jobs:
       - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
       - cd ..
       - mkdir dist
+      - 'ls "C:/Program Files (x86)"'
       - 7za a -tzip libsbl-win-x86_64-msvc.zip libsbl
     
 #deploy:
