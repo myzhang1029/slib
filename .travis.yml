@@ -41,10 +41,10 @@ jobs:
       - mkdir dist
       - 7z a -tzip libsbl-win-x86_64-msvc.zip libsbl
     
-#deploy:
-#  provider: releases
-#  file: dist/*
-#  skip_cleanup: true
-#  draft: true
-#  #on:
-#  #  tags: true
+deploy:
+  provider: releases
+  file: dist/*
+  skip_cleanup: true
+  draft: true
+  #on:
+  #  tags: true
