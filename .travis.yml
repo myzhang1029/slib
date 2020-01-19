@@ -7,21 +7,21 @@ git:
 os: linux
 
 compiler:
-- clang
-- gcc
+  - clang
+  - gcc
 
 script:
-# Use my own Makefile for testing
-- "./configure && make test"
-- "make distclean > /dev/null 2>&1"
-- mkdir build && cd build && ../configure && make test
-- "make distclean > /dev/null 2>&1"
-# Use CMake for release
-- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
-- make install
-- cd ..
-- mkdir -p dist
-- tar zcvf dist/libsbl-`uname -s`-`uname -m`-$CC.tar.gz libsbl
+  # Use my own Makefile for testing
+  - "./configure && make test"
+  - "make distclean > /dev/null 2>&1"
+  - mkdir build && cd build && ../configure && make test
+  - "make distclean > /dev/null 2>&1"
+  # Use CMake for release
+  - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
+  - make install
+  - cd ..
+  - mkdir dist
+  - tar zcvf dist/libsbl-`uname -s`-`uname -m`-$CC.tar.gz libsbl
 
 jobs:
   include:
@@ -29,21 +29,24 @@ jobs:
     osx_image: xcode8
     compiler: gcc
     env:
-    - CC=gcc-4.9
-    - CXX=g++-4.9
+      - CC=gcc-4.9
+      - CXX=g++-4.9
   - os: windows
     script:
-    - mkdir build
-    - cd build
-    - cmake .. -DCMAKE_INSTALL_PREFIX=../prefix
-    - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
+      - mkdir build
+      - cd build
+      - cmake .. -DCMAKE_INSTALL_PREFIX=../libsbl
+      - '"C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" -property:Configuration=Release INSTALL.vcxproj'
+      - cd ..
+      - mkdir dist
+      - 7za a -tzip libsbl-win-x86_64-msvc.zip libsbl
     
-deploy:
-    provider: releases
-    file: dist/*
-    skip_cleanup: true
-    draft: true
-    #on:
-    #   tags: true
-    password:
-        secure: x16dIWV0zSMdS3szecY74YRZe5dCYYi4SxMu2yz3ucadaRANoeuWSQmjY2ZaNwa2dO3yvBNh62kqsWOQiFG3C42GtnroC4xOt+W1glwlX36fdj2YOD3CSaHs3avnx0GAOr+ENFv8t4gD6Cw2mEzUKDeVFv+e1khGD/dZWWoXcR6LlKDiBJb4Oammhb/N2Ni5JiNxc04rkYAnlkpPws1q4UYTvWpVQmINcYUHKKtYdaExa0gOU1Ab6DmI/enB1jPgSGbP9sIM+BvETy8XENJEIgWxm9qbRiIyHexgFez8iGzpT/f0aS7E7D6NtLCfYp2mfcaYUI/axxm4vypaUA8gL3LN9eapxIGGhxNJcdNfxq+lT8PHqIFgEZiZEWoUtWtIHA7TB5VBa8ecs+TLlP+qXvATAobZOPv2iJnsb/40zmsY5c4VwfUOi+Gs7au94b80kgcLcIClvSmC68ZUN8BPbYi+x8cQp1AbE4PsH3OB58FgJVz+Erbb+1CSos7C+xhFcxsp/c5JcCl4s8QqBhX4Msxu78ftXoUGymu9Ilj1NnW1UqTvcHTIseFoTdPY/vzsjZgkRftnI8zyBk3XUJk6n99oVRjRoG+DmA0S0AqKzwkJrnftg5uMBOPYpeqNwv9WpA2Jnh49Q1t3WQNCFGXgTxi7n7le7g3S+7oXfGP2EVE=
+#deploy:
+#  provider: releases
+#  file: dist/*
+#  skip_cleanup: true
+#  draft: true
+#  #on:
+#  #  tags: true
+#  password:
+#    secure: x16dIWV0zSMdS3szecY74YRZe5dCYYi4SxMu2yz3ucadaRANoeuWSQmjY2ZaNwa2dO3yvBNh62kqsWOQiFG3C42GtnroC4xOt+W1glwlX36fdj2YOD3CSaHs3avnx0GAOr+ENFv8t4gD6Cw2mEzUKDeVFv+e1khGD/dZWWoXcR6LlKDiBJb4Oammhb/N2Ni5JiNxc04rkYAnlkpPws1q4UYTvWpVQmINcYUHKKtYdaExa0gOU1Ab6DmI/enB1jPgSGbP9sIM+BvETy8XENJEIgWxm9qbRiIyHexgFez8iGzpT/f0aS7E7D6NtLCfYp2mfcaYUI/axxm4vypaUA8gL3LN9eapxIGGhxNJcdNfxq+lT8PHqIFgEZiZEWoUtWtIHA7TB5VBa8ecs+TLlP+qXvATAobZOPv2iJnsb/40zmsY5c4VwfUOi+Gs7au94b80kgcLcIClvSmC68ZUN8BPbYi+x8cQp1AbE4PsH3OB58FgJVz+Erbb+1CSos7C+xhFcxsp/c5JcCl4s8QqBhX4Msxu78ftXoUGymu9Ilj1NnW1UqTvcHTIseFoTdPY/vzsjZgkRftnI8zyBk3XUJk6n99oVRjRoG+DmA0S0AqKzwkJrnftg5uMBOPYpeqNwv9WpA2Jnh49Q1t3WQNCFGXgTxi7n7le7g3S+7oXfGP2EVE=
