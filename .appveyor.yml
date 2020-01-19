@@ -5,8 +5,7 @@ init:
 
 install:
     - cmake . -G "NMake Makefiles"
-    - nmake sbl sbl_static
-    - type src\sbl.lib
+    - nmake
 
 #test_script:
 #    - ctest
