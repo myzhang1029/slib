@@ -169,6 +169,12 @@ check_shared_works
 if [ "$append_version" = "true" ]
 then
     libver=".`echo $version|cut -d. -f1`"
+    if [ "$sosuf" = ".so" ]
+    then
+        acsosuf=${sosuf}${libver}
+    else
+        acsosuf=${libver}${sosuf}
+    fi
 fi
 
 if check_header "alloca.h"
@@ -248,15 +254,15 @@ cat > Makefile << ACEOF
 OBJECTS_SHARED=`echo ${cfiles} | sed s/\\\.c/.c.shared.o/g`
 OBJECTS_STATIC=`echo ${cfiles} | sed s/\\\.c/.c.static.o/g`
 
-all: libsbl${libver}${sosuf} libsbl.a sbltool${exesuf}
+all: libsbl${acsosuf} libsbl.a sbltool${exesuf}
 
-libsbl${libver}${sosuf}: \$(OBJECTS_SHARED)
+libsbl${acsosuf}: \$(OBJECTS_SHARED)
 	${cc} ${soflags} \$(OBJECTS_SHARED) -o \$@ ${ldflags}
 
 libsbl.a: \$(OBJECTS_STATIC)
 	${ar} rcs ./libsbl.a \$(OBJECTS_STATIC)
 
-sbltool${exesuf}: libsbl${libver}${sosuf} ${srcdir}/sbltool.c
+sbltool${exesuf}: libsbl${acsosuf} ${srcdir}/sbltool.c
 	${cc} ${cflags} -o \$@ ${srcdir}/sbltool.c -L. -lsbl ${ldflags}
 
 install: all
@@ -265,8 +271,8 @@ install: all
 	install -c -p -m 644 ${srcdir}/include/slib/*.h ${includedir}/slib
 	install -c -p -m 644 sbl.pc ${libdir}/pkgconfig
 	install -c -p -m 644 libsbl.a ${libdir}
-	install -c -p -m 755 libsbl${libver}${sosuf} ${libdir}
-	ln libsbl${libver}${sosuf} ${libdir}/libsbl${sosuf}
+	install -c -p -m 755 libsbl${acsosuf} ${libdir}
+	ln libsbl${acsosuf} ${libdir}/libsbl${sosuf}
 	install -c -p -m 755 sbltool${exesuf} ${bindir}
 
 # The test, always ensure the built version is used

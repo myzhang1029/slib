@@ -245,7 +245,6 @@ ACEOF
     rm -f conftest.so conftest.c
     # For sosuf
     printf "Checking for extension of shared objects... "
-    
     case $system_name in
         *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
             soflags="-shared -O2 -lm"
