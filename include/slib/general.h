@@ -41,12 +41,10 @@
 #ifdef _WIN32
 #ifdef sbl_EXPORTS /* Building the library for Windows as DLL */
 #define DLLOPT __declspec(dllexport)
-#elif defined(sbl_LIBRARY) /* Building the library for Windows as LIB */
+#elif defined(sbl_LIBRARY) || defined(LIBSBL_STATIC) /*  for Windows as LIB */
 #define DLLOPT
-#elif defined(_MSC_VER) /* Using externally with cl.exe */
+#else
 #define DLLOPT __declspec(dllimport)
-#else /* MinGW expects a __imp_ prefix so dllimport won't work on static ones */
-#define DLLOPT
 #endif
 #define OPT extern DLLOPT /* used in declarations */
 #else /* Not _WIN32 */

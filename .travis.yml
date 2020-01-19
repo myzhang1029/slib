@@ -22,11 +22,9 @@ script:
 - cd ..
 - mkdir -p dist
 - tar zcvf dist/libsbl-`uname -s`-`uname -r`.tar.gz libsbl
-- ls
+- ls dist
 
 jobs:
-  allow_failures:
-    - os: windows
   include:
   - os: osx
     osx_image: xcode8
