@@ -5,8 +5,7 @@ init:
 
 install:
     - cmake . -G "NMake Makefiles"
-    - dir
-    - type NMakefile
+    - type Makefile
     - nmake libsbl.dll
     - type sbl.exp
 
