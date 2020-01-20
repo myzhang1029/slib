@@ -5,7 +5,7 @@
 
 #include <slib/astro.h>
 
-int astro_main()
+int astro_main(void)
 {
     struct tm tms, sr, ss;
     asrt_equ(slib_rad2deg(S_PI), 180, "rad2deg");

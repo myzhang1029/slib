@@ -1,7 +1,7 @@
 #include "tests.h"
 #include <slib/math.h>
 
-int eular_main()
+int eular_main(void)
 {
     asrt_equ(slib_eular(123), 80, "eular-123");
     asrt_equ(slib_eular(9), 6, "eular-9");

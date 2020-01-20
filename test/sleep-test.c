@@ -1,3 +1,8 @@
-#include <stdio.h>
+#include "tests.h"
+#include <slib.h>
 
-int sleep_main(void) { return 115; }
+int sleep_main(void)
+{
+    sleepS(1);
+    return 0;
+}

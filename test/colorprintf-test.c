@@ -1,5 +1,5 @@
 #include <slib.h>
-int colorprintf_main()
+int colorprintf_main(void)
 {
     colorprintf(red, yellow, "red on yellow");
     printf(" ");

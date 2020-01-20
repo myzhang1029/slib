@@ -1,6 +1,7 @@
 #include "tests.h"
 #include <slib/stack.h>
-int stack_main()
+
+int stack_main(void)
 {
     stackS s;
     int poper, pusher[] = {5, 6, 4766, -1, 30000, -30000, 0}, count;

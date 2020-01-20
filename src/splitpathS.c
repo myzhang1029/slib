@@ -22,6 +22,11 @@
 
 #include "slib/fileopt.h"
 
+/* strcpy here is safe */
+#ifdef _MSC_VER
+#pragma warning(disable: 4996)
+#endif
+
 /* seperate base name and extension */
 static void split_whole_name(const char *filename, char *basename, char *ext)
 {

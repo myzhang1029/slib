@@ -26,6 +26,10 @@
 #include <slib/math.h>
 #include <slib/stack.h>
 
+#ifdef _MSC_VER /* scanf*/
+#pragma warning(disable: 4996)
+#endif
+
 const char *ver = "4.0.3";
 
 void usage(void);

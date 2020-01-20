@@ -1,5 +1,4 @@
 file(GLOB TESTFILES RELATIVE ${CMAKE_SOURCE_DIR}/test "*-test.c")
-message(${TESTFILES})
 string(APPEND TESTS "{")
 foreach(test IN ITEMS ${TESTFILES})
     string(REGEX REPLACE "-.*" "" testname ${test})

@@ -3,7 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 
-int bsearchfile_main()
+/* tmpfile */
+#ifdef _MSC_VER
+#pragma warning(disable: 4996)
+#endif
+
+int bsearchfile_main(void)
 {
     FILE *testfile1, *testfile2;
     long found, should;
