@@ -66,6 +66,7 @@ TAGS
 ETAGS
 GTAGS
 build/
+out/
 .libs/
 sbl.pc
 testdrv.h
@@ -96,6 +97,7 @@ CPackSourceConfig.cmake
 # Editor
 *~
 *.swp
+CMakeSettings.json
 
 # Config
 Makefile
