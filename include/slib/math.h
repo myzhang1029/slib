@@ -22,15 +22,8 @@
 #define SLIB_MATH_H 1
 #include "slib/general.h"
 
-#ifdef HAVE_STDINT_H
-#include <inttypes.h>
-#include <stdint.h>
-#define slib_uint uint64_t
-#define PRIslib PRIu64
-#else
 #define slib_uint unsigned long int
 #define PRIslib "lu"
-#endif
 
 _BEGIN_EXTERN_C
 
