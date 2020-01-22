@@ -7,6 +7,7 @@ int itoa_main(void)
     long l = 12;
     unsigned long ul = 12;
     char *result = (char *)malloc(4);
+    check_neq(result, 0);
     itoaS(i, result, 10);
     asrt_str_equ(result, "12", "itoaS");
     ltoaS(l, result, 10);

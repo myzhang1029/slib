@@ -34,8 +34,8 @@ OPT double slib_deg2rad(double degrees) { return degrees * S_PI / 180; }
    returns the sun declination of the day in degrees */
 OPT double slib_sun_decl_by_date(int d)
 {
-    return -dasin(0.39779 *
-                  dcos(0.98565 * (d + 10) + 1.914 * dsin(0.98565 * (d - 2))));
+    return -dasin(0.39779 * dcos((double)0.98565 * (d + 10) +
+                                 1.914 * dsin((double)0.98565 * (d - 2))));
 }
 
 /* single function version. Stands for Single Function Corrected Sunrise Hour

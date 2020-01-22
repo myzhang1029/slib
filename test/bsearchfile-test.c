@@ -15,7 +15,7 @@ int bsearchfile_main(void)
     char readbuf[5];
     testfile1 = tmpfile();
     testfile2 = tmpfile();
-    quiet_asrt_neq(testfile1, NULL, "fopen");
+    check_neq(testfile1, NULL);
     /* test for list prepend */
     fputs("fff\n", testfile1);
     /* test for repeated in-place */
@@ -36,11 +36,11 @@ int bsearchfile_main(void)
     should = ftell(testfile2) - 1;
     found = slib_fbsearch("aaa", testfile2, &strcmp);
     fseek(testfile2, found, SEEK_SET);
-    quiet_asrt_neq(fgets(readbuf, 5, testfile2), NULL, "fgets");
+    check_neq(fgets(readbuf, 5, testfile2), NULL);
     asrt_str_equ(readbuf, "aaa\n", "slib_fbsearch-found1");
     found = slib_fbsearch("bbb", testfile2, &strcmp);
     fseek(testfile2, found, SEEK_SET);
-    quiet_asrt_neq(fgets(readbuf, 5, testfile2), NULL, "fgets");
+    check_neq(fgets(readbuf, 5, testfile2), NULL);
     asrt_str_equ(readbuf, "bbb\n", "slib_fbsearch-found2");
     asrt_equ(found, should, "slib_fbsearch-found2-num");
     found = slib_fbsearch("eee", testfile2, &strcmp);

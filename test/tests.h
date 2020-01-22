@@ -43,9 +43,9 @@
         asrt_or_fail(strcmp((a), (b)) != 0, s);                                \
     } while (0)
 #endif
-#define quiet_asrt_equ(a, b, s)                                                \
+#define check_equ(a, b)                                                        \
     if ((a) != (b))                                                            \
     return 117
-#define quiet_asrt_neq(a, b, s)                                                \
+#define check_neq(a, b)                                                        \
     if ((a) == (b))                                                            \
     return 117

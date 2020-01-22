@@ -69,7 +69,7 @@ helpme:
                 goto reparse;
             case '1':
                 printf("sbl admin %s\n", ver);
-                printf("Build %s，%s\n", __DATE__, __TIME__);
+                printf("Build %s, %s\n", __DATE__, __TIME__);
                 break;
             case '2':
                 printf("Minimum: ");
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
                     return 0;
                 case 'v':
                     printf("sbl admin %s\n", ver);
-                    printf("Build %s，%s\n", __DATE__, __TIME__);
+                    printf("Build %s, %s\n", __DATE__, __TIME__);
                     break;
                 case 'r':
                     n1 = (slib_uint)atol(optargGS);
