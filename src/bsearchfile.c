@@ -120,7 +120,7 @@ OPT long slib_fbsearchdelim(const char *key, FILE *fp, int delim,
                             int (*compar)(const char *s1, const char *s2))
 {
     int r;
-    /* Here we call a section of data seperated by DELIM a line */
+    /* Here we call a section of data separated by DELIM a line */
     long low, mid, high, *linelist, tmp;
     char *cmp = (char *)malloc(strlen(key) + 1); /* don't think a line longer
                                              than key will be the same as key */
@@ -253,7 +253,7 @@ OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
         {
             long tmp;
             int r;
-            /* Find an appropriate postion */
+            /* Find an appropriate position */
             do
             {
                 if (cmping)
@@ -271,7 +271,7 @@ OPT void slib_fqsortdelim(FILE *fp, FILE *fp_out, int delim,
             {
                 /* insert cur in front of cmping. see line
                  * 151 */
-                /* Insert cur to the appropriate postion.
+                /* Insert cur to the appropriate position.
                  * Actually, this is not inserting. Instead, the old one is
                  * replaced. Therefore, there's no need to save/write FIRST.
                  * i.e. if the loop exits without running for a second time,

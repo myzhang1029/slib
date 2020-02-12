@@ -30,7 +30,7 @@
  * Arguments:
  * fcolor: Foreground color
  * bcolor: Background color
- * Return vaule: status of printf returns
+ * Return value: status of printf returns
  */
 OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
                     const char *format, ...)

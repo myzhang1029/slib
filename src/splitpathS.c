@@ -1,5 +1,5 @@
 /*
- *  splitpathS.c - Path seperate function of the slib.
+ *  splitpathS.c - Path separate function of the slib.
  *
  *  Copyright (C) 2018-2020 Zhang Maiyun
  *
@@ -27,7 +27,7 @@
 #pragma warning(disable: 4996)
 #endif
 
-/* seperate base name and extension */
+/* separate base name and extension */
 static void split_whole_name(const char *filename, char *basename, char *ext)
 {
     const char *p_ext;
@@ -57,7 +57,7 @@ OPT void splitpathS(const char *path, char *drive, char *dirname,
 {
     const char *filename;
 
-    /* If the path is null, just set all the vaules blank */
+    /* If the path is null, just set all the values blank */
     if (path == NULL)
     {
         if (drive != NULL)

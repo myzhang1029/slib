@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/license-LGPL-blue.svg)
 
 ## Description
-This project is seperated from myzhang1029/admin,
+This project is separated from myzhang1029/admin,
 which brought me to the world of C, in the computer room
 of Primary School Attached to Yunnan Normal University(in Yunnan, China),
 (hiding from the teacher), in 2015 when I was 11.  
@@ -24,7 +24,7 @@ If you are using MinGW and you don't have a MSYS, try:
  > make install 
  ```
 Otherwise you can use configure or CMake
-Just like usual GNU softwares do.
+Just like usual GNU software do.
 
 This autoconf-like script should run on all POSIX systems, supporting GNU make and BSD make as far as I know:   
 ```shell

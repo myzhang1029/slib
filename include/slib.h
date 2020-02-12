@@ -49,7 +49,7 @@ enum cpfcolors
     unchanged
 };
 
-/*declation start*/
+/*declaration start*/
 OPT int colorprintf(enum cpfcolors fcolor, enum cpfcolors bcolor,
                     const char *format, ...);
 

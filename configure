@@ -27,7 +27,7 @@ srcdir=`dirname $0`
 #check_progs cat rm mkdir cut sed expr find tr grep uname install ln
 #check_progs make
 
-# Default/init vaule of variables
+# Default/init value of variables
 prefix="/usr/local"
 bindir=""
 libdir=""
@@ -62,7 +62,7 @@ description="`grep PROJECT_DESCRIPTION ${srcdir}/CMakeLists.txt|cut -d\\" -f2`"
 # Help
 help_me() {
     cat << EON
-Usage: ${srcdir}/configure [option=<vaule> | --help]
+Usage: ${srcdir}/configure [option=<value> | --help]
 
 Options:
   --prefix=PREFIX            set prefix [/usr/local]
