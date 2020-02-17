@@ -41,7 +41,7 @@ cdef extern from "slib/fileopt.h":
     void splitpathS(const char *, char *, char *, char *, char *)
     long *slib_count_fl(FILE *, long *);
     long slib_fbsearch(char *, FILE *, int (*)(char *, char *));
-    void slib_fqsort(FILE *, int (*)(char *, char *));
+    void slib_fqsort(FILE *, FILE *, int (*)(char *, char *));
 
 cdef extern from "slib/general.h":
     cdef int SBLLIB_VERSION
@@ -186,9 +186,10 @@ def fbsearch(key, file):
     cdef FILE *fp = fopen(_unify_o_f(file), "rb")
     return slib_fbsearch(key.encode(), fp, <compar>strcmp)
 
-def fqsort(file):
-    cdef FILE *fp = fopen(_unify_o_f(file), "rb")
-    return slib_fqsort(fp, <compar>strcmp)
+def fqsort(fin, fout):
+    cdef FILE *fpin = fopen(_unify_o_f(fin), "rb")
+    cdef FILE *fpout = fopen(_unify_o_f(fout), "rb")
+    return slib_fqsort(fpin, fpout, <compar>strcmp)
 
 def prtpn(min, max):
     return slib_prtpn(min, max)
@@ -246,4 +247,4 @@ def jd2tm(jd):
 
 c_version = f"{SBLLIB_VERSION}.{SBLLIB_MINOR}.{SBLLIB_PATCHLEVEL}"
 if c_version != __version__:
-    raise ImportError("Version mismatch between C library and Python module")
+    raise ImportError(f"Version mismatch between C library({c_version}) and Python module({__version__})")
