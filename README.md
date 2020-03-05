@@ -6,10 +6,11 @@
 ![License](https://img.shields.io/badge/license-LGPL-blue.svg)
 
 ## Description
-This project is separated from myzhang1029/admin,
+This project was separated from myzhang1029/admin,
 which brought me to the world of C, in the computer room
 of Primary School Attached to Yunnan Normal University(in Yunnan, China),
-(hiding from the teacher), in 2015 when I was 11.  
+(hiding from the teacher), in 2015 when I was 11.
+I keep some older versions back then (not all of them) in [hist directory](hist).  
 I just wanted to use these start-up projects to check out some C skills, tools and community integrations.  
 So therefore don't laugh at these projects, because they're from a beginner.
 
