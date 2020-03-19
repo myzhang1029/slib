@@ -86,7 +86,7 @@ Some influential environment variables:
   CFLAGS                     C flags
   LDFLAGS                    LD flags
 
-Project maintained by Zhang Maiyun <myzhang1029@163.com>.
+Project maintained by Zhang Maiyun <myzhang1029@hotmail.com>.
 EON
     exit 0
 }
