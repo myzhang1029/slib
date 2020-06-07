@@ -4,7 +4,16 @@ include(CheckIncludeFiles)
 include(CheckFunctionExists)
 include(CheckTypeSize)
 
-project(libsbl VERSION 4.5.0
+# Extract version from general.h
+file(READ include/slib/general.h GENERAL_H)
+string(REGEX MATCH "SBLLIB_VERSION [0-9]+\n" VER_MAJOR ${GENERAL_H})
+string(REGEX MATCH "[0-9]+" VER_MAJOR ${VER_MAJOR})
+string(REGEX MATCH "SBLLIB_MINOR [0-9]+\n" VER_MINOR ${GENERAL_H})
+string(REGEX MATCH "[0-9]+" VER_MINOR ${VER_MINOR})
+string(REGEX MATCH "SBLLIB_PATCHLEVEL [0-9]+\n" VER_PL ${GENERAL_H})
+string(REGEX MATCH "[0-9]+" VER_PL ${VER_PL})
+
+project(libsbl VERSION ${VER_MAJOR}.${VER_MINOR}.${VER_PL}
     LANGUAGES "C")
 set(PROJECT_DESCRIPTION "A C library providing many useful operations")
 enable_testing()
