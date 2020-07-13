@@ -19,8 +19,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-srcdir=`dirname $0`
-. $srcdir/cmake/acconf.sh
+srcdir="$(dirname "$0")"
+export CONFIGROOT="$srcdir/cmake"
+# shellcheck source=cmake/acconf.sh
+. "$srcdir/cmake/acconf.sh"
 
 # Kept for no reason
 # Plus which, cc, ar and sh, these are minimal requirement to build this project
@@ -39,14 +41,18 @@ cross=""
 cc="${CC}"
 ar="${AR}"
 rm="rm"
-build=""
 
+# shellcheck disable=SC2153
 cflags="${CFLAGS} ${CPPFLAGS} -Wall -Wextra -pedantic -O2 -DHAVE_CONFIG_H -I${srcdir}/include -I."
+# shellcheck disable=SC2153
 ldflags="-lm ${LDFLAGS}"
 soflags=""
 
-cfiles="`cd ${srcdir};find src -name '*.c' -type f | tr '\n' ' '`"
-hfiles="`find ${srcdir}/include -name '*.h' -type f | tr '\n' ' '`"
+cfiles="$(
+    cd "${srcdir}" || exit 1
+    find src -name '*.c' -type f | tr '\n' ' '
+)"
+hfiles="$(find "${srcdir}/include" -name '*.h' -type f | tr '\n' ' ')"
 
 exesuf=""
 sosuf=""
@@ -56,15 +62,16 @@ enable_dmalloc=""
 
 # Get constants defined in CMakeLists.txt
 name="libsbl"
-ver_major="$(grep SBLLIB_VERSION ${srcdir}/include/slib/general.h|cut -f3 -d\ )"
-ver_minor="$(grep SBLLIB_MINOR ${srcdir}/include/slib/general.h|cut -f3 -d\ )"
-ver_pl="$(grep SBLLIB_PATCHLEVEL ${srcdir}/include/slib/general.h|cut -f3 -d\ )"
+ver_major="$(grep SBLLIB_VERSION "${srcdir}/include/slib/general.h" | cut -f3 -d\ )"
+ver_minor="$(grep SBLLIB_MINOR "${srcdir}/include/slib/general.h" | cut -f3 -d\ )"
+ver_pl="$(grep SBLLIB_PATCHLEVEL "${srcdir}/include/slib/general.h" | cut -f3 -d\ )"
 version="${ver_major}.${ver_minor}.${ver_pl}"
-description="`grep PROJECT_DESCRIPTION ${srcdir}/CMakeLists.txt|cut -d\\" -f2`"
+description="$(grep PROJECT_DESCRIPTION "${srcdir}/CMakeLists.txt" | cut -d\" -f2)"
 
 # Help
-help_me() {
-    cat << EON
+help_me()
+{
+    cat <<EON
 Usage: ${srcdir}/configure [option=<value> | --help]
 
 Options:
@@ -95,44 +102,65 @@ EON
 }
 
 # Parse arguments
-for opt do
-    eval opt=\"${opt}\"
+for opt
+do
+    eval opt=\""${opt}"\"
     case "${opt}" in
-        --prefix=*) prefix=`echo ${opt} | cut -d '=' -f 2`
+        --prefix=*)
+            prefix=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --host=*) cross=`echo ${opt} | cut -d '=' -f 2`
+        --host=*)
+            cross=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --build=*|--target=*)
+        --build=* | --target=*) ;;
+
+        --rm=*)
+            rm=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --rm=*) rm=`echo ${opt} | cut -d '=' -f 2`
+        --sosuffix=*)
+            sosuf=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --sosuffix=*) sosuf=`echo ${opt} | cut -d '=' -f 2`
+        --exesuffix=*)
+            exesuf=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --exesuffix=*) exesuf=`echo ${opt} | cut -d '=' -f 2`
+        --bindir=*)
+            bindir=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --bindir=*) bindir=`echo ${opt} | cut -d '=' -f 2`
+        --libdir=*)
+            libdir=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --libdir=*) libdir=`echo ${opt} | cut -d '=' -f 2`
+        --includedir=*)
+            includedir=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --includedir=*) includedir=`echo ${opt} | cut -d '=' -f 2`
+        # Currently unused
+        --mandir=*)
+            # shellcheck disable=SC2034
+            mandir=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --mandir=*) mandir=`echo ${opt} | cut -d '=' -f 2`
+        --infodir=*)
+            # shellcheck disable=SC2034
+            infodir=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
-        --infodir=*) infodir=`echo ${opt} | cut -d '=' -f 2`
+        --soflags=*)
+            soflags="${soflags} $(echo "${opt}" | cut -d '=' -f 2)"
             ;;
-        --soflags=*) soflags="${soflags} `echo ${opt} | cut -d '=' -f 2`"
+        --disable-abort)
+            disable_abort=on
             ;;
-        --disable-abort) disable_abort=on
+        --enable-abort)
+            disable_abort=""
             ;;
-        --enable-abort) disable_abort=""
+        --disable-dmalloc)
+            enable_dmalloc=""
             ;;
-        --disable-dmalloc) enable_dmalloc=""
+        --enable-dmalloc)
+            enable_dmalloc=on
             ;;
-        --enable-dmalloc) enable_dmalloc=on
+        --help | -h)
+            help_me
             ;;
-        --help|-h) help_me
-            ;;
-        *) echo configure: Warning: unrecognized option ${opt}
+        *)
+            echo configure: Warning: unrecognized option "${opt}"
             ;;
     esac
 done
@@ -142,20 +170,12 @@ then
     ldflags="${ldflags} -ldmalloc"
 fi
 
-# system name for the host platform
-if [ "$cross" = "" ]
-then
-    system_name=`$srcdir/cmake/config.guess`
-else
-    system_name=`$srcdir/cmake/config.sub $cross`
-fi
-echo Starting configuration for host $system_name
-system_name=`extract_os $system_name`
+echo "Starting configuration for host $(get_proper_triplet "$cross")"
 
 # Check for C compiler
 if [ "$cc" = "" ]
 then
-    check_cc $cross
+    check_cc "$cross"
 fi
 
 # exesuf also determined here
@@ -164,11 +184,11 @@ check_cc_works
 # Check for ar
 if [ "$ar" = "" ]
 then
-    check_ar $cross
+    check_ar "$cross"
 fi
 
 # For sosuf
-check_shared_works
+check_shared_works "$cross" "$version"
 if [ "$append_version" = "true" ]
 then
     if [ "$sosuf" = ".so" ]
@@ -251,10 +271,10 @@ fi
 # Write output
 mkdir -p src
 echo Generating Makefile
-cat > Makefile << ACEOF
+cat >Makefile <<ACEOF
 # Makefile generated by configure
-OBJECTS_SHARED=`echo ${cfiles} | sed s/\\\.c/.c.shared.o/g`
-OBJECTS_STATIC=`echo ${cfiles} | sed s/\\\.c/.c.static.o/g`
+OBJECTS_SHARED=$(echo "${cfiles}" | sed s/\\.c/.c.shared.o/g)
+OBJECTS_STATIC=$(echo "${cfiles}" | sed s/\\.c/.c.static.o/g)
 CC=${cc}
 CFLAGS=${cflags}
 LDFLAGS=${ldflags}
@@ -298,27 +318,29 @@ ACEOF
 tmp=''
 includes=''
 entries='{'
-for file in $srcdir/test/*-test.c
+for file in "$srcdir"/test/*-test.c
 do
     tmp="${tmp} ${file}"
-    testname=`echo ${file} | sed s,.*/,, | cut -f1 -d-`
+    testname=$(echo "${file}" | sed s,.*/,, | cut -f1 -d-)
     entries="${entries}{\"${testname}\", ${testname}_main}, "
     includes="${includes}#include \"${testname}-test.c\"\n"
 done
 
 entries="${entries}{NULL, NULL}}"
-echo "${includes}" > testdrv.h
-sed "s/@TESTS@/${entries}/;s,@TFILES@,," ${srcdir}/test/testdrv.h.in >> testdrv.h
-echo testdrv.exe: ${srcdir}/test/testdrv.c testdrv.h ${tmp} libsbl.a >> Makefile
-echo "	\$(CC) \$(CFLAGS) -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a \$(LDFLAGS)" >> Makefile
+echo "${includes}" >testdrv.h
+sed "s/@TESTS@/${entries}/;s,@TFILES@,," "${srcdir}/test/testdrv.h.in" >>testdrv.h
+{
+    echo testdrv.exe: "${srcdir}/test/testdrv.c" testdrv.h "${tmp}" libsbl.a
+    echo "	\$(CC) \$(CFLAGS) -I${srcdir}/test -I. -o \$@ ${srcdir}/test/testdrv.c libsbl.a \$(LDFLAGS)"
+} >>Makefile
 
 for file in $cfiles
 do
-    echo ${file}.shared.o: ${srcdir}/${file} ${hfiles} >> Makefile
-    echo "	\$(CC) \$(CFLAGS) -fPIC -Dsbl_EXPORTS -c -o \$@ ${srcdir}/${file}" >> Makefile
-    echo ${file}.static.o: ${srcdir}/${file} ${hfiles} >> Makefile
-    echo "	\$(CC) \$(CFLAGS) -c -o \$@ ${srcdir}/${file}" >> Makefile
-done
+    echo "${file}.shared.o: ${srcdir}/${file} ${hfiles}"
+    echo "	\$(CC) \$(CFLAGS) -fPIC -Dsbl_EXPORTS -c -o \$@ ${srcdir}/${file}"
+    echo "${file}.static.o: ${srcdir}/${file} ${hfiles}"
+    echo "	\$(CC) \$(CFLAGS) -c -o \$@ ${srcdir}/${file}"
+done >> Makefile
 
 echo Generating sbl.pc
 sed "s,@CMAKE_INSTALL_PREFIX@,${prefix},;\
@@ -327,70 +349,70 @@ sed "s,@CMAKE_INSTALL_PREFIX@,${prefix},;\
     s,@PROJECT_NAME@,${name},;\
     s,@PROJECT_DESCRIPTION@,${description},;\
     s,@PROJECT_VERSION@,${version},;" \
-    ${srcdir}/sbl.pc.in > sbl.pc
+    "${srcdir}/sbl.pc.in" >sbl.pc
 
 echo Generating config.h
 if [ $alloca_h -eq 1 ]
 then
-    echo "#define HAVE_ALLOCA_H 1" > config.h
+    echo "#define HAVE_ALLOCA_H 1" >config.h
 else
-    echo "#undef HAVE_ALLOCA_H" > config.h
+    echo "#undef HAVE_ALLOCA_H" >config.h
 fi
 
 if [ $fcntl_h -eq 1 ]
 then
-    echo "#define HAVE_FCNTL_H 1" >> config.h
+    echo "#define HAVE_FCNTL_H 1" >>config.h
 else
-    echo "#undef HAVE_FCNTL_H" >> config.h
+    echo "#undef HAVE_FCNTL_H" >>config.h
 fi
 
 if [ $stdbool_h -eq 1 ]
 then
-    echo "#define HAVE_STDBOOL_H 1" >> config.h
+    echo "#define HAVE_STDBOOL_H 1" >>config.h
 else
-    echo "#undef HAVE_STDBOOL_H" >> config.h
+    echo "#undef HAVE_STDBOOL_H" >>config.h
 fi
 
 if [ $stdint_h -eq 1 ]
 then
-    echo "#define HAVE_STDINT_H 1" >> config.h
+    echo "#define HAVE_STDINT_H 1" >>config.h
 else
-    echo "#undef HAVE_STDINT_H" >> config.h
+    echo "#undef HAVE_STDINT_H" >>config.h
 fi
 
 if [ $termios_h -eq 1 ]
 then
-    echo "#define HAVE_TERMIOS_H 1" >> config.h
+    echo "#define HAVE_TERMIOS_H 1" >>config.h
 else
-    echo "#undef HAVE_TERMIOS_H" >> config.h
+    echo "#undef HAVE_TERMIOS_H" >>config.h
 fi
 
 if [ $unistd_h -eq 1 ]
 then
-    echo "#define HAVE_UNISTD_H 1" >> config.h
+    echo "#define HAVE_UNISTD_H 1" >>config.h
 else
-    echo "#undef HAVE_UNISTD_H" >> config.h
+    echo "#undef HAVE_UNISTD_H" >>config.h
 fi
 
 if [ $size_t -eq 0 ]
 then
-    echo "#define size_t unsigned int" >> config.h
+    echo "#define size_t unsigned int" >>config.h
 fi
 
 if [ $intptr_t -eq 0 ]
 then
-    echo "#define intptr_t long int" >> config.h
+    echo "#define intptr_t long int" >>config.h
 fi
 
 if [ "$disable_abort" = "on" ]
 then
-    echo "#define S_NOABRT 1" >> config.h
+    echo "#define S_NOABRT 1" >>config.h
 fi
 
 if [ "$enable_dmalloc" = "on" ]
 then
-    echo "#define DMALLOC" >> config.h
-    echo "#define DMALLOC_FUNC_CHECK" >> config.h
+    echo "#define DMALLOC" >>config.h
+    echo "#define DMALLOC_FUNC_CHECK" >>config.h
 fi
 
-echo "#define sbl_LIBRARY" >> config.h
+echo "#define sbl_LIBRARY" >>config.h
