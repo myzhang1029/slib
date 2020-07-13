@@ -26,14 +26,14 @@ fi
 
 # Header file check
 # $1: name
-check_header(){
-    printf "Checking for $1... "
+check_header() {
+    printf "Checking for %s... " "$1"
     cat > conftest.c << ACEOF
 #include <$1>
 int main()
 {return 0;}
 ACEOF
-    if ${cc} conftest.c -o conftest >/dev/null 2>${ERROR_REDIR}
+    if "$cc" conftest.c -o conftest > /dev/null 2> "$ERROR_REDIR"
     then
         echo yes
         rm -f conftest.c conftest conftest.exe
@@ -47,8 +47,8 @@ ACEOF
 
 # Type size check
 # $1: name
-check_type(){
-    printf "Checking for size of $1... "
+check_type() {
+    printf "Checking for size of %s... " "$1"
     cat > conftest.c << ACEOF
 #include <stdio.h>
 #include <stdint.h>
@@ -56,12 +56,12 @@ check_type(){
 int main()
 {printf("%zu\n", sizeof($1));return 0;}
 ACEOF
-    if ${cc} conftest.c -o conftest >/dev/null 2>${ERROR_REDIR}
+    if "$cc" conftest.c -o conftest > /dev/null 2> "$ERROR_REDIR"
     then
-        size=`./conftest 2>/dev/null|| ./conftest.exe`
-        echo ${size}
+        size="$(./conftest 2> /dev/null || ./conftest.exe)"
+        echo "$size"
         rm -f conftest.c conftest conftest.exe
-        return ${size}
+        return "$size"
     else
         echo no
         rm -f conftest.c conftest conftest.exe
@@ -71,14 +71,14 @@ ACEOF
 
 # Program check
 # $*: names
-check_progs(){
-    while [ $# -ne 0 ]
+check_progs() {
+    while [ "$#" -ne 0 ]
     do
-        printf "Checking for $1... "
-        if ! which $1 2> /dev/null
+        printf "Checking for %s... " "$1"
+        if ! which "$1" 2> /dev/null
         then
             echo no
-            echo configure: Error: Required program $1 not found, you may need to install one.
+            echo "configure: Error: Required program $1 not found, you may need to install one."
             exit 1
         fi
         shift
@@ -87,39 +87,39 @@ check_progs(){
 
 # AC_PROG_CC
 # $1: cross compile prefix
-check_cc(){
+check_cc() {
     w=0
-    hosttrip=$1
+    hosttrip="$1"
     printf "Checking for C Compiler... "
-    if ${hosttrip}-gcc -v > /dev/null 2>${ERROR_REDIR}
+    if "$hosttrip-gcc" -v > /dev/null 2> "$ERROR_REDIR"
     then
-        cc="${hosttrip}-gcc"
-    elif ${hosttrip}-clang -v > /dev/null 2>${ERROR_REDIR}
+        cc="$hosttrip-gcc"
+    elif "$hosttrip-clang" -v > /dev/null 2> "$ERROR_REDIR"
     then
-        cc="${hosttrip}-clang"
-    elif ${hosttrip}-tcc -v > /dev/null 2>${ERROR_REDIR}
+        cc="$hosttrip-clang"
+    elif "$hosttrip-tcc" -v > /dev/null 2> "$ERROR_REDIR"
     then
-        cc="${hosttrip}-tcc"
-    elif ${hosttrip}-cc -v > /dev/null 2>${ERROR_REDIR}
+        cc="$hosttrip-tcc"
+    elif $hosttrip-cc -v > /dev/null 2> "$ERROR_REDIR"
     then
-        cc="${hosttrip}-cc"
+        cc="$hosttrip-cc"
     else
-        if ! ["$hosttrip" = ""]
+        if ! [ "$hosttrip" = "" ]
         then
-            hosttrip=`$srcdir/cmake/config.sub $1`
-            if ${hosttrip}-gcc -v > /dev/null 2>${ERROR_REDIR}
+            hosttrip="$("$srcdir/cmake/config.sub" "$1")"
+            if ${hosttrip}-gcc -v > /dev/null 2> "$ERROR_REDIR"
             then
                 cc="${hosttrip}-gcc"
                 return
-            elif ${hosttrip}-clang -v > /dev/null 2>${ERROR_REDIR}
+            elif ${hosttrip}-clang -v > /dev/null 2> "$ERROR_REDIR"
             then
                 cc="${hosttrip}-clang"
                 return
-            elif ${hosttrip}-tcc -v > /dev/null 2>${ERROR_REDIR}
+            elif ${hosttrip}-tcc -v > /dev/null 2> "$ERROR_REDIR"
             then
                 cc="${hosttrip}-tcc"
                 return
-            elif ${hosttrip}-cc -v > /dev/null 2>${ERROR_REDIR}
+            elif ${hosttrip}-cc -v > /dev/null 2> "$ERROR_REDIR"
             then
                 cc="${hosttrip}-cc"
                 return
@@ -128,16 +128,16 @@ check_cc(){
         fi
         # No prefixed CC to use
         w=1
-        if gcc -v > /dev/null 2>${ERROR_REDIR}
+        if gcc -v > /dev/null 2> "$ERROR_REDIR"
         then
             cc="gcc"
-        elif clang -v > /dev/null 2>${ERROR_REDIR}
+        elif clang -v > /dev/null 2> "$ERROR_REDIR"
         then
             cc="clang"
-        elif tcc -v > /dev/null 2>${ERROR_REDIR}
+        elif tcc -v > /dev/null 2> "$ERROR_REDIR"
         then
             cc="tcc"
-        elif cc -v > /dev/null 2>${ERROR_REDIR}
+        elif cc -v > /dev/null 2> "$ERROR_REDIR"
         then
             cc="cc"
         else
@@ -147,8 +147,8 @@ check_cc(){
             exit 1
         fi
     fi
-    echo $cc
-    if [ "$1" != "" ] && [ $w -eq 1 ]
+    echo "$cc"
+    if [ "$1" != "" ] && [ "$w" -eq 1 ]
     then
         echo configure: Warning: Using unprefixed cc while cross-compiling.
     fi
@@ -158,10 +158,10 @@ check_cc(){
 check_ar(){
     w=0
     printf "Checking for ar... "
-    if which ${cross}-ar > /dev/null 2>${ERROR_REDIR}
+    if which "$cross-ar" > /dev/null 2> "$ERROR_REDIR"
     then
-        ar="${cross}-ar"
-    elif which ar > /dev/null 2>${ERROR_REDIR}
+        ar="$cross-ar"
+    elif which ar > /dev/null 2> "$ERROR_REDIR"
     then
         ar="ar"
         w=1
@@ -187,7 +187,7 @@ int main()
 {return 0;}
 ACEOF
     printf 'Checking whether the C Compiler works... '
-    if ${cc} conftest.c >/dev/null 2>${ERROR_REDIR}
+    if ${cc} conftest.c >/dev/null 2> "$ERROR_REDIR"
     then
         echo yes
     else
@@ -212,7 +212,7 @@ ACEOF
             *.* )
                 if [ "$exesuf" = "" ]
                 then
-                    exesuf=`expr "$file" : '[^.]*\(\..*\)'`
+                    exesuf=$(expr "$file" : '[^.]*\(\..*\)')
                 fi
                 break;;
             * )
@@ -245,30 +245,33 @@ ACEOF
     rm -f conftest.so conftest.c
     # For sosuf
     printf "Checking for extension of shared objects... "
-    case $system_name in
-        *gnu*|*bsd*|sunos*|minix*|solaris*) sosuf=".so"
-            soflags="-shared -O2 -lm"
-            cflags="${cflags}"
-            append_version=true
+    case "$system_name" in
+        *gnu*|*bsd*|sunos*|minix*|solaris*)
+            export sosuf=".so"
+            export soflags="-shared -O2 -lm"
+            export cflags="${cflags}"
+            export append_version=true
             ;;
-        darwin*|*step*) sosuf=".dylib"
-            soflags="-dynamiclib -current_version $version"
-            append_version=true
+        darwin*|*step*)
+            export sosuf=".dylib"
+            export soflags="-dynamiclib -current_version $version"
+            export append_version=true
             ;;
-        windows*|mingw*|msys*|cygwin*) sosuf=".dll"
-            soflags="-shared"
-            append_version=""
+        windows*|mingw*|msys*|cygwin*)
+            export sosuf=".dll"
+            export soflags="-shared"
+            export append_version=""
             ;;
         *) echo unknown
-            echo configure: Error: unable to determine suffix for shared objects"(aka dylib/so/dll)", please add option --sosuffix
+            echo "configure: Error: unable to determine suffix for shared objects(aka dylib/so/dll), please add option --sosuffix"
             exit 1
     esac
-    echo $sosuf
+    echo "$sosuf"
     return 0
 }
 
 # Extract $os from host triplet
 extract_os(){
-    proper_triplet=`$srcdir/cmake/config.sub $1` || exit 1
-    echo $proper_triplet | cut -f3- -d-
+    proper_triplet="$("$srcdir/cmake/config.sub" "$1")" || exit 1
+    echo "$proper_triplet" | cut -f3- -d-
 }
