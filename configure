@@ -306,7 +306,7 @@ test: testdrv.exe
 
 .PHONY: clean
 clean:
-	${rm} -rf libsbl.*dylib libsbl.dll libsbl.*so sbltool sbltool.exe testdrv.exe *.o */*.o *.a
+	${rm} -rf libsbl.*dylib libsbl.dll libsbl.*so* sbltool sbltool.exe testdrv.exe *.o */*.o *.a
 
 distclean: clean
 	-rmdir src testbin 2>/dev/null

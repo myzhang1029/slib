@@ -96,7 +96,7 @@ install:
 	install -c -p -m 755 sbltool${EXESUF} ${BINDIR}
 
 clean:
-	-$(RM) libsbl.dll libsbl.so sbltool.exe sbltool *.o */*.o *.a libsbl.bc libsbl.js libsbl.wasm -f 2>/dev/null
+	-$(RM) libsbl.dll libsbl.*so* sbltool.exe sbltool *.o */*.o *.a libsbl.bc libsbl.js libsbl.wasm -f 2>/dev/null
 
 tags:
 	ctags -R
