@@ -17,6 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -26,11 +27,10 @@
 #include <slib/math.h>
 #include <slib/stack.h>
 
-#ifdef _MSC_VER /* scanf*/
-#pragma warning(disable: 4996)
-#endif
+#define INT_LEN 22
+#define chk_fgets(s,l,f) if(!fgets((s),(l),(f)))exit(puts(""))
 
-const char *ver = "4.0.3";
+const char *ver = "4.1.0";
 
 void usage(void);
 
@@ -38,8 +38,8 @@ void eio(void);
 
 int ui()
 {
-    int num1, num2;
-    signed char selection = 0;
+    int selection = 0;
+                char buffer[INT_LEN];
     printf("sbltool  Copyright (C) 2016-2020 Zhang Maiyun\n"
            "This program comes with ABSOLUTELY NO WARRANTY.\n"
            "This is free software, and you are welcome to redistribute it\n"
@@ -49,64 +49,108 @@ helpme:
     printf("1: Print program version\n"
            "2: Prime numbers in a range\n"
            "3: Primality test\n"
-           "4: Coprime test\n");
+           "4: Coprime test\n"
+           "5: Greatest common factor\n"
+           "6: Lowest common multiple\n");
     for (;;)
     {
         printf("(admin) ");
-        fflush(stdin);
-    reparse:
-        selection = getchar();
-        /* eof or error */
-        if (selection == EOF)
-        {
-            puts("");
-            return 0;
-        }
+        fflush(stdout);
+        chk_fgets(buffer, INT_LEN, stdin);
+        selection = strtod(buffer, NULL);
+        if (selection == 0)
+            /* It is a character */
+            selection = buffer[0];
         switch (selection)
         {
             case '\n':
             case ' ':
-                goto reparse;
-            case '1':
-                printf("sbl admin %s\n", ver);
+                goto helpme;
+            case 1:
+                printf("sbl admin v%s with slib v%d.%d.%d\n", ver,
+                       SBLLIB_VERSION, SBLLIB_MINOR, SBLLIB_PATCHLEVEL);
                 printf("Build %s, %s\n", __DATE__, __TIME__);
                 break;
-            case '2':
+            case 2:
+            {
+                int num1, num2;
                 printf("Minimum: ");
-                if (scanf("%d", &num1) != 1)
-                    eio();
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num1 = strtoslib(buffer, NULL, 0);
                 printf("Maximum: ");
-                if (scanf("%d", &num2) != 1)
-                    eio();
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num2 = strtoslib(buffer, NULL, 0);
                 slib_prtpn(num1, num2);
                 break;
-            case '3':
+            }
+            case 3:
+            {
+                int num;
                 printf("Which number to test: ");
-                if (scanf("%d", &num1) != 1)
-                    eio();
-                if (slib_ispn(num1) == 1)
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num = strtoslib(buffer, NULL, 0);
+                if (slib_ispn(num) == 1)
                     printf("Is a prime number!\n");
                 else
                     printf("Not a prime number!\n");
                 break;
-            case '4':
+            }
+            case 4:
+            {
+                int num1, num2;
                 printf("First number: ");
-                if (scanf("%d", &num1) != 1)
-                    eio();
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num1 = strtoslib(buffer, NULL, 0);
                 printf("Second number: ");
-                if (scanf("%d", &num2) != 1)
-                    eio();
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num2 = strtoslib(buffer, NULL, 0);
                 if (slib_isrp(num1, num2) == 1)
                     printf("They are coprime!\n");
                 else
                     printf("They are not coprime!\n");
                 break;
+            }
+            case 5:
+            {
+                int num1, num2;
+                printf("First number: ");
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num1 = strtoslib(buffer, NULL, 0);
+                printf("Second number: ");
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num2 = strtoslib(buffer, NULL, 0);
+                printf("gcf(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n", num1,
+                       num2, slib_gcf(num1, num2));
+                break;
+            }
+            case 6:
+            {
+                int num1, num2;
+                printf("First number: ");
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num1 = strtoslib(buffer, NULL, 0);
+                printf("Second number: ");
+                fflush(stdout);
+                chk_fgets(buffer, INT_LEN, stdin);
+                num2 = strtoslib(buffer, NULL, 0);
+                printf("lcm(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n", num1,
+                       num2, slib_lcm(num1, num2));
+                break;
+            }
             case 'q':
                 return 0;
             case 'h':
                 goto helpme;
             default:
-                printf("%c: Unknown option\n", selection);
+                printf("%s: Unknown option\n", buffer);
                 goto helpme;
         }
     }
@@ -114,7 +158,6 @@ helpme:
 int main(int argc, char *argv[])
 {
     int c;
-    slib_uint n1, n2;
     const char *sopts = ":uhvr:g:l:p:d:c:";
     if (argc > 1)
     {
@@ -128,41 +171,57 @@ int main(int argc, char *argv[])
                     usage();
                     return 0;
                 case 'v':
-                    printf("sbl admin %s\n", ver);
+                    printf("sbl admin v%s with slib v%d.%d.%d\n", ver,
+                           SBLLIB_VERSION, SBLLIB_MINOR, SBLLIB_PATCHLEVEL);
                     printf("Build %s, %s\n", __DATE__, __TIME__);
                     break;
                 case 'r':
-                    n1 = (slib_uint)atol(optargGS);
-                    n2 = (slib_uint)atol(argv[optindGS]);
+                {
+                    slib_uint n1, n2;
+                    n1 = strtoslib(optargGS, NULL, 0);
+                    n2 = strtoslib(argv[optindGS], NULL, 0);
                     printf("%" PRIslib " and %" PRIslib " are", n1, n2);
                     if (!slib_isrp(n1, n2))
                         printf(" not");
                     puts(" coprime");
                     break;
+                }
                 case 'g':
-                    n1 = (slib_uint)atol(optargGS);
-                    n2 = (slib_uint)atol(argv[optindGS]);
+                {
+                    slib_uint n1, n2;
+                    n1 = strtoslib(optargGS, NULL, 0);
+                    n2 = strtoslib(argv[optindGS], NULL, 0);
                     printf("gcf(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n",
                            n1, n2, slib_gcf(n1, n2));
                     break;
+                }
                 case 'l':
-                    n1 = (slib_uint)atol(optargGS);
-                    n2 = (slib_uint)atol(argv[optindGS]);
+                {
+                    slib_uint n1, n2;
+                    n1 = strtoslib(optargGS, NULL, 0);
+                    n2 = strtoslib(argv[optindGS], NULL, 0);
                     printf("lcm(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n",
                            n1, n2, slib_lcm(n1, n2));
                     break;
+                }
                 case 'p':
-                    n1 = (slib_uint)atol(optargGS);
-                    n2 = (slib_uint)atol(argv[optindGS]);
+                {
+                    slib_uint n1, n2;
+                    n1 = strtoslib(optargGS, NULL, 0);
+                    n2 = strtoslib(argv[optindGS], NULL, 0);
                     slib_prtpn(n1, n2);
                     break;
+                }
                 case 'd':
-                    n1 = (slib_uint)atol(optargGS);
-                    printf("%" PRIslib " is", n1);
-                    if (!slib_ispn(n1))
+                {
+                    slib_uint n;
+                    n = strtoslib(optargGS, NULL, 0);
+                    printf("%" PRIslib " is", n);
+                    if (!slib_ispn(n))
                         printf(" not");
                     puts(" a prime number");
                     break;
+                }
                 case '?':
                     usage();
                     fprintf(stderr, "admin: unknown option -%c\n", optoptGS);

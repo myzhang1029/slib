@@ -24,6 +24,7 @@
 
 #define slib_uint unsigned long int
 #define PRIslib "lu"
+#define strtoslib strtoul
 
 _BEGIN_EXTERN_C
 
