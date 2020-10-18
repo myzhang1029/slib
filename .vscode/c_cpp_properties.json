@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/test"
+            ],
+            "defines": [],
+            "compilerPath": "/home/zmy/Git/Ndless/ndless-sdk/toolchain/install/bin/arm-none-eabi-gcc",
+            "cStandard": "gnu18",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}

@@ -1,11 +1,11 @@
-#include "tests.h"
-#include <slib/fileopt.h>
 #include <stdio.h>
 #include <string.h>
+#include <slib/fileopt.h>
+#include "tests.h"
 
 /* tmpfile */
 #ifdef _MSC_VER
-#pragma warning(disable: 4996)
+#pragma warning(disable : 4996)
 #endif
 
 int bsearchfile_main(void)
@@ -14,8 +14,9 @@ int bsearchfile_main(void)
     long found, should;
     char readbuf[5];
     testfile1 = tmpfile();
-    testfile2 = tmpfile();
     check_neq(testfile1, NULL);
+    testfile2 = tmpfile();
+    check_neq(testfile2, NULL);
     /* test for list prepend */
     fputs("fff\n", testfile1);
     /* test for repeated in-place */

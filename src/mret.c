@@ -34,7 +34,8 @@ OPT mtret *mkret(size_t length, ...)
     {
         /* It's OK to free(NULL) */
         free(ret);
-        return (mtret *)Sfail_ptr(memset(ret, 0, sizeof(mtret)));
+        free(elems);
+        return (mtret *)Sfail_ptr(NULL);
     }
     va_start(args, length);
     ret->length = length;
@@ -47,6 +48,8 @@ OPT mtret *mkret(size_t length, ...)
 
 OPT int *getret(mtret *ret)
 {
+    if (!ret)
+        return NULL;
     if (ret->length)
     {
         --(ret->length);
