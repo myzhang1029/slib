@@ -1,5 +1,5 @@
-#include "tests.h"
 #include <slib/math.h>
+#include "tests.h"
 
 int ispn_main(void)
 {

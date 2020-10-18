@@ -1,6 +1,6 @@
-#include "tests.h"
-#include <slib/fileopt.h>
 #include <string.h>
+#include <slib/fileopt.h>
+#include "tests.h"
 
 int splitpath_main(void)
 {

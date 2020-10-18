@@ -1,5 +1,5 @@
-#include "tests.h"
 #include <slib/stack.h>
+#include "tests.h"
 
 int stack_main(void)
 {

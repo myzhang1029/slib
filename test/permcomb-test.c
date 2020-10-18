@@ -1,5 +1,5 @@
-#include "tests.h"
 #include <slib/math.h>
+#include "tests.h"
 
 int permcomb_main(void)
 {

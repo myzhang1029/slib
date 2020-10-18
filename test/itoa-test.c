@@ -1,5 +1,5 @@
-#include "tests.h"
 #include <slib/itoa.h>
+#include "tests.h"
 
 int itoa_main(void)
 {

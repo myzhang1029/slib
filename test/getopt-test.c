@@ -1,5 +1,5 @@
-#include "tests.h"
 #include <slib/getopt.h>
+#include "tests.h"
 
 int getopt_main(void)
 {

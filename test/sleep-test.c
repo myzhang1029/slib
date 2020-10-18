@@ -1,5 +1,5 @@
-#include "tests.h"
 #include <slib.h>
+#include "tests.h"
 
 int sleep_main(void)
 {
