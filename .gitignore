@@ -70,6 +70,7 @@ out/
 .libs/
 sbl.pc
 testdrv.h
+*.tns
 
 # Emscripten compiled result
 *.bc

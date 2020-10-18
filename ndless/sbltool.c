@@ -32,7 +32,7 @@
     if (!fgets((s), (l), (f)))                                                 \
     exit(puts(""))
 
-const char *ver = "4.1.0";
+const char *ver = "4.1.0-ndless";
 
 void usage(void);
 
@@ -60,6 +60,7 @@ helpme:
         fflush(stdout);
         chk_fgets(buffer, INT_LEN, stdin);
         selection = strtod(buffer, NULL);
+        chk_fgets(buffer, INT_LEN, stdin);
         if (selection == 0)
             /* It is a character */
             selection = buffer[0];
@@ -80,10 +81,12 @@ helpme:
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num1 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 printf("Maximum: ");
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num2 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 slib_prtpn(num1, num2);
                 break;
             }
@@ -94,6 +97,7 @@ helpme:
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 if (slib_ispn(num) == 1)
                     printf("Is a prime number!\n");
                 else
@@ -107,10 +111,12 @@ helpme:
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num1 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 printf("Second number: ");
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num2 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 if (slib_isrp(num1, num2) == 1)
                     printf("They are coprime!\n");
                 else
@@ -124,10 +130,12 @@ helpme:
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num1 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 printf("Second number: ");
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num2 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 printf("gcf(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n", num1,
                        num2, slib_gcf(num1, num2));
                 break;
@@ -139,10 +147,12 @@ helpme:
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num1 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 printf("Second number: ");
                 fflush(stdout);
                 chk_fgets(buffer, INT_LEN, stdin);
                 num2 = strtoslib(buffer, NULL, 0);
+                chk_fgets(buffer, INT_LEN, stdin);
                 printf("lcm(%" PRIslib ", %" PRIslib ") = %" PRIslib "\n", num1,
                        num2, slib_lcm(num1, num2));
                 break;
