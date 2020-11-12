@@ -1,5 +1,5 @@
 job1:
-  script: "./configure && make test"
+  script: "./configure.plain && make test"
 
 job2:
   before_script:

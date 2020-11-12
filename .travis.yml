@@ -7,7 +7,7 @@ compiler:
 - clang
 - gcc
 script:
-- "./configure && make test"
+- "./configure.plain && make test"
 - make distclean > /dev/null 2>&1
 - mkdir build && cd build && ../configure && make test
 - make distclean > /dev/null 2>&1
