@@ -29,7 +29,7 @@
 
 #if defined(HAVE_ALLOCA_H) && defined(HAVE_ALLOCA)
 #include <alloca.h>
-#define alloca_free()
+#define alloca_free
 #else
 #undef alloca
 #define alloca malloc
