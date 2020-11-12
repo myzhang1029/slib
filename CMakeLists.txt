@@ -56,7 +56,7 @@ endif()
 configure_file(sbl.pc.in sbl.pc @ONLY)
 
 # config.h
-configure_file(config.h.in config.h)
+configure_file(config.h.cm config.h)
 set(CMAKE_CPP_FLAGS "-DHAVE_CONFIG_H")
 
 # distclean target
