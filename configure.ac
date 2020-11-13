@@ -15,6 +15,7 @@ AC_PROG_CC
 AC_PROG_INSTALL
 
 # Checks for libraries.
+AC_SEARCH_LIBS([sqrt], [m])
 
 # Checks for header files.
 AC_FUNC_ALLOCA

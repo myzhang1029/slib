@@ -16,3 +16,7 @@ libsbl_la_SOURCES =  src/astro.c src/astro2.c src/bsearchfile.c \
 libsbl_la_CFLAGS = -I$(top_srcdir)/include
 libsbl_la_LDFLAGS = -version-info @version_info@
 
+bin_PROGRAMS = sbltool
+sbltool_SOURCES = sbltool.c
+sbltool_CFLAGS = -I$(top_srcdir)/include
+sbltool_LDADD = libsbl.la
