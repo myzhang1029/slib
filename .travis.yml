@@ -9,7 +9,7 @@ compiler:
 script:
 - "./configure.plain && make test"
 - make distclean > /dev/null 2>&1
-- mkdir build && cd build && ../configure && make test
+- mkdir build && cd build && ../configure.plain && make test
 - make distclean > /dev/null 2>&1
 - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
 - make install
