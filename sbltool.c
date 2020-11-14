@@ -73,8 +73,7 @@ helpme:
                        SBLLIB_VERSION, SBLLIB_MINOR, SBLLIB_PATCHLEVEL);
                 printf("Build %s, %s\n", __DATE__, __TIME__);
                 break;
-            case 2:
-            {
+            case 2: {
                 slib_uint num1, num2;
                 printf("Minimum: ");
                 fflush(stdout);
@@ -87,8 +86,7 @@ helpme:
                 slib_prtpn(num1, num2);
                 break;
             }
-            case 3:
-            {
+            case 3: {
                 slib_uint num;
                 printf("Which number to test: ");
                 fflush(stdout);
@@ -100,8 +98,7 @@ helpme:
                     printf("Not a prime number!\n");
                 break;
             }
-            case 4:
-            {
+            case 4: {
                 slib_uint num1, num2;
                 printf("First number: ");
                 fflush(stdout);
@@ -117,8 +114,7 @@ helpme:
                     printf("They are not coprime!\n");
                 break;
             }
-            case 5:
-            {
+            case 5: {
                 slib_uint num1, num2;
                 printf("First number: ");
                 fflush(stdout);
@@ -132,8 +128,7 @@ helpme:
                        num2, slib_gcf(num1, num2));
                 break;
             }
-            case 6:
-            {
+            case 6: {
                 slib_uint num1, num2;
                 printf("First number: ");
                 fflush(stdout);
@@ -177,8 +172,7 @@ int main(int argc, char *argv[])
                            SBLLIB_VERSION, SBLLIB_MINOR, SBLLIB_PATCHLEVEL);
                     printf("Build %s, %s\n", __DATE__, __TIME__);
                     break;
-                case 'r':
-                {
+                case 'r': {
                     slib_uint n1, n2;
                     n1 = strtoslib(optargGS, NULL, 0);
                     n2 = strtoslib(argv[optindGS], NULL, 0);
@@ -188,8 +182,7 @@ int main(int argc, char *argv[])
                     puts(" coprime");
                     break;
                 }
-                case 'g':
-                {
+                case 'g': {
                     slib_uint n1, n2;
                     n1 = strtoslib(optargGS, NULL, 0);
                     n2 = strtoslib(argv[optindGS], NULL, 0);
@@ -197,8 +190,7 @@ int main(int argc, char *argv[])
                            n1, n2, slib_gcf(n1, n2));
                     break;
                 }
-                case 'l':
-                {
+                case 'l': {
                     slib_uint n1, n2;
                     n1 = strtoslib(optargGS, NULL, 0);
                     n2 = strtoslib(argv[optindGS], NULL, 0);
@@ -206,16 +198,14 @@ int main(int argc, char *argv[])
                            n1, n2, slib_lcm(n1, n2));
                     break;
                 }
-                case 'p':
-                {
+                case 'p': {
                     slib_uint n1, n2;
                     n1 = strtoslib(optargGS, NULL, 0);
                     n2 = strtoslib(argv[optindGS], NULL, 0);
                     slib_prtpn(n1, n2);
                     break;
                 }
-                case 'd':
-                {
+                case 'd': {
                     slib_uint n;
                     n = strtoslib(optargGS, NULL, 0);
                     printf("%" PRIslib " is", n);
