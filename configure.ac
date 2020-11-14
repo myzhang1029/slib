@@ -8,7 +8,8 @@ AC_CONFIG_SRCDIR([include/slib.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([subdir-objects])
-LT_INIT
+LT_INIT([win32-dll])
+AC_DEFINE_UNQUOTED([sbl_LIBRARY], [1], [Internal build marker])
 
 # Checks for programs.
 AC_PROG_CC

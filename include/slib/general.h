@@ -39,19 +39,19 @@
 
 #ifndef OPT
 #ifdef _WIN32
-#ifdef sbl_EXPORTS /* Building the library for Windows as DLL */
-#define DLLOPT __declspec(dllexport)
-#elif defined(sbl_LIBRARY) || defined(LIBSBL_STATIC) /*  for Windows as LIB */
-#define DLLOPT
+#if defined(sbl_EXPORTS) || defined(DLL_EXPORT)
+#define DLLOPT __declspec(dllexport) /* Building libsbl for Windows as DLL */
+#elif defined(sbl_LIBRARY) || defined(LIBSBL_STATIC)
+#define DLLOPT /* On Windows linking to or building static libsbl */
 #else
-#define DLLOPT __declspec(dllimport)
+#define DLLOPT __declspec(dllimport) /* On Windows linking to libsbl DLL */
 #endif
 #define OPT extern DLLOPT /* used in declarations */
-#else /* Not _WIN32 */
+#else                     /* Not _WIN32 */
 #define DLLOPT
 #define OPT extern
-#endif /* _WIN32 */
-#endif /* OPT */
+#endif /* ifdef _WIN32 */
+#endif /* ifndef OPT */
 
 #ifndef S_REGISTER
 #define S_REGISTER register
