@@ -9,6 +9,10 @@ set_target_properties(sbl PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION ${PROJECT_VERSION_MAJOR})
 
+set_target_properties(sbl_static PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    OUTPUT_NAME sbl)
+
 target_include_directories(sbl_static PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_options(sbl_static PRIVATE "-DHAVE_CONFIG_H=1")
 
@@ -18,5 +22,8 @@ if (NOT WIN32)
 endif()
 
 include(GNUInstallDirs)
-install(TARGETS sbl DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS sbl
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS sbl_static DESTINATION ${CMAKE_INSTALL_LIBDIR})
