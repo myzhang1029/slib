@@ -7,20 +7,16 @@ compiler:
 - clang
 - gcc
 script:
-- "./configure.plain && make test"
-- make distclean > /dev/null 2>&1
-- mkdir build && cd build && ../configure.plain && make test
-- make distclean > /dev/null 2>&1
-- cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
+- cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../libsbl
 - make install
+- make distclean
+- ./configure.plain && make test
+- make distclean > /dev/null 2>&1
+- mkdir build && cd build
+- ../configure.plain && make test
+- make distclean > /dev/null 2>&1
 jobs:
   include:
-  - os: osx
-    osx_image: xcode8
-    compiler: gcc
-    env:
-    - CC=gcc-4.9
-    - CXX=g++-4.9
   - os: windows
     script:
     - mkdir build
