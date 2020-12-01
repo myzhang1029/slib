@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <slib/fileopt.h>
+#include <stdio.h>
 #include "tests.h"
 
 int fsize_main(void)

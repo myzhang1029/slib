@@ -108,7 +108,8 @@ OPT int fnmatchGS(const char *pattern, const char *string, int flags)
                     return FNM_NOMATCH;
                 }
 
-            case '[': {
+            case '[':
+            {
                 /* Nonzero if the sense of the character class is inverted.  */
                 S_REGISTER int isnot;
 
