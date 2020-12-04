@@ -1,5 +1,5 @@
 /*
- *  timedate2.c - functions about time, date and calendars under CC-BY-SA 3.0
+ *  timedat2.c - functions about time, date and calendars under CC-BY-SA 3.0
  *
  *  The algorithms are from the Wikipedia page
  * https://en.wikipedia.org/wiki/Julian_day
@@ -12,6 +12,7 @@
  * Commons, PO Box 1866, Mountain View, CA 94042, USA.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
+
 #include <math.h>
 #include <time.h>
 

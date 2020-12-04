@@ -51,7 +51,7 @@ src/sleepS.c \
 src/splitpathS.c \
 src/stack.c \
 src/timedate.c \
-src/timedate2.c
+src/timedat2.c
 
 HFILES= \
 include/slib/astro.h \
@@ -96,7 +96,14 @@ install:
 	install -c -p -m 755 sbltool${EXESUF} ${BINDIR}
 
 clean:
-	-$(RM) libsbl.dll libsbl.*so* sbltool.exe sbltool *.o */*.o *.a libsbl.bc libsbl.js libsbl.wasm -f 2>/dev/null
+	-$(RM) -f *.o *.obj
+	cd src
+	-$(RM) -f *.o *.obj
+	cd ..
+	cd test
+	-$(RM) -f *.o *.obj
+	cd ..
+	-$(RM) -f libsbl.dll libsbl.*so* sbltool.exe sbltool *.o */*.o *.a libsbl.bc libsbl.js libsbl.wasm
 
 tags:
 	ctags -R

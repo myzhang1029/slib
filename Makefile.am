@@ -12,7 +12,7 @@ libsbl_la_SOURCES =  src/astro.c src/astro2.c src/bsearchfile.c \
 					 src/fsize.c src/gcf.c src/getch.c src/getopt.c \
 					 src/ispn.c src/isrp.c src/itoa.c src/lcm.c src/mret.c \
 					 src/permcomb.c src/pnlst.c src/prtpn.c src/sleepS.c \
-					 src/splitpathS.c src/stack.c src/timedate.c src/timedate2.c
+					 src/splitpathS.c src/stack.c src/timedate.c src/timedat2.c
 libsbl_la_CFLAGS = -I$(top_srcdir)/include
 libsbl_la_LDFLAGS = -version-info @version_info@ -no-undefined
 
