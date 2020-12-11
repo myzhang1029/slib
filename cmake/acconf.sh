@@ -104,7 +104,7 @@ check_progs() {
     while [ "$#" -ne 0 ]
     do
         printf "Checking for %s... " "$1"
-        if ! which "$1" 2>/dev/null
+        if ! type "$1" 2>/dev/null
         then
             echo no
             echo "configure: Error: Required program $1 not found, you may need to install one."
@@ -287,7 +287,7 @@ ACEOF
     # For sosuf
     printf "Checking for extension of shared objects... "
     case "$(get_proper_triplet "$1")" in
-    *gnu* | *bsd* | sunos* | minix* | solaris*)
+    *linux* | *gnu* | *bsd* | sunos* | minix* | solaris*)
         export sosuf=".so"
         export soflags="-shared -O2 -lm"
         export cflags="${cflags}"

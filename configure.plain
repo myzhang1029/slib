@@ -26,25 +26,22 @@ export CONFIGROOT="$srcdir/cmake"
 
 # Kept for no reason
 # Plus which, cc, ar and sh, these are minimal requirement to build this project
-#check_progs cat rm mkdir cut sed expr find tr grep uname install ln
-#check_progs make
+check_progs cat mkdir cut sed expr find tr grep uname install ln make
 
 # Default/init value of variables
 prefix="/usr/local"
 bindir=""
 libdir=""
 includedir=""
-mandir=""
-infodir=""
 
 cross=""
 cc="${CC}"
 ar="${AR}"
 rm="rm"
 
-# shellcheck disable=SC2153
+# shellcheck disable=SC2153 # CFLAGS is external
 cflags="${CFLAGS} ${CPPFLAGS} -Wall -Wextra -pedantic -O2 -DHAVE_CONFIG_H -I${srcdir}/include -I."
-# shellcheck disable=SC2153
+# shellcheck disable=SC2153 # LDFLAGS is external
 ldflags="-lm ${LDFLAGS}"
 soflags=""
 
@@ -131,15 +128,6 @@ do
             ;;
         --includedir=*)
             includedir=$(echo "${opt}" | cut -d '=' -f 2)
-            ;;
-        # Currently unused
-        --mandir=*)
-            # shellcheck disable=SC2034
-            mandir=$(echo "${opt}" | cut -d '=' -f 2)
-            ;;
-        --infodir=*)
-            # shellcheck disable=SC2034
-            infodir=$(echo "${opt}" | cut -d '=' -f 2)
             ;;
         --soflags=*)
             soflags="${soflags} $(echo "${opt}" | cut -d '=' -f 2)"
@@ -323,11 +311,13 @@ do
     tmp="${tmp} ${file}"
     testname=$(echo "${file}" | sed s,.*/,, | cut -f1 -d-)
     entries="${entries}{\"${testname}\", ${testname}_main}, "
-    includes="${includes}#include \"${testname}-test.c\"\n"
+    includes="${includes}#include \"${testname}-test.c\"\\n"
 done
 
+echo Generating testdrv.h
 entries="${entries}{NULL, NULL}}"
-echo "${includes}" >testdrv.h
+# shellcheck disable=SC2059 # the escapes need to be interpretted
+printf "${includes}" >testdrv.h
 sed "s/@TESTS@/${entries}/;s,@TFILES@,," "${srcdir}/test/testdrv.h.in" >>testdrv.h
 {
     echo testdrv.exe: "${srcdir}/test/testdrv.c" testdrv.h "${tmp}" libsbl.a
