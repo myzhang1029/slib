@@ -287,7 +287,7 @@ ACEOF
     # For sosuf
     printf "Checking for extension of shared objects... "
     case "$(get_proper_triplet "$1")" in
-    *linux* | *gnu* | *bsd* | sunos* | minix* | solaris*)
+    *linux* | *gnu* | *bsd* | *sunos* | *minix* | *solaris*)
         export sosuf=".so"
         export soflags="-shared -O2 -lm"
         export cflags="${cflags}"
@@ -298,7 +298,7 @@ ACEOF
         export soflags="-dynamiclib -current_version $2"
         export append_version=true
         ;;
-    *windows* | *mingw* | *msys* | cygwin*)
+    *windows* | *mingw* | *msys* | *cygwin*)
         export sosuf=".dll"
         export soflags="-shared"
         export append_version=""
