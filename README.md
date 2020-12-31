@@ -19,7 +19,7 @@ It is a portable programming interface library,
 a library written in C, and for any usage.
 
 ## Building
-If you are using MinGW and you don't have a MSYS, try:
+If you are using MinGW and you don't have MSYS, try:
  ```cmd
  > make -f Makefile.mingw PREFIX=prefix
  > make install 

@@ -316,7 +316,7 @@ done
 
 echo Generating testdrv.h
 entries="${entries}{NULL, NULL}}"
-# shellcheck disable=SC2059 # the escapes need to be interpretted
+# shellcheck disable=SC2059 # the escapes need to be interpreted
 printf "${includes}" >testdrv.h
 sed "s/@TESTS@/${entries}/;s,@TFILES@,," "${srcdir}/test/testdrv.h.in" >>testdrv.h
 {
