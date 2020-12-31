@@ -30,7 +30,7 @@
 #define INT_LEN 22
 #define chk_fgets(s, l, f)                                                     \
     if (!fgets((s), (l), (f)))                                                 \
-    exit(puts(""))
+    exit((puts(""), 0))
 
 const char *ver = "4.1.0";
 
