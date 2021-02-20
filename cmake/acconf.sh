@@ -228,7 +228,7 @@ ACEOF
         echo The C Compiler cannot compile a simple source file
         echo The failed source file was:
         cat conftest.c
-        rm -f "$possible_files" conftest.c
+        rm -f $possible_files conftest.c
         exit 1
     fi
     printf 'Checking for extension of executables... '
@@ -257,7 +257,7 @@ ACEOF
         esac
     done
     echo "$exesuf"
-    rm -f "$possible_files" conftest.c
+    rm -f $possible_files conftest.c
 }
 
 # Check whether the copiler produces shared objects
