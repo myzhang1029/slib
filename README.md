@@ -1,5 +1,5 @@
 # slib
-[![Build Status](https://travis-ci.com/myzhang1029/slib.svg?branch=master)](https://travis-ci.com/myzhang1029/slib)
+[![Build Status](https://travis-ci.com/myzhang1029/slib.svg?branch=main)](https://travis-ci.com/myzhang1029/slib)
 
 [![Build Status](https://ci.appveyor.com/api/projects/status/svfjuyxpq9ftjqrk?svg=true)](https://ci.appveyor.com/project/myzhang1029/slib-cwdar)
 
@@ -41,7 +41,7 @@ $ cmake .. -G Ninja
 $ ninja install
 ```
 ## Usage
-You could see [sbltool.c](https://github.com/myzhang1029/slib/blob/master/sbltool.c) for a rough idea.
+You could see [sbltool.c](https://github.com/myzhang1029/slib/blob/main/sbltool.c) for a rough idea.
 
 ## Contributing
 if you want to contribute to this project, please start a pull request.   
