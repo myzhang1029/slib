@@ -22,7 +22,7 @@
 #define SLIB_GENERAL_H
 #define SBLLIB_VERSION 4
 #define SBLLIB_MINOR 5
-#define SBLLIB_PATCHLEVEL 1
+#define SBLLIB_PATCHLEVEL 2
 #endif
 
 #ifdef HAVE_CONFIG_H
