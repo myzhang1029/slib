@@ -1,6 +1,6 @@
 # Distclean.cmake: Clean all CMake-generated files
 # Public domain
-# Author Zhang Maiyun <myzhang1029@hotmail.com>
+# Author Zhang Maiyun <me@maiyun.me>
 
 foreach(RUNNING_DIR ${subdirs})
     list(APPEND cmake_generated

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libsbl], [m4_esyscmd([/bin/sh cmake/version.sh])], [myzhang1029@hotmail.com])
+AC_INIT([libsbl], [m4_esyscmd([/bin/sh cmake/version.sh])], [me@maiyun.me])
 AC_SUBST([version_info], [m4_esyscmd([/bin/sh -c "sh cmake/version.sh|tr . :"])])
 AC_CONFIG_SRCDIR([include/slib.h])
 AC_CONFIG_HEADERS([config.h])
